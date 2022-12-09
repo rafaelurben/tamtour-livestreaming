@@ -11,23 +11,48 @@
 <body class="fullscreen">
     <img id="defaultoverlay" class="fullscreen z1" src="./assets/overlays/default.png" />
     <video id="sponsorenvideo" class="fullscreen z2" src="./assets/sponsorenvideo.webm" muted></video>
+    <div id="infooverlay" class="infooverlay fullscreen z3 out-right">
+        <div class="infooverlay_block b1">
+            <div class="infooverlay_text t1">
+                <span id="infooverlay-startnummer"></span>
+            </div>
+        </div>
+        <div class="infooverlay_block b2">
+            <div class="infooverlay_text t2">
+                <span id="infooverlay-name"></span><br>
+            </div>
+            <div class="infooverlay_text t3">
+                <span id="infooverlay-verein"></h2>
+            </div>
+        </div>
+        <div class="infooverlay_block b3">
+            <div class="infooverlay_text t4">
+                <span id="infooverlay-vortrag"></span>
+            </div>
+        </div>
+    </div>
 
     <script>
+        function showInfoOverlay(data, seconds) {
+            document.querySelector("#infooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
+            document.querySelector("#infooverlay-name").innerHTML = data.name;
+            document.querySelector("#infooverlay-verein").innerHTML = data.verein;
+            document.querySelector("#infooverlay-vortrag").innerHTML = data.vortrag;
+            document.querySelector(".infooverlay").classList.remove("out-right");
+            setTimeout(() => {
+                document.querySelector(".infooverlay").classList.add("out-right");
+            }, (seconds * 1000) || 7500);
+        }
+
+        function playSponsorenVideo() {
+            document.querySelector("#sponsorenvideo").play();
+        }
+
         window.addEventListener('ControlPanelEvent', event => {
             console.log(event.detail)
             return "test"
         });
 
-        let sponsorenvideo = document.getElementById("sponsorenvideo");
-
-        sponsorenvideo.addEventListener("play", function () {
-            console.log("The video has just started!");
-        }, true);
-        sponsorenvideo.addEventListener("ended", function () {
-            console.log("The video has just ended!");
-        }, true);
-
-        let defaultoverlay = document.getElementById("defaultoverlay");
     </script>
 </body>
 
