@@ -2,8 +2,8 @@ obs = new OBSWebSocket()
 
 function __handle_disconnected() {
     console.log("Disconnected!");
-    $("#btn-connect").prop("disabled", false);
-    $("#btn-disconnect").prop("disabled", true);
+    $("#btn-connect").removeClass("d-none");
+    $("#btn-disconnect").addClass("d-none");
     alert("Disconnected!")
 }
 
@@ -19,9 +19,8 @@ async function disconnect() {
 
 function __handle_connected() {
     console.log("Connected!");
-    $("#btn-connect").prop("disabled", true);
-    $("#btn-disconnect").prop("disabled", false);
-    alert("Connected!");
+    $("#btn-connect").addClass("d-none");
+    $("#btn-disconnect").removeClass("d-none");
 }
 
 async function connect(target, password) {
