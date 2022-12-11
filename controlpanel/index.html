@@ -20,29 +20,33 @@
 
 <body>
     <div class="fullscreen d-flex flex-column p-2 gap-3">
-        <div class="row g-2">
-            <div class="col-auto">
-                <button class="btn btn-secondary h-100" onclick="window.open('https://tamtour.ch', '_blank')">TamTour</button>
-            </div>
-            <div class="col">
-                <div class="form-floating">
-                    <input id="login-form-target" class="form-control" type="text" name="target" id="target" value="127.0.0.1:4455" placeholder="127.0.0.1:4455">
-                    <label for="login-form-target" class="form-label">Ziel (IP:Port)</label>
+        <div class="d-flex flex-row gap-2 flex-wrap">
+            <div class="d-flex flex-row gap-2 flex-grow-1">
+                <div class="">
+                    <button class="btn btn-secondary h-100" onclick="window.open('https://tamtour.ch', '_blank')">TamTour</button>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="login-form-target" class="form-control" type="text" name="target" id="target" value="127.0.0.1:4455" placeholder="127.0.0.1:4455">
+                        <label for="login-form-target" class="form-label">Ziel (IP:OBS-Websocket-Port)</label>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="form-floating">
-                    <input id="login-form-password" class="form-control" type="password" name="password" id="password" placeholder="Password">
-                    <label for="info-form-password" class="form-label">Passwort</label>
+            <div class="d-flex flex-row gap-2 flex-grow-1">
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="login-form-password" class="form-control" type="password" name="password" id="password" placeholder="Password">
+                        <label for="info-form-password" class="form-label">Passwort</label>
+                    </div>
                 </div>
-            </div>
-            <div class="col-auto">
-                <button id="btn-connect" class="btn btn-primary h-100" onclick="connectGUI()">Verbinden</button>
-                <button id="btn-disconnect" class="btn btn-danger h-100 d-none" onclick="disconnect()">Verbindung trennen</button>
+                <div class="">
+                    <button id="btn-connect" class="btn btn-primary h-100" onclick="connectGUI()">Verbinden</button>
+                    <button id="btn-disconnect" class="btn btn-danger h-100 d-none" onclick="disconnect()">Verbindung trennen</button>
+                </div>
             </div>
         </div>
         <div class="row g-3">
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <div class="mb-2">
                     <b>Info-Overlay anzeigen</b>
                 </div>
@@ -74,7 +78,7 @@
                     <button id="info-form-send" class="btn btn-primary w-100" onclick="sendShowInfoOverlayGUI()">LIVE einblenden</button>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-12 col-sm-6">
                 <div class="mb-2">
                     <b>Daten für Info-Overlay importieren</b>
                 </div>
