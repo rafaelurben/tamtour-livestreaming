@@ -41,10 +41,12 @@ async function sendAction(action, data) {
     let obj = { action: action, data: data}
     console.log("Sending", obj, "to browser source...")
     try {
-        return await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+        await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+        return true;
     } catch (error) {
         console.warn(error)
         alert(error);
+        return false;
     }
 }
 

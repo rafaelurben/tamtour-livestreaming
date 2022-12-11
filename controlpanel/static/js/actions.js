@@ -59,7 +59,8 @@ async function sendShowInfoOverlayGUI() {
         vortrag: $("#info-form-vortrag").val(),
         duration: $("#info-form-duration").val()*1 || 7500,
     }
-    sendAction("showInfoOverlay", data);
+    let success = await sendAction("showInfoOverlay", data);
+    if (!success) return;
 
     let button = $("#info-form-send");
     button.prop("disabled", true);
