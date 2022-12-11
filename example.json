@@ -1,0 +1,50 @@
+{
+    "kategorien": [
+        {
+            "name": "Kategorie1",
+            "startliste": [
+                {
+                    "startnummer": 1,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                },
+                {
+                    "startnummer": 2,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                },
+                {
+                    "startnummer": 3,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                }
+            ]
+        },
+        {
+            "name": "Kategorie2",
+            "startliste": [
+                {
+                    "startnummer": 1,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                },
+                {
+                    "startnummer": 2,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                },
+                {
+                    "startnummer": 3,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                }
+            ]
+        }
+    ]
+}
