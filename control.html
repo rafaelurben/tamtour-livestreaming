@@ -8,33 +8,7 @@
 
     <!-- https://github.com/obs-websocket-community-projects/obs-websocket-js -->
     <script src="./static/js/obs-ws.min.js"></script>
-
-    <script>
-        obs = new OBSWebSocket()
-
-        async function login(target, password) {
-            try {
-                data = await obs.connect('ws://' + target, password, { eventSubscriptions: OBSWebSocket.EventSubscription.All });
-                console.log("Connected!")
-                return data
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        
-        async function login_gui() {
-            return await login(document.getElementById('target').value, document.getElementById('password').value)
-        }
-        
-        async function send(obj) {
-            console.log("Sending", obj, "to browser source...")
-            return await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
-        }
-        
-        // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#events
-        obs.on("CurrentProgramSceneChanged", console.log)
-        obs.on("ExitStarted", evt => console.error("OBS exited"))
-    </script>
+    <script src="./static/js/connection.js"></script>
 </head>
 
 <body>

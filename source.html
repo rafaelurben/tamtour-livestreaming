@@ -33,28 +33,7 @@
         </div>
     </div>
 
-    <script>
-        function showInfoOverlay(data, seconds) {
-            document.querySelector("#infooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
-            document.querySelector("#infooverlay-name").innerHTML = data.name;
-            document.querySelector("#infooverlay-verein").innerHTML = data.verein;
-            document.querySelector("#infooverlay-vortrag").innerHTML = data.vortrag;
-            document.querySelector(".infooverlay").classList.remove("out-right");
-            setTimeout(() => {
-                document.querySelector(".infooverlay").classList.add("out-right");
-            }, (seconds * 1000) || 7500);
-        }
-
-        function playSponsorenVideo() {
-            document.querySelector("#sponsorenvideo").play();
-        }
-
-        window.addEventListener('ControlPanelEvent', event => {
-            console.log(event.detail)
-            return "test"
-        });
-
-    </script>
+    <script src="./static/js/overlay.js"></script>
 </body>
 
 </html>
