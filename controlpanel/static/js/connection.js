@@ -36,7 +36,7 @@ async function connect(target, password) {
 }
 
 async function connectGUI() {
-    return await connect(document.getElementById('target').value, document.getElementById('password').value)
+    return await connect(document.getElementById('login-form-target').value, document.getElementById('login-form-password').value)
 }
 
 async function send(action, data) {
