@@ -14,9 +14,22 @@
 </head>
 
 <body>
-    <input type="text" name="target" id="target" value="127.0.0.1:4455" placeholder="127.0.0.1:4455">
-    <input type="password" name="password" id="password">
-    <button onclick="login_gui()">Login</button>
+    <div class="fullscreen d-flex flex-column">
+        <div class="row g-2 p-2">
+            <div class="col-auto">
+                <input class="form-control" type="text" name="target" id="target" value="127.0.0.1:4455" placeholder="127.0.0.1:4455">
+            </div>
+            <div class="col-auto">
+                <input class="form-control" type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="col-auto">
+                <button id="btn-connect" class="btn btn-primary" onclick="connect_gui()">Connect</button>
+            </div>
+            <div class="col-auto">
+                <button id="btn-disconnect" class="btn btn-danger" onclick="disconnect()" disabled>Disconnect</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

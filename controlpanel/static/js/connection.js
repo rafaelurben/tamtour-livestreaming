@@ -1,17 +1,40 @@
 obs = new OBSWebSocket()
 
-async function login(target, password) {
+function __handle_disconnected() {
+    console.log("Disconnected!");
+    $("#btn-connect").prop("disabled", false);
+    $("#btn-disconnect").prop("disabled", true);
+}
+
+async function disconnect() {
     try {
-        data = await obs.connect('ws://' + target, password, { eventSubscriptions: OBSWebSocket.EventSubscription.All });
-        console.log("Connected!")
-        return data
+        __handle_disconnected();
+        await obs.disconnect();
     } catch (error) {
         console.error(error);
+        alert(error);
     }
 }
 
-async function login_gui() {
-    return await login(document.getElementById('target').value, document.getElementById('password').value)
+function __handle_connected() {
+    console.log("Connected!");
+    $("#btn-connect").prop("disabled", true);
+    $("#btn-disconnect").prop("disabled", false);
+}
+
+async function connect(target, password) {
+    try {
+        data = await obs.connect('ws://' + target, password, { eventSubscriptions: OBSWebSocket.EventSubscription.All });
+        __handle_connected();
+        return data
+    } catch (error) {
+        console.error(error)
+        alert(error);
+    }
+}
+
+async function connect_gui() {
+    return await connect(document.getElementById('target').value, document.getElementById('password').value)
 }
 
 async function send(action, data) {
@@ -30,4 +53,4 @@ async function sendAction_showInfoOverlay(args, seconds) {
 
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#events
 obs.on("CurrentProgramSceneChanged", console.log)
-obs.on("ExitStarted", evt => console.error("OBS exited"))
+obs.on("ExitStarted", __handle_disconnected)
