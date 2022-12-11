@@ -4,14 +4,15 @@ function showInfoOverlay(data) {
     document.querySelector("#infooverlay-verein").innerHTML = data.verein;
     document.querySelector("#infooverlay-vortrag").innerHTML = data.vortrag;
     
-    let fullduration = (data.duration*1 || 7500) + 1500;
+    data.duration = data.duration*1 || 7500;
+
     document.querySelector(".infooverlay").classList.remove("out-right");
-    console.log("Showing info overlay for " + fullduration + "ms");
+    console.log("Showing info overlay for " + data.duration + "ms (without animation)");
 
     setTimeout(() => {
         document.querySelector(".infooverlay").classList.add("out-right");
         console.log("Hiding info overlay")
-    }, fullduration);
+    }, data.duration + 1500);
 }
 
 function playSponsorsVideo() {
