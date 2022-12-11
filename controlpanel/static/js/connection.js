@@ -4,6 +4,7 @@ function __handle_disconnected() {
     console.log("Disconnected!");
     $("#btn-connect").prop("disabled", false);
     $("#btn-disconnect").prop("disabled", true);
+    alert("Disconnected!")
 }
 
 async function disconnect() {
@@ -20,6 +21,7 @@ function __handle_connected() {
     console.log("Connected!");
     $("#btn-connect").prop("disabled", true);
     $("#btn-disconnect").prop("disabled", false);
+    alert("Connected!");
 }
 
 async function connect(target, password) {
@@ -33,7 +35,7 @@ async function connect(target, password) {
     }
 }
 
-async function connect_gui() {
+async function connectGUI() {
     return await connect(document.getElementById('target').value, document.getElementById('password').value)
 }
 
@@ -43,11 +45,11 @@ async function send(action, data) {
     return await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
 }
 
-async function sendAction_playSponsorenVideo() {
+async function sendPlaySponsorenVideo() {
     return await send("playSponsorenVideo")
 }
 
-async function sendAction_showInfoOverlay(args, seconds) {
+async function sendShowInfoOverlay(args, seconds) {
     return await send("showInfoOverlay", { args: args, seconds: seconds })
 }
 
