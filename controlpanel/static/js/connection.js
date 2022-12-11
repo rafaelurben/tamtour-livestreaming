@@ -9,7 +9,6 @@ function __handle_disconnected() {
 
 async function disconnect() {
     try {
-        __handle_disconnected();
         await obs.disconnect();
     } catch (error) {
         console.error(error);
@@ -29,7 +28,7 @@ async function connect(target, password) {
         __handle_connected();
         return data
     } catch (error) {
-        console.error(error)
+        console.warn(error)
         alert(error);
     }
 }
@@ -41,9 +40,16 @@ async function connectGUI() {
 async function sendAction(action, data) {
     let obj = { action: action, data: data}
     console.log("Sending", obj, "to browser source...")
-    return await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+    try {
+        return await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+    } catch (error) {
+        console.warn(error)
+        alert(error);
+    }
 }
 
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#events
 obs.on("CurrentProgramSceneChanged", console.log)
 obs.on("ExitStarted", __handle_disconnected)
+obs.on("ConnectionClosed", __handle_disconnected)
+obs.on("ConnectionError", __handle_disconnected)

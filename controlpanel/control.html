@@ -37,6 +37,22 @@
         </div>
         <div class="d-flex flex-row">
             <div class="p-2">
+                <div class="mb-2">
+                    <label for="categorylist-file-input" class="form-label">JSON-Datei auswählen</label>
+                    <input class="form-control" type="file" id="categorylist-file-input" accept=".json" onchange="loadCategories();">
+                </div>
+                <div class="mb-2">
+                    <label for="categorylist-select-input" class="form-label">Kategorie auswählen</label>
+                    <select class="form-select" id="categorylist-select-input" onchange="loadCategory()">
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label for="startlist-select-input" class="form-label">Startnummer auswählen</label>
+                    <select class="form-select" id="startlist-select-input" onchange="loadPerson()">
+                    </select>
+                </div>
+            </div>
+            <div class="p-2">
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="info-form-kategorie" placeholder="Kategorie">
                     <label for="info-form-kategorie" class="form-label">Kategorie</label>
