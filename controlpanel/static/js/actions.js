@@ -1,6 +1,9 @@
 function loadCategories() {
     let fileinputelem = $('#categorylist-file-input')[0];
     let file = fileinputelem.files[0];
+
+    if (!file) return;
+
     let reader = new FileReader();
     reader.onload = function() {
         let data = JSON.parse(reader.result);
