@@ -13,7 +13,7 @@
     <script src="./static/js/bootstrap-5.2.3.bundle.min.js"></script>
 
     <script src="./static/js/connection.js"></script>
-    <script src="./static/js/infooverlay.js"></script>
+    <script src="./static/js/actions.js"></script>
 </head>
 
 <body>
@@ -61,7 +61,11 @@
                     <label for="info-form-vortrag" class="form-label">Vortrag</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <button class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">Senden</button>
+                    <input type="number" class="form-control" id="info-form-duration" placeholder="7500" min="2000" max="20000" step="500">
+                    <label for="info-form-duration" class="form-label">Anzeigedauer (ms)</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <button id="info-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">Senden</button>
                 </div>
             </div>
         </div>

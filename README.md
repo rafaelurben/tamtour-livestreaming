@@ -39,4 +39,4 @@ This is a tool used to control and display overlay animations in OBS Studio from
     - overlays
       - default.png
     - names.json
-    - sponsorenvideo.webm
+    - sponsorsvideo.webm

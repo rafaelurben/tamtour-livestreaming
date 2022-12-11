@@ -39,18 +39,10 @@ async function connectGUI() {
     return await connect(document.getElementById('login-form-target').value, document.getElementById('login-form-password').value)
 }
 
-async function send(action, data) {
+async function sendAction(action, data) {
     let obj = { action: action, data: data}
     console.log("Sending", obj, "to browser source...")
     return await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
-}
-
-async function sendPlaySponsorenVideo() {
-    return await send("playSponsorenVideo")
-}
-
-async function sendShowInfoOverlay(args, seconds) {
-    return await send("showInfoOverlay", { args: args, seconds: seconds })
 }
 
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#events

@@ -1,16 +1,21 @@
-function showInfoOverlay(data, seconds) {
+function showInfoOverlay(data) {
     document.querySelector("#infooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
     document.querySelector("#infooverlay-name").innerHTML = data.name;
     document.querySelector("#infooverlay-verein").innerHTML = data.verein;
     document.querySelector("#infooverlay-vortrag").innerHTML = data.vortrag;
+    
+    let fullduration = (data.duration*1 || 7500) + 1500;
     document.querySelector(".infooverlay").classList.remove("out-right");
+    console.log("Showing info overlay for " + fullduration + "ms");
+
     setTimeout(() => {
         document.querySelector(".infooverlay").classList.add("out-right");
-    }, (seconds * 1000) || 7500);
+        console.log("Hiding info overlay")
+    }, fullduration);
 }
 
-function playSponsorenVideo() {
-    document.querySelector("#sponsorenvideo").play();
+function playSponsorsVideo() {
+    document.querySelector("#sponsorsvideo").play();
 }
 
 window.addEventListener('ControlPanelEvent', event => {
@@ -21,10 +26,10 @@ window.addEventListener('ControlPanelEvent', event => {
 
     switch (action) {
         case "showInfoOverlay":
-            showInfoOverlay(data.args, data.seconds);
+            showInfoOverlay(data);
             break;
-        case "playSponsorenVideo":
-            playSponsorenVideo();
+        case "playSponsorsVideo":
+            playSponsorsVideo();
             break;
     }
 });
