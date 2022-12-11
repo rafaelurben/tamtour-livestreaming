@@ -17,15 +17,15 @@
 </head>
 
 <body>
-    <div class="fullscreen d-flex flex-column">
-        <div class="row g-2 p-2">
-            <div class="col-auto">
+    <div class="fullscreen d-flex flex-column p-2 gap-3">
+        <div class="row g-2">
+            <div class="col">
                 <div class="form-floating">
                     <input id="login-form-target" class="form-control" type="text" name="target" id="target" value="127.0.0.1:4455" placeholder="127.0.0.1:4455">
                     <label for="login-form-target" class="form-label">Ziel (IP:Port)</label>
                 </div>
             </div>
-            <div class="col-auto">
+            <div class="col">
                 <div class="form-floating">
                     <input id="login-form-password" class="form-control" type="password" name="password" id="password" placeholder="Password">
                     <label for="info-form-password" class="form-label">Passwort</label>
@@ -36,24 +36,11 @@
                 <button id="btn-disconnect" class="btn btn-danger h-100 d-none" onclick="disconnect()">Verbindung trennen</button>
             </div>
         </div>
-        <div class="d-flex flex-row">
-            <div class="p-2">
+        <div class="row g-3">
+            <div class="col">
                 <div class="mb-2">
-                    <label for="categorylist-file-input" class="form-label">JSON-Datei auswählen</label>
-                    <input class="form-control" type="file" id="categorylist-file-input" accept=".json" onchange="loadCategories();">
+                    <b>Info-Overlay anzeigen</b>
                 </div>
-                <div class="mb-2">
-                    <label for="categorylist-select-input" class="form-label">Kategorie auswählen</label>
-                    <select class="form-select" id="categorylist-select-input" onchange="loadCategory()">
-                    </select>
-                </div>
-                <div class="mb-2">
-                    <label for="startlist-select-input" class="form-label">Startnummer auswählen</label>
-                    <select class="form-select" id="startlist-select-input" onchange="loadPerson()">
-                    </select>
-                </div>
-            </div>
-            <div class="p-2">
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="info-form-kategorie" placeholder="Kategorie">
                     <label for="info-form-kategorie" class="form-label">Kategorie</label>
@@ -79,7 +66,26 @@
                     <label for="info-form-duration" class="form-label">Anzeigedauer (ms)</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <button id="info-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">Senden</button>
+                    <button id="info-form-send" class="btn btn-primary w-100" onclick="sendShowInfoOverlayGUI()">LIVE einblenden</button>
+                </div>
+            </div>
+            <div class="col">
+                <div class="mb-2">
+                    <b>Daten für Info-Overlay importieren</b>
+                </div>
+                <div class="mb-2">
+                    <label for="categorylist-file-input" class="form-label d-none">JSON-Datei</label>
+                    <input class="form-control" type="file" id="categorylist-file-input" accept=".json" onchange="loadCategories();">
+                </div>
+                <div class="mb-2">
+                    <label for="categorylist-select-input" class="form-label">Kategorie</label>
+                    <select class="form-select" id="categorylist-select-input" onchange="loadCategory()">
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label for="startlist-select-input" class="form-label">Startnummer</label>
+                    <select class="form-select" id="startlist-select-input" onchange="loadPerson()">
+                    </select>
                 </div>
             </div>
         </div>

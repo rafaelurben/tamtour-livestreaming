@@ -4,7 +4,7 @@ function __handle_disconnected() {
     console.log("Disconnected!");
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
-    alert("Disconnected!")
+    alert("Verbindung getrennt!")
 }
 
 async function disconnect() {
