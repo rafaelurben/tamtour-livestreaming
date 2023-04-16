@@ -5,30 +5,21 @@ This is a tool used to control and display overlay animations in OBS Studio from
 ## Setup
 
 - Add the `resources` folder to the root of the repository (see [folder structure](#folder-structure))
-- Add the `source.html` file as a browser source in OBS Studio
+- Add the `browsersource/index.html` file as a browser source in OBS Studio
 - Enable `Enable Websocket Server` in `Tools > obs-websocket settings` in OBS Studio
 - Copy the password
-- Open `source.html` in a browser and login with the password
+- Open `controlpanel/index.html` in a browser and login with the password
 
 ## Folder structure
 
 - tamtour-overlay-system
   - README.md (this file)
   - browsersource
-    - source.html (Add as OBS Studio browser source)
-    - static
-      - css
-        - fonts.css
-      - js
-        - overlay.js
+    - index.html (Add as OBS Studio browser source)
+    - static/...
   - controlpanel
-    - control.html (Open in browser)
-    - static
-      - css
-        - fonts.css
-      - js
-        - connection.js
-        - obs-ws.min.js
+    - index.html (Open in browser)
+    - static/...
   - resources **(Not in repository, add manually)**
     - fonts
       - Arial-Rounded-MT-Bold.ttf
