@@ -49,26 +49,26 @@ function loadStartlistitem() {
     let startlistitems = startlist.items;
     let item = startlistitems[sid];
 
-    $("#info-form-kategorie").val(item.kategorie);
-    $("#info-form-startnummer").val(item.startnummer);
-    $("#info-form-name").val(item.name);
-    $("#info-form-verein").val(item.verein);
-    $("#info-form-vortrag").val(item.vortrag);
+    $("#startinfo-form-kategorie").val(item.kategorie);
+    $("#startinfo-form-startnummer").val(item.startnummer);
+    $("#startinfo-form-name").val(item.name);
+    $("#startinfo-form-verein").val(item.verein);
+    $("#startinfo-form-vortrag").val(item.vortrag);
 }
 
 async function sendShowInfoOverlayGUI() {
     let data = {
-        kategorie: $("#info-form-kategorie").val(),
-        startnummer: $("#info-form-startnummer").val(),
-        name: $("#info-form-name").val(),
-        verein: $("#info-form-verein").val(),
-        vortrag: $("#info-form-vortrag").val(),
-        duration: $("#info-form-duration").val()*1 || 7500,
+        kategorie: $("#startinfo-form-kategorie").val(),
+        startnummer: $("#startinfo-form-startnummer").val(),
+        name: $("#startinfo-form-name").val(),
+        verein: $("#startinfo-form-verein").val(),
+        vortrag: $("#startinfo-form-vortrag").val(),
+        duration: $("#startinfo-form-duration").val()*1 || 7500,
     }
     let success = await sendAction("showStartInfoOverlay", data);
     if (!success) return;
 
-    let button = $("#info-form-send");
+    let button = $("#startinfo-form-send");
     button.prop("disabled", true);
 
     setTimeout(() => {button.prop("disabled", false)}, data.duration+3000);

@@ -23,7 +23,7 @@
 </head>
 
 <body>
-    <div class="fullscreen d-flex flex-column p-2 gap-3">
+    <div class="d-flex flex-column p-2 gap-3">
         <div class="d-flex flex-row gap-2 flex-wrap">
             <div class="d-flex flex-row gap-2 flex-grow-1">
                 <div class="">
@@ -40,11 +40,11 @@
                 <div class="flex-grow-1">
                     <div class="form-floating">
                         <input id="login-form-password" class="form-control" type="password" name="password" id="password" placeholder="Password">
-                        <label for="info-form-password" class="form-label">Passwort</label>
+                        <label for="startinfo-form-password" class="form-label">Passwort</label>
                     </div>
                 </div>
                 <div class="">
-                    <button id="btn-connect" class="btn btn-primary h-100" onclick="connectGUI()">Verbinden</button>
+                    <button id="btn-connect" class="btn btn-success h-100" onclick="connectGUI()">Verbinden</button>
                     <button id="btn-disconnect" class="btn btn-danger h-100 d-none" onclick="disconnect()">Verbindung trennen</button>
                 </div>
             </div>
@@ -55,31 +55,31 @@
                     <b>Info-Overlay anzeigen</b>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="info-form-kategorie" placeholder="Kategorie">
-                    <label for="info-form-kategorie" class="form-label">Kategorie</label>
+                    <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
+                    <label for="startinfo-form-kategorie" class="form-label">Kategorie</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="number" class="form-control" id="info-form-startnummer" placeholder="1">
-                    <label for="info-form-startnummer" class="form-label">Startnummer</label>
+                    <input type="number" class="form-control" id="startinfo-form-startnummer" placeholder="1">
+                    <label for="startinfo-form-startnummer" class="form-label">Startnummer</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="info-form-name" placeholder="Vorname Nachname">
-                    <label for="info-form-name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="startinfo-form-name" placeholder="Vorname Nachname">
+                    <label for="startinfo-form-name" class="form-label">Name</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="info-form-verein" placeholder="Verein">
-                    <label for="info-form-verein" class="form-label">Verein</label>
+                    <input type="text" class="form-control" id="startinfo-form-verein" placeholder="Verein">
+                    <label for="startinfo-form-verein" class="form-label">Verein</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="info-form-vortrag" placeholder="Stück - Komponist">
-                    <label for="info-form-vortrag" class="form-label">Vortrag</label>
+                    <input type="text" class="form-control" id="startinfo-form-vortrag" placeholder="Stück - Komponist">
+                    <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="number" class="form-control" id="info-form-duration" placeholder="7500" min="2000" max="20000" step="500">
-                    <label for="info-form-duration" class="form-label">Anzeigedauer (ms)</label>
-                </div>
-                <div class="form-floating mb-2">
-                    <button id="info-form-send" class="btn btn-primary w-100" onclick="sendShowInfoOverlayGUI()">LIVE einblenden</button>
+                <div class="mb-2">
+                    <label for="startinfo-form-duration" class="form-label">Anzeigedauer (ms)</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7500" min="2000" max="20000" step="500">
+                        <button id="startinfo-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">LIVE einblenden</button>
+                    </div>
                 </div>
             </div>
             <div class="col-12 col-sm-6">
@@ -97,8 +97,32 @@
                 </div>
                 <div class="mb-2">
                     <label for="startlistitem-select-input" class="form-label">Element</label>
-                    <select class="form-select" id="startlistitem-select-input" onchange="loadStartlistitem()">
-                    </select>
+                    <div class="input-group">
+                        <select class="form-select" id="startlistitem-select-input" onchange="loadStartlistitem()">
+                        </select>
+                        <button class="btn btn-outline-secondary" type="button" onclick="$('#startlistitem-select-input')[0].selectedIndex--">&lt;</button>
+                        <bitton class="btn btn-outline-secondary" type="button" onclick="$('#startlistitem-select-input')[0].selectedIndex++">&gt;</button>
+                    </div>
+                </div>
+                <div class="mb-2 mt-4">
+                    <b>Sponsorenvideo steuern</b>
+                </div>
+                <div class="mb-2 d-flex flex-row">
+                    <div class="flex-grow-1 me-2">
+                        <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary h-100" onclick="sendPlaySponsorsVideo()">Jetzt abspielen</button>
+                    </div>
+                    <div class="flex-grow-1 form-floating">
+                        <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5">
+                        <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
+                    </div>
+                    <div class="flex-grow-1 mx-2">
+                        <button id="btn-start-sponsorsvideo-interval" class="btn btn-success form-control h-100" onclick="startSponsorsVideoInterval()">Start Intervall</button>
+                        <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control h-100 d-none" onclick="stopSponsorsVideoInterval()">Stop Intervall</button>
+                    </div>
+                    <div class="flex-grow-1 form-floating">
+                        <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled>
+                        <label for="sponsors-interval-timer" class="form-label">Timer</label>
+                    </div>
                 </div>
             </div>
         </div>
