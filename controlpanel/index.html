@@ -52,7 +52,7 @@
         <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <div class="mb-2">
-                    <b>Info-Overlay anzeigen</b>
+                    <b>Startinfo-Overlay anzeigen</b>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
@@ -84,7 +84,7 @@
             </div>
             <div class="col-12 col-sm-6">
                 <div class="mb-2">
-                    <b>Startlisten für Info-Overlay importieren</b>
+                    <b>Startlisten für Startinfo-Overlay importieren</b>
                 </div>
                 <div class="mb-2">
                     <label for="startlists-file-input" class="form-label d-none">JSON-Datei</label>
@@ -100,8 +100,8 @@
                     <div class="input-group">
                         <select class="form-select" id="startlistitem-select-input" onchange="loadStartlistitem()">
                         </select>
-                        <button class="btn btn-outline-secondary" type="button" onclick="$('#startlistitem-select-input')[0].selectedIndex--">&lt;</button>
-                        <bitton class="btn btn-outline-secondary" type="button" onclick="$('#startlistitem-select-input')[0].selectedIndex++">&gt;</button>
+                        <button class="btn btn-outline-secondary" type="button" onclick="$('#startlistitem-select-input')[0].selectedIndex--; loadStartlistitem()">&lt;</button>
+                        <bitton class="btn btn-outline-secondary" type="button" onclick="$('#startlistitem-select-input')[0].selectedIndex++; loadStartlistitem()">&gt;</button>
                     </div>
                 </div>
                 <div class="mb-2 mt-4">
