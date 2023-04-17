@@ -22,10 +22,12 @@ This is a tool used to control and display overlay animations in OBS Studio from
     - static/...
   - resources **(Not in repository, add manually)**
     - fonts
-      - Arial-Rounded-MT-Bold.ttf
+      - **Arial-Rounded-MT-Bold.ttf**
     - overlays
-      - default.png
-    - sponsorsvideo.webm
+      - **default.png**
+    - sponsors
+      - **sponsors.json**
+      - **... (sponsor logos)**
 
 ## Technical details
 

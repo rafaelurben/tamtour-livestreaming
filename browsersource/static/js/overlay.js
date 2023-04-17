@@ -74,7 +74,7 @@ function createSponsorsImages() {
 window.addEventListener('load', () => {
     // Load sponsors data
     console.log("Loading sponsors data...")
-    fetch('../resources/sponsors/index.json').then(response => {
+    fetch('../resources/sponsors/sponsors.json').then(response => {
         return response.json();
     }).then(data => {
         window.tamtour_sponsorscategories = data.categories;
