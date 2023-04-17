@@ -1,17 +1,17 @@
-function showInfoOverlay(data) {
-    document.querySelector("#infooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
-    document.querySelector("#infooverlay-name").innerHTML = data.name;
-    document.querySelector("#infooverlay-verein").innerHTML = data.verein;
-    document.querySelector("#infooverlay-vortrag").innerHTML = data.vortrag;
+function showStartInfoOverlay(data) {
+    document.querySelector("#startinfooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
+    document.querySelector("#startinfooverlay-name").innerHTML = data.name;
+    document.querySelector("#startinfooverlay-verein").innerHTML = data.verein;
+    document.querySelector("#startinfooverlay-vortrag").innerHTML = data.vortrag;
     
     data.duration = data.duration*1 || 7500;
 
-    document.querySelector(".infooverlay").classList.remove("out-right");
-    console.log("Showing info overlay for " + data.duration + "ms (without animation)");
+    document.querySelector(".startinfooverlay").classList.remove("out-right");
+    console.log("Showing start info overlay for " + data.duration + "ms (without animation)");
 
     setTimeout(() => {
-        document.querySelector(".infooverlay").classList.add("out-right");
-        console.log("Hiding info overlay")
+        document.querySelector(".startinfooverlay").classList.add("out-right");
+        console.log("Hiding start info overlay")
     }, data.duration + 1500);
 }
 
@@ -26,8 +26,8 @@ window.addEventListener('ControlPanelEvent', event => {
     console.log(action, data);
 
     switch (action) {
-        case "showInfoOverlay":
-            showInfoOverlay(data);
+        case "showStartInfoOverlay":
+            showStartInfoOverlay(data);
             break;
         case "playSponsorsVideo":
             playSponsorsVideo();

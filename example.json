@@ -1,22 +1,32 @@
 {
-    "kategorien": [
+    "lists": [
         {
-            "name": "Kategorie1",
-            "startliste": [
+            "name": "Vormittag",
+            "items": [
                 {
+                    "kategorie": "MusikTambour",
                     "startnummer": 1,
                     "name": "Name",
                     "verein": "Verein",
                     "vortrag": "Stück - Komponist"
                 },
                 {
+                    "kategorie": "SignalTambour",
+                    "startnummer": 1,
+                    "name": "Name",
+                    "verein": "Verein",
+                    "vortrag": "Stück - Komponist"
+                },
+                {
+                    "kategorie": "MusikTambour",
                     "startnummer": 2,
                     "name": "Name",
                     "verein": "Verein",
                     "vortrag": "Stück - Komponist"
                 },
                 {
-                    "startnummer": 3,
+                    "kategorie": "SignalTambour",
+                    "startnummer": 2,
                     "name": "Name",
                     "verein": "Verein",
                     "vortrag": "Stück - Komponist"
@@ -24,21 +34,24 @@
             ]
         },
         {
-            "name": "Kategorie2",
-            "startliste": [
+            "name": "Nachmittag",
+            "items": [
                 {
+                    "kategorie": "SoloDuo",
                     "startnummer": 1,
                     "name": "Name",
                     "verein": "Verein",
                     "vortrag": "Stück - Komponist"
                 },
                 {
+                    "kategorie": "SoloDuo",
                     "startnummer": 2,
                     "name": "Name",
                     "verein": "Verein",
                     "vortrag": "Stück - Komponist"
                 },
                 {
+                    "kategorie": "SoloDuo",
                     "startnummer": 3,
                     "name": "Name",
                     "verein": "Verein",

@@ -26,9 +26,9 @@ body {
 .z2 { z-index: 2; }
 .z3 { z-index: 3; }
 
-/* Info (name) overlay */
+/* Start info overlay */
 
-.infooverlay_block {
+.startinfooverlay_block {
     color: white;
     background-color: #758aa5;
     position: absolute;
@@ -39,23 +39,23 @@ body {
     transition-delay: calc(var(--delay, 0s) * 1s)
 }
 
-.infooverlay_block.b1 { --top: 595; --pad: 20; --delay: 0.05; }
-.infooverlay_block.b2 { --top: 700; --pad: 25; --delay: 0.00; }
-.infooverlay_block.b3 { --top: 915; --pad: 20; --delay: 0.1; }
+.startinfooverlay_block.b1 { --top: 595; --pad: 20; --delay: 0.05; }
+.startinfooverlay_block.b2 { --top: 700; --pad: 25; --delay: 0.00; }
+.startinfooverlay_block.b3 { --top: 915; --pad: 20; --delay: 0.1; }
 
-.infooverlay.out-right .infooverlay_block {
+.startinfooverlay.out-right .startinfooverlay_block {
     right: -100%;
     transition-delay: calc(0.2s - calc(var(--delay, 0s) * 1s));
 }
 
-.infooverlay_text {
+.startinfooverlay_text {
     font-family: 'Arial Rounded MT Bold';
     font-size: calc(var(--size) * 4px);
     font-weight: bold;
     white-space: nowrap;
 }
 
-.infooverlay_text.t1 { --size: 9; }
-.infooverlay_text.t2 { --size: 18; }
-.infooverlay_text.t3 { --size: 12; }
-.infooverlay_text.t4 { --size: 11; }
+.startinfooverlay_text.t1 { --size: 9; }
+.startinfooverlay_text.t2 { --size: 18; }
+.startinfooverlay_text.t3 { --size: 12; }
+.startinfooverlay_text.t4 { --size: 11; }

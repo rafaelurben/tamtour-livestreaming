@@ -18,7 +18,8 @@
     <script src="./static/external/js/bootstrap-5.2.3.bundle.min.js"></script>
     <!-- Internal JS -->
     <script src="./static/js/connection.js"></script>
-    <script src="./static/js/actions.js"></script>
+    <script src="./static/js/overlay-startinfo.js"></script>
+    <script src="./static/js/overlay-sponsors.js"></script>
 </head>
 
 <body>
@@ -83,20 +84,20 @@
             </div>
             <div class="col-12 col-sm-6">
                 <div class="mb-2">
-                    <b>Daten für Info-Overlay importieren</b>
+                    <b>Startlisten für Info-Overlay importieren</b>
                 </div>
                 <div class="mb-2">
-                    <label for="categorylist-file-input" class="form-label d-none">JSON-Datei</label>
-                    <input class="form-control" type="file" id="categorylist-file-input" accept=".json" onchange="loadCategories();">
+                    <label for="startlists-file-input" class="form-label d-none">JSON-Datei</label>
+                    <input class="form-control" type="file" id="startlists-file-input" accept=".json" onchange="loadStartlists();">
                 </div>
                 <div class="mb-2">
-                    <label for="categorylist-select-input" class="form-label">Kategorie</label>
-                    <select class="form-select" id="categorylist-select-input" onchange="loadCategory()">
+                    <label for="startlist-select-input" class="form-label">Liste</label>
+                    <select class="form-select" id="startlist-select-input" onchange="loadStartlist()">
                     </select>
                 </div>
                 <div class="mb-2">
-                    <label for="startlist-select-input" class="form-label">Startnummer</label>
-                    <select class="form-select" id="startlist-select-input" onchange="loadPerson()">
+                    <label for="startlistitem-select-input" class="form-label">Element</label>
+                    <select class="form-select" id="startlistitem-select-input" onchange="loadStartlistitem()">
                     </select>
                 </div>
             </div>
