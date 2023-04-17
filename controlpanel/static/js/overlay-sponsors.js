@@ -4,7 +4,7 @@ var sponsorsoverlayInterval = null;
 var sponsorsoverlaySecondsRemaining = 0;
 
 async function sendPlaySponsorsVideo() {
-    let success = await sendAction("playSponsorsVideo");
+    let success = await sendAction("playSponsorsAnimation");
     if (!success) return;
 
     let button = $("#btn-play-sponsorsvideo");
