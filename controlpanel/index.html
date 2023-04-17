@@ -76,9 +76,11 @@
                     <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
                 </div>
                 <div class="mb-2">
-                    <label for="startinfo-form-duration" class="form-label">Anzeigedauer (ms)</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7500" min="2000" max="20000" step="500">
+                        <div class="form-floating">
+                            <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7500" value="7500" min="2000" max="20000" step="500">
+                            <label for="startinfo-form-duration" class="form-label">Anzeigedauer (ms)</label>
+                        </div>
                         <button id="startinfo-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">LIVE einblenden</button>
                     </div>
                 </div>
@@ -108,19 +110,19 @@
                 <div class="mb-2 mt-4">
                     <b>Sponsorenvideo steuern</b>
                 </div>
-                <div class="mb-2 d-flex flex-row">
-                    <div class="flex-grow-1 me-2">
+                <div class="mb-2 d-flex flex-row flex-wrap gap-2">
+                    <div class="">
                         <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary h-100" onclick="sendPlaySponsorsVideo()">Jetzt abspielen</button>
                     </div>
-                    <div class="flex-grow-1 form-floating">
+                    <div class="flex-fill form-floating">
                         <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5">
                         <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
                     </div>
-                    <div class="flex-grow-1 mx-2">
+                    <div class="">
                         <button id="btn-start-sponsorsvideo-interval" class="btn btn-success form-control h-100" onclick="startSponsorsVideoInterval()">Start Intervall</button>
                         <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control h-100 d-none" onclick="stopSponsorsVideoInterval()">Stop Intervall</button>
                     </div>
-                    <div class="flex-grow-1 form-floating">
+                    <div class="flex-fill form-floating">
                         <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled>
                         <label for="sponsors-interval-timer" class="form-label">Timer</label>
                     </div>
