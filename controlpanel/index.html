@@ -55,13 +55,15 @@
                 <div class="mb-2">
                     <b>Startinfo-Overlay anzeigen</b>
                 </div>
-                <div class="form-floating mb-2">
-                    <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
-                    <label for="startinfo-form-kategorie" class="form-label">Kategorie</label>
-                </div>
-                <div class="form-floating mb-2">
-                    <input type="number" class="form-control" id="startinfo-form-startnummer" placeholder="1">
-                    <label for="startinfo-form-startnummer" class="form-label">Startnummer</label>
+                <div class="mb-2 d-flex flex-row gap-2">
+                    <div class="form-floating flex-grow-1">
+                        <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
+                        <label for="startinfo-form-kategorie" class="form-label">Kategorie</label>
+                    </div>
+                    <div class="form-floating flex-shrink-1">
+                        <input type="number" class="form-control" id="startinfo-form-startnummer" placeholder="1">
+                        <label for="startinfo-form-startnummer" class="form-label">Startnummer</label>
+                    </div>
                 </div>
                 <div class="form-floating mb-2">
                     <input type="text" class="form-control" id="startinfo-form-name" placeholder="Vorname Nachname">
@@ -115,7 +117,7 @@
                         <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary h-100" onclick="sendPlaySponsorsVideo()">Jetzt abspielen</button>
                     </div>
                     <div class="flex-fill form-floating">
-                        <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5">
+                        <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5" placeholder="5">
                         <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
                     </div>
                     <div class="">

@@ -17,8 +17,10 @@ function resetSponsorsVideoTimer() {
     let timer = $("#sponsors-interval-timer");
     let input = $("#sponsors-interval-input");
 
-    sponsorsoverlaySecondsRemaining = input.val() * 60;
-    timer.val(sponsorsoverlaySecondsRemaining + "s");
+    let min = input.val() || 5;
+
+    sponsorsoverlaySecondsRemaining = min * 60 + 1;
+    updateSponsorsVideoState();
 }
 
 function updateSponsorsVideoState() {
@@ -26,17 +28,19 @@ function updateSponsorsVideoState() {
 
     sponsorsoverlaySecondsRemaining -= 1;
 
-    if (sponsorsoverlaySecondsRemaining < -5) {
+    if (sponsorsoverlaySecondsRemaining < -15) {
         resetSponsorsVideoTimer();
     }
 
     console.log(sponsorsoverlaySecondsRemaining)
+    let min = Math.floor(sponsorsoverlaySecondsRemaining / 60);
+    let sec = sponsorsoverlaySecondsRemaining % 60;
 
     if (sponsorsoverlaySecondsRemaining > 0) {
-        timer.val(sponsorsoverlaySecondsRemaining + "s");
+        timer.val(`${min}m ${sec}s`);
     } else if (sponsorsoverlaySecondsRemaining == 0) {
         sendPlaySponsorsVideo();
-        timer.val("Started playing");
+        timer.val("Animation gestartet");
     }
 }
 

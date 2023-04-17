@@ -11,6 +11,11 @@ function loadStartlists() {
         let data = JSON.parse(reader.result);
         let startlists = data.lists;
 
+        if (!startlists) {
+            alert("Keine Startlisten gefunden!");
+            return;
+        }
+
         let startlistSelect = $("#startlist-select-input");
         startlistSelect.empty();
 
