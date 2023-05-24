@@ -8,7 +8,8 @@ function __handle_disconnected() {
 }
 
 async function disconnect() {
-    sessionStorage.clear();
+    sessionStorage.setItem("obs-auto-connect", "false");
+
     try {
         await obs.disconnect();
     } catch (error) {
@@ -21,6 +22,8 @@ function __handle_connected() {
     console.log("Connected!");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
+
+    sessionStorage.setItem("obs-auto-connect", "true");
     sessionStorage.setItem("obs-target", document.getElementById('login-form-target').value);
     sessionStorage.setItem("obs-password", document.getElementById('login-form-password').value);
 }
@@ -76,6 +79,8 @@ window.addEventListener('load', function () {
     if (sessionStorage.getItem("obs-target")) {
         document.getElementById('login-form-target').value = sessionStorage.getItem("obs-target");
         document.getElementById('login-form-password').value = sessionStorage.getItem("obs-password");
-        connectGUI();
+        if (sessionStorage.getItem("obs-auto-connect") == "true") {
+            connectGUI();
+        }
     }
 });
