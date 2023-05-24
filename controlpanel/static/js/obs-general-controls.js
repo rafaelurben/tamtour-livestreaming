@@ -40,13 +40,18 @@ async function loadStatus() {
 
 // Intervals
 
+function __load() {
+    loadScenes();
+    loadStatus();
+}
+
 let interval = null;
 
 obs.on('Identified', () => {
-    loadScenes();
+    __load();
+
     interval = setInterval(() => {
-        loadScenes();
-        loadStatus();
+        __load();
     }, 1000);
 })
 
