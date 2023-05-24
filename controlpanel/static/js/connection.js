@@ -8,6 +8,7 @@ function __handle_disconnected() {
 }
 
 async function disconnect() {
+    sessionStorage.clear();
     try {
         await obs.disconnect();
     } catch (error) {
@@ -20,9 +21,12 @@ function __handle_connected() {
     console.log("Connected!");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
+    sessionStorage.setItem("obs-target", document.getElementById('login-form-target').value);
+    sessionStorage.setItem("obs-password", document.getElementById('login-form-password').value);
 }
 
 async function connect(target, password) {
+    console.log(target, password)
     try {
         data = await obs.connect('ws://' + target, password, { eventSubscriptions: OBSWebSocket.EventSubscription.All });
         __handle_connected();
@@ -65,4 +69,13 @@ async function sendOBSCommand(command, data) {
 obs.on("CurrentProgramSceneChanged", console.log)
 obs.on("ExitStarted", __handle_disconnected)
 obs.on("ConnectionClosed", __handle_disconnected)
-obs.on("ConnectionError", __handle_disconnected)
+
+// Auto reconnect
+
+window.addEventListener('load', function () {
+    if (sessionStorage.getItem("obs-target")) {
+        document.getElementById('login-form-target').value = sessionStorage.getItem("obs-target");
+        document.getElementById('login-form-password').value = sessionStorage.getItem("obs-password");
+        connectGUI();
+    }
+});
