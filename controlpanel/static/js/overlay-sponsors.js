@@ -72,7 +72,3 @@ function stopSponsorsVideoInterval() {
 
     sponsorsoverlaySecondsRemaining = 0;
 }
-
-window.addEventListener("load", () => {
-    $("#sponsors-interval-timer").val("")
-})

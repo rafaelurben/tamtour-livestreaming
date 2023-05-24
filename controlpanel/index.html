@@ -167,7 +167,7 @@
                             <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control h-100 d-none" onclick="stopSponsorsVideoInterval()">Stop Intervall</button>
                         </div>
                         <div class="flex-fill form-floating">
-                            <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled>
+                            <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled value="" autocomplete="off">
                             <label for="sponsors-interval-timer" class="form-label">Timer</label>
                         </div>
                     </div>
@@ -181,8 +181,8 @@
                     <div class="mb-2">
                         <label for="obs-status-display" class="form-label">Aufnahme-/Streamstatus</label>
                         <div class="input-group" id="obs-status-display">
-                            <input class="form-control" type="text" id="obs-record-status-display" disabled>
-                            <input class="form-control" type="text" id="obs-stream-status-display" disabled>
+                            <input class="form-control" type="text" id="obs-record-status-display" disabled value="" autocomplete="off">
+                            <input class="form-control" type="text" id="obs-stream-status-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
                     <div class="mb-2">
@@ -192,7 +192,7 @@
                             </select>
                             <button class="btn btn-primary" type="button"
                                 onclick="sendOBSCommand('TriggerStudioModeTransition')">Übergang</button>
-                            <input class="form-control" type="text" id="obs-scene-display" disabled>
+                            <input class="form-control" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
                 </div>
