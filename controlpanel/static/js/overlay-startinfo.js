@@ -70,6 +70,13 @@ async function sendShowInfoOverlayGUI() {
         vortrag: $("#startinfo-form-vortrag").val(),
         duration: $("#startinfo-form-duration").val()*1 || 7500,
     }
+
+    if (!data.kategorie || !data.startnummer || !data.name || !data.verein || !data.vortrag) {
+        alert("Bitte alle Felder ausfüllen!");
+        return;
+    }
+
+
     let success = await sendAction("showStartInfoOverlay", data);
     if (!success) return;
 
