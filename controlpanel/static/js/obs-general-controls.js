@@ -18,10 +18,38 @@ async function loadScenes() {
     sceneDisplay.val(data.currentProgramSceneName);
 }
 
-window.addEventListener("load", () => {
-    setInterval(() => {
-        if (window.obs_connected) {
-            loadScenes();
-        }
+async function loadStatus() {
+    let recordStatusData = await sendOBSCommand("GetRecordStatus");
+    let streamStatusData = await sendOBSCommand("GetStreamStatus");
+
+    let recordStatusDisplay = $("#obs-record-status-display");
+    let streamStatusDisplay = $("#obs-stream-status-display");
+
+    if (recordStatusData.outputActive) {
+        recordStatusDisplay.val(`Aufnahme ${recordStatusData.outputTimecode.split(".")[0]}`);
+    } else {
+        recordStatusDisplay.val("Keine Aufnahme");
+    }
+
+    if (streamStatusData.outputActive) {
+        streamStatusDisplay.val(`Stream ${streamStatusData.outputTimecode.split(".")[0]} (Skipped: ${recordStatusData.outputSkippedFrames})`);
+    } else {
+        streamStatusDisplay.val("Kein Stream");
+    }
+}
+
+// Intervals
+
+let interval = null;
+
+obs.on('Identified', () => {
+    loadScenes();
+    interval = setInterval(() => {
+        loadScenes();
+        loadStatus();
     }, 1000);
-});
+})
+
+obs.on('ConnectionClosed', () => {
+    clearInterval(interval);
+})

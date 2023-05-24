@@ -116,6 +116,7 @@ window.addEventListener('ControlPanelEvent', event => {
             hideGeneralInfoOverlay();
             break;
         case "showStartInfoOverlay":
+            hideGeneralInfoOverlay();
             showStartInfoOverlay(data);
             break;
         case "playSponsorsAnimation":
