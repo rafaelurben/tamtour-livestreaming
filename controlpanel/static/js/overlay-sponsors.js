@@ -1,5 +1,7 @@
 /* Sponsors overlay */
 
+const SPONSORS_COOLDOWN = 15;
+
 var sponsorsoverlayInterval = null;
 var sponsorsoverlaySecondsRemaining = 0;
 
@@ -10,11 +12,10 @@ async function sendPlaySponsorsVideo() {
     let button = $("#btn-play-sponsorsvideo");
     button.prop("disabled", true);
 
-    setTimeout(() => { button.prop("disabled", false) }, 5000);
+    setTimeout(() => { button.prop("disabled", false) }, SPONSORS_COOLDOWN*1000);
 }
 
 function resetSponsorsVideoTimer() {
-    let timer = $("#sponsors-interval-timer");
     let input = $("#sponsors-interval-input");
 
     let min = input.val() || 5;
@@ -28,7 +29,7 @@ function updateSponsorsVideoState() {
 
     sponsorsoverlaySecondsRemaining -= 1;
 
-    if (sponsorsoverlaySecondsRemaining < -15) {
+    if (sponsorsoverlaySecondsRemaining < -SPONSORS_COOLDOWN) {
         resetSponsorsVideoTimer();
     }
 

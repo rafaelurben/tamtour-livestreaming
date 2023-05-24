@@ -1,6 +1,8 @@
 obs = new OBSWebSocket()
+obs_connected = false;
 
 function __handle_disconnected() {
+    window.obs_connected = false;
     console.log("Disconnected!");
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
@@ -17,6 +19,7 @@ async function disconnect() {
 }
 
 function __handle_connected() {
+    window.obs_connected = true;
     console.log("Connected!");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
@@ -47,6 +50,17 @@ async function sendAction(action, data) {
         console.warn(error)
         alert(error);
         return false;
+    }
+}
+
+async function sendOBSCommand(command, data) {
+    console.log("Sending command", command, "to OBS with data:", data)
+    try {
+        return await obs.call(command, data)
+    } catch (error) {
+        console.warn(error)
+        alert(error);
+        return null;
     }
 }
 

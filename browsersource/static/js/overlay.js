@@ -1,3 +1,18 @@
+// General info overlay
+
+function showGeneralInfoOverlay(data) {
+    document.querySelector("#generalinfooverlay-title").innerHTML = data.title;
+    document.querySelector("#generalinfooverlay-description").innerHTML = data.description;
+
+    document.querySelector(".generalinfooverlay").classList.remove("out-left");
+    console.log("Showing general info overlay");
+}
+
+function hideGeneralInfoOverlay() {
+    document.querySelector(".generalinfooverlay").classList.add("out-left");
+    console.log("Hiding general info overlay");
+}
+
 // Start info overlay
 
 function showStartInfoOverlay(data) {
@@ -94,6 +109,12 @@ window.addEventListener('ControlPanelEvent', event => {
     console.log("Event received:", action, data);
 
     switch (action) {
+        case "showGeneralInfoOverlay":
+            showGeneralInfoOverlay(data);
+            break;
+        case "hideGeneralInfoOverlay":
+            hideGeneralInfoOverlay();
+            break;
         case "showStartInfoOverlay":
             showStartInfoOverlay(data);
             break;

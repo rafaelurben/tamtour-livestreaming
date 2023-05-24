@@ -30,6 +30,37 @@ body {
 .z2 { z-index: 2; }
 .z3 { z-index: 3; }
 
+/* General info overlay */
+
+.generalinfooverlay_block {
+    color: white;
+    background-color: var(--color-tt-blue);
+    position: absolute;
+    padding: calc(var(--pady) * 1px) 60px calc(var(--pady) * 1px) 120px;
+    top: calc(var(--top) * 1px);
+    left: 0;
+    transition: ease-in-out 1.5s all;
+    transition-delay: calc(var(--delay, 0s) * 1s)
+}
+
+.generalinfooverlay_block.b1 { --top: 725; --pady: 20; --delay: 0.05; }
+.generalinfooverlay_block.b2 { --top: 910; --pady: 16; --delay: 0.00; }
+
+.generalinfooverlay.out-left .generalinfooverlay_block {
+    left: -100%;
+    transition-delay: calc(0.2s - calc(var(--delay, 0s) * 1s));
+}
+
+.generalinfooverlay_text {
+    font-family: 'Arial Rounded MT Bold';
+    font-size: calc(var(--size) * 4px);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.generalinfooverlay_text.t1 { --size: 24; }
+.generalinfooverlay_text.t2 { --size: 13.5; }
+
 /* Start info overlay */
 
 .startinfooverlay_block {
