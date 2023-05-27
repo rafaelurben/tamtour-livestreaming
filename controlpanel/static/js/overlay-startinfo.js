@@ -1,6 +1,6 @@
 /* Start info overlay */
 
-function loadStartlists() {
+function loadStartlists(initial) {
     let fileinputelem = $('#startlists-file-input')[0];
     let file = fileinputelem.files[0];
 
@@ -24,13 +24,17 @@ function loadStartlists() {
             startlistSelect.append($("<option>", { value: lid, text: startlist.name }));
         }
 
+        let storedval = sessionStorage.getItem("tamtour-startlist-id");
+        if (initial && storedval < startlists.length) startlistSelect.val(storedval);
+        
+
         window.tamtour_startlists = startlists;
-        loadStartlist();
+        loadStartlist(initial);
     }
     reader.readAsText(file);
 }
 
-function loadStartlist() {
+function loadStartlist(initial) {
     let lid = $("#startlist-select-input").val();
     let startlist = window.tamtour_startlists[lid];
     let startlistitems = startlist.items;
@@ -44,12 +48,17 @@ function loadStartlist() {
         startlistitemSelect.append($("<option>", { value: sid, text: title }));
     }
 
+    let storedval = sessionStorage.getItem("tamtour-startlist-itemid");
+    if (initial && storedval < startlistitems.length) startlistitemSelect.val(storedval);
+
     loadStartlistitem();
 }
 
 function loadStartlistitem() {
     let lid = $("#startlist-select-input").val();
+    sessionStorage.setItem("tamtour-startlist-id", lid);
     let sid = $("#startlistitem-select-input").val();
+    sessionStorage.setItem("tamtour-startlist-itemid", sid);
     let startlist = window.tamtour_startlists[lid];
     let startlistitems = startlist.items;
     let item = startlistitems[sid];
@@ -87,5 +96,5 @@ async function sendShowInfoOverlayGUI() {
 }
 
 window.addEventListener("load", () => {
-    loadStartlists();
+    loadStartlists(true);
 });
