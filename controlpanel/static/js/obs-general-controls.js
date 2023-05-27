@@ -32,7 +32,7 @@ async function loadStatus() {
     }
 
     if (streamStatusData.outputActive) {
-        streamStatusDisplay.val(`Stream ${streamStatusData.outputTimecode.split(".")[0]} (Skipped: ${recordStatusData.outputSkippedFrames})`);
+        streamStatusDisplay.val(`Stream ${streamStatusData.outputTimecode.split(".")[0]} (Skipped: ${streamStatusData.outputSkippedFrames})`);
     } else {
         streamStatusDisplay.val("Kein Stream");
     }
