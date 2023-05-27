@@ -179,9 +179,22 @@
                         <b>OBS Controls</b>
                     </div>
                     <div class="mb-2">
-                        <label for="obs-status-display" class="form-label">Aufnahme-/Streamstatus</label>
-                        <div class="input-group" id="obs-status-display">
+                        <label for="obs-record-status-display-group" class="form-label">Aufnahmestatus</label>
+                        <div class="input-group" id="obs-record-status-display-group">
+                            <button id="obs-record-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
+                                onclick="if (confirm('Aufnahme starten?')) {sendOBSCommand('StartRecord')}">Starten</button>
+                            <button id="obs-record-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
+                                onclick="if (confirm('Aufnahme stoppen?')) {sendOBSCommand('StopRecord')}">Stoppen</button>
                             <input class="form-control" type="text" id="obs-record-status-display" disabled value="" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="obs-stream-status-display-group" class="form-label">Streamstatus</label>
+                        <div class="input-group" id="obs-stream-status-display-group">
+                            <button id="obs-stream-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
+                                onclick="if (confirm('Stream starten?')) {sendOBSCommand('StartStream')}">Starten</button>
+                            <button id="obs-stream-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
+                                onclick="if (confirm('Stream stoppen?')) {sendOBSCommand('StopStream')}">Stoppen</button>
                             <input class="form-control" type="text" id="obs-stream-status-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
