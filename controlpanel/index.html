@@ -90,7 +90,7 @@
                                 <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7500" value="7500" min="2000" max="20000" step="500">
                                 <label for="startinfo-form-duration" class="form-label">Anzeigedauer (ms)</label>
                             </div>
-                            <button id="startinfo-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">LIVE einblenden</button>
+                            <button id="startinfo-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">Anzeigen</button>
                         </div>
                     </div>
                 </div>
@@ -101,16 +101,16 @@
                         <b>Startlisten für Startinfo-Overlay importieren</b>
                     </div>
                     <div class="mb-2">
-                        <label for="startlists-file-input" class="form-label d-none">JSON-Datei</label>
+                        <label for="startlists-file-input" class="form-label visually-hidden-focusable">JSON-Datei</label>
                         <input class="form-control" type="file" id="startlists-file-input" accept=".json" onchange="loadStartlists();">
                     </div>
                     <div class="mb-2">
-                        <label for="startlist-select-input" class="form-label">Liste</label>
+                        <label for="startlist-select-input" class="form-label">Startliste</label>
                         <select class="form-select" id="startlist-select-input" onchange="loadStartlist()">
                         </select>
                     </div>
                     <div class="mb-2">
-                        <label for="startlistitem-select-input" class="form-label">Element</label>
+                        <label for="startlistitem-select-input" class="form-label">Startposition</label>
                         <div class="input-group">
                             <select class="form-select" id="startlistitem-select-input" onchange="loadStartlistitem()">
                             </select>
@@ -140,7 +140,7 @@
                     <div class="mb-2 d-flex flex-row flex-wrap gap-2">
                         <div class="flex-grow-1">
                             <button id="btn-show-generalinfo-overlay" class="btn btn-success form-control h-100"
-                                onclick="sendShowGeneralOverlayGUI()">Anzeigen</button>
+                                onclick="sendShowGeneralOverlayGUI()">Einblenden</button>
                         </div>
                         <div class="flex-grow-1">
                             <button id="btn-hide-generalinfo-overlay" class="btn btn-danger form-control h-100"
@@ -156,7 +156,7 @@
                     </div>
                     <div class="mb-2 d-flex flex-row flex-wrap gap-2">
                         <div class="">
-                            <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary h-100" onclick="sendPlaySponsorsVideo()">Jetzt abspielen</button>
+                            <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary h-100" onclick="sendPlaySponsorsVideo()">Anzeigen</button>
                         </div>
                         <div class="flex-fill form-floating">
                             <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5" placeholder="5">
