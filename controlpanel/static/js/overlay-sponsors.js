@@ -33,7 +33,6 @@ function updateSponsorsVideoState() {
         resetSponsorsVideoTimer();
     }
 
-    console.log(sponsorsoverlaySecondsRemaining)
     let min = Math.floor(sponsorsoverlaySecondsRemaining / 60);
     let sec = sponsorsoverlaySecondsRemaining % 60;
 
