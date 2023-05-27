@@ -77,6 +77,7 @@ let interval = null;
 
 obs.on('Identified', () => {
     __load();
+    sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
 
     interval = setInterval(() => {
         __load();
