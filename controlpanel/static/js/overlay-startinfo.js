@@ -1,5 +1,65 @@
 /* Start info overlay */
 
+async function setStartInfoOverlayContent() {
+    let data = {
+        kategorie: $("#startinfo-form-kategorie").val(),
+        startnummer: $("#startinfo-form-startnummer").val(),
+        name: $("#startinfo-form-name").val(),
+        verein: $("#startinfo-form-verein").val(),
+        vortrag: $("#startinfo-form-vortrag").val(),
+    }
+    if (!data.kategorie || !data.startnummer || !data.name || !data.verein || !data.vortrag) {
+        alert("Bitte Titel & Beschreibung ausfüllen!");
+        return false;
+    }
+
+    let success = await sendAction("setStartInfoOverlayContent", data);
+    return success ? true : false;
+}
+
+async function displayStartInfoOverlay() {
+    let success0 = await setStartInfoOverlayContent();
+    if (!success0) return false;
+
+    let success = await sendAction("displayStartInfoOverlay", {
+        duration: $("#startinfo-form-duration").val(),
+    });
+    if (!success) return false;
+
+    let button = $("#btn-display-startinfo-overlay");
+    button.prop("disabled", true);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
+
+    return true;
+}
+
+async function showStartInfoOverlay() {
+    let success0 = await setStartInfoOverlayContent();
+    if (!success0) return false;
+
+    let success = await sendAction("showStartInfoOverlay");
+    if (!success) return false;
+
+    let button = $("#btn-show-startinfo-overlay");
+    button.prop("disabled", true);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
+
+    return true;
+}
+
+async function hideStartInfoOverlay() {
+    let success = await sendAction("hideStartInfoOverlay");
+    if (!success) return false;
+
+    let button = $("#btn-hide-startinfo-overlay");
+    button.prop("disabled", true);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
+
+    return true;
+}
+
+// Importer
+
 function loadStartlists(initial) {
     let fileinputelem = $('#startlists-file-input')[0];
     let file = fileinputelem.files[0];
@@ -70,30 +130,7 @@ function loadStartlistitem() {
     $("#startinfo-form-vortrag").val(item.vortrag);
 }
 
-async function sendShowInfoOverlayGUI() {
-    let data = {
-        kategorie: $("#startinfo-form-kategorie").val(),
-        startnummer: $("#startinfo-form-startnummer").val(),
-        name: $("#startinfo-form-name").val(),
-        verein: $("#startinfo-form-verein").val(),
-        vortrag: $("#startinfo-form-vortrag").val(),
-        duration: $("#startinfo-form-duration").val()*1 || 7500,
-    }
-
-    if (!data.kategorie || !data.startnummer || !data.name || !data.verein || !data.vortrag) {
-        alert("Bitte alle Felder ausfüllen!");
-        return;
-    }
-
-
-    let success = await sendAction("showStartInfoOverlay", data);
-    if (!success) return;
-
-    let button = $("#startinfo-form-send");
-    button.prop("disabled", true);
-
-    setTimeout(() => {button.prop("disabled", false)}, data.duration+3000);
-}
+// Event listeners
 
 window.addEventListener("load", () => {
     loadStartlists(true);

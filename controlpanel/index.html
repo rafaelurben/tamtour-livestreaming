@@ -86,11 +86,23 @@
                     </div>
                     <div class="mb-2">
                         <div class="input-group">
+                            <button id="btn-show-startinfo-overlay" class="btn btn-outline-success"
+                                onclick="showStartInfoOverlay()">
+                                Einblenden
+                            </button>
+                            <button id="btn-hide-startinfo-overlay" class="btn btn-outline-danger"
+                                onclick="hideStartInfoOverlay()">
+                                Ausblenden
+                            </button>
                             <div class="form-floating">
-                                <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7500" value="7500" min="2000" max="20000" step="500">
+                                <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7500" value="7500"
+                                    min="2000" max="20000" step="500">
                                 <label for="startinfo-form-duration" class="form-label">Anzeigedauer (ms)</label>
                             </div>
-                            <button id="startinfo-form-send" class="btn btn-primary" onclick="sendShowInfoOverlayGUI()">Anzeigen</button>
+                            <button id="btn-display-startinfo-overlay" class="btn btn-primary"
+                                onclick="displayStartInfoOverlay()">
+                                Anzeigen
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -137,14 +149,25 @@
                         <input type="text" class="form-control" id="generalinfo-form-description" placeholder="Beschreibung">
                         <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
                     </div>
-                    <div class="mb-2 d-flex flex-row flex-wrap gap-2">
-                        <div class="flex-grow-1">
-                            <button id="btn-show-generalinfo-overlay" class="btn btn-success form-control h-100"
-                                onclick="sendShowGeneralOverlayGUI()">Einblenden</button>
-                        </div>
-                        <div class="flex-grow-1">
-                            <button id="btn-hide-generalinfo-overlay" class="btn btn-danger form-control h-100"
-                                onclick="sendHideGeneralOverlay()">Ausblenden</button>
+                    <div class="mb-2">
+                        <div class="input-group">
+                            <button id="btn-show-generalinfo-overlay" class="btn btn-outline-success"
+                                onclick="showGeneralInfoOverlay()">
+                                Einblenden
+                            </button>
+                            <button id="btn-hide-generalinfo-overlay" class="btn btn-outline-danger"
+                                onclick="hideGeneralInfoOverlay()">
+                                Ausblenden
+                            </button>
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="generalinfo-form-duration" placeholder="15000" value="15000"
+                                    min="2000" step="500">
+                                <label for="generalinfo-form-duration" class="form-label">Anzeigedauer (ms)</label>
+                            </div>
+                            <button id="btn-display-generalinfo-overlay" class="btn btn-primary"
+                                onclick="displayGeneralInfoOverlay()">
+                                Anzeigen
+                            </button>
                         </div>
                     </div>
                 </div>

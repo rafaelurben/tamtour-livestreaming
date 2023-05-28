@@ -1,35 +1,77 @@
 // General info overlay
 
-function showGeneralInfoOverlay(data) {
+let generalInfoOverlayTimeout = null;
+
+function setGeneralInfoOverlayContent(data) {
     document.querySelector("#generalinfooverlay-title").innerHTML = data.title;
     document.querySelector("#generalinfooverlay-description").innerHTML = data.description;
+}
+
+function showGeneralInfoOverlay() {
+    if (generalInfoOverlayTimeout != null) {
+        clearTimeout(generalInfoOverlayTimeout);
+        generalInfoOverlayTimeout = null;
+    }
 
     document.querySelector(".generalinfooverlay").classList.remove("out-left");
-    console.log("Showing general info overlay");
 }
 
 function hideGeneralInfoOverlay() {
+    if (generalInfoOverlayTimeout != null) {
+        clearTimeout(generalInfoOverlayTimeout);
+        generalInfoOverlayTimeout = null;
+    }
+
     document.querySelector(".generalinfooverlay").classList.add("out-left");
-    console.log("Hiding general info overlay");
+}
+
+function displayGeneralInfoOverlay(duration) {
+    let duration_ms = duration*1 || 15000;
+
+    showGeneralInfoOverlay();
+
+    generalInfoOverlayTimeout = setTimeout(() => {
+        hideGeneralInfoOverlay();
+    }, duration_ms + 1500);
 }
 
 // Start info overlay
 
-function showStartInfoOverlay(data) {
+let startInfoOverlayTimeout = null;
+
+function setStartInfoOverlayContent(data) {
     document.querySelector("#startinfooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
     document.querySelector("#startinfooverlay-name").innerHTML = data.name;
     document.querySelector("#startinfooverlay-verein").innerHTML = data.verein;
     document.querySelector("#startinfooverlay-vortrag").innerHTML = data.vortrag;
-    
-    data.duration = data.duration*1 || 7500;
+}
+
+function showStartInfoOverlay() {
+    if (startInfoOverlayTimeout != null) {
+        clearTimeout(startInfoOverlayTimeout);
+        startInfoOverlayTimeout = null;
+    }
 
     document.querySelector(".startinfooverlay").classList.remove("out-right");
-    console.log("Showing start info overlay for " + data.duration + "ms (without animation)");
+}
 
-    setTimeout(() => {
-        document.querySelector(".startinfooverlay").classList.add("out-right");
-        console.log("Hiding start info overlay")
-    }, data.duration + 1500);
+function hideStartInfoOverlay() {
+    if (startInfoOverlayTimeout != null) {
+        clearTimeout(startInfoOverlayTimeout);
+        startInfoOverlayTimeout = null;
+    }
+
+    document.querySelector(".startinfooverlay").classList.add("out-right");
+}
+
+function displayStartInfoOverlay(duration) {
+    let duration_ms = duration*1 || 7500;
+
+    showStartInfoOverlay();
+
+    startInfoOverlayTimeout = setTimeout(() => {
+        hideStartInfoOverlay();
+    }, duration_ms + 1500);
 }
 
 // Sponsors video
@@ -56,7 +98,6 @@ function playSponsorsAnimation() {
         setTimeout(() => {
             el.classList.add("out-down");
         }, offset_end * 1000);
-
     }
 
     let offset_hide = count * (SECONDS_PER_CATEGORY + 2*CATEGORY_ANIMATION_DURATION);
@@ -109,16 +150,36 @@ window.addEventListener('ControlPanelEvent', event => {
     console.log("Event received:", action, data);
 
     switch (action) {
+        // General info overlay
+        case "setGeneralInfoOverlayContent":
+            setGeneralInfoOverlayContent(data);
+            break;
         case "showGeneralInfoOverlay":
-            showGeneralInfoOverlay(data);
+            showGeneralInfoOverlay();
             break;
         case "hideGeneralInfoOverlay":
             hideGeneralInfoOverlay();
             break;
+        case "displayGeneralInfoOverlay":
+            displayGeneralInfoOverlay(data.duration);
+            break;
+
+        // Start info overlay
+        case "setStartInfoOverlayContent":
+            setStartInfoOverlayContent(data);
+            break;
         case "showStartInfoOverlay":
             hideGeneralInfoOverlay();
-            showStartInfoOverlay(data);
+            showStartInfoOverlay();
             break;
+        case "hideStartInfoOverlay":
+            hideStartInfoOverlay();
+            break;
+        case "displayStartInfoOverlay":
+            displayStartInfoOverlay(data.duration);
+            break;
+
+        // Sponsors animation
         case "playSponsorsAnimation":
             playSponsorsAnimation();
             break;
