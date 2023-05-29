@@ -138,7 +138,8 @@ obs.on('ConnectionClosed', () => {
 
 obs.on('StudioModeStateChanged', data => {
     if (!data.studioModeEnabled) {
-        sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
-        sendOBSCommand("SetCurrentPreviewScene", {sceneName: sceneSelect.val()});
+        sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true}).then(
+            () => sendOBSCommand("SetCurrentPreviewScene", { sceneName: sceneSelect.val() })
+        );
     }
 })
