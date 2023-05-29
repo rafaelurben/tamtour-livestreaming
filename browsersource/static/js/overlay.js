@@ -160,6 +160,17 @@ window.addEventListener('load', () => {
     });
 });
 
+// General settings
+
+function setSettings(settings) {
+    if (settings.backgroundColor) {
+        document.querySelector("*").style.setProperty('--tamtour-color-background', settings.backgroundColor)
+    }
+    if (settings.textColor) {
+        document.querySelector("*").style.setProperty('--tamtour-color-text', settings.textColor)
+    }
+}
+
 // Control panel events
 
 window.addEventListener('ControlPanelEvent', event => {
@@ -207,6 +218,11 @@ window.addEventListener('ControlPanelEvent', event => {
             break;
         case "cancelSponsorsAnimation":
             cancelSponsorsAnimation();
+            break;
+
+        // General settings
+        case "setSettings":
+            setSettings(data);
             break;
     }
 });

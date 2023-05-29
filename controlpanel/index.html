@@ -121,6 +121,27 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Settings-Overlay -->
+                <div class="mb-3">
+                    <div class="mb-2">
+                        <b>Einstellungen</b>
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input" value="#758aa5" />
+                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input" value="#000000" />
+                            <label for="settings-text-color-input" class="form-label">Text</label>
+                        </div>
+                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
+                            onclick="setSettings()">Speichern</button>
+                        <button id="btn-reset-settings" class="btn btn-outline-danger form-control w-auto flex-grow-0"
+                            onclick="resetSettings()">Reset</button>
+                    </div>
+                </div>
             </div>
             <!-- Column 2 -->
             <div class="col-12 col-lg-6">
@@ -240,6 +261,7 @@
     <!-- Internal JS -->
     <script src="./static/js/colormodes.js"></script>
     <script src="./static/js/connection.js"></script>
+    <script src="./static/js/general.js"></script>
     <script src="./static/js/obs-general-controls.js"></script>
     <script src="./static/js/overlay-generalinfo.js"></script>
     <script src="./static/js/overlay-startinfo.js"></script>
