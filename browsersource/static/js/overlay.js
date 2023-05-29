@@ -24,8 +24,8 @@ function hideGeneralInfoOverlay() {
     document.querySelector(".generalinfooverlay").classList.add("out-left");
 }
 
-function displayGeneralInfoOverlay(duration) {
-    let duration_ms = duration*1 || 15000;
+function displayGeneralInfoOverlay(duration_s) {
+    let duration_ms = duration_s*1000 || 15000;
 
     showGeneralInfoOverlay();
 
@@ -62,8 +62,8 @@ function hideStartInfoOverlay() {
     document.querySelector(".startinfooverlay").classList.add("out-right");
 }
 
-function displayStartInfoOverlay(duration) {
-    let duration_ms = duration*1 || 7500;
+function displayStartInfoOverlay(duration_s) {
+    let duration_ms = duration_s*1000 || 7500;
 
     showStartInfoOverlay();
 
