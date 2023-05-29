@@ -52,14 +52,17 @@ obs.on("SceneListChanged", data => {
     _updateScenePanel(data);
 })
 
-// Record / Stream status
+// Record status
 
-async function loadStatus() {
+let recordActive = false;
+
+let recordStatusDisplay = $("#obs-record-status-display");
+let recordStartBtn = $("#obs-record-start-btn");
+let recordStopBtn = $("#obs-record-stop-btn");
+
+async function loadRecordStatus() {
     let recDat = await sendOBSCommand("GetRecordStatus");
-    
-    let recordStatusDisplay = $("#obs-record-status-display");
-    let recordStartBtn = $("#obs-record-start-btn");
-    let recordStopBtn = $("#obs-record-stop-btn");
+    recordActive = recDat.outputActive;
 
     if (recDat.outputActive) {
         recordStartBtn.toggleClass("d-none", true);
@@ -74,12 +77,21 @@ async function loadStatus() {
         recordStartBtn.toggleClass("d-none", false);
         recordStopBtn.toggleClass("d-none", true);
     }
+}
 
+obs.on("RecordStateChanged", loadRecordStatus)
+
+// Stream status
+
+let streamActive = false;
+
+let streamStatusDisplay = $("#obs-stream-status-display");
+let streamStartBtn = $("#obs-stream-start-btn");
+let streamStopBtn = $("#obs-stream-stop-btn");
+
+async function loadStreamStatus() {
     let strDat = await sendOBSCommand("GetStreamStatus");
-
-    let streamStatusDisplay = $("#obs-stream-status-display");
-    let streamStartBtn = $("#obs-stream-start-btn");
-    let streamStopBtn = $("#obs-stream-stop-btn");
+    streamActive = strDat.outputActive;
 
     if (strDat.outputActive) {
         streamStartBtn.toggleClass("d-none", true);
@@ -101,6 +113,7 @@ async function loadStatus() {
         streamStatusDisplay.val("Kein Stream");
     }
 }
+obs.on("StreamStateChanged", loadStreamStatus);
 
 // Intervals
 
@@ -108,14 +121,24 @@ let interval = null;
 
 obs.on('Identified', () => {
     loadScenes();
-    loadStatus();
-    sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
+    loadRecordStatus();
+    loadStreamStatus();
     
     interval = setInterval(() => {
-        loadStatus();
+        if (recordActive) loadRecordStatus();
+        if (streamActive) loadStreamStatus();
     }, 1000);
+
+    sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
 })
 
 obs.on('ConnectionClosed', () => {
     clearInterval(interval);
+})
+
+obs.on('StudioModeStateChanged', data => {
+    if (!data.studioModeEnabled) {
+        sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
+        sendOBSCommand("SetCurrentPreviewScene", {sceneName: sceneSelect.val()});
+    }
 })

@@ -145,7 +145,6 @@ function clearStartInfoOverlayData() {
 }
 
 function updateStartlistNavButtons() {
-    console.log("hey")
     let selectelem = $('#startlistitem-select-input')[0];
     if (selectelem.selectedIndex == 0) {
         $("#btn-previous-startlistitem").prop("disabled", true);
