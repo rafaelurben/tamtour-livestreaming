@@ -1,22 +1,58 @@
 /* Start info overlay */
 
-async function loadScenes() {
-    let data = await sendOBSCommand("GetSceneList");
+// Scenes
 
-    let sceneSelect = $("#obs-scene-select-input");
-    let sceneDisplay = $("#obs-scene-display");
+let sceneSelect = $("#obs-scene-select-input");
+let sceneDisplay = $("#obs-scene-display");
+
+function _updateScenePanel(data) {
     sceneSelect.off("change");
 
-    sceneSelect.empty();
-    for (let scene of data.scenes) {
-        let optelem = $("<option>", { value: scene.sceneName, text: scene.sceneName });
-        sceneSelect.append(optelem);
+    let oldPreviewScene = sceneSelect.val();
+
+    if (data.scenes) {
+        sceneSelect.empty();
+        for (let scene of data.scenes) {
+            let optelem = $("<option>", { value: scene.sceneName, text: scene.sceneName });
+            sceneSelect.append(optelem);
+        }
     }
 
-    sceneSelect.val(data.currentPreviewSceneName);
-    sceneSelect.change((event) => { sendOBSCommand("SetCurrentPreviewScene", {sceneName: event.target.value}); });
-    sceneDisplay.val(data.currentProgramSceneName);
+    let newPreviewScene = data.currentPreviewSceneName || oldPreviewScene;
+    sceneSelect.val(newPreviewScene);
+    
+    if (data.currentProgramSceneName) {
+        sceneDisplay.val(data.currentProgramSceneName);
+    }
+
+    sceneSelect.change((event) => {
+        sendOBSCommand("SetCurrentPreviewScene", { sceneName: event.target.value });
+    });
 }
+
+async function loadScenes() {
+    _updateScenePanel(await sendOBSCommand("GetSceneList"));
+}
+
+obs.on("SceneNameChanged", data => {
+    if (data.oldSceneName == sceneDisplay.val()) {
+        sceneDisplay.val(data.sceneName);
+    }
+    if (data.oldSceneName == sceneSelect.val()) {
+        $(`#obs-scene-select-input option[value="${data.oldSceneName}"]`).val(data.sceneName).text(data.sceneName);
+    }
+})
+obs.on("CurrentProgramSceneChanged", data => {
+    _updateScenePanel({ currentProgramSceneName: data.sceneName })
+})
+obs.on("CurrentPreviewSceneChanged", data => {
+    _updateScenePanel({ currentPreviewSceneName: data.sceneName })
+})
+obs.on("SceneListChanged", data => {
+    _updateScenePanel(data);
+})
+
+// Record / Stream status
 
 async function loadStatus() {
     let recDat = await sendOBSCommand("GetRecordStatus");
@@ -68,19 +104,15 @@ async function loadStatus() {
 
 // Intervals
 
-function __load() {
-    loadScenes();
-    loadStatus();
-}
-
 let interval = null;
 
 obs.on('Identified', () => {
-    __load();
+    loadScenes();
+    loadStatus();
     sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
-
+    
     interval = setInterval(() => {
-        __load();
+        loadStatus();
     }, 1000);
 })
 

@@ -36,7 +36,9 @@ function __handle_connected() {
 async function connect(target, password) {
     console.log(target, password)
     try {
-        data = await obs.connect('ws://' + target, password, { eventSubscriptions: OBSWebSocket.EventSubscription.All });
+        data = await obs.connect('ws://' + target, password, {
+            eventSubscriptions: OBSWebSocket.EventSubscription.Scenes// | OBSWebSocket.EventSubscription.InputVolumeMeters 
+        });
         __handle_connected();
         return data
     } catch (error) {
@@ -74,7 +76,6 @@ async function sendOBSCommand(command, data) {
 }
 
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#events
-obs.on("CurrentProgramSceneChanged", console.log)
 obs.on("ExitStarted", __handle_disconnected)
 obs.on("ConnectionClosed", __handle_disconnected)
 
