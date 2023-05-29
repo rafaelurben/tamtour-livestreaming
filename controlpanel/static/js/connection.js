@@ -36,7 +36,7 @@ function __handle_connected() {
 async function connect(target, password) {
     try {
         data = await obs.connect('ws://' + target, password, {
-            eventSubscriptions: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs // | OBSWebSocket.EventSubscription.InputVolumeMeters 
+            eventSubscriptions: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters 
         });
         __handle_connected();
         return data

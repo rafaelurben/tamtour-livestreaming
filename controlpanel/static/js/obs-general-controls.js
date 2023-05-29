@@ -140,6 +140,54 @@ function showStreamCongestion(congestion) {
 
 obs.on("StreamStateChanged", loadStreamStatus);
 
+// Volume meter
+
+let ch1peakHistory = [];
+let ch2peakHistory = [];
+
+function displayVolumeMeter(data) {
+    // From: https://github.com/obsproject/obs-websocket/commit/d48ddef0318af1e370a4d0b77751afc14ac6b140
+    // The `inputLevelsMul` field follows this data format:
+
+    // Base: [Channel, Channel]
+    // Channel: [magnitude(mul), peak(mul), input_peak(mul)]
+
+    //            * Not Muted *      * Muted *
+    // Example: [[0.3, 0.5, 0.9], [0.0, 0.0, 0.0]]
+
+    let ch1peaks = [];
+    let ch2peaks = [];
+
+    for (let src of data.inputs) {
+        if (src.inputLevelsMul.length == 0) continue;
+
+        ch1peaks.push(src.inputLevelsMul[0][1]);
+        ch2peaks.push(src.inputLevelsMul[0][1]);
+    }
+
+    let ch1peakdB = 20 * Math.log10(Math.max(...ch1peaks));
+    let ch2peakdB = 20 * Math.log10(Math.max(...ch2peaks));
+
+    // Expected values are between 0 and -Infinity
+
+    ch1peakHistory.push(ch1peakdB);
+    ch2peakHistory.push(ch2peakdB);
+
+    if (ch1peakHistory.length > 20) {
+        ch1peakHistory.shift();
+        ch2peakHistory.shift();
+    }
+
+    ch1peakMax = Math.max(...ch1peakHistory);
+    ch2peakMax = Math.max(...ch2peakHistory);
+
+    // Display the current peak and the maximum peak in the last 20 samples
+
+    // TODO: Display the peak as a bar
+}
+
+obs.on("InputVolumeMeters", displayVolumeMeter);
+
 // General Events & Intervals
 
 let interval = null;
