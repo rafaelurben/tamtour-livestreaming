@@ -118,17 +118,17 @@
                     </div>
                     <div class="mb-2">
                         <label for="startlist-select-input" class="form-label">Startliste</label>
-                        <select class="form-select" id="startlist-select-input" onchange="loadStartlist()">
+                        <select class="form-select nostartlistdisabled" disabled id="startlist-select-input" onchange="loadStartlist()">
                         </select>
                     </div>
                     <div class="mb-2">
                         <label for="startlistitem-select-input" class="form-label">Startposition</label>
                         <div class="input-group">
-                            <select class="form-select" id="startlistitem-select-input" onchange="loadStartlistitem()">
-                            </select>
-                            <button class="btn btn-outline-secondary" type="button"
+                            <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
+                                onchange="loadStartlistitem()"></select>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
                                 onclick="$('#startlistitem-select-input')[0].selectedIndex--; loadStartlistitem()">&lt;</button>
-                            <button class="btn btn-outline-secondary" type="button"
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
                                 onclick="$('#startlistitem-select-input')[0].selectedIndex++; loadStartlistitem()">&gt;</button>
                         </div>
                     </div>

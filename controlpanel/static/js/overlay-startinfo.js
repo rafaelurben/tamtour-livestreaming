@@ -66,6 +66,8 @@ function loadStartlists(initial) {
 
     if (!file) return;
 
+    $(".nostartlistdisabled").prop("disabled", false);
+
     let reader = new FileReader();
     reader.onload = function() {
         let data = JSON.parse(reader.result);
