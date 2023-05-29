@@ -56,7 +56,7 @@
         <!-- Main controls -->
         <div id="controlpanel-container" class="row g-3 notconnected">
             <!-- Column 1 -->
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-lg-6">
                 <!-- Startinfo-Overlay -->
                 <div class="mb-3">
                     <div class="mb-2">
@@ -135,7 +135,7 @@
                 </div>
             </div>
             <!-- Column 2 -->
-            <div class="col-12 col-sm-6">
+            <div class="col-12 col-lg-6">
                 <!-- Generelles Info-Overlay -->
                 <div class="mb-3">
                     <div class="mb-2">
@@ -177,22 +177,27 @@
                     <div class="mb-2">
                         <b>Sponsorenvideo</b>
                     </div>
-                    <div class="mb-2 d-flex flex-row flex-wrap gap-2">
-                        <div class="">
-                            <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary h-100" onclick="sendPlaySponsorsVideo()">Anzeigen</button>
+                    <div class="mb-2 d-flex flex-row gap-2">
+                        <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary w-auto flex-grow-0"
+                            onclick="playSponsorsAnimation()">
+                            Anzeigen
+                        </button>
+                        <div class="input-group">
+                            <div class="flex-fill form-floating">
+                                <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5" placeholder="5">
+                                <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
+                            </div>
+                            <button id="btn-start-sponsorsvideo-interval" class="btn btn-success form-control w-auto flex-grow-0" onclick="startSponsorsVideoInterval()">Start</button>
+                            <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control d-none w-auto flex-grow-0" onclick="stopSponsorsVideoInterval()">Stop</button>
+                            <div class="flex-fill form-floating">
+                                <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled value="" autocomplete="off">
+                                <label for="sponsors-interval-timer" class="form-label">Timer</label>
+                            </div>
                         </div>
-                        <div class="flex-fill form-floating">
-                            <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5" placeholder="5">
-                            <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
-                        </div>
-                        <div class="">
-                            <button id="btn-start-sponsorsvideo-interval" class="btn btn-success form-control h-100" onclick="startSponsorsVideoInterval()">Start Intervall</button>
-                            <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control h-100 d-none" onclick="stopSponsorsVideoInterval()">Stop Intervall</button>
-                        </div>
-                        <div class="flex-fill form-floating">
-                            <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled value="" autocomplete="off">
-                            <label for="sponsors-interval-timer" class="form-label">Timer</label>
-                        </div>
+                        <button id="btn-cancel-sponsorsvideo" class="form-control btn btn-outline-danger w-auto flex-grow-0"
+                            onclick="cancelSponsorsAnimation()">
+                            Abbruch
+                        </button>
                     </div>
                 </div>
 

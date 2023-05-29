@@ -2,26 +2,25 @@
 
 let generalInfoOverlayTimeout = null;
 
+function clearGeneralOverlayTimeout() {
+    if (generalInfoOverlayTimeout != null) {
+        clearTimeout(generalInfoOverlayTimeout);
+        generalInfoOverlayTimeout = null;
+    }
+}
+
 function setGeneralInfoOverlayContent(data) {
     document.querySelector("#generalinfooverlay-title").innerHTML = data.title;
     document.querySelector("#generalinfooverlay-description").innerHTML = data.description;
 }
 
 function showGeneralInfoOverlay() {
-    if (generalInfoOverlayTimeout != null) {
-        clearTimeout(generalInfoOverlayTimeout);
-        generalInfoOverlayTimeout = null;
-    }
-
+    clearGeneralOverlayTimeout()
     document.querySelector(".generalinfooverlay").classList.remove("out-left");
 }
 
 function hideGeneralInfoOverlay() {
-    if (generalInfoOverlayTimeout != null) {
-        clearTimeout(generalInfoOverlayTimeout);
-        generalInfoOverlayTimeout = null;
-    }
-
+    clearGeneralOverlayTimeout()
     document.querySelector(".generalinfooverlay").classList.add("out-left");
 }
 
@@ -39,6 +38,13 @@ function displayGeneralInfoOverlay(duration) {
 
 let startInfoOverlayTimeout = null;
 
+function clearStartInfoOverlayTimeout() {
+    if (startInfoOverlayTimeout != null) {
+        clearTimeout(startInfoOverlayTimeout);
+        startInfoOverlayTimeout = null;
+    }
+}
+
 function setStartInfoOverlayContent(data) {
     document.querySelector("#startinfooverlay-startnummer").innerHTML = data.kategorie + " #" + data.startnummer;
     document.querySelector("#startinfooverlay-name").innerHTML = data.name;
@@ -47,20 +53,12 @@ function setStartInfoOverlayContent(data) {
 }
 
 function showStartInfoOverlay() {
-    if (startInfoOverlayTimeout != null) {
-        clearTimeout(startInfoOverlayTimeout);
-        startInfoOverlayTimeout = null;
-    }
-
+    clearStartInfoOverlayTimeout();
     document.querySelector(".startinfooverlay").classList.remove("out-right");
 }
 
 function hideStartInfoOverlay() {
-    if (startInfoOverlayTimeout != null) {
-        clearTimeout(startInfoOverlayTimeout);
-        startInfoOverlayTimeout = null;
-    }
-
+    clearGeneralOverlayTimeout();
     document.querySelector(".startinfooverlay").classList.add("out-right");
 }
 
@@ -80,9 +78,25 @@ const SECONDS_PER_CATEGORY = 5;
 const CATEGORY_ANIMATION_DURATION = 1.5;
 const BLOCK_ANIMATION_DURATION = 1.5;
 
+var sponsorsAnimationTimeouts = [];
+
+function cancelSponsorsAnimation() {
+    for (let timeout of sponsorsAnimationTimeouts) {
+        clearTimeout(timeout);
+    }
+    sponsorsAnimationTimeouts.length = 0; // Clear array
+
+    let catelems = document.querySelectorAll(".sponsorscategory");
+    for (let el of catelems) {
+        el.classList.add("out-down");
+    }
+    document.querySelector(".sponsorsoverlay_block").classList.add("out-down");
+}
+
 function playSponsorsAnimation() {
+    cancelSponsorsAnimation();
+
     document.querySelector(".sponsorsoverlay_block").classList.remove("out-down");
-    console.log("Showing sponsors overlay")
 
     let catelems = document.querySelectorAll(".sponsorscategory");
     let count = 0;
@@ -92,22 +106,27 @@ function playSponsorsAnimation() {
         count++;
         var offset_end = count * (SECONDS_PER_CATEGORY + 2*CATEGORY_ANIMATION_DURATION) + 0.5*BLOCK_ANIMATION_DURATION - CATEGORY_ANIMATION_DURATION;
 
-        setTimeout(() => {
-            el.classList.remove("out-down");
-        }, offset_start * 1000);
-        setTimeout(() => {
-            el.classList.add("out-down");
-        }, offset_end * 1000);
+        sponsorsAnimationTimeouts.push(
+            setTimeout(() => {
+                el.classList.remove("out-down");
+            }, offset_start * 1000)
+        );
+        sponsorsAnimationTimeouts.push(
+            setTimeout(() => {
+                el.classList.add("out-down");
+            }, offset_end * 1000)
+        );
     }
 
     let offset_hide = count * (SECONDS_PER_CATEGORY + 2*CATEGORY_ANIMATION_DURATION);
-    setTimeout(() => {
-        document.querySelector(".sponsorsoverlay_block").classList.add("out-down");
-        console.log("Hiding sponsors overlay")
-    }, offset_hide * 1000 );
+    sponsorsAnimationTimeouts.push(
+        setTimeout(() => {
+            document.querySelector(".sponsorsoverlay_block").classList.add("out-down");
+        }, offset_hide * 1000)
+    );
 }
 
-function createSponsorsImages() {
+function setupSponsorsAnimationImages() {
     for (let category of window.tamtour_sponsorscategories) {
         let categoryEl = document.createElement("div");
         categoryEl.classList = "sponsorscategory out-down";
@@ -135,7 +154,7 @@ window.addEventListener('load', () => {
     }).then(data => {
         window.tamtour_sponsorscategories = data.categories;
         console.log("Sponsors data loaded successfully!")
-        createSponsorsImages();
+        setupSponsorsAnimationImages();
     }, err => {
         alert("Sponsorenliste konnte nicht geladen werden!")
     });
@@ -155,12 +174,14 @@ window.addEventListener('ControlPanelEvent', event => {
             setGeneralInfoOverlayContent(data);
             break;
         case "showGeneralInfoOverlay":
+            cancelSponsorsAnimation();
             showGeneralInfoOverlay();
             break;
         case "hideGeneralInfoOverlay":
             hideGeneralInfoOverlay();
             break;
         case "displayGeneralInfoOverlay":
+            cancelSponsorsAnimation();
             displayGeneralInfoOverlay(data.duration);
             break;
 
@@ -169,19 +190,23 @@ window.addEventListener('ControlPanelEvent', event => {
             setStartInfoOverlayContent(data);
             break;
         case "showStartInfoOverlay":
-            hideGeneralInfoOverlay();
+            cancelSponsorsAnimation();
             showStartInfoOverlay();
             break;
         case "hideStartInfoOverlay":
             hideStartInfoOverlay();
             break;
         case "displayStartInfoOverlay":
+            cancelSponsorsAnimation();
             displayStartInfoOverlay(data.duration);
             break;
 
         // Sponsors animation
         case "playSponsorsAnimation":
             playSponsorsAnimation();
+            break;
+        case "cancelSponsorsAnimation":
+            cancelSponsorsAnimation();
             break;
     }
 });

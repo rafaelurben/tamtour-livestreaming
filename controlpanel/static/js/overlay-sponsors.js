@@ -5,15 +5,27 @@ const SPONSORS_COOLDOWN = 15;
 var sponsorsoverlayInterval = null;
 var sponsorsoverlaySecondsRemaining = 0;
 
-async function sendPlaySponsorsVideo() {
+async function playSponsorsAnimation() {
     let success = await sendAction("playSponsorsAnimation");
     if (!success) return;
 
     let button = $("#btn-play-sponsorsvideo");
     button.prop("disabled", true);
 
-    setTimeout(() => { button.prop("disabled", false) }, SPONSORS_COOLDOWN*1000);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
 }
+
+async function cancelSponsorsAnimation() {
+    let success = await sendAction("cancelSponsorsAnimation");
+    if (!success) return;
+
+    let button = $("#btn-cancel-sponsorsvideo");
+    button.prop("disabled", true);
+
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
+}
+
+// Local interval timer
 
 function resetSponsorsVideoTimer() {
     let input = $("#sponsors-interval-input");
@@ -39,7 +51,7 @@ function updateSponsorsVideoState() {
     if (sponsorsoverlaySecondsRemaining > 0) {
         timer.val(`${min}m ${sec}s`);
     } else if (sponsorsoverlaySecondsRemaining == 0) {
-        sendPlaySponsorsVideo();
+        playSponsorsAnimation();
         timer.val("Animation gestartet");
     }
 }
