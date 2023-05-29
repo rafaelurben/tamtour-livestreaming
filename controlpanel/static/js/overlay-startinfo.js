@@ -9,7 +9,7 @@ async function setStartInfoOverlayContent() {
         vortrag: $("#startinfo-form-vortrag").val(),
     }
     if (!data.kategorie || !data.startnummer || !data.name || !data.verein || !data.vortrag) {
-        alert("Bitte Titel & Beschreibung ausfüllen!");
+        alert("Bitte alle Felder ausfüllen!");
         return false;
     }
 
