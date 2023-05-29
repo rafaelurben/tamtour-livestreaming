@@ -34,7 +34,6 @@ function __handle_connected() {
 }
 
 async function connect(target, password) {
-    console.log(target, password)
     try {
         data = await obs.connect('ws://' + target, password, {
             eventSubscriptions: OBSWebSocket.EventSubscription.Scenes// | OBSWebSocket.EventSubscription.InputVolumeMeters 
@@ -53,7 +52,7 @@ async function connectGUI() {
 
 async function sendAction(action, data) {
     let obj = { action: action, data: data}
-    console.log("Sending", obj, "to browser source...")
+    console.debug("Sending", obj, "to browser source...")
     try {
         await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
         return true;
@@ -65,7 +64,7 @@ async function sendAction(action, data) {
 }
 
 async function sendOBSCommand(command, data) {
-    console.log("Sending command", command, "to OBS with data:", data)
+    console.debug("Sending command", command, "to OBS with data:", data)
     try {
         return await obs.call(command, data)
     } catch (error) {
