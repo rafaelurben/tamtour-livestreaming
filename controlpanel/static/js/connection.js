@@ -1,6 +1,7 @@
 obs = new OBSWebSocket()
+wakeLock = null;
 
-function __handle_disconnected() {
+async function __handle_disconnected() {
     console.log("Disconnected!");
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
@@ -8,6 +9,15 @@ function __handle_disconnected() {
     $("#controlpanel-container").addClass("notconnected");
 
     alert("Verbindung getrennt!")
+
+    if (wakeLock != null) {
+        try {
+            await wakeLock.release();
+            wakeLock = null;
+        } catch (err) {
+            console.error(`Wakelock release failed: ${err.name}, ${err.message}`);
+        }   
+    }
 }
 
 async function disconnect() {
@@ -21,7 +31,7 @@ async function disconnect() {
     }
 }
 
-function __handle_connected() {
+async function __handle_connected() {
     console.log("Connected!");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
@@ -31,6 +41,18 @@ function __handle_connected() {
     sessionStorage.setItem("obs-auto-connect", "true");
     sessionStorage.setItem("obs-target", document.getElementById('login-form-target').value);
     sessionStorage.setItem("obs-password", document.getElementById('login-form-password').value);
+
+    if (wakeLock == null) {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            wakeLock.addEventListener('release', () => {
+                console.log('Wake Lock was released');
+            });
+            console.log('Wake Lock is active');
+        } catch (err) {
+            console.error(`Wakelock request failed: ${err.name}, ${err.message}`);
+        }
+    }
 }
 
 async function connect(target, password) {
