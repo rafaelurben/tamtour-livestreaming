@@ -114,10 +114,10 @@
                         <div class="input-group">
                             <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
                                 onchange="loadStartlistitem()"></select>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
-                                onclick="$('#startlistitem-select-input')[0].selectedIndex--; loadStartlistitem()">&lt;</button>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
-                                onclick="$('#startlistitem-select-input')[0].selectedIndex++; loadStartlistitem()">&gt;</button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-previous-startlistitem"
+                                onclick="previousStartlistitem()">&lt;</button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-next-startlistitem"
+                                onclick="nextStartlistitem()">&gt;</button>
                         </div>
                     </div>
                 </div>

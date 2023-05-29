@@ -130,6 +130,8 @@ function loadStartlistitem() {
     $("#startinfo-form-name").val(item.name);
     $("#startinfo-form-verein").val(item.verein);
     $("#startinfo-form-vortrag").val(item.vortrag);
+
+    updateStartlistNavButtons();
 }
 
 // Helpers
@@ -140,6 +142,33 @@ function clearStartInfoOverlayData() {
     $("#startinfo-form-name").val("");
     $("#startinfo-form-verein").val("");
     $("#startinfo-form-vortrag").val("");
+}
+
+function updateStartlistNavButtons() {
+    console.log("hey")
+    let selectelem = $('#startlistitem-select-input')[0];
+    if (selectelem.selectedIndex == 0) {
+        $("#btn-previous-startlistitem").prop("disabled", true);
+        $("#btn-next-startlistitem").prop("disabled", selectelem.length <= 1);
+    } else if (selectelem.selectedIndex == selectelem.length - 1) {
+        $("#btn-next-startlistitem").prop("disabled", true);
+        $("#btn-previous-startlistitem").prop("disabled", selectelem.length <= 1);
+    } else {
+        $("#btn-previous-startlistitem").prop("disabled", false);
+        $("#btn-next-startlistitem").prop("disabled", false);
+    }
+}
+
+function previousStartlistitem() {
+    let selectelem = $('#startlistitem-select-input')[0];
+    if (selectelem.selectedIndex > 0) selectelem.selectedIndex--;
+    loadStartlistitem();
+}
+
+function nextStartlistitem() {
+    let selectelem = $('#startlistitem-select-input')[0];
+    selectelem.selectedIndex++;
+    loadStartlistitem();
 }
 
 // Event listeners
