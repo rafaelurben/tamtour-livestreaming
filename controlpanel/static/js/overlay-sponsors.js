@@ -30,7 +30,7 @@ async function cancelSponsorsAnimation() {
 function resetSponsorsVideoTimer() {
     let input = $("#sponsors-interval-input");
 
-    let min = input.val() || 5;
+    let min = input.val() || 10;
 
     sponsorsoverlaySecondsRemaining = min * 60 + 1;
     updateSponsorsVideoState();
@@ -39,6 +39,7 @@ function resetSponsorsVideoTimer() {
 function updateSponsorsVideoState() {
     let timer = $("#sponsors-interval-timer");
 
+    sponsorsoverlaySecondsRemaining = Math.floor(sponsorsoverlaySecondsRemaining);
     sponsorsoverlaySecondsRemaining -= 1;
 
     if (sponsorsoverlaySecondsRemaining < -SPONSORS_COOLDOWN) {
