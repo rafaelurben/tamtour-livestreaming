@@ -46,7 +46,6 @@
 }
 
 .generalinfooverlay_text {
-    font-family: 'Arial Rounded MT Bold';
     font-size: calc(var(--size) * 4px);
     font-weight: bold;
     white-space: nowrap;
@@ -78,7 +77,6 @@
 }
 
 .startinfooverlay_text {
-    font-family: 'Arial Rounded MT Bold';
     font-size: calc(var(--size) * 4px);
     font-weight: bold;
     white-space: nowrap;
@@ -124,7 +122,6 @@
 
 .sponsorsoverlay .text {
     color: var(--tamtour-color-text);
-    font-family: 'Arial Rounded MT Bold';
     font-size: 3em;
     margin: 0 1em;
 }
