@@ -12,3 +12,19 @@
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 100;
 }
+
+#obs-stream-congestion-history-row > div {
+    flex-grow: 1;
+    flex-shrink: 1;
+    height: 7.5px;
+}
+
+#obs-stream-congestion-history-row > div:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#obs-stream-congestion-history-row > div:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

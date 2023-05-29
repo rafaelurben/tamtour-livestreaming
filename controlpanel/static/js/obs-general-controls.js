@@ -84,7 +84,9 @@ obs.on("RecordStateChanged", loadRecordStatus)
 // Stream status
 
 let streamActive = false;
+let streamCongestionHistory = [];
 
+let streamCongestionHistoryRow = $("#obs-stream-congestion-history-row");
 let streamStatusDisplay = $("#obs-stream-status-display");
 let streamStartBtn = $("#obs-stream-start-btn");
 let streamStopBtn = $("#obs-stream-stop-btn");
@@ -99,23 +101,46 @@ async function loadStreamStatus() {
 
         let strTsp = strDat.outputTimecode.split(".")[0];
         let strMB = (strDat.outputBytes / 1024 / 1024).toFixed(3);
-        var txt = `${strTsp} (${strMB} MB, Skipped: ${strDat.outputSkippedFrames} / ${strDat.outputTotalFrames})`;
-        if (strDat.outputReconnecting) {
-            txt += " Reconnecting...";
-        }
+        var txt = `${strTsp} (${strMB} MB) [Dropped: ${strDat.outputSkippedFrames} / ${strDat.outputTotalFrames}`;
         if (strDat.outputCongestion) {
-            txt += " Congestion: " + strDat.outputCongestion;
+            txt += ", Verstopft: " + strDat.outputCongestion.toFixed(2);
         }
+        if (strDat.outputReconnecting) {
+            txt += ", Verbinden...";
+        }
+        txt += "]";
         streamStatusDisplay.val(txt);
+
+        showStreamCongestion(strDat.outputCongestion);
     } else {
         streamStartBtn.toggleClass("d-none", false);
         streamStopBtn.toggleClass("d-none", true);
         streamStatusDisplay.val("Kein Stream");
     }
 }
+
+function showStreamCongestion(congestion) {
+    // Note: congestion is a number between 0 and 1 or null
+
+    streamCongestionHistory.push(congestion);
+
+    let r = congestion == null ? 0 : congestion * 255;
+    let g = congestion == null ? 0 : (1 - congestion) * 255;
+
+    let elem = $("<div>", {
+        style: `background-color: rgb(${r}, ${g}, 0);`
+    });
+    streamCongestionHistoryRow.append(elem);
+
+    if (streamCongestionHistory.length > 60) {
+        streamCongestionHistory.shift();
+        streamCongestionHistoryRow.children().first().remove();
+    };
+}
+
 obs.on("StreamStateChanged", loadStreamStatus);
 
-// Intervals
+// General Events & Intervals
 
 let interval = null;
 
@@ -126,7 +151,7 @@ obs.on('Identified', () => {
     
     interval = setInterval(() => {
         if (recordActive) loadRecordStatus();
-        if (streamActive) loadStreamStatus();
+        if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)};
     }, 1000);
 
     sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
@@ -137,6 +162,7 @@ obs.on('ConnectionClosed', () => {
 })
 
 obs.on('StudioModeStateChanged', data => {
+    // Enforce studio mode
     if (!data.studioModeEnabled) {
         sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true}).then(
             () => sendOBSCommand("SetCurrentPreviewScene", { sceneName: sceneSelect.val() })
