@@ -83,3 +83,9 @@ function stopSponsorsVideoInterval() {
 
     sponsorsoverlaySecondsRemaining = 0;
 }
+
+// Events
+
+obs.on('ConnectionClosed', () => {
+    stopSponsorsVideoInterval();
+})
