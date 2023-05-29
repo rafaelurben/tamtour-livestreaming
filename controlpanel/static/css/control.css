@@ -13,6 +13,32 @@
     z-index: 100;
 }
 
+/* Revert Bootstrap style */
+
+
+fieldset {
+    min-width: revert;
+    padding: revert;
+    margin: revert;
+    border: 1px solid #000000;
+    border-radius: 5px;
+}
+
+[data-bs-theme="dark"] fieldset {
+    border-color: #ffffff;
+}
+
+legend {
+    float: revert;
+    width: revert;
+    padding: revert;
+    margin: revert;
+    font-size: revert;
+    line-height: revert;
+}
+
+/* OBS Controls */
+
 #obs-stream-congestion-history-row > div {
     flex-grow: 1;
     flex-shrink: 1;

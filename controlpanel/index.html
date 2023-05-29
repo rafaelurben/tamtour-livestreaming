@@ -42,14 +42,14 @@
             </div>
         </div>
         <!-- Main controls -->
-        <div id="controlpanel-container" class="row g-3 notconnected">
+        <div id="controlpanel-container" class="row g-2 notconnected">
             <!-- Column 1 -->
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2 mb-3">
                 <!-- Startinfo-Overlay -->
-                <div class="mb-3">
-                    <div class="mb-2">
+                <fieldset>
+                    <legend>
                         <b>Startinfo-Overlay</b> <i onclick="clearStartInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
-                    </div>
+                    </legend>
                     <div class="mb-2 d-flex flex-row gap-2">
                         <div class="form-floating flex-grow-1">
                             <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
@@ -93,13 +93,13 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- Startinfo-Overlay Import -->
-                <div class="mb-3">
-                    <div class="mb-2">
+                <fieldset>
+                    <legend>
                         <b>Startlisten für Startinfo-Overlay importieren</b>
-                    </div>
+                    </legend>
                     <div class="mb-2">
                         <label for="startlists-file-input" class="form-label visually-hidden-focusable">JSON-Datei</label>
                         <input class="form-control" type="file" id="startlists-file-input" accept=".json" onchange="loadStartlists();">
@@ -120,13 +120,13 @@
                                 onclick="nextStartlistitem()">&gt;</button>
                         </div>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- Settings-Overlay -->
-                <div class="mb-3">
-                    <div class="mb-2">
+                <fieldset>
+                    <legend>
                         <b>Einstellungen</b>
-                    </div>
+                    </legend>
                     <div class="input-group mb-2">
                         <div class="form-floating">
                             <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input" value="#758aa5" />
@@ -141,15 +141,15 @@
                         <button id="btn-reset-settings" class="btn btn-outline-danger form-control w-auto flex-grow-0"
                             onclick="resetSettings()">Reset</button>
                     </div>
-                </div>
+                </fieldset>
             </div>
             <!-- Column 2 -->
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2 mb-3">
                 <!-- Generelles Info-Overlay -->
-                <div class="mb-3">
-                    <div class="mb-2">
+                <fieldset>
+                    <legend>
                         <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
-                    </div>
+                    </legend>
                     <div class="form-floating mb-2">
                         <input type="text" class="form-control" id="generalinfo-form-title" placeholder="Titel">
                         <label for="generalinfo-form-title" class="form-label">Titel</label>
@@ -179,13 +179,13 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- Sponsorenvideo -->
-                <div class="mb-3">
-                    <div class="mb-2">
+                <fieldset>
+                    <legend>
                         <b>Sponsorenvideo</b>
-                    </div>
+                    </legend>
                     <div class="mb-2 d-flex flex-row gap-2">
                         <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary w-auto flex-grow-0"
                             onclick="playSponsorsAnimation()">
@@ -208,13 +208,13 @@
                             Abbruch
                         </button>
                     </div>
-                </div>
+                </fieldset>
 
                 <!-- OBS Controls -->
-                <div class="mb-3">
-                    <div class="mb-2">
+                <fieldset>
+                    <legend>
                         <b>OBS Controls</b>
-                    </div>
+                    </legend>
                     <div class="mb-2">
                         <label for="obs-record-status-display-group" class="form-label">Aufnahmestatus</label>
                         <div class="input-group" id="obs-record-status-display-group">
@@ -248,7 +248,7 @@
                             <input class="form-control" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
-                </div>
+                </fieldset>
             </div>
         </div>
     </div>
