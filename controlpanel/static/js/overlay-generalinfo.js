@@ -54,3 +54,10 @@ async function hideGeneralInfoOverlay() {
 
     return true;
 }
+
+// Helper
+
+function clearGeneralInfoOverlayData() {
+    $("#generalinfo-form-title").val("");
+    $("#generalinfo-form-description").val("");
+}

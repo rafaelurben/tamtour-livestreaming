@@ -132,6 +132,16 @@ function loadStartlistitem() {
     $("#startinfo-form-vortrag").val(item.vortrag);
 }
 
+// Helpers
+
+function clearStartInfoOverlayData() {
+    $("#startinfo-form-kategorie").val("");
+    $("#startinfo-form-startnummer").val("");
+    $("#startinfo-form-name").val("");
+    $("#startinfo-form-verein").val("");
+    $("#startinfo-form-vortrag").val("");
+}
+
 // Event listeners
 
 window.addEventListener("load", () => {
