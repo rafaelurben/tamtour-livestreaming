@@ -2,30 +2,30 @@
 
 // Scenes
 
-let sceneSelect = $("#obs-scene-select-input");
-let sceneDisplay = $("#obs-scene-display");
+let previewSceneSelect = $("#obs-scene-select-input");
+let programSceneDisplay = $("#obs-scene-display");
 
 function _updateScenePanel(data) {
-    sceneSelect.off("change");
+    previewSceneSelect.off("change");
 
-    let oldPreviewScene = sceneSelect.val();
+    let oldPreviewScene = previewSceneSelect.val();
 
     if (data.scenes) {
-        sceneSelect.empty();
+        previewSceneSelect.empty();
         for (let scene of data.scenes) {
             let optelem = $("<option>", { value: scene.sceneName, text: scene.sceneName });
-            sceneSelect.append(optelem);
+            previewSceneSelect.append(optelem);
         }
     }
 
     let newPreviewScene = data.currentPreviewSceneName || oldPreviewScene;
-    sceneSelect.val(newPreviewScene);
+    previewSceneSelect.val(newPreviewScene);
     
     if (data.currentProgramSceneName) {
-        sceneDisplay.val(data.currentProgramSceneName);
+        programSceneDisplay.val(data.currentProgramSceneName);
     }
 
-    sceneSelect.change((event) => {
+    previewSceneSelect.change((event) => {
         sendOBSCommand("SetCurrentPreviewScene", { sceneName: event.target.value });
     });
 }
@@ -35,22 +35,68 @@ async function loadScenes() {
 }
 
 obs.on("SceneNameChanged", data => {
-    if (data.oldSceneName == sceneDisplay.val()) {
-        sceneDisplay.val(data.sceneName);
+    if (data.oldSceneName == programSceneDisplay.val()) {
+        programSceneDisplay.val(data.sceneName);
     }
-    if (data.oldSceneName == sceneSelect.val()) {
+    if (data.oldSceneName == previewSceneSelect.val()) {
         $(`#obs-scene-select-input option[value="${data.oldSceneName}"]`).val(data.sceneName).text(data.sceneName);
     }
 })
 obs.on("CurrentProgramSceneChanged", data => {
     _updateScenePanel({ currentProgramSceneName: data.sceneName })
+    if (liveScreenshotsEnabled) getProgramScreenshot();
 })
 obs.on("CurrentPreviewSceneChanged", data => {
     _updateScenePanel({ currentPreviewSceneName: data.sceneName })
+    if (liveScreenshotsEnabled) getPreviewScreenshot();
 })
 obs.on("SceneListChanged", data => {
     _updateScenePanel(data);
 })
+
+// Preview/Program display
+
+let liveScreenshotsEnabled = false;
+let liveScreenshotWidth = 960;
+
+let previewImageElem = $("#obs-preview-image");
+let programImageElem = $("#obs-program-image");
+
+async function getProgramScreenshot() {
+    let data = await sendOBSCommand('GetSourceScreenshot', {
+        sourceName: programSceneDisplay.val(),
+        imageFormat: "jpg",
+        imageWidth: liveScreenshotWidth,
+        imageHeight: liveScreenshotWidth / 16 * 9
+    })
+    if (data && data.imageData) {
+        programImageElem.attr("src", data.imageData);
+    }
+}
+
+async function getPreviewScreenshot() {
+    let data = await sendOBSCommand('GetSourceScreenshot', {
+        sourceName: previewSceneSelect.val(),
+        imageFormat: "jpg",
+        imageWidth: liveScreenshotWidth,
+        imageHeight: liveScreenshotWidth / 16 * 9
+    })
+    if (data && data.imageData) {
+        previewImageElem.attr("src", data.imageData);
+    }
+}
+
+function getLiveScreenshots() {
+    getPreviewScreenshot();
+    getProgramScreenshot();
+}
+
+function toggleLiveScreenshots() {
+    liveScreenshotsEnabled = !liveScreenshotsEnabled;
+    if (liveScreenshotsEnabled) {
+        getLiveScreenshots();
+    }
+}
 
 // Record status
 
@@ -200,6 +246,7 @@ obs.on('Identified', () => {
     interval = setInterval(() => {
         if (recordActive) loadRecordStatus();
         if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)};
+        if (liveScreenshotsEnabled) getLiveScreenshots();
     }, 1000);
 
     sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
@@ -213,7 +260,7 @@ obs.on('StudioModeStateChanged', data => {
     // Enforce studio mode
     if (!data.studioModeEnabled) {
         sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true}).then(
-            () => sendOBSCommand("SetCurrentPreviewScene", { sceneName: sceneSelect.val() })
+            () => sendOBSCommand("SetCurrentPreviewScene", { sceneName: previewSceneSelect.val() })
         );
     }
 })

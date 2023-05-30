@@ -254,6 +254,20 @@
                             <input class="form-control" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
+                    <fieldset class="collapsed">
+                        <legend>
+                            <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots()"></span>
+                            <b>Bild-Vorschau</b>
+                        </legend>
+                        <div class="d-flex mb-1 gap-2">
+                            <div class="flex-fill border border-2 border-success">
+                                <img class="w-100" src="" alt="Preview scene" id="obs-preview-image">
+                            </div>
+                            <div class="flex-fill border border-2 border-danger">
+                                <img class="w-100" src="" alt="Program scene" id="obs-program-image">
+                            </div>
+                        </div>
+                    </fieldset>
                 </fieldset>
             </div>
         </div>
