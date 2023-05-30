@@ -56,8 +56,15 @@ async function __handle_connected() {
 }
 
 async function connect(target, password) {
+    var prefix = "ws://";
+    if (target.startsWith("https://")) {
+        prefix = "wss://";
+        target = target.split("//")[1];
+    } else if (target.startsWith("http://")) {
+        target = target.split("//")[1];
+    }
     try {
-        data = await obs.connect('ws://' + target, password, {
+        data = await obs.connect(prefix + target, password, {
             eventSubscriptions: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters 
         });
         __handle_connected();
