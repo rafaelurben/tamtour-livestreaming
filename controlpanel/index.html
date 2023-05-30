@@ -145,7 +145,7 @@
                         </div>
                         <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
                             onclick="setSettings()">Speichern</button>
-                        <button id="btn-reset-settings" class="btn btn-outline-danger form-control w-auto flex-grow-0"
+                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
                             onclick="resetSettings()">Reset</button>
                     </div>
                 </fieldset>
@@ -159,11 +159,11 @@
                         <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
                     </legend>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-title" list="generalinfo-overlay-title-list" autocomplete="on">
+                        <input type="text" class="form-control" id="generalinfo-form-title" list="generalinfo-overlay-title-list" autocomplete="on" maxlength="30">
                         <label for="generalinfo-form-title" class="form-label">Titel</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-description" list="generalinfo-overlay-description-list" autocomplete="on">
+                        <input type="text" class="form-control" id="generalinfo-form-description" list="generalinfo-overlay-description-list" autocomplete="on" maxlength="50">
                         <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
                     </div>
                     <div class="mb-2">
@@ -260,11 +260,11 @@
                     <div class="mb-2">
                         <label for="obs-scene-select-input" class="form-label">Szene</label>
                         <div class="input-group">
-                            <select class="form-select" id="obs-scene-select-input">
+                            <select class="form-select border-success-subtle" id="obs-scene-select-input">
                             </select>
                             <button class="btn btn-primary" type="button"
                                 onclick="sendOBSCommand('TriggerStudioModeTransition')">Übergang</button>
-                            <input class="form-control" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
+                            <input class="form-control border-danger-subtle" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
                     <fieldset class="collapsed mx-0">
