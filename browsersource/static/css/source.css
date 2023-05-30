@@ -30,19 +30,32 @@
     color: var(--tamtour-color-text);
     background-color: var(--tamtour-color-background);
     position: absolute;
-    padding: calc(var(--pady) * 1px) 60px calc(var(--pady) * 1px) 120px;
+    padding: calc(var(--pady) * 1px) 60px;
     top: calc(var(--top) * 1px);
-    left: 0;
-    transition: ease-in-out 1.5s all;
+    transition: ease-in-out 1.5s left, ease-in-out 1.5s right;
     transition-delay: calc(var(--delay, 0s) * 1s)
+}
+
+body:not(.direction-inverted) .generalinfooverlay_block {
+    left: 0;
+    padding-left: 120px;
+}
+body.direction-inverted .generalinfooverlay_block {
+    right: 0;
 }
 
 .generalinfooverlay_block.b1 { --top: 725; --pady: 20; --delay: 0.05; }
 .generalinfooverlay_block.b2 { --top: 910; --pady: 16; --delay: 0.00; }
 
-.generalinfooverlay.out-left .generalinfooverlay_block {
-    left: -100%;
+.generalinfooverlay.out .generalinfooverlay_block {
     transition-delay: calc(0.2s - calc(var(--delay, 0s) * 1s));
+}
+
+body:not(.direction-inverted) .generalinfooverlay.out .generalinfooverlay_block {
+    left: -100%;
+}
+body.direction-inverted .generalinfooverlay.out .generalinfooverlay_block {
+    right: -100%;
 }
 
 .generalinfooverlay_text {
@@ -62,18 +75,31 @@
     position: absolute;
     padding: calc(var(--pad) * 1px) calc(var(--pad) * 1.75px);
     top: calc(var(--top) * 1px);
-    right: 0;
-    transition: ease-in-out 1.5s all;
+    transition: ease-in-out 1.5s right, ease-in-out 1.5s left;
     transition-delay: calc(var(--delay, 0s) * 1s)
+}
+
+body:not(.direction-inverted) .startinfooverlay_block {
+    right: 0;
+}
+body.direction-inverted .startinfooverlay_block {
+    left: 0;
+    padding-left: 60px;
 }
 
 .startinfooverlay_block.b1 { --top: 595; --pad: 20; --delay: 0.05; }
 .startinfooverlay_block.b2 { --top: 700; --pad: 25; --delay: 0.00; }
 .startinfooverlay_block.b3 { --top: 915; --pad: 20; --delay: 0.1; }
 
-.startinfooverlay.out-right .startinfooverlay_block {
-    right: -100%;
+.startinfooverlay.out .startinfooverlay_block {
     transition-delay: calc(0.2s - calc(var(--delay, 0s) * 1s));
+}
+
+body:not(.direction-inverted) .startinfooverlay.out .startinfooverlay_block {
+    right: -100%;
+}
+body.direction-inverted .startinfooverlay.out .startinfooverlay_block {
+    left: -100%;
 }
 
 .startinfooverlay_text {

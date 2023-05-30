@@ -16,12 +16,12 @@ function setGeneralInfoOverlayContent(data) {
 
 function showGeneralInfoOverlay() {
     clearGeneralOverlayTimeout()
-    document.querySelector(".generalinfooverlay").classList.remove("out-left");
+    document.querySelector(".generalinfooverlay").classList.remove("out");
 }
 
 function hideGeneralInfoOverlay() {
     clearGeneralOverlayTimeout()
-    document.querySelector(".generalinfooverlay").classList.add("out-left");
+    document.querySelector(".generalinfooverlay").classList.add("out");
 }
 
 function displayGeneralInfoOverlay(duration_s) {
@@ -54,12 +54,12 @@ function setStartInfoOverlayContent(data) {
 
 function showStartInfoOverlay() {
     clearStartInfoOverlayTimeout();
-    document.querySelector(".startinfooverlay").classList.remove("out-right");
+    document.querySelector(".startinfooverlay").classList.remove("out");
 }
 
 function hideStartInfoOverlay() {
     clearGeneralOverlayTimeout();
-    document.querySelector(".startinfooverlay").classList.add("out-right");
+    document.querySelector(".startinfooverlay").classList.add("out");
 }
 
 function displayStartInfoOverlay(duration_s) {
@@ -169,6 +169,7 @@ function setSettings(settings) {
     if (settings.textColor) {
         document.querySelector("*").style.setProperty('--tamtour-color-text', settings.textColor)
     }
+    document.body.classList.toggle("direction-inverted", settings.directionInverted);
 }
 
 // Control panel events
