@@ -254,7 +254,14 @@
                             <input class="form-control" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
-                    <fieldset class="collapsed">
+                    <div class="mb-2">
+                        <label for="obs-volume-meters-group" class="form-label">Lautstärke</label>
+                        <div id="obs-volume-meters-group">
+                            <meter id="obs-volume-meter-1" class="w-100 volume-meter" min="-60" optimum="-30" low="-20" high="-8" max="0" value="-10"></meter>
+                            <meter id="obs-volume-meter-2" class="w-100 volume-meter" min="-60" optimum="-30" low="-20" high="-8" max="0" value="-30"></meter>
+                        </div>
+                    </div>
+                    <fieldset class="collapsed mb-2">
                         <legend>
                             <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots()"></span>
                             <b>Bild-Vorschau</b>

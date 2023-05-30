@@ -75,3 +75,69 @@ fieldset.collapsed > legend > .collapser::before {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+/* Volume meter */
+
+.volume-meter {
+    border-radius: 10px;
+    background-image: linear-gradient(
+        90deg, 
+        #50b71c80 0%,
+        #50b71c80 66%, 
+        #eaf30f80 66%,
+        #eaf30f80 87%,
+        #ff000080 87%,
+        #ff000080 100%
+    );
+    background-size: 100% 100%;
+    height: 8px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.volume-meter::-moz-meter-bar,
+.volume-meter::-webkit-meter-bar {
+    border-radius: 10px;
+    background: none; /* Required to get rid of the default background property */
+}
+
+.volume-meter:-moz-meter-optimum::-moz-meter-bar,
+.volume-meter::-webkit-meter-optimum-value {
+    background-color: #50b71c;
+}
+
+.volume-meter:-moz-meter-sub-optimum::-moz-meter-bar,
+.volume-meter::-webkit-meter-suboptimum-value {
+    background-color: #eaf30f;
+}
+
+.volume-meter:-moz-meter-sub-sub-optimum::-moz-meter-bar,
+.volume-meter::-webkit-meter-even-less-good-value {
+    background-color: #ff0000;
+}
+
+.volume-meter[value="0"]::-moz-meter-bar,
+.volume-meter[value="0"]::-webkit-meter-bar {
+    background-image: linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.4) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0.4) 75%,
+        transparent 75%,
+        transparent
+    );
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: move 2s linear infinite;
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 50px 50px;
+  }
+}

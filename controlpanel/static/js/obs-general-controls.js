@@ -188,6 +188,8 @@ obs.on("StreamStateChanged", loadStreamStatus);
 
 // Volume meter
 
+let volumeMeter1 = $("#obs-volume-meter-1");
+let volumeMeter2 = $("#obs-volume-meter-2");
 let ch1peakHistory = [];
 let ch2peakHistory = [];
 
@@ -219,7 +221,7 @@ function displayVolumeMeter(data) {
     ch1peakHistory.push(ch1peakdB);
     ch2peakHistory.push(ch2peakdB);
 
-    if (ch1peakHistory.length > 20) {
+    if (ch1peakHistory.length > 10) {
         ch1peakHistory.shift();
         ch2peakHistory.shift();
     }
@@ -227,9 +229,10 @@ function displayVolumeMeter(data) {
     ch1peakMax = Math.max(...ch1peakHistory);
     ch2peakMax = Math.max(...ch2peakHistory);
 
-    // Display the current peak and the maximum peak in the last 20 samples
+    // Display the current peak and the maximum peak in the last samples
 
-    // TODO: Display the peak as a bar
+    volumeMeter1.val(ch1peakMax);
+    volumeMeter2.val(ch2peakMax);
 }
 
 obs.on("InputVolumeMeters", displayVolumeMeter);
