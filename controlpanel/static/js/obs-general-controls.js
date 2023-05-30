@@ -188,10 +188,11 @@ obs.on("StreamStateChanged", loadStreamStatus);
 
 // Volume meter
 
+let smoothingDiff = 1.2;
 let volumeMeter1 = $("#obs-volume-meter-1");
 let volumeMeter2 = $("#obs-volume-meter-2");
-let ch1peakHistory = [];
-let ch2peakHistory = [];
+let ch1latestValuedB = -Infinity;
+let ch2latestValuedB = -Infinity;
 
 function displayVolumeMeter(data) {
     // From: https://github.com/obsproject/obs-websocket/commit/d48ddef0318af1e370a4d0b77751afc14ac6b140
@@ -219,26 +220,21 @@ function displayVolumeMeter(data) {
         ch2peaks.push(0);
     }
 
-    let ch1peakdB = 20 * Math.log10(Math.max(...ch1peaks));
-    let ch2peakdB = 20 * Math.log10(Math.max(...ch2peaks));
+    // Convert to dB
+    var ch1peakdB = 20 * Math.log10(Math.max(...ch1peaks));
+    var ch2peakdB = 20 * Math.log10(Math.max(...ch2peaks));
 
-    // Expected values are between 0 and -Infinity
+    // Make clipping stay longer
+    ch1peakdB = ch1peakdB === 0 ? 20 : ch1peakdB;
+    ch2peakdB = ch2peakdB === 0 ? 20 : ch2peakdB;
 
-    ch1peakHistory.push(ch1peakdB);
-    ch2peakHistory.push(ch2peakdB);
+    // Smooth the peak
+    ch1latestValuedB = Math.max(ch1latestValuedB - smoothingDiff, ch1peakdB);
+    ch2latestValuedB = Math.max(ch2latestValuedB - smoothingDiff, ch2peakdB);
 
-    if (ch1peakHistory.length > 10) {
-        ch1peakHistory.shift();
-        ch2peakHistory.shift();
-    }
-
-    let ch1peakMaxdB = Math.max(...ch1peakHistory);
-    let ch2peakMaxdB = Math.max(...ch2peakHistory);
-
-    // Display the current peak and the maximum peak in the last samples
-
-    volumeMeter1.val(Math.max(ch1peakMaxdB, -60));
-    volumeMeter2.val(Math.max(ch2peakMaxdB, -60));
+    // Display the smoothened peak
+    volumeMeter1.val(Math.min(Math.max(ch1latestValuedB, -60), 0));
+    volumeMeter2.val(Math.min(Math.max(ch2latestValuedB, -60), 0));
 }
 
 obs.on("InputVolumeMeters", displayVolumeMeter);
