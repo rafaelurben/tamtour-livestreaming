@@ -218,7 +218,7 @@
                 <!-- OBS Controls -->
                 <fieldset>
                     <legend>
-                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots();"></span>
                         <b>OBS Controls</b>
                     </legend>
                     <div class="mb-2">
@@ -259,7 +259,7 @@
                             <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots()"></span>
                             <b>Bild-Vorschau</b>
                         </legend>
-                        <div class="d-flex mb-1 gap-2">
+                        <div class="d-flex mb-1 gap-2" id="obs-screenshots-container">
                             <div class="flex-fill border border-2 border-success">
                                 <img class="w-100" src="" alt="Preview scene" id="obs-preview-image">
                             </div>
