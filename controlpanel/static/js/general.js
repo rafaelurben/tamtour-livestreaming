@@ -12,3 +12,9 @@ async function resetSettings() {
     $("#settings-text-color-input").val("#ffffff");
     await setSettings();
 }
+
+// Collapser
+
+function toggleCollapse(elem) {
+    $(elem).parent().parent().toggleClass("collapsed");
+}

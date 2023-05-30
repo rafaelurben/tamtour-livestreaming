@@ -13,7 +13,7 @@
     z-index: 100;
 }
 
-/* Revert Bootstrap style */
+/* Fieldset design - Revert Bootstrap style */
 
 
 fieldset {
@@ -28,6 +28,14 @@ fieldset {
     border-color: #ffffff;
 }
 
+fieldset.collapsed {
+    padding-bottom: 0;
+}
+
+fieldset.collapsed > *:not(legend) {
+    display: none !important;
+}
+
 legend {
     float: revert;
     width: revert;
@@ -35,6 +43,19 @@ legend {
     margin: revert;
     font-size: revert;
     line-height: revert;
+}
+
+legend > .collapser {
+    cursor: pointer;
+}
+
+legend > .collapser::before {
+    content: "▼";
+}
+
+fieldset.collapsed > legend > .collapser::before {
+    rotate: -90deg;
+    display: inline-block;
 }
 
 /* OBS Controls */
