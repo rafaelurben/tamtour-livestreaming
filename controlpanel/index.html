@@ -159,11 +159,11 @@
                         <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
                     </legend>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-title" placeholder="Titel">
+                        <input type="text" class="form-control" id="generalinfo-form-title" list="generalinfo-overlay-title-list" autocomplete="on">
                         <label for="generalinfo-form-title" class="form-label">Titel</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-description" placeholder="Beschreibung">
+                        <input type="text" class="form-control" id="generalinfo-form-description" list="generalinfo-overlay-description-list" autocomplete="on">
                         <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
                     </div>
                     <div class="mb-2">
@@ -285,6 +285,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Datalists -->
+    <datalist id="generalinfo-overlay-title-list">
+        <option value="Kurze Pause" />
+        <option value="Es geht gleich los..." />
+        <option value="Eure Meinung zählt!" />
+        <option value="Nächster Stream" />
+        <option value="Das war's!" />
+    </datalist>
+    <datalist id="generalinfo-overlay-description-list">
+        <option value="Es geht gleich weiter..." />
+        <option value="Die Vorbereitungen laufen auf Hochtouren" />
+        <option value="Feedback-Link in Beschreibung & Chat" />
+        <option value="XXX um XX:XX Uhr" />
+        <option value="Danke fürs Zuschauen!" />
+    </datalist>
 
     <!-- JavaScript -->
     <!-- External JS -->
