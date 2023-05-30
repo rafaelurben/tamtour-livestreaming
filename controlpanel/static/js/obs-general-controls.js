@@ -213,6 +213,12 @@ function displayVolumeMeter(data) {
         ch2peaks.push(src.inputLevelsMul[0][1]);
     }
 
+    // If no sources are active, the array will be empty
+    if (ch1peaks.length == 0) {
+        ch1peaks.push(0);
+        ch2peaks.push(0);
+    }
+
     let ch1peakdB = 20 * Math.log10(Math.max(...ch1peaks));
     let ch2peakdB = 20 * Math.log10(Math.max(...ch2peaks));
 
@@ -226,13 +232,13 @@ function displayVolumeMeter(data) {
         ch2peakHistory.shift();
     }
 
-    ch1peakMax = Math.max(...ch1peakHistory);
-    ch2peakMax = Math.max(...ch2peakHistory);
+    let ch1peakMaxdB = Math.max(...ch1peakHistory);
+    let ch2peakMaxdB = Math.max(...ch2peakHistory);
 
     // Display the current peak and the maximum peak in the last samples
 
-    volumeMeter1.val(ch1peakMax);
-    volumeMeter2.val(ch2peakMax);
+    volumeMeter1.val(Math.max(ch1peakMaxdB, -60));
+    volumeMeter2.val(Math.max(ch2peakMaxdB, -60));
 }
 
 obs.on("InputVolumeMeters", displayVolumeMeter);
