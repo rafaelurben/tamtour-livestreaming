@@ -124,29 +124,37 @@
                     </fieldset>
                 </fieldset>
 
-                <!-- Settings-Overlay -->
+                <!-- Sponsorenvideo -->
                 <fieldset>
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Einstellungen</b>
+                        <b>Sponsorenvideo</b>
                     </legend>
-                    <div class="input-group mb-2">
-                        <div class="form-floating">
-                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input" value="#758aa5" />
-                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
+                    <div class="mb-2 d-flex flex-row gap-2">
+                        <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary w-auto flex-grow-0"
+                            onclick="playSponsorsAnimation()">
+                            Anzeigen
+                        </button>
+                        <div class="input-group">
+                            <div class="flex-fill form-floating">
+                                <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1"
+                                    value="5" placeholder="5">
+                                <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
+                            </div>
+                            <button id="btn-start-sponsorsvideo-interval" class="btn btn-success form-control w-auto flex-grow-0"
+                                onclick="startSponsorsVideoInterval()">Start</button>
+                            <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control d-none w-auto flex-grow-0"
+                                onclick="stopSponsorsVideoInterval()">Stop</button>
+                            <div class="flex-fill form-floating">
+                                <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled value=""
+                                    autocomplete="off">
+                                <label for="sponsors-interval-timer" class="form-label">Timer</label>
+                            </div>
                         </div>
-                        <div class="form-floating">
-                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input" value="#ffffff" />
-                            <label for="settings-text-color-input" class="form-label">Text</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="checkbox" class="form-control form-check-input w-100 mt-0" id="settings-direction-inverted-input" />
-                            <label for="settings-direction-inverted-input" class="form-label">Richtung</label>
-                        </div>
-                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
-                            onclick="setSettings()">Speichern</button>
-                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
-                            onclick="resetSettings()">Reset</button>
+                        <button id="btn-cancel-sponsorsvideo" class="form-control btn btn-outline-danger w-auto flex-grow-0"
+                            onclick="cancelSponsorsAnimation()">
+                            Abbruch
+                        </button>
                     </div>
                 </fieldset>
             </div>
@@ -189,33 +197,32 @@
                     </div>
                 </fieldset>
 
-                <!-- Sponsorenvideo -->
+                <!-- Settings-Overlay -->
                 <fieldset>
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Sponsorenvideo</b>
+                        <b>Einstellungen</b>
                     </legend>
-                    <div class="mb-2 d-flex flex-row gap-2">
-                        <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary w-auto flex-grow-0"
-                            onclick="playSponsorsAnimation()">
-                            Anzeigen
-                        </button>
-                        <div class="input-group">
-                            <div class="flex-fill form-floating">
-                                <input class="form-control" type="number" id="sponsors-interval-input" min="1" max="60" step="1" value="5" placeholder="5">
-                                <label for="sponsors-interval-input" class="form-label">Intervall (min)</label>
-                            </div>
-                            <button id="btn-start-sponsorsvideo-interval" class="btn btn-success form-control w-auto flex-grow-0" onclick="startSponsorsVideoInterval()">Start</button>
-                            <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control d-none w-auto flex-grow-0" onclick="stopSponsorsVideoInterval()">Stop</button>
-                            <div class="flex-fill form-floating">
-                                <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled value="" autocomplete="off">
-                                <label for="sponsors-interval-timer" class="form-label">Timer</label>
-                            </div>
+                    <div class="input-group mb-2">
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input"
+                                value="#758aa5" />
+                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
                         </div>
-                        <button id="btn-cancel-sponsorsvideo" class="form-control btn btn-outline-danger w-auto flex-grow-0"
-                            onclick="cancelSponsorsAnimation()">
-                            Abbruch
-                        </button>
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input"
+                                value="#ffffff" />
+                            <label for="settings-text-color-input" class="form-label">Text</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="checkbox" class="form-control form-check-input w-100 mt-0"
+                                id="settings-direction-inverted-input" />
+                            <label for="settings-direction-inverted-input" class="form-label">Richtung</label>
+                        </div>
+                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
+                            onclick="setSettings()">Speichern</button>
+                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
+                            onclick="resetSettings()">Reset</button>
                     </div>
                 </fieldset>
 
