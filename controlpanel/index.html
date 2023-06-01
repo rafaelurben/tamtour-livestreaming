@@ -157,6 +157,36 @@
                         </button>
                     </div>
                 </fieldset>
+
+                <!-- Einstellungen -->
+                <!-- Settings-Overlay -->
+                <fieldset class="collapsed">
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Einstellungen</b>
+                    </legend>
+                    <div class="input-group mb-2">
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input"
+                                value="#758aa5" />
+                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input"
+                                value="#ffffff" />
+                            <label for="settings-text-color-input" class="form-label">Text</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="checkbox" class="form-control form-check-input w-100 mt-0"
+                                id="settings-direction-inverted-input" />
+                            <label for="settings-direction-inverted-input" class="form-label">Richtung</label>
+                        </div>
+                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
+                            onclick="setSettings()">Speichern</button>
+                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
+                            onclick="resetSettings()">Reset</button>
+                    </div>
+                </fieldset>
             </div>
             <!-- Column 2 -->
             <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2">
@@ -194,35 +224,6 @@
                                 Anzeigen
                             </button>
                         </div>
-                    </div>
-                </fieldset>
-
-                <!-- Settings-Overlay -->
-                <fieldset>
-                    <legend>
-                        <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Einstellungen</b>
-                    </legend>
-                    <div class="input-group mb-2">
-                        <div class="form-floating">
-                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input"
-                                value="#758aa5" />
-                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input"
-                                value="#ffffff" />
-                            <label for="settings-text-color-input" class="form-label">Text</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="checkbox" class="form-control form-check-input w-100 mt-0"
-                                id="settings-direction-inverted-input" />
-                            <label for="settings-direction-inverted-input" class="form-label">Richtung</label>
-                        </div>
-                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
-                            onclick="setSettings()">Speichern</button>
-                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
-                            onclick="resetSettings()">Reset</button>
                     </div>
                 </fieldset>
 
