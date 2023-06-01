@@ -21,6 +21,15 @@ let atem = {
         password: undefined,
         atemId: undefined,
     },
+    state: {
+        nextTransition: {
+            bkgd: false,
+            key1: false,
+        },
+        key1onair: false,
+        previewSource: undefined,
+        programSource: undefined,
+    },
     get url() {
         if (!atem.connectionData.target.startsWith("http")) {
             return "http://" + atem.connectionData.target;

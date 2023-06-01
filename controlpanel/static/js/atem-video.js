@@ -18,7 +18,7 @@ $(".atem-upkfill-btn").click(function (e) {
 });
 
 $("#atem-key-on-air-btn").click(function (e) {
-    let isOn = $("#atem-key-on-air-btn").hasClass("btn-danger");
+    let isOn = atem.state.key1onair;
     atem.post("key-on-air", { index: 0, keyer: 0, enabled: isOn ? 0 : 1 });
 });
 
@@ -27,22 +27,33 @@ $("#atem-key-on-air-btn").click(function (e) {
 $(window).on("atem-get-preview-bus-input", function (e, data) {
     let currId = data["0"].source;
     let name = atemInputIds[currId];
+    atem.state.previewSource = name;
 
-    $(`.atem-pvw-btn:not([data-name="${name}"])`).removeClass("btn-success").addClass("btn-outline-secondary");
-    $(`.atem-pvw-btn[data-name="${name}"]`).addClass("btn-success").removeClass("btn-outline-secondary");
+    let name2;
+    if (!atem.state.nextTransition.bkgd && atem.state.programSource !== atem.state.previewSource) {
+        name2 = atem.state.programSource;
+    }
+
+    $(`.atem-pvw-btn:not([data-name="${name}"]):not([data-name="${name2}"])`).addClass("btn-outline-secondary").removeClass("btn-success").removeClass("btn-outline-success");
+    $(`.atem-pvw-btn[data-name="${name}"]`).addClass("btn-success").removeClass("btn-outline-secondary").removeClass("btn-outline-success");
+    $(`.atem-pvw-btn[data-name="${name2}"]`).addClass("btn-outline-success").removeClass("btn-outline-secondary").removeClass("btn-success");
 });
 
 $(window).on("atem-get-program-bus-input", function (e, data) {
     let currId = data["0"].source;
     let name = atemInputIds[currId];
+    atem.state.programSource = name;
 
     $(`.atem-pgm-btn:not([data-name="${name}"])`).removeClass("btn-danger").addClass("btn-outline-secondary");
     $(`.atem-pgm-btn[data-name="${name}"]`).addClass("btn-danger").removeClass("btn-outline-secondary");
+
+
 });
 
 $(window).on("atem-get-key-properties-base", function (e, data) {
     let currFillId = data["0"]["0"].fill_source;
     let name = atemInputIds[currFillId];
+    atem.state.fillSource = name;
 
     $(`.atem-upkfill-btn:not([data-name="${name}"])`).removeClass("btn-warning").addClass("btn-outline-secondary");
     $(`.atem-upkfill-btn[data-name="${name}"]`).addClass("btn-warning").removeClass("btn-outline-secondary");
@@ -50,6 +61,7 @@ $(window).on("atem-get-key-properties-base", function (e, data) {
 
 $(window).on("atem-get-key-on-air", function (e, data) {
     let isOn = data["0"]["0"].enabled;
+    atem.state.key1onair = isOn;
     $("#atem-key-on-air-btn").toggleClass("btn-danger", isOn).toggleClass("btn-outline-secondary", !isOn);
 });
 
@@ -63,6 +75,10 @@ $(window).on("atem-connected", function () {
         atem.get("program-bus-input");
         atem.get("key-properties-base");
         atem.get("key-on-air");
+
+        let isMP1program = atem.state.fillSource === "MP1" || atem.state.programSource === "MP1";
+        let isMP1preview = atem.state.previewSource === "MP1";
+        $("#atem-mp1-source-select").toggleClass("border-danger", isMP1program).toggleClass("border-success", isMP1preview);
     }, 500);
 });
 

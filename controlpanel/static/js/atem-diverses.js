@@ -4,14 +4,10 @@ let atemMP1selectElem = $("#atem-mp1-source-select")
 
 // Functions
 
-function changeAtemNextTransitionState(bkgd, key1) {
-    // true does not SET the next transition state, but toggles it.
-
-    let oldBkgd = $("#atem-next-transition-bkgd-btn").hasClass("btn-outline-success");
-    let newBkgd = (bkgd ? !oldBkgd : oldBkgd) ? 1 << 0 : 0;
-    let oldKey1 = $("#atem-next-transition-key1-btn").hasClass("btn-outline-success");
-    let newKey1 = (key1 ? !oldKey1 : oldKey1) ? 1 << 1 : 0;
-    var nextTransition = newBkgd + newKey1;
+function changeAtemNextTransitionState() {
+    let nextBkgd = atem.state.nextTransition.bkgd ? 1 << 0 : 0;
+    let nextKey1 = atem.state.nextTransition.key1 ? 1 << 1 : 0;
+    var nextTransition = nextBkgd + nextKey1;
     atem.post("transition-settings", { index: 0, next_transition: nextTransition });
 }
 
@@ -35,15 +31,18 @@ $("#atem-transition-ftb-btn").click((e) => {
 })
 
 $("#atem-next-transition-bkgd-btn").click((e) => {
-    changeAtemNextTransitionState(true, false);
+    atem.state.nextTransition.bkgd = !atem.state.nextTransition.bkgd;
+    changeAtemNextTransitionState();
 })
 
 $("#atem-next-transition-key1-btn").click((e) => {
-    changeAtemNextTransitionState(false, true);
+    atem.state.nextTransition.key1 = !atem.state.nextTransition.key1;
+    changeAtemNextTransitionState();
 })
 
 $("#atem-next-transition-key1-btn2").click((e) => {
-    changeAtemNextTransitionState(false, true);
+    atem.state.nextTransition.key1 = !atem.state.nextTransition.key1;
+    changeAtemNextTransitionState();
 })
 
 // Events
@@ -73,13 +72,14 @@ $(window).on("atem-get-fade-to-black-state", function (e, data) {
 
 $(window).on("atem-get-transition-settings", function (e, data) {
     let nextBkgdChange = data.next_transition_bkgd;
-    let nextKey1change = data.next_transition_key1;
+    let nextKey1Change = data.next_transition_key1;
+    atem.state.nextTransition.bkgd = nextBkgdChange;
+    atem.state.nextTransition.key1 = nextKey1Change;
 
     $("#atem-next-transition-bkgd-btn").toggleClass("btn-outline-success", nextBkgdChange).toggleClass("btn-outline-secondary", !nextBkgdChange);
-    $("#atem-next-transition-key1-btn").toggleClass("btn-outline-success", nextKey1change).toggleClass("btn-outline-secondary", !nextKey1change);
+    $("#atem-next-transition-key1-btn").toggleClass("btn-outline-success", nextKey1Change).toggleClass("btn-outline-secondary", !nextKey1Change);
 
-    let currentKey1 = $("#atem-key-on-air-btn").hasClass("btn-danger");
-    let nextKey1on = Boolean(nextKey1change ^ currentKey1); // XOR
+    let nextKey1on = Boolean(nextKey1Change ^ atem.state.key1onair); // XOR
     $("#atem-next-transition-key1-btn2").toggleClass("btn-outline-success", nextKey1on).toggleClass("btn-outline-secondary", !nextKey1on);
 });
 
