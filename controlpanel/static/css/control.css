@@ -147,7 +147,7 @@ fieldset.collapsed > legend > .collapser::before {
 /* ATEM Controls */
 
 .btn-danger.pulsing {
-    animation: pulse 1s infinite;
+    animation: pulse 0.5s infinite;
 }
 
 @keyframes pulse {

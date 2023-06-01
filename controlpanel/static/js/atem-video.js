@@ -17,6 +17,11 @@ $(".atem-upkfill-btn").click(function (e) {
     atem.post("key-fill", { index: 0, keyer: 0, source: inputId });
 });
 
+$("#atem-key-on-air-btn").click(function (e) {
+    let isOn = $("#atem-key-on-air-btn").hasClass("btn-danger");
+    atem.post("key-on-air", { index: 0, keyer: 0, enabled: isOn ? 0 : 1 });
+});
+
 // Events
 
 $(window).on("atem-get-preview-bus-input", function (e, data) {
@@ -43,6 +48,11 @@ $(window).on("atem-get-key-properties-base", function (e, data) {
     $(`.atem-upkfill-btn[data-name="${name}"]`).addClass("btn-warning").removeClass("btn-outline-secondary");
 });
 
+$(window).on("atem-get-key-on-air", function (e, data) {
+    let isOn = data["0"]["0"].enabled;
+    $("#atem-key-on-air-btn").toggleClass("btn-danger", isOn).toggleClass("btn-outline-secondary", !isOn);
+});
+
 // Interval
 
 let atemVideoInterval = undefined;
@@ -52,6 +62,7 @@ $(window).on("atem-connected", function () {
         atem.get("preview-bus-input");
         atem.get("program-bus-input");
         atem.get("key-properties-base");
+        atem.get("key-on-air");
     }, 500);
 });
 

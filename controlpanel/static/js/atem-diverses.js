@@ -21,6 +21,20 @@ $("#atem-transition-ftb-btn").click((e) => {
     atem.post("fade-to-black", { index: 0 });
 })
 
+$("#atem-next-transition-bkgd-btn").click((e) => {
+    let nextBkgd = !$("#atem-next-transition-bkgd-btn").hasClass("btn-outline-success") ? 1 << 0 : 0;
+    let nextKey1 = $("#atem-next-transition-key1-btn").hasClass("btn-outline-success") ? 1 << 1 : 0;
+    var nextTransition = nextBkgd + nextKey1;
+    atem.post("transition-settings", { index: 0, next_transition: nextTransition });
+})
+
+$("#atem-next-transition-key1-btn").click((e) => {
+    let nextBkgd = $("#atem-next-transition-bkgd-btn").hasClass("btn-outline-success") ? 1 << 0 : 0;
+    let nextKey1 = !$("#atem-next-transition-key1-btn").hasClass("btn-outline-success") ? 1 << 1 : 0;
+    var nextTransition = nextBkgd + nextKey1;
+    atem.post("transition-settings", { index: 0, next_transition: nextTransition });
+})
+
 // Events
 
 $(window).on("atem-get-mediaplayer-selected", function (e, data) {
@@ -46,6 +60,21 @@ $(window).on("atem-get-fade-to-black-state", function (e, data) {
     $("#atem-transition-ftb-btn").toggleClass("btn-danger", ftbOn).toggleClass("pulsing", ftbOn).toggleClass("btn-outline-primary", !ftbOn);
 });
 
+$(window).on("atem-get-transition-settings", function (e, data) {
+    let nextBkgd = data.next_transition_bkgd;
+    let nextKey1 = data.next_transition_key1;
+
+    $("#atem-next-transition-bkgd-btn").toggleClass("btn-outline-success", nextBkgd).toggleClass("btn-outline-secondary", !nextBkgd);
+    $("#atem-next-transition-key1-btn").toggleClass("btn-outline-success", nextKey1).toggleClass("btn-outline-secondary", !nextKey1);
+    $("#atem-next-transition-key1-btn2").toggleClass("btn-outline-success", nextKey1).toggleClass("btn-outline-secondary", !nextKey1);
+});
+
+$(window).on("atem-get-transition-position", function (e, data) {
+    let active = data["0"].in_transition;
+
+    $("#atem-transition-auto-btn").toggleClass("btn-danger", active).toggleClass("pulsing", active).toggleClass("btn-outline-primary", !active);
+});
+
 // Interval
 
 let atemDiversesInterval1 = undefined;
@@ -55,7 +84,9 @@ $(window).on("atem-connected", function () {
     atemDiversesInterval1 = setInterval(function () {
         atem.get("mediaplayer-selected");
         atem.get("fade-to-black-state");
-    }, 1000);
+        atem.get("transition-settings");
+        atem.get("transition-position");
+    }, 500);
     atem.get("mediaplayer-file-info");
     atemDiversesInterval2 = setInterval(function () {
         atem.get("mediaplayer-file-info");

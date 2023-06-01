@@ -360,6 +360,9 @@
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-pgm-btn" data-name="BLK">BLK</button>
                                 </td>
+                                <td class="ps-2">
+                                    <button id="atem-key-on-air-btn" class="btn btn-outline-secondary btn-sm">KEY</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -383,6 +386,10 @@
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-pvw-btn" data-name="BLK">BLK</button>
                                 </td>
+                                <td class="ps-2">
+                                    <!-- Controlled via transitions -->
+                                    <button disabled id="atem-next-transition-key1-btn2" class="btn btn-outline-secondary btn-sm flex-fill">KEY</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -405,6 +412,9 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-upkfill-btn" data-name="BLK">BLK</button>
+                                </td>
+                                <td class="ps-2 fs-5 text-center">
+                                    <div style="rotate: 90deg;">↰</div>
                                 </td>
                             </tr>
                         </tbody>
@@ -467,9 +477,15 @@
                         <b>Übergänge</b>
                     </legend>
                     <div class="mb-2 d-flex flex-column gap-2">
-                        <button id="atem-transition-cut-btn" class="btn btn-outline-primary btn-sm">CUT</button>
-                        <button id="atem-transition-auto-btn" class="btn btn-outline-primary btn-sm">AUTO</button>
+                        <div class="d-flex flex-row gap-2">
+                            <button id="atem-transition-auto-btn" class="btn btn-outline-primary btn-sm flex-fill">AUTO</button>
+                            <button id="atem-transition-cut-btn" class="btn btn-outline-primary btn-sm flex-fill">CUT</button>
+                        </div>
                         <button id="atem-transition-ftb-btn" class="btn btn-outline-primary btn-sm">FTB</button>
+                        <div class="d-flex flex-row gap-2">
+                            <button id="atem-next-transition-bkgd-btn" class="btn btn-outline-secondary btn-sm flex-fill">BKGD</button>
+                            <button id="atem-next-transition-key1-btn" class="btn btn-outline-secondary btn-sm flex-fill">KEY</button>
+                        </div>
                     </div>
                 </fieldset>
 
