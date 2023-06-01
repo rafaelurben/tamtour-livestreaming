@@ -58,7 +58,7 @@ $(window).on("atem-get-mediaplayer-file-info", function (e, data) {
         if (still.is_used) {
             let opt = $("<option></option>");
             opt.attr("value", still.index);
-            opt.text(atob(still.name));
+            opt.text(`[${still.index}] ` + atob(still.name));
             atemMP1selectElem.append(opt);
         }
     }
