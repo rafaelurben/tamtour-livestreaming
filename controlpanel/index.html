@@ -459,6 +459,32 @@
                         </tbody>
                     </table>
                 </fieldset>
+
+                <!-- Transitions -->
+                <fieldset>
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Übergänge</b>
+                    </legend>
+                    <div class="mb-2 d-flex flex-column gap-2">
+                        <button id="atem-transition-cut-btn" class="btn btn-outline-primary btn-sm">CUT</button>
+                        <button id="atem-transition-auto-btn" class="btn btn-outline-primary btn-sm">AUTO</button>
+                        <button id="atem-transition-ftb-btn" class="btn btn-outline-primary btn-sm">FTB</button>
+                    </div>
+                </fieldset>
+
+                <!-- Media player source -->
+                <fieldset>
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Media player</b>
+                    </legend>
+                    <div class="mb-2">
+                        <label for="atem-mp1-source-select" class="form-label">Bildquelle</label>
+                        <select class="form-select" id="atem-mp1-source-select">
+                        </select>
+                    </div>
+                </fieldset>
             </div>
         </div>
     </div>
@@ -497,6 +523,7 @@
     <script src="./static/js/atem-connection.js"></script>
     <script src="./static/js/atem-video.js"></script>
     <script src="./static/js/atem-audio.js"></script>
+    <script src="./static/js/atem-diverses.js"></script>
 </body>
 
 </html>
