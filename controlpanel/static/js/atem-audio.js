@@ -1,49 +1,49 @@
 // ATEM commands about audio
+// Note: channel -1 means normal operation, 0 and 1 mean split operation
+
+let atemAudioChannels = [
+    ["1301", "mic1", -1],
+    ["1302", "mic2", -1],
+]
 
 // Actions
 
-$("#atem-mic1-on-btn").click(function (e) {
-    atem.post("fairlight-strip-properties", { source: "1301", channel: -1, state: 2 });
-});
-$("#atem-mic2-on-btn").click(function (e) {
-    atem.post("fairlight-strip-properties", { source: "1302", channel: -1, state: 2 });
-});
-$("#atem-mic1-off-btn").click(function (e) {
-    atem.post("fairlight-strip-properties", { source: "1301", channel: -1, state: 1 });
-});
-$("#atem-mic2-off-btn").click(function (e) {
-    atem.post("fairlight-strip-properties", { source: "1302", channel: -1, state: 1 });
-});
-$("#atem-mic1-volume-up-btn").click(function (e) {
-    let newVol = $("#atem-mic1-volume").text() - 0 + 150;
-    atem.post("fairlight-strip-properties", { source: "1301", channel: -1, volume: newVol });
-});
-$("#atem-mic2-volume-up-btn").click(function (e) {
-    let newVol = $("#atem-mic2-volume").text() - 0 + 150;
-    atem.post("fairlight-strip-properties", { source: "1302", channel: -1, volume: newVol });
-});
-$("#atem-mic1-volume-down-btn").click(function (e) {
-    let newVol = $("#atem-mic1-volume").text() - 0 - 150;
-    atem.post("fairlight-strip-properties", { source: "1301", channel: -1, volume: newVol });
-});
-$("#atem-mic2-volume-down-btn").click(function (e) {
-    let newVol = $("#atem-mic2-volume").text() - 0 - 150;
-    atem.post("fairlight-strip-properties", { source: "1302", channel: -1, volume: newVol });
-});
+for (let dat of atemAudioChannels) {
+    let id = dat[0];
+    let htmlname = dat[1] + "-" + (dat[2] === -1 ? 0 : dat[2]);
+    let channel = dat[2];
+
+    $(`#atem-${htmlname}-on-btn`).off("click");
+    $(`#atem-${htmlname}-on-btn`).click(function (e) {
+        atem.post("fairlight-strip-properties", { source: id, channel: channel, state: 2 });
+    });
+    $(`#atem-${htmlname}-off-btn`).off("click");
+    $(`#atem-${htmlname}-off-btn`).click(function (e) {
+        atem.post("fairlight-strip-properties", { source: id, channel: channel, state: 1 });
+    });
+    $(`#atem-${htmlname}-volume-up-btn`).click(function (e) {
+        let newVol = $(`#atem-${htmlname}-volume`).text() - 0 + 150;
+        atem.post("fairlight-strip-properties", { source: id, channel: channel, volume: newVol });
+    });
+    $(`#atem-${htmlname}-volume-down-btn`).click(function (e) {
+        let newVol = $(`#atem-${htmlname}-volume`).text() - 0 - 150;
+        atem.post("fairlight-strip-properties", { source: id, channel: channel, volume: newVol });
+    });
+}
 
 // Events
 
 $(window).on("atem-get-fairlight-strip-properties", function (e, data) {
-    let mic1on = data["1301.0"].state === 2;
-    $("#atem-mic1-on-btn").toggleClass("btn-outline-danger", mic1on).toggleClass("btn-outline-secondary", !mic1on);
-    $("#atem-mic1-off-btn").toggleClass("btn-outline-light", !mic1on).toggleClass("btn-outline-secondary", mic1on);
-    let mic2on = data["1302.0"].state === 2;
-    $("#atem-mic2-on-btn").toggleClass("btn-outline-danger", mic2on).toggleClass("btn-outline-secondary", !mic2on);
-    $("#atem-mic2-off-btn").toggleClass("btn-outline-light", !mic2on).toggleClass("btn-outline-secondary", mic2on);
-    let mic1vol = data["1301.0"].volume;
-    $("#atem-mic1-volume").text(mic1vol);
-    let mic2vol = data["1302.0"].volume;
-    $("#atem-mic2-volume").text(mic2vol);
+    for (let dat of atemAudioChannels) {
+        let htmlname = dat[1] + "-" + (dat[2] === -1 ? 0 : dat[2]);
+        let atemname = dat[0] + "." + (dat[2] === -1 ? 0 : dat[2]);
+        
+        let micOn = data[atemname].state === 2;
+        $(`#atem-${htmlname}-on-btn`).toggleClass("btn-outline-danger", micOn).toggleClass("btn-outline-secondary", !micOn);
+        $(`#atem-${htmlname}-off-btn`).toggleClass("btn-outline-light", !micOn).toggleClass("btn-outline-secondary", micOn);
+        let micVol = data[atemname].volume;
+        $(`#atem-${htmlname}-volume`).text(micVol);
+    }
 });
 
 // Interval
