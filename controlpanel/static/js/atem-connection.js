@@ -26,13 +26,30 @@ let atem = {
             return "http://" + atem.connectionData.target;
         }
     },
+    _handleConnect: function () {
+        atem.connected = true;
+        console.log("ATEM connected");
+
+        $("#atem-btn-connect").addClass("d-none");
+        $("#atem-btn-disconnect").removeClass("d-none");
+        $("#atem-controlpanel-container").removeClass("notconnected");
+
+        $(window).trigger("atem-connected");
+        sessionStorage.setItem("atem-auto-connect", "true");
+        sessionStorage.setItem("atem-target", atem.connectionData.target);
+        sessionStorage.setItem("atem-username", atem.connectionData.username);
+        sessionStorage.setItem("atem-password", atem.connectionData.password);
+    },
     _handleDisconnect: function () {
         atem.connected = false;
         console.log("ATEM disconnected");
+
         $("#atem-btn-connect").removeClass("d-none");
         $("#atem-btn-disconnect").addClass("d-none");
         $("#atem-controlpanel-container").addClass("notconnected");
+
         $(window).trigger("atem-disconnected");
+        sessionStorage.setItem("atem-auto-connect", "false");
     },
     request: async function (method, url, data) {
         if (!atem.connected) return Promise.reject("Not connected to ATEM");
@@ -81,12 +98,8 @@ let atem = {
         atem.connectionData.username = $("#atem-login-form-username").val();
         atem.connectionData.password = $("#atem-login-form-password").val();
         await atem.request("GET", "/").then(function (data) {
-            console.log("Connected to ATEM");
-            $("#atem-btn-connect").addClass("d-none");
-            $("#atem-btn-disconnect").removeClass("d-none");
-            $("#atem-controlpanel-container").removeClass("notconnected");
             atem.connectionData.atemId = data.hardware[0].id;
-            $(window).trigger("atem-connected");
+            atem._handleConnect();
         }).catch(function (error) {
             atem.connected = false;
             console.error("Failed to connect to ATEM: ", error);
@@ -98,3 +111,16 @@ let atem = {
         atem._handleDisconnect();
     },
 }
+
+// Auto reconnect
+
+window.addEventListener('load', function () {
+    if (sessionStorage.getItem("atem-target")) {
+        document.getElementById('atem-login-form-target').value = sessionStorage.getItem("atem-target");
+        document.getElementById('atem-login-form-username').value = sessionStorage.getItem("atem-username");
+        document.getElementById('atem-login-form-password').value = sessionStorage.getItem("atem-password");
+        if (sessionStorage.getItem("atem-auto-connect") == "true") {
+            atem.connect();
+        }
+    }
+});
