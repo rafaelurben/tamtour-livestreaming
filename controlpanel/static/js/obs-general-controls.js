@@ -241,14 +241,14 @@ obs.on("InputVolumeMeters", displayVolumeMeter);
 
 // General Events & Intervals
 
-let interval = null;
+let obsInterval = null;
 
 obs.on('Identified', () => {
     loadScenes();
     loadRecordStatus();
     loadStreamStatus();
     
-    interval = setInterval(() => {
+    obsInterval = setInterval(() => {
         if (recordActive) loadRecordStatus();
         if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)};
         if (liveScreenshotsEnabled) getLiveScreenshots();
@@ -258,7 +258,7 @@ obs.on('Identified', () => {
 })
 
 obs.on('ConnectionClosed', () => {
-    clearInterval(interval);
+    clearInterval(obsInterval);
 })
 
 obs.on('StudioModeStateChanged', data => {

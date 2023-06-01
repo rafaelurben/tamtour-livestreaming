@@ -19,14 +19,16 @@ let atem = {
         $("#atem-btn-connect").removeClass("d-none");
         $("#atem-btn-disconnect").addClass("d-none");
         $("#atem-controlpanel-container").addClass("notconnected");
-        window.dispatchEvent(new CustomEvent("atem-disconnected"));
+        $(window).trigger("atem-disconnected");
     },
     request: async function (method, url, data) {
         if (!atem.connected) return Promise.reject("Not connected to ATEM");
         return new Promise(function (resolve, reject) {
             $.ajax({
                 url: atem.url + url,
+                data: data,
                 dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded',
                 type: method,
                 timeout: 1000,
                 success: function (data) {
@@ -36,7 +38,7 @@ let atem = {
                     console.error("Request to ATEM failed: ", error);
                     alert("Anfrage an ATEM fehlgeschlagen!");
                     reject(error);
-                }
+                },
             });
         });
     },
@@ -50,10 +52,10 @@ let atem = {
             });
         });
     },
-    post: async function (command, options) {
+    post: async function (command, data) {
         return new Promise(function (resolve, reject) {
-            atem.request("POST", `/${atem.connectionData.atemId}/${command}`).then(result => {
-                $(window).trigger(`atem-post-${command}`, options, result);
+            atem.request("POST", `/${atem.connectionData.atemId}/${command}`, data).then(result => {
+                $(window).trigger(`atem-post-${command}`, result);
                 resolve(result);
             }).catch(error => {
                 reject(error);
@@ -71,7 +73,7 @@ let atem = {
             $("#atem-btn-disconnect").removeClass("d-none");
             $("#atem-controlpanel-container").removeClass("notconnected");
             atem.connectionData.atemId = data.hardware[0].id;
-            window.dispatchEvent(new CustomEvent("atem-connected"));
+            $(window).trigger("atem-connected");
         }).catch(function (error) {
             atem.connected = false;
             console.error("Failed to connect to ATEM: ", error);
