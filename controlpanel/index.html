@@ -16,7 +16,7 @@
 <body>
     <div class="d-flex flex-column p-2 gap-3">
         <!-- Menubar -->
-        <div id="controlpanel-login-container" class="mb-2 d-flex flex-row gap-2 flex-wrap">
+        <div id="controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
             <div class="d-flex flex-row gap-2 flex-grow-1">
                 <div class="">
                     <button class="btn btn-secondary h-100" onclick="window.open('https://tamtour.ch', '_blank')">TamTour</button>
@@ -32,7 +32,7 @@
                 <div class="flex-grow-1">
                     <div class="form-floating">
                         <input id="login-form-password" class="form-control" type="password" name="password" id="password" placeholder="Password">
-                        <label for="startinfo-form-password" class="form-label">Passwort</label>
+                        <label for="login-form-password" class="form-label">Passwort</label>
                     </div>
                 </div>
                 <div class="">
@@ -288,6 +288,162 @@
                             </div>
                         </div>
                     </fieldset>
+                </fieldset>
+            </div>
+        </div>
+
+        <!-- ATEM Menubar -->
+        <div id="atem-controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
+            <div class="d-flex flex-row gap-2 flex-grow-1">
+                <div class="">
+                    <button class="btn btn-secondary h-100"
+                        onclick="window.open('https://tamtour.ch', '_blank')">TamTour</button>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="atem-login-form-target" class="form-control" type="text" name="atem-target" id="atem-target"
+                            value="127.0.0.1:8080" placeholder="127.0.0.1:8080">
+                        <label for="atem-login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row gap-2 flex-grow-1">
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="login-form-password" class="form-control" type="password" name="atem-password" id="atem-password"
+                            placeholder="Password">
+                        <label for="atem-login-form-password" class="form-label">Passwort</label>
+                    </div>
+                </div>
+                <div class="">
+                    <button id="atem-btn-connect" class="btn btn-success h-100" onclick="">Verbinden</button>
+                    <button id="atem-btn-disconnect" class="btn btn-danger h-100 d-none" onclick="">Verbindung trennen</button>
+                </div>
+            </div>
+        </div>
+        <!-- ATEM controls -->
+        <div id="atem-controlpanel-container" class="row g-2 notconnected pb-2">
+            <!-- Row 1 -->
+            <div class="col-12 mt-1 d-flex flex-row gap-2 flex-wrap">
+                <!-- Video input -->
+                <fieldset>
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Videoeingangsquellen</b>
+                    </legend>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="pe-3">
+                                    Programm
+                                </td>
+                                <td>
+                                    <button id="atem-cam1-pgm-btn" class="btn btn-danger btn-sm" onclick="">CAM1</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam2-pgm-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM2</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam3-pgm-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM3</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam4-pgm-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM4</button>
+                                </td>
+                                <td>
+                                    <button id="atem-mp1-pgm-btn" class="btn btn-outline-secondary btn-sm" onclick="">MP1</button>
+                                </td>
+                                <td>
+                                    <button id="atem-blk-pgm-btn" class="btn btn-outline-secondary btn-sm" onclick="">BLK</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Vorschau
+                                </td>
+                                <td>
+                                    <button id="atem-cam1-pvw-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM1</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam2-pvw-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM2</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam3-pvw-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM3</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam4-pvw-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM4</button>
+                                </td>
+                                <td>
+                                    <button id="atem-mp1-pvw-btn" class="btn btn-success btn-sm" onclick="">MP1</button>
+                                </td>
+                                <td>
+                                    <button id="atem-blk-pvw-btn" class="btn btn-outline-secondary btn-sm" onclick="">BLK</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Quelle
+                                </td>
+                                <td>
+                                    <button id="atem-cam1-dve-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM1</button>  
+                                </td>
+                                <td>
+                                    <button id="atem-cam2-dve-btn" class="btn btn-warning btn-sm" onclick="">CAM2</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam3-dve-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM3</button>
+                                </td>
+                                <td>
+                                    <button id="atem-cam4-dve-btn" class="btn btn-outline-secondary btn-sm" onclick="">CAM4</button>
+                                </td>
+                                <td>
+                                    <button id="atem-mp1-dve-btn" class="btn btn-outline-secondary btn-sm" onclick="">MP1</button>
+                                </td>
+                                <td>
+                                    <button id="atem-blk-blk-btn" class="btn btn-outline-secondary btn-sm" onclick="">BLK</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <!-- Audio input -->
+                <fieldset>
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Audioeingangsquellen</b>
+                    </legend>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    MIC1
+                                </td>
+                                <td>
+                                    MIC2
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-2">
+                                    <button id="atem-mic1-on-btn" class="btn btn-outline-danger btn-sm" onclick="">ON</button>
+                                    <button id="atem-mic1-off-btn" class="btn btn-outline-secondary btn-sm" onclick="">OFF</button>
+                                </td>
+                                <td>
+                                    <button id="atem-mic2-on-btn" class="btn btn-outline-secondary btn-sm" onclick="">ON</button>
+                                    <button id="atem-mic2-off-btn" class="btn btn-outline-light btn-sm" onclick="">OFF</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button id="atem-mic1-up-btn" class="btn btn-outline-secondary btn-sm" onclick="">▲</button>
+                                    <button id="atem-mic1-down-btn" class="btn btn-outline-secondary btn-sm" onclick="">▼</button>
+                                </td>
+                                <td>
+                                    <button id="atem-mic2-up-btn" class="btn btn-outline-secondary btn-sm" onclick="">▲</button>
+                                    <button id="atem-mic2-down-btn" class="btn btn-outline-secondary btn-sm" onclick="">▼</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </fieldset>
             </div>
         </div>

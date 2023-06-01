@@ -1,8 +1,10 @@
-#controlpanel-container {
+#controlpanel-container,
+#atem-controlpanel-container {
     position: relative;
 }
 
-#controlpanel-container.notconnected::before {
+#controlpanel-container.notconnected::before,
+#atem-controlpanel-container.notconnected::before {
     content: "";
     position: absolute;
     top: 0;
