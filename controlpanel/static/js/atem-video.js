@@ -76,9 +76,10 @@ $(window).on("atem-connected", function () {
         atem.get("key-properties-base");
         atem.get("key-on-air");
 
-        let isMP1program = atem.state.fillSource === "MP1" || atem.state.programSource === "MP1";
+        let isMP1program = atem.state.programSource === "MP1";
         let isMP1preview = atem.state.previewSource === "MP1";
-        $("#atem-mp1-source-select").toggleClass("border-danger", isMP1program).toggleClass("border-success", isMP1preview);
+        let isMP1fillSource = atem.state.fillSource === "MP1";
+        $("#atem-mp1-source-select").toggleClass("border-danger", isMP1program).toggleClass("border-success", isMP1preview).toggleClass("border-warning", isMP1fillSource);
     }, 500);
 });
 
