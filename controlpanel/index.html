@@ -366,6 +366,15 @@
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-pgm-btn" data-name="BLK">BLK</button>
                                 </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-pgm-btn" data-name="BARS">BARS</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-pgm-btn" data-name="COL1">COL1</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-pgm-btn" data-name="COL2">COL2</button>
+                                </td>
                                 <td class="ps-2">
                                     <button id="atem-key1-on-air-btn" class="btn btn-outline-secondary btn-sm">KEY1</button>
                                 </td>
@@ -392,14 +401,28 @@
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-pvw-btn" data-name="BLK">BLK</button>
                                 </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-pvw-btn" data-name="BARS">BARS</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-pvw-btn" data-name="COL1">COL1</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-pvw-btn" data-name="COL2">COL2</button>
+                                </td>
                                 <td class="ps-2">
                                     <!-- Controlled via transitions -->
                                     <button id="atem-key1-on-air-next-transition-btn" class="btn btn-outline-secondary btn-sm flex-fill">KEY1</button>
                                 </td>
                             </tr>
                             <tr>
+                                <td colspan="10">
+                                    <hr class="my-1" />
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>
-                                    Quelle
+                                    KEY1 fill
                                 </td>
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-key1fill-btn" data-name="CAM1">CAM1</button>  
@@ -419,8 +442,49 @@
                                 <td>
                                     <button class="btn btn-outline-secondary btn-sm atem-key1fill-btn" data-name="BLK">BLK</button>
                                 </td>
-                                <td class="ps-2 fs-5 text-center">
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-key1fill-btn" data-name="BARS">BARS</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-key1fill-btn" data-name="COL1">COL1</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-key1fill-btn" data-name="COL2">COL2</button>
+                                </td>
+                                <td class="fs-5 text-center">
                                     <div style="rotate: 90deg;">↰</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    DKEY1 fill
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="CAM1">CAM1</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="CAM2">CAM2</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="CAM3">CAM3</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="CAM4">CAM4</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="MP1">MP1</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="BLK">BLK</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="BARS">BARS</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="COL1">COL1</button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="COL2">COL2</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -487,10 +551,14 @@
                             <button id="atem-transition-auto-btn" class="btn btn-outline-primary btn-sm flex-fill">AUTO</button>
                             <button id="atem-transition-cut-btn" class="btn btn-outline-primary btn-sm flex-fill">CUT</button>
                         </div>
-                        <button id="atem-transition-ftb-btn" class="btn btn-outline-primary btn-sm">FTB</button>
                         <div class="d-flex flex-row gap-2">
                             <button id="atem-next-transition-bkgd-btn" class="btn btn-outline-secondary btn-sm flex-fill">BKGD</button>
                             <button id="atem-next-transition-key1-btn" class="btn btn-outline-secondary btn-sm flex-fill">KEY1</button>
+                        </div>
+                        <hr class="my-0" />
+                        <div class="d-flex flex-row gap-2">
+                            <button id="atem-transition-ftb-btn" class="btn btn-outline-info btn-sm flex-fill">FTB</button>
+                            <button id="atem-transition-dkey1-btn" class="btn btn-outline-info btn-sm flex-fill">DKEY</button>
                         </div>
                     </div>
                 </fieldset>

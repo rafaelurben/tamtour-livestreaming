@@ -30,6 +30,10 @@ $("#atem-transition-ftb-btn").click((e) => {
     atem.post("fade-to-black", { index: 0 });
 })
 
+$("#atem-transition-dkey1-btn").click((e) => {
+    atem.post("dkey-auto", { index: 0 });
+})
+
 $("#atem-next-transition-bkgd-btn").click((e) => {
     atem.state.nextTransition.bkgd = !atem.state.nextTransition.bkgd;
     changeAtemNextTransitionState();
@@ -76,7 +80,12 @@ $(window).on("atem-get-mediaplayer-file-info", function (e, data) {
 
 $(window).on("atem-get-fade-to-black-state", function (e, data) {
     let ftbOn = data["0"].in_transition || data["0"].done;
-    $("#atem-transition-ftb-btn").toggleClass("btn-danger", ftbOn).toggleClass("pulsing", ftbOn).toggleClass("btn-outline-primary", !ftbOn);
+    $("#atem-transition-ftb-btn").toggleClass("btn-danger", ftbOn).toggleClass("pulsing", ftbOn).toggleClass("btn-outline-info", !ftbOn);
+});
+
+$(window).on("atem-get-dkey-state", function (e, data) {
+    let dkey1On = data["0"].is_transitioning || data["0"].on_air;
+    $("#atem-transition-dkey1-btn").toggleClass("btn-danger", dkey1On).toggleClass("pulsing", dkey1On).toggleClass("btn-outline-info", !dkey1On);
 });
 
 $(window).on("atem-get-transition-settings", function (e, data) {
@@ -107,6 +116,7 @@ $(window).on("atem-connected", function () {
     atemDiversesInterval = setInterval(function () {
         atem.get("mediaplayer-selected");
         atem.get("fade-to-black-state");
+        atem.get("dkey-state");
         atem.get("transition-settings");
         atem.get("transition-position");
         atem.get("mediaplayer-file-info");

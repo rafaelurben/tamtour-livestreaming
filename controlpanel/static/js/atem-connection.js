@@ -6,9 +6,13 @@ let atemInputIds = {
     2: "CAM2",
     3: "CAM3",
     4: "CAM4",
+    1000: "BARS",
     1301: "MIC1",
     1302: "MIC2",
+    2001: "COL1",
+    2002: "COL2",
     3010: "MP1",
+    3011: "MP1K",
 }
 
 let atemInputIdsReverse = Object.fromEntries(Object.entries(atemInputIds).map(a => a.reverse()));
@@ -27,8 +31,11 @@ let atem = {
             key1: false,
         },
         key1onair: false,
+        dkey1onair: false,
         previewSource: undefined,
         programSource: undefined,
+        key1FillSource: undefined,
+        dkey1FillSource: undefined,
         stills: [],
     },
     get url() {
