@@ -40,7 +40,7 @@ $("#atem-next-transition-key1-btn").click((e) => {
     changeAtemNextTransitionState();
 })
 
-$("#atem-next-transition-key1-btn2").click((e) => {
+$("#atem-key1-on-air-next-transition-btn").click((e) => {
     atem.state.nextTransition.key1 = !atem.state.nextTransition.key1;
     changeAtemNextTransitionState();
 })
@@ -89,7 +89,7 @@ $(window).on("atem-get-transition-settings", function (e, data) {
     $("#atem-next-transition-key1-btn").toggleClass("btn-outline-success", nextKey1Change).toggleClass("btn-outline-secondary", !nextKey1Change);
 
     let nextKey1on = Boolean(nextKey1Change ^ atem.state.key1onair); // XOR
-    $("#atem-next-transition-key1-btn2").toggleClass("btn-outline-success", nextKey1on).toggleClass("btn-outline-secondary", !nextKey1on);
+    $("#atem-key1-on-air-next-transition-btn").toggleClass("btn-outline-success", nextKey1on).toggleClass("btn-outline-secondary", !nextKey1on);
 });
 
 $(window).on("atem-get-transition-position", function (e, data) {

@@ -12,12 +12,12 @@ $(".atem-pgm-btn").click(function (e) {
     atem.post("program-input", { index: 0, source: inputId });
 });
 
-$(".atem-upkfill-btn").click(function (e) {
+$(".atem-key1fill-btn").click(function (e) {
     let inputId = atemInputIdsReverse[$(this).data("name")];
     atem.post("key-fill", { index: 0, keyer: 0, source: inputId });
 });
 
-$("#atem-key-on-air-btn").click(function (e) {
+$("#atem-key1-on-air-btn").click(function (e) {
     let isOn = atem.state.key1onair;
     atem.post("key-on-air", { index: 0, keyer: 0, enabled: isOn ? 0 : 1 });
 });
@@ -55,14 +55,14 @@ $(window).on("atem-get-key-properties-base", function (e, data) {
     let name = atemInputIds[currFillId];
     atem.state.fillSource = name;
 
-    $(`.atem-upkfill-btn:not([data-name="${name}"])`).removeClass("btn-warning").addClass("btn-outline-secondary");
-    $(`.atem-upkfill-btn[data-name="${name}"]`).addClass("btn-warning").removeClass("btn-outline-secondary");
+    $(`.atem-key1fill-btn:not([data-name="${name}"])`).removeClass("btn-warning").addClass("btn-outline-secondary");
+    $(`.atem-key1fill-btn[data-name="${name}"]`).addClass("btn-warning").removeClass("btn-outline-secondary");
 });
 
 $(window).on("atem-get-key-on-air", function (e, data) {
     let isOn = data["0"]["0"].enabled;
     atem.state.key1onair = isOn;
-    $("#atem-key-on-air-btn").toggleClass("btn-danger", isOn).toggleClass("btn-outline-secondary", !isOn);
+    $("#atem-key1-on-air-btn").toggleClass("btn-danger", isOn).toggleClass("btn-outline-secondary", !isOn);
 });
 
 // Interval
