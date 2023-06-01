@@ -19,7 +19,7 @@
         <div id="controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
             <div class="d-flex flex-row gap-2 flex-grow-1">
                 <div class="">
-                    <button class="btn btn-secondary h-100" onclick="window.open('https://tamtour.ch', '_blank')">TamTour</button>
+                    <button class="btn btn-secondary h-100" onclick="window.open('https://tamtour.ch', '_blank')">OBS</button>
                 </div>
                 <div class="flex-grow-1">
                     <div class="form-floating">
@@ -41,6 +41,45 @@
                 </div>
             </div>
         </div>
+
+        <!-- ATEM Menubar -->
+        <div id="atem-controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
+            <div class="d-flex flex-row gap-2 flex-grow-1">
+                <div class="">
+                    <button class="btn btn-secondary h-100"
+                        onclick="window.open('https://tamtour.ch', '_blank')">ATEM</button>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="atem-login-form-target" class="form-control" type="text" name="atem-target" id="atem-target"
+                            value="127.0.0.1:8080" placeholder="127.0.0.1:8080">
+                        <label for="atem-login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex flex-row gap-2 flex-grow-1">
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="atem-login-form-username" class="form-control" type="text" name="atem-username"
+                            placeholder="Benutzername">
+                        <label for="atem-login-form-username" class="form-label">Benutzername</label>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="form-floating">
+                        <input id="atem-login-form-password" class="form-control" type="password" name="atem-password"
+                            placeholder="Passwort">
+                        <label for="atem-login-form-password" class="form-label">Passwort</label>
+                    </div>
+                </div>
+                <div class="">
+                    <button id="atem-btn-connect" class="btn btn-success h-100" onclick="atem.connect()">Verbinden</button>
+                    <button id="atem-btn-disconnect" class="btn btn-danger h-100 d-none" onclick="atem.disconnect()">Verbindung
+                        trennen</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Main controls -->
         <div id="controlpanel-container" class="row g-2 notconnected pb-2">
             <!-- Column 1 -->
@@ -293,40 +332,6 @@
             </div>
         </div>
 
-        <!-- ATEM Menubar -->
-        <div id="atem-controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
-            <div class="d-flex flex-row gap-2 flex-grow-1">
-                <div class="">
-                    <button class="btn btn-secondary h-100"
-                        onclick="window.open('https://tamtour.ch', '_blank')">TamTour</button>
-                </div>
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="atem-login-form-target" class="form-control" type="text" name="atem-target" id="atem-target"
-                            value="127.0.0.1:8080" placeholder="127.0.0.1:8080">
-                        <label for="atem-login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row gap-2 flex-grow-1">
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="atem-login-form-username" class="form-control" type="text" name="atem-username" placeholder="Benutzername">
-                        <label for="atem-login-form-username" class="form-label">Benutzername</label>
-                    </div>
-                </div>
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="atem-login-form-password" class="form-control" type="password" name="atem-password" placeholder="Passwort">
-                        <label for="atem-login-form-password" class="form-label">Passwort</label>
-                    </div>
-                </div>
-                <div class="">
-                    <button id="atem-btn-connect" class="btn btn-success h-100" onclick="atem.connect()">Verbinden</button>
-                    <button id="atem-btn-disconnect" class="btn btn-danger h-100 d-none" onclick="atem.disconnect()">Verbindung trennen</button>
-                </div>
-            </div>
-        </div>
         <!-- ATEM controls -->
         <div id="atem-controlpanel-container" class="row g-2 notconnected pb-2">
             <!-- Row 1 -->
