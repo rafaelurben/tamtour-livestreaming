@@ -495,16 +495,21 @@
                     </div>
                 </fieldset>
 
-                <!-- Media player source -->
+                <!-- Media player -->
                 <fieldset>
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Media player</b>
                     </legend>
                     <div class="mb-2">
-                        <label for="atem-mp1-source-select" class="form-label">Bildquelle</label>
+                        <label for="atem-mp1-source-select" class="form-label visually-hidden">Bildquelle</label>
                         <select class="form-select" id="atem-mp1-source-select">
                         </select>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex d-row gap-2">
+                            <button id="atem-capture-still-btn" class="btn btn-outline-primary btn-sm flex-fill">Screenshot</button>
+                        </div>
                     </div>
                 </fieldset>
             </div>

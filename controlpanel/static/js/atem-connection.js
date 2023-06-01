@@ -29,6 +29,7 @@ let atem = {
         key1onair: false,
         previewSource: undefined,
         programSource: undefined,
+        stills: [],
     },
     get url() {
         if (!atem.connectionData.target.startsWith("http")) {

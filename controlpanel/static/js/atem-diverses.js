@@ -45,6 +45,10 @@ $("#atem-next-transition-key1-btn2").click((e) => {
     changeAtemNextTransitionState();
 })
 
+$("#atem-capture-still-btn").click((e) => {
+    atem.post("capture-still");
+})
+
 // Events
 
 $(window).on("atem-get-mediaplayer-selected", function (e, data) {
@@ -52,9 +56,14 @@ $(window).on("atem-get-mediaplayer-selected", function (e, data) {
 });
 
 $(window).on("atem-get-mediaplayer-file-info", function (e, data) {
+    let stills = Object.values(data);
+
+    if (JSON.stringify(stills) === JSON.stringify(atem.state.stills)) return;
+    atem.state.stills = stills;
+
     let oldval = atemMP1selectElem.val();
     atemMP1selectElem.empty();
-    for (let still of Object.values(data)) {
+    for (let still of stills) {
         if (still.is_used) {
             let opt = $("<option></option>");
             opt.attr("value", still.index);
@@ -91,23 +100,19 @@ $(window).on("atem-get-transition-position", function (e, data) {
 
 // Interval
 
-let atemDiversesInterval1 = undefined;
+let atemDiversesInterval = undefined;
 let atemDiversesInterval2 = undefined;
 
 $(window).on("atem-connected", function () {
-    atemDiversesInterval1 = setInterval(function () {
+    atemDiversesInterval = setInterval(function () {
         atem.get("mediaplayer-selected");
         atem.get("fade-to-black-state");
         atem.get("transition-settings");
         atem.get("transition-position");
-    }, 500);
-    atem.get("mediaplayer-file-info");
-    atemDiversesInterval2 = setInterval(function () {
         atem.get("mediaplayer-file-info");
-    }, 10000);
+    }, 500);
 });
 
 $(window).on("atem-disconnected", function () {
-    clearInterval(atemDiversesInterval1);
-    clearInterval(atemDiversesInterval2);
+    clearInterval(atemDiversesInterval);
 });
