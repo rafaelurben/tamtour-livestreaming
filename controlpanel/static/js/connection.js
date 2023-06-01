@@ -2,20 +2,18 @@ obs = new OBSWebSocket()
 wakeLock = null;
 
 async function __handle_disconnected() {
-    console.log("Disconnected!");
+    console.log("[OBS] Disconnected!");
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
 
     $("#controlpanel-container").addClass("notconnected");
-
-    alert("Verbindung getrennt!")
 
     if (wakeLock != null) {
         try {
             await wakeLock.release();
             wakeLock = null;
         } catch (err) {
-            console.error(`Wakelock release failed: ${err.name}, ${err.message}`);
+            console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
         }   
     }
 }
@@ -26,13 +24,12 @@ async function disconnect() {
     try {
         await obs.disconnect();
     } catch (error) {
-        console.error(error);
-        alert(error);
+        console.error("[OBS] Disconnect failed: ", error);
     }
 }
 
 async function __handle_connected() {
-    console.log("Connected!");
+    console.log("[OBS] Connected!");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
 
@@ -50,7 +47,7 @@ async function __handle_connected() {
             });
             console.log('Wake Lock is active');
         } catch (err) {
-            console.error(`Wakelock request failed: ${err.name}, ${err.message}`);
+            console.warn(`Wakelock request failed: ${err.name}, ${err.message}`);
         }
     }
 }
@@ -70,8 +67,8 @@ async function connect(target, password) {
         __handle_connected();
         return data
     } catch (error) {
-        console.warn(error)
-        alert(error);
+        console.warn("[OBS] Connection failed:", error);
+        alert("[OBS] Verbindung fehlgeschlagen! Bitte überprüfe die Eingaben.");
     }
 }
 
@@ -81,24 +78,24 @@ async function connectGUI() {
 
 async function sendAction(action, data) {
     let obj = { action: action, data: data}
-    console.debug("Sending", obj, "to browser source...")
+    console.debug("[OBS] Sending", obj, "to browser source...")
     try {
         await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
         return true;
     } catch (error) {
-        console.warn(error)
-        alert(error);
+        console.warn("[OBS] Action failed:", error)
+        alert("[OBS] Aktion fehlgeschlagen! Bitte überprüfe die Konsole.");
         return false;
     }
 }
 
 async function sendOBSCommand(command, data) {
-    console.debug("Sending command", command, "to OBS with data:", data)
+    console.debug("[OBS] Sending command", command, "with data:", data)
     try {
         return await obs.call(command, data)
     } catch (error) {
-        console.warn(error)
-        alert(error);
+        console.warn("[OBS] Command failed:", error)
+        alert("[OBS] Befehl fehlgeschlagen! Bitte überprüfe die Konsole.");
         return null;
     }
 }

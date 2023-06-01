@@ -37,7 +37,7 @@ let atem = {
     },
     _handleConnect: function () {
         atem.connected = true;
-        console.log("ATEM connected");
+        console.log("[ATEM] Connected");
 
         $("#atem-btn-connect").addClass("d-none");
         $("#atem-btn-disconnect").removeClass("d-none");
@@ -51,7 +51,7 @@ let atem = {
     },
     _handleDisconnect: function () {
         atem.connected = false;
-        console.log("ATEM disconnected");
+        console.log("[ATEM] Disconnected");
 
         $("#atem-btn-connect").removeClass("d-none");
         $("#atem-btn-disconnect").addClass("d-none");
@@ -74,8 +74,8 @@ let atem = {
                     resolve(data);
                 },
                 error: function (error) {
-                    console.error("Request to ATEM failed: ", error);
-                    alert("Anfrage an ATEM fehlgeschlagen!");
+                    console.error("[ATEM] Request failed: ", error);
+                    alert("[ATEM] Anfrage fehlgeschlagen!");
                     reject(error);
                 },
             });
@@ -111,8 +111,7 @@ let atem = {
             atem._handleConnect();
         }).catch(function (error) {
             atem.connected = false;
-            console.error("Failed to connect to ATEM: ", error);
-            alert("Verbindung mit ATEM fehlgeschlagen!");
+            console.warn("[ATEM] Failed to connect: ", error);
         });
     },
     disconnect: async function () {

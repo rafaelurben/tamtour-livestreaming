@@ -108,7 +108,6 @@ $(window).on("atem-connected", function () {
 });
 
 $(window).on("atem-disconnected", function () {
-    console.log("Disconnected!");
     clearInterval(atemDiversesInterval1);
     clearInterval(atemDiversesInterval2);
 });

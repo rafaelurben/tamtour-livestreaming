@@ -74,7 +74,7 @@ function loadStartlists(initial) {
         let startlists = data.lists;
 
         if (!startlists) {
-            alert("Keine Startlisten gefunden!");
+            alert("Keine Startlisten gefunden! Bitte wähle eine andere Datei.");
             return;
         }
 

@@ -57,6 +57,5 @@ $(window).on("atem-connected", function () {
 });
 
 $(window).on("atem-disconnected", function () {
-    console.log("Disconnected!");
     clearInterval(atemAudioInterval);
 });
