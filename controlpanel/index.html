@@ -429,22 +429,30 @@
                             </tr>
                             <tr>
                                 <td class="pe-2">
-                                    <button id="atem-mic1-on-btn" class="btn btn-outline-danger btn-sm">ON</button>
+                                    <button id="atem-mic1-on-btn" class="btn btn-outline-secondary btn-sm">ON</button>
                                     <button id="atem-mic1-off-btn" class="btn btn-outline-secondary btn-sm">OFF</button>
                                 </td>
                                 <td>
                                     <button id="atem-mic2-on-btn" class="btn btn-outline-secondary btn-sm">ON</button>
-                                    <button id="atem-mic2-off-btn" class="btn btn-outline-light btn-sm">OFF</button>
+                                    <button id="atem-mic2-off-btn" class="btn btn-outline-secondary btn-sm">OFF</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button id="atem-mic1-up-btn" class="btn btn-outline-secondary btn-sm">▲</button>
-                                    <button id="atem-mic1-down-btn" class="btn btn-outline-secondary btn-sm">▼</button>
+                                    <button id="atem-mic1-volume-up-btn" class="btn btn-outline-secondary btn-sm">▲</button>
+                                    <button id="atem-mic1-volume-down-btn" class="btn btn-outline-secondary btn-sm">▼</button>
                                 </td>
                                 <td>
-                                    <button id="atem-mic2-up-btn" class="btn btn-outline-secondary btn-sm">▲</button>
-                                    <button id="atem-mic2-down-btn" class="btn btn-outline-secondary btn-sm">▼</button>
+                                    <button id="atem-mic2-volume-up-btn" class="btn btn-outline-secondary btn-sm">▲</button>
+                                    <button id="atem-mic2-volume-down-btn" class="btn btn-outline-secondary btn-sm">▼</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span id="atem-mic1-volume">0</span> dB
+                                </td>
+                                <td>
+                                    <span id="atem-mic2-volume">0</span> dB
                                 </td>
                             </tr>
                         </tbody>
@@ -487,6 +495,7 @@
     <script src="./static/js/overlay-sponsors.js"></script>
     <script src="./static/js/atem-connection.js"></script>
     <script src="./static/js/atem-video.js"></script>
+    <script src="./static/js/atem-audio.js"></script>
 </body>
 
 </html>

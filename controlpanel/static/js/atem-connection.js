@@ -1,5 +1,18 @@
 // Handle connections with openswitcher-proxy
 
+let atemInputIds = {
+    0: "BLK",
+    1: "CAM1",
+    2: "CAM2",
+    3: "CAM3",
+    4: "CAM4",
+    1301: "MIC1",
+    1302: "MIC2",
+    3010: "MP1",
+}
+
+let atemInputIdsReverse = Object.fromEntries(Object.entries(atemInputIds).map(a => a.reverse()));
+
 let atem = {
     connected: false,
     connectionData: {
