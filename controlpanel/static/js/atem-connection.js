@@ -37,6 +37,7 @@ let atem = {
         key1FillSource: undefined,
         dkey1FillSource: undefined,
         stills: [],
+        audioconfig: [],
     },
     get url() {
         if (!atem.connectionData.target.startsWith("http")) {

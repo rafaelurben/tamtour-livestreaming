@@ -8,41 +8,76 @@ let atemAudioChannels = [
 
 // Actions
 
-for (let dat of atemAudioChannels) {
-    let id = dat[0];
-    let htmlname = dat[1] + "-" + (dat[2] === -1 ? 0 : dat[2]);
-    let channel = dat[2];
+function setupATEMAudioInputButtons(config) {
+    let container = $("#atem-audiobuttons-container").empty();
+    for (let conf of config) {
+        let cont = $("<div>").addClass("me-1 d-flex flex-column gap-1").appendTo(container);
+        
+        $("<div>").text(conf.title).appendTo(cont);
 
-    $(`#atem-${htmlname}-on-btn`).off("click");
-    $(`#atem-${htmlname}-on-btn`).click(function (e) {
-        atem.post("fairlight-strip-properties", { source: id, channel: channel, state: 2 });
-    });
-    $(`#atem-${htmlname}-off-btn`).off("click");
-    $(`#atem-${htmlname}-off-btn`).click(function (e) {
-        atem.post("fairlight-strip-properties", { source: id, channel: channel, state: 1 });
-    });
-    $(`#atem-${htmlname}-volume-up-btn`).click(function (e) {
-        let newVol = $(`#atem-${htmlname}-volume`).text() - 0 + 150;
-        atem.post("fairlight-strip-properties", { source: id, channel: channel, volume: newVol });
-    });
-    $(`#atem-${htmlname}-volume-down-btn`).click(function (e) {
-        let newVol = $(`#atem-${htmlname}-volume`).text() - 0 - 150;
-        atem.post("fairlight-strip-properties", { source: id, channel: channel, volume: newVol });
-    });
+        let row1 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
+        let onBtn = $("<button>").addClass("btn btn-sm btn-outline-danger").attr("id", `atem-audio-${conf.htmlName}-on-btn`).text("ON").appendTo(row1);
+        let offBtn = $("<button>").addClass("ms-1 btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-off-btn`).text("OFF").appendTo(row1);
+
+        let row2 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
+        let volUpBtn = $("<button>").addClass("btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-volume-up-btn`).text("▲").appendTo(row2);
+        let volDownBtn = $("<button>").addClass("ms-1 btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-volume-down-btn`).text("▼").appendTo(row2);
+
+        $("<div>").addClass("mt-1").attr("id", `atem-audio-${conf.htmlName}-volume`).appendTo(cont);
+
+        onBtn.click(function (e) {
+            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, state: 2 });
+        });
+        offBtn.click(function (e) {
+            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, state: 1 });
+        });
+        volUpBtn.click(function (e) {
+            let newVol = $(`#atem-audio-${conf.htmlName}-volume`).text() - 0 + 150;
+            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, volume: newVol });
+        });
+        volDownBtn.click(function (e) {
+            let newVol = $(`#atem-audio-${conf.htmlName}-volume`).text() - 0 - 150;
+            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, volume: newVol });
+        });
+    }
 }
 
 // Events
 
+$(window).on("atem-get-fairlight-audio-input", function (e, data) {
+    let shownInputs = $("#atem-settings-enabled-audioinputs").val();
+    var audioconfig = [];
+
+    for (let dat of Object.values(data)) {
+        if (!shownInputs.includes(dat.index.toString())) continue;
+
+        let name = atemInputIds[dat.index];
+
+        if (dat.split === 4) { // Audio is split in dual mono
+            audioconfig.push({ index: dat.index, subchannel: 0, stripId: dat.index + ".0", htmlName: dat.index + "-0", title: name + " L" });
+            audioconfig.push({ index: dat.index, subchannel: 1, stripId: dat.index + ".1", htmlName: dat.index + "-1", title: name + " R" });
+        } else { // Audio is not split
+            audioconfig.push({ index: dat.index, subchannel: -1, stripId: dat.index + ".0", htmlName: dat.index, title: name });
+        }
+    }
+
+    if (JSON.stringify(atem.state.audioconfig) !== JSON.stringify(audioconfig)) {
+        atem.state.audioconfig = audioconfig;
+        setupATEMAudioInputButtons(audioconfig);
+    }
+});
+
 $(window).on("atem-get-fairlight-strip-properties", function (e, data) {
-    for (let dat of atemAudioChannels) {
-        let htmlname = dat[1] + "-" + (dat[2] === -1 ? 0 : dat[2]);
-        let atemname = dat[0] + "." + (dat[2] === -1 ? 0 : dat[2]);
-        
-        let micOn = data[atemname].state === 2;
-        $(`#atem-${htmlname}-on-btn`).toggleClass("btn-outline-danger", micOn).toggleClass("btn-outline-secondary", !micOn);
-        $(`#atem-${htmlname}-off-btn`).toggleClass("btn-outline-light", !micOn).toggleClass("btn-outline-secondary", micOn);
-        let micVol = data[atemname].volume;
-        $(`#atem-${htmlname}-volume`).text(micVol);
+    for (let conf of atem.state.audioconfig) {
+        let dat = data[conf.stripId];
+
+        // State: 1 = off, 2 = on, 4 = AFV
+        let micOn = dat.state === 2;
+        $(`#atem-audio-${conf.htmlName}-on-btn`).toggleClass("btn-outline-danger", micOn).toggleClass("btn-outline-secondary", !micOn);
+        let micOff = dat.state === 1;
+        $(`#atem-audio-${conf.htmlName}-off-btn`).toggleClass("btn-outline-light", micOff).toggleClass("btn-outline-secondary", !micOff);
+        let micVol = dat.volume;
+        $(`#atem-audio-${conf.htmlName}-volume`).text(micVol + " dB");
     }
 });
 
@@ -52,6 +87,7 @@ let atemAudioInterval = undefined;
 
 $(window).on("atem-connected", function () {
     atemAudioInterval = setInterval(function () {
+        atem.get("fairlight-audio-input");
         atem.get("fairlight-strip-properties");
     }, 500);
 });

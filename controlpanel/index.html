@@ -78,8 +78,8 @@
                         <button id="atem-btn-disconnect" class="btn btn-danger w-100 d-none" onclick="atem.disconnect()">Verbindung trennen</button>
                     </div>
                     <hr>
-                    <div class="">
-                        <label for="atem-settings-enabled-videoinputs" class="form-label">Angezeigte Video Inputs</label>
+                    <div class="mb-3">
+                        <label for="atem-settings-enabled-videoinputs" class="form-label">Angezeigte Video-Inputs</label>
                         <select id="atem-settings-enabled-videoinputs" class="form-select" multiple>
                             <option selected value="CAM1">CAM1 (Camera 1)</option>
                             <option selected value="CAM2">CAM2 (Camera 2)</option>
@@ -90,6 +90,17 @@
                             <option selected value="BARS">BARS (Color bars)</option>
                             <option selected value="COL1">COL1 (Color 1)</option>
                             <option selected value="COL2">COL2 (Color 2)</option>
+                        </select>
+                    </div>
+                    <div class="">
+                        <label for="atem-settings-enabled-audioinputs" class="form-label">Angezeigte Audio-Inputs</label>
+                        <select id="atem-settings-enabled-audioinputs" class="form-select" multiple>
+                            <option selected value="1301">MIC1 (Microphone 1)</option>
+                            <option selected value="1302">MIC2 (Microphone 2)</option>
+                            <option value="1">CAM1 (Camera 1 Mic)</option>
+                            <option value="2">CAM2 (Camera 2 Mic)</option>
+                            <option value="3">CAM3 (Camera 3 Mic)</option>
+                            <option value="4">CAM4 (Camera 4 Mic)</option>
                         </select>
                     </div>
                 </div>
@@ -440,47 +451,9 @@
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Audio</b>
                     </legend>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    MIC1
-                                </td>
-                                <td>
-                                    MIC2
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="pe-2">
-                                    <button id="atem-mic1-0-on-btn" class="btn btn-outline-secondary btn-sm">ON</button>
-                                    <button id="atem-mic1-0-off-btn" class="btn btn-outline-secondary btn-sm">OFF</button>
-                                </td>
-                                <td class="pe-2">
-                                    <button id="atem-mic2-0-on-btn" class="btn btn-outline-secondary btn-sm">ON</button>
-                                    <button id="atem-mic2-0-off-btn" class="btn btn-outline-secondary btn-sm">OFF</button>
-                                </td>
-                            </tr>
-                            
-                            <tr>
-                                <td>
-                                    <button id="atem-mic1-0-volume-up-btn" class="btn btn-outline-secondary btn-sm">▲</button>
-                                    <button id="atem-mic1-0-volume-down-btn" class="btn btn-outline-secondary btn-sm">▼</button>
-                                </td>
-                                <td>
-                                    <button id="atem-mic2-0-volume-up-btn" class="btn btn-outline-secondary btn-sm">▲</button>
-                                    <button id="atem-mic2-0-volume-down-btn" class="btn btn-outline-secondary btn-sm">▼</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span id="atem-mic1-0-volume">0</span> dB
-                                </td>
-                                <td>
-                                    <span id="atem-mic1-1-volume">0</span> dB
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="d-flex flex-row gap-2" id="atem-audiobuttons-container">
+                        <!-- Added by JS -->
+                    </div>
                 </fieldset>
 
                 <!-- Transitions -->
