@@ -1,10 +1,4 @@
 // ATEM commands about audio
-// Note: channel -1 means normal operation, 0 and 1 mean split operation
-
-let atemAudioChannels = [
-    ["1301", "mic1", -1],
-    ["1302", "mic2", -1],
-]
 
 // Actions
 
@@ -13,17 +7,19 @@ function setupATEMAudioInputButtons(config) {
     for (let conf of config) {
         let cont = $("<div>").addClass("me-1 d-flex flex-column gap-1").appendTo(container);
         
-        $("<div>").text(conf.title).appendTo(cont);
+        $("<div>").addClass("mb-1").text(conf.title).appendTo(cont);
 
         let row1 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
         let onBtn = $("<button>").addClass("btn btn-sm btn-outline-danger").attr("id", `atem-audio-${conf.htmlName}-on-btn`).text("ON").appendTo(row1);
         let offBtn = $("<button>").addClass("ms-1 btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-off-btn`).text("OFF").appendTo(row1);
 
         let row2 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
-        let volUpBtn = $("<button>").addClass("btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-volume-up-btn`).text("▲").appendTo(row2);
-        let volDownBtn = $("<button>").addClass("ms-1 btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-volume-down-btn`).text("▼").appendTo(row2);
+        let volUpBtn = $("<button>").addClass("btn btn-sm flex-fill btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-volume-up-btn`).text("▲").appendTo(row2);
+        let volDownBtn = $("<button>").addClass("ms-1 btn btn-sm flex-fill btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-volume-down-btn`).text("▼").appendTo(row2);
 
-        $("<div>").addClass("mt-1").attr("id", `atem-audio-${conf.htmlName}-volume`).appendTo(cont);
+        let row3 = $("<div>").addClass("d-flex flex-row mt-1").appendTo(cont);
+        $("<div>").attr("id", `atem-audio-${conf.htmlName}-volume`).appendTo(row3);
+        $("<span>").addClass("ms-1").text("dB").appendTo(row3);
 
         onBtn.click(function (e) {
             atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, state: 2 });
@@ -77,7 +73,7 @@ $(window).on("atem-get-fairlight-strip-properties", function (e, data) {
         let micOff = dat.state === 1;
         $(`#atem-audio-${conf.htmlName}-off-btn`).toggleClass("btn-outline-light", micOff).toggleClass("btn-outline-secondary", !micOff);
         let micVol = dat.volume;
-        $(`#atem-audio-${conf.htmlName}-volume`).text(micVol + " dB");
+        $(`#atem-audio-${conf.htmlName}-volume`).text(micVol);
     }
 });
 
