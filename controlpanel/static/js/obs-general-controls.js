@@ -170,8 +170,17 @@ function showStreamCongestion(congestion) {
 
     streamCongestionHistory.push(congestion);
 
-    let r = congestion == null ? 0 : congestion * 255;
-    let g = congestion == null ? 0 : (1 - congestion) * 255;
+    let r, g;
+    if (congestion == null) {
+        r = 0;
+        g = 0;
+    } else if (congestion == 0) {
+        r = 0;
+        g = 255;
+    } else {
+        r = 255;
+        g = (1 - congestion) * 255;
+    }
 
     let elem = $("<div>", {
         style: `background-color: rgb(${r}, ${g}, 0);`
