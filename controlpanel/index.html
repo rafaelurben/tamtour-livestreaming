@@ -14,70 +14,94 @@
 </head>
 
 <body>
-    <div class="d-flex flex-column p-2 gap-3">
-        <!-- Menubar -->
-        <div id="controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
-            <div class="d-flex flex-row gap-2 flex-grow-1">
-                <div class="">
-                    <button class="btn btn-secondary h-100" onclick="window.open('https://tamtour.ch', '_blank')">OBS</button>
+    <!-- Modals / dialogs -->
+    <dialog id="obs-dialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">OBS Einstellungen</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="login-form-target" class="form-control" type="text" name="target" value="127.0.0.1:4455" placeholder="127.0.0.1:4455">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <p>
+                            Um OBS zu verbinden, muss die <a href="https://github.com/obsproject/obs-websocket">OBS Websocket API</a> aktiviert sein. Diese kann in <b>OBS</b> via <b>Tools</b> -> <b>Websocket Server Settings</b> aktiviert werden. Es ist empfohlen, ein Passwort zu setzen.
+                        </p>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input id="login-form-target" class="form-control" type="text" name="target" value="127.0.0.1:4455">
                         <label for="login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
                     </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row gap-2 flex-grow-1">
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="login-form-password" class="form-control" type="password" name="password" placeholder="Password">
+                    <div class="mb-3 form-floating">
+                        <input id="login-form-password" class="form-control" type="password" name="password">
                         <label for="login-form-password" class="form-label">Passwort</label>
                     </div>
+                    <div class="">
+                        <button id="btn-connect" class="btn btn-success w-100" onclick="connectGUI()">Verbinden</button>
+                        <button id="btn-disconnect" class="btn btn-danger w-100 d-none" onclick="disconnect()">Verbindung trennen</button>
+                    </div>
                 </div>
-                <div class="">
-                    <button id="btn-connect" class="btn btn-success h-100" onclick="connectGUI()">Verbinden</button>
-                    <button id="btn-disconnect" class="btn btn-danger h-100 d-none" onclick="disconnect()">Verbindung trennen</button>
-                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
             </div>
         </div>
-
-        <!-- ATEM Menubar -->
-        <div id="atem-controlpanel-login-container" class="d-flex flex-row gap-2 flex-wrap">
-            <div class="d-flex flex-row gap-2 flex-grow-1">
-                <div class="">
-                    <button class="btn btn-secondary h-100"
-                        onclick="window.open('https://tamtour.ch', '_blank')">ATEM</button>
+    </dialog>
+    <dialog id="atem-dialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">ATEM Einstellungen</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="atem-login-form-target" class="form-control" type="text" name="atem-target" id="atem-target"
-                            value="127.0.0.1:8080" placeholder="127.0.0.1:8080">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <p>
+                            Die Verbindung mit dem <b>ATEM Mini Pro</b> erfolgt via <a href="https://docs.openswitcher.org/proxy.html">openswitcher-proxy</a>.
+                        </p>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input id="atem-login-form-target" class="form-control" type="text" name="target" value="127.0.0.1:4455">
                         <label for="atem-login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
                     </div>
-                </div>
-            </div>
-            <div class="d-flex flex-row gap-2 flex-grow-1">
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="atem-login-form-username" class="form-control" type="text" name="atem-username"
-                            placeholder="Benutzername">
+                    <div class="mb-3 form-floating">
+                        <input id="atem-login-form-username" class="form-control" type="text" name="atem-username">
                         <label for="atem-login-form-username" class="form-label">Benutzername</label>
                     </div>
-                </div>
-                <div class="flex-grow-1">
-                    <div class="form-floating">
-                        <input id="atem-login-form-password" class="form-control" type="password" name="atem-password"
-                            placeholder="Passwort">
+                    <div class="mb-3 form-floating">
+                        <input id="atem-login-form-password" class="form-control" type="password" name="atem-password">
                         <label for="atem-login-form-password" class="form-label">Passwort</label>
                     </div>
+                    <div class="">
+                        <button id="atem-btn-connect" class="btn btn-success w-100" onclick="atem.connect()">Verbinden</button>
+                        <button id="atem-btn-disconnect" class="btn btn-danger w-100 d-none" onclick="atem.disconnect()">Verbindung trennen</button>
+                    </div>
                 </div>
-                <div class="">
-                    <button id="atem-btn-connect" class="btn btn-success h-100" onclick="atem.connect()">Verbinden</button>
-                    <button id="atem-btn-disconnect" class="btn btn-danger h-100 d-none" onclick="atem.disconnect()">Verbindung
-                        trennen</button>
-                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
             </div>
+        </div>
+    </dialog>
+
+    <!-- Main content -->
+    <div class="d-flex flex-column p-2 gap-3">
+        <!-- Menubar -->
+        <div class="d-flex flex-row gap-2 flex-wrap">
+            <button class="btn btn-secondary flex-grow-1" onclick="window.open('../', '_blank')">
+                Infos
+            </button>
+            <button class="btn btn-secondary flex-grow-1" onclick="window.open('https://tamtour.ch', '_blank')">
+                TamTour Webseite
+            </button>
+            <button id="open-obs-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#obs-dialog" type="button">
+                OBS Einstellungen
+            </button>
+            <button id="open-atem-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#atem-dialog" type="button">
+                ATEM Einstellungen
+            </button>
         </div>
 
         <!-- Main controls -->

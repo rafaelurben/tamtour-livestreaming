@@ -6,6 +6,7 @@ async function __handle_disconnected() {
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
     $("#controlpanel-container").addClass("notconnected");
+    $("#open-obs-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
 
     if (wakeLock != null) {
         try {
@@ -32,6 +33,7 @@ async function __handle_connected() {
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
     $("#controlpanel-container").removeClass("notconnected");
+    $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
     sessionStorage.setItem("obs-auto-connect", "true");
     sessionStorage.setItem("obs-target", document.getElementById('login-form-target').value);
