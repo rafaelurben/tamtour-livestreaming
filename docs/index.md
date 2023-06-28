@@ -1,6 +1,6 @@
 ---
 ---
 
-# TamTour livestreaming
+# TamTour Livestreaming
 
-W.i.p.
+Zum [Control panel](./controlpanel/).
