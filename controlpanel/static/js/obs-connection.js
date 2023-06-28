@@ -5,7 +5,6 @@ async function __handle_disconnected() {
     console.log("[OBS] Disconnected!");
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
-
     $("#controlpanel-container").addClass("notconnected");
 
     if (wakeLock != null) {
@@ -32,7 +31,6 @@ async function __handle_connected() {
     console.log("[OBS] Connected!");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
-
     $("#controlpanel-container").removeClass("notconnected");
 
     sessionStorage.setItem("obs-auto-connect", "true");
