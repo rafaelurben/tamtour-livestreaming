@@ -10,7 +10,7 @@ function setupATEMAudioInputButtons(config) {
         $("<div>").addClass("mb-1").text(conf.title).appendTo(cont);
 
         let row1 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
-        let onBtn = $("<button>").addClass("btn btn-sm btn-outline-danger").attr("id", `atem-audio-${conf.htmlName}-on-btn`).text("ON").appendTo(row1);
+        let onBtn = $("<button>").addClass("btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-on-btn`).text("ON").appendTo(row1);
         let offBtn = $("<button>").addClass("ms-1 btn btn-sm btn-outline-secondary").attr("id", `atem-audio-${conf.htmlName}-off-btn`).text("OFF").appendTo(row1);
 
         let row2 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
