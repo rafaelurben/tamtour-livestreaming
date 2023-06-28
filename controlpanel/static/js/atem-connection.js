@@ -50,7 +50,7 @@ let atem = {
         $("#atem-btn-connect").addClass("d-none");
         $("#atem-btn-disconnect").removeClass("d-none");
         $("#atem-controlpanel-container").removeClass("notconnected");
-        $("#open-atem-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
+        $("#open-atem-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("ATEM verbunden");
 
         $(window).trigger("atem-connected");
         sessionStorage.setItem("atem-auto-connect", "true");
@@ -65,7 +65,7 @@ let atem = {
         $("#atem-btn-connect").removeClass("d-none");
         $("#atem-btn-disconnect").addClass("d-none");
         $("#atem-controlpanel-container").addClass("notconnected");
-        $("#open-atem-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
+        $("#open-atem-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("ATEM verbinden");
 
         $(window).trigger("atem-disconnected");
         sessionStorage.setItem("atem-auto-connect", "false");
