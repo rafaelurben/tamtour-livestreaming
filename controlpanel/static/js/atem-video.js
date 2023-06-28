@@ -1,26 +1,59 @@
 // ATEM commands about video
 
+let ATEM_VIDEO_INPUTS = [
+    "CAM1",
+    "CAM2",
+    "CAM3",
+    "CAM4",
+    "MP1",
+    "BLK",
+    "BARS",
+    "COL1",
+    "COL2",
+]
+
+function setupATEMVideoInputButtons(lst) {
+    let container_pgm = $("#atem-videobuttons-pgm");
+    let container_pvw = $("#atem-videobuttons-pvw");
+    let container_key1fill = $("#atem-videobuttons-key1fill");
+    let container_dkey1fill = $("#atem-videobuttons-dkey1fill");
+
+    container_pgm.empty();
+    container_pvw.empty();
+    container_key1fill.empty();
+    container_dkey1fill.empty();
+
+    for (let name of lst) {
+        let inputId = atemInputIdsReverse[name];
+
+        let btn_pgm = $(`<button class="me-1 btn btn-outline-secondary btn-sm atem-pgm-btn" data-name="${name}">${name}</button>`);
+        let btn_pvw = $(`<button class="me-1 btn btn-outline-secondary btn-sm atem-pvw-btn" data-name="${name}">${name}</button>`);
+        let btn_key1fill = $(`<button class="me-1 btn btn-outline-secondary btn-sm atem-key1fill-btn" data-name="${name}">${name}</button>`);
+        let btn_dkey1fill = $(`<button class="me-1 btn btn-outline-secondary btn-sm atem-dkey1fill-btn" data-name="${name}">${name}</button>`);
+
+        btn_pgm.click(function (e) {
+            atem.post("program-input", { index: 0, source: inputId });
+        })
+        btn_pvw.click(function (e) {
+            atem.post("preview-input", { index: 0, source: inputId });
+        })
+        btn_key1fill.click(function (e) {
+            atem.post("key-fill", { index: 0, keyer: 0, source: inputId });
+        })
+        btn_dkey1fill.click(function (e) {
+            atem.post("dkey-set-fill", { index: 0, source: inputId });
+        })
+
+        container_pgm.append(btn_pgm);
+        container_pvw.append(btn_pvw);
+        container_key1fill.append(btn_key1fill);
+        container_dkey1fill.append(btn_dkey1fill);   
+    }
+}
+
+$(window).on('load', () => {setupATEMVideoInputButtons(ATEM_VIDEO_INPUTS);});
+
 // Actions
-
-$(".atem-pvw-btn").click(function (e) {
-    let inputId = atemInputIdsReverse[$(this).data("name")];
-    atem.post("preview-input", { index: 0, source: inputId });
-});
-
-$(".atem-pgm-btn").click(function (e) {
-    let inputId = atemInputIdsReverse[$(this).data("name")];
-    atem.post("program-input", { index: 0, source: inputId });
-});
-
-$(".atem-key1fill-btn").click(function (e) {
-    let inputId = atemInputIdsReverse[$(this).data("name")];
-    atem.post("key-fill", { index: 0, keyer: 0, source: inputId });
-});
-
-$(".atem-dkey1fill-btn").click(function (e) {
-    let inputId = atemInputIdsReverse[$(this).data("name")];
-    atem.post("dkey-set-fill", { index: 0, source: inputId });
-});
 
 $("#atem-key1-on-air-btn").click(function (e) {
     let isOn = atem.state.key1onair;
