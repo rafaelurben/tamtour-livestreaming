@@ -1,27 +1,10 @@
 // ATEM commands about video
 
-let ATEM_VIDEO_INPUTS = [
-    "CAM1",
-    "CAM2",
-    "CAM3",
-    "CAM4",
-    "MP1",
-    "BLK",
-    "BARS",
-    "COL1",
-    "COL2",
-]
-
 function setupATEMVideoInputButtons(lst) {
-    let container_pgm = $("#atem-videobuttons-pgm");
-    let container_pvw = $("#atem-videobuttons-pvw");
-    let container_key1fill = $("#atem-videobuttons-key1fill");
-    let container_dkey1fill = $("#atem-videobuttons-dkey1fill");
-
-    container_pgm.empty();
-    container_pvw.empty();
-    container_key1fill.empty();
-    container_dkey1fill.empty();
+    let container_pgm = $("#atem-videobuttons-pgm").empty();
+    let container_pvw = $("#atem-videobuttons-pvw").empty();
+    let container_key1fill = $("#atem-videobuttons-key1fill").empty();
+    let container_dkey1fill = $("#atem-videobuttons-dkey1fill").empty();
 
     for (let name of lst) {
         let inputId = atemInputIdsReverse[name];
@@ -51,7 +34,12 @@ function setupATEMVideoInputButtons(lst) {
     }
 }
 
-$(window).on('load', () => {setupATEMVideoInputButtons(ATEM_VIDEO_INPUTS);});
+$(window).on('load', function (e) {
+    setupATEMVideoInputButtons($("#atem-settings-enabled-videoinputs").val());
+});
+$("#atem-settings-enabled-videoinputs").change(function (e) {
+    setupATEMVideoInputButtons($("#atem-settings-enabled-videoinputs").val());
+});
 
 // Actions
 

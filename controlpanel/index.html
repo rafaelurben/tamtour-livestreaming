@@ -73,9 +73,24 @@
                         <input id="atem-login-form-password" class="form-control" type="password" name="atem-password">
                         <label for="atem-login-form-password" class="form-label">Passwort</label>
                     </div>
-                    <div class="">
+                    <div class="mb-3">
                         <button id="atem-btn-connect" class="btn btn-success w-100" onclick="atem.connect()">Verbinden</button>
                         <button id="atem-btn-disconnect" class="btn btn-danger w-100 d-none" onclick="atem.disconnect()">Verbindung trennen</button>
+                    </div>
+                    <hr>
+                    <div class="">
+                        <label for="atem-settings-enabled-videoinputs" class="form-label">Angezeigte Video Inputs</label>
+                        <select id="atem-settings-enabled-videoinputs" class="form-select" multiple>
+                            <option selected value="CAM1">CAM1 (Camera 1)</option>
+                            <option selected value="CAM2">CAM2 (Camera 2)</option>
+                            <option selected value="CAM3">CAM3 (Camera 3)</option>
+                            <option selected value="CAM4">CAM4 (Camera 4)</option>
+                            <option selected value="MP1">MP1 (Media player 1)</option>
+                            <option selected value="BLK">BLK (Black)</option>
+                            <option selected value="BARS">BARS (Color bars)</option>
+                            <option selected value="COL1">COL1 (Color 1)</option>
+                            <option selected value="COL2">COL2 (Color 2)</option>
+                        </select>
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
