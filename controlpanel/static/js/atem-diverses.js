@@ -109,20 +109,11 @@ $(window).on("atem-get-transition-position", function (e, data) {
 
 // Interval
 
-let atemDiversesInterval = undefined;
-let atemDiversesInterval2 = undefined;
-
-$(window).on("atem-connected", function () {
-    atemDiversesInterval = setInterval(function () {
-        atem.get("mediaplayer-selected");
-        atem.get("fade-to-black-state");
-        atem.get("dkey-state");
-        atem.get("transition-settings");
-        atem.get("transition-position");
-        atem.get("mediaplayer-file-info");
-    }, 500);
-});
-
-$(window).on("atem-disconnected", function () {
-    clearInterval(atemDiversesInterval);
+$(window).on("atem-base-interval", function () {
+    atem.get("mediaplayer-selected");
+    atem.get("fade-to-black-state");
+    atem.get("dkey-state");
+    atem.get("transition-settings");
+    atem.get("transition-position");
+    atem.get("mediaplayer-file-info");
 });

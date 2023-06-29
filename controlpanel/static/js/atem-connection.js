@@ -143,3 +143,17 @@ window.addEventListener('load', function () {
         }
     }
 });
+
+// ATEM Base Interval
+
+let atemBaseInterval = undefined;
+
+$(window).on("atem-connected", function () {
+    atemBaseInterval = setInterval(function () {
+        $(window).trigger("atem-base-interval");
+    }, 500);
+});
+
+$(window).on("atem-disconnected", function () {
+    clearInterval(atemBaseInterval);
+});

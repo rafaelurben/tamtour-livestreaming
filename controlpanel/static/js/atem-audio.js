@@ -79,15 +79,7 @@ $(window).on("atem-get-fairlight-strip-properties", function (e, data) {
 
 // Interval
 
-let atemAudioInterval = undefined;
-
-$(window).on("atem-connected", function () {
-    atemAudioInterval = setInterval(function () {
-        atem.get("fairlight-audio-input");
-        atem.get("fairlight-strip-properties");
-    }, 500);
-});
-
-$(window).on("atem-disconnected", function () {
-    clearInterval(atemAudioInterval);
+$(window).on("atem-base-interval", function () {
+    atem.get("fairlight-audio-input");
+    atem.get("fairlight-strip-properties");
 });

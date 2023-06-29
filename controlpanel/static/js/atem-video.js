@@ -48,11 +48,6 @@ $("#atem-key1-on-air-btn").click(function (e) {
     atem.post("key-on-air", { index: 0, keyer: 0, enabled: isOn ? 0 : 1 });
 });
 
-// $("#atem-dkey1-on-air-btn").click(function (e) {
-//     let isOn = atem.state.dkey1onair;
-//     atem.post("dkey-onair", { index: 0, on_air: isOn ? 0 : 1 });
-// });
-
 // Events
 
 $(window).on("atem-get-preview-bus-input", function (e, data) {
@@ -109,31 +104,22 @@ $(window).on("atem-get-dkey-state", function (e, data) {
     // Note: request triggered in atem-diverses.js
     let isOn = data["0"].is_transitioning || data["0"].on_air;;
     atem.state.dkey1onair = isOn;
-    // $("#atem-dkey1-on-air-btn").toggleClass("btn-danger", isOn).toggleClass("btn-outline-secondary", !isOn);
 });
 
 // Interval
 
-let atemVideoInterval = undefined;
+$(window).on("atem-base-interval", function () {
+    atem.get("preview-bus-input");
+    atem.get("program-bus-input");
+    atem.get("key-properties-base");
+    atem.get("key-on-air");
+    atem.get("dkey-properties-base");
 
-$(window).on("atem-connected", function () {
-    atemVideoInterval = setInterval(function () {
-        atem.get("preview-bus-input");
-        atem.get("program-bus-input");
-        atem.get("key-properties-base");
-        atem.get("key-on-air");
-        atem.get("dkey-properties-base");
-
-        // set MP1 source border color
-        $("#atem-mp1-source-select"
-            ).toggleClass("border-danger", atem.state.programSource === "MP1"
-            ).toggleClass("border-success", atem.state.previewSource === "MP1"
-            ).toggleClass("border-warning", atem.state.key1FillSource === "MP1" && atem.state.key1onair
-            ).toggleClass("border-info", atem.state.dkey1FillSource === "MP1" && atem.state.dkey1onair
-        );
-    }, 500);
-});
-
-$(window).on("atem-disconnected", function () {
-    clearInterval(atemVideoInterval);
+    // set MP1 source border color
+    $("#atem-mp1-source-select"
+        ).toggleClass("border-danger", atem.state.programSource === "MP1"
+        ).toggleClass("border-success", atem.state.previewSource === "MP1"
+        ).toggleClass("border-warning", atem.state.key1FillSource === "MP1" && atem.state.key1onair
+        ).toggleClass("border-info", atem.state.dkey1FillSource === "MP1" && atem.state.dkey1onair
+    );
 });
