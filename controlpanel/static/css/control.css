@@ -60,6 +60,17 @@ fieldset.collapsed > legend > .collapser::before {
     display: inline-block;
 }
 
+fieldset.collapsed.vertical-collapse > legend > .collapser::before {
+    rotate: 90deg;
+}
+
+
+fieldset.collapsed.vertical-collapse > legend > b {
+    position: absolute;
+    writing-mode: vertical-rl;
+    transform: translate(-1.1rem, 1.75rem);
+}
+
 /* OBS Controls */
 
 #obs-stream-congestion-history-row > div {
