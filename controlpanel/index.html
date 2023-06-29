@@ -248,7 +248,6 @@
                 </fieldset>
 
                 <!-- Einstellungen -->
-                <!-- Settings-Overlay -->
                 <fieldset class="collapsed">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
@@ -479,20 +478,33 @@
                     </div>
                 </fieldset>
 
-                <!-- Media player -->
+                <!-- Media player & Farben -->
                 <fieldset class="vertical-collapse">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Media player</b>
+                        <b>MP1 & COLORS</b>
                     </legend>
                     <div class="mb-2">
                         <label for="atem-mp1-source-select" class="form-label visually-hidden">Bildquelle</label>
                         <select class="form-select form-select-sm" id="atem-mp1-source-select">
                         </select>
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-1">
                         <div class="d-flex d-row gap-2">
                             <button id="atem-capture-still-btn" class="btn btn-outline-primary btn-sm flex-fill">Screenshot</button>
+                        </div>
+                    </div>
+                    <hr class="my-1" />
+                    <div class="input-group">
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="atem-color1-input"
+                                value="hsl(0,0,0)" />
+                            <label for="atem-color1-input" class="form-label">COL1</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="atem-color2-input"
+                                value="hsl(0,0,0)" />
+                            <label for="atem-color2-input" class="form-label">COL2</label>
                         </div>
                     </div>
                 </fieldset>
