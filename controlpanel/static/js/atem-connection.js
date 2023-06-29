@@ -147,11 +147,13 @@ window.addEventListener('load', function () {
 // ATEM Base Interval
 
 let atemBaseInterval = undefined;
+let atemBaseIntervalCounter = 0;
 
 $(window).on("atem-connected", function () {
     atemBaseInterval = setInterval(function () {
-        $(window).trigger("atem-base-interval");
-    }, 500);
+        atemBaseIntervalCounter++;
+        $(window).trigger("atem-base-interval", atemBaseIntervalCounter);
+    }, 100);
 });
 
 $(window).on("atem-disconnected", function () {

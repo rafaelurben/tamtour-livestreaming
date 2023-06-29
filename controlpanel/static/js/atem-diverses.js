@@ -166,12 +166,19 @@ $(window).on("atem-get-color-generator", function (e, data) {
 
 // Interval
 
-$(window).on("atem-base-interval", function () {
-    atem.get("mediaplayer-selected");
-    atem.get("fade-to-black-state");
-    atem.get("dkey-state");
-    atem.get("transition-settings");
-    atem.get("transition-position");
-    atem.get("mediaplayer-file-info");
-    atem.get("color-generator");
+$(window).on("atem-base-interval", function (e, counter) {
+    if (counter % 5 === 1) {
+        // Every 5th interval, offset by 1
+        atem.get("dkey-state");
+        atem.get("fade-to-black-state");
+        atem.get("transition-position");
+    }
+
+    if (counter % 10 === 3) {
+        // Every 10th interval, offset by 3
+        atem.get("mediaplayer-selected");
+        atem.get("transition-settings");
+        atem.get("mediaplayer-file-info");
+        atem.get("color-generator");
+    }
 });

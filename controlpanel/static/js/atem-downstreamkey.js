@@ -22,6 +22,6 @@ atemKEY1TypeselectElem.change(function (e) {
 
 // Interval
 
-$(window).on("atem-base-interval", function () {
+$(window).on("atem-base-interval", function (e, counter) {
     // atem.get("key-properties-base"); => already in atem-video.js
 });
