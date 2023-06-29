@@ -487,12 +487,31 @@
                     </legend>
                     <div class="mb-2">
                         <label for="atem-mp1-source-select" class="form-label visually-hidden">Bildquelle</label>
-                        <select class="form-select" id="atem-mp1-source-select">
+                        <select class="form-select form-select-sm" id="atem-mp1-source-select">
                         </select>
                     </div>
                     <div class="mb-2">
                         <div class="d-flex d-row gap-2">
                             <button id="atem-capture-still-btn" class="btn btn-outline-primary btn-sm flex-fill">Screenshot</button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Key1 -->
+                <fieldset class="vertical-collapse">
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>KEY1</b>
+                    </legend>
+                    <div class="mb-2 d-flex flex-column gap-2">
+                        <div class="mb-2">
+                            <label for="atem-key1-type-select" class="form-label visually-hidden">KEY1-Typ</label>
+                            <select class="form-select form-select-sm" id="atem-key1-type-select">
+                                <option value="0">Luma</option>
+                                <option value="1">Chroma</option>
+                                <option value="2">Pattern</option>
+                                <option value="3">DVE</option>
+                            </select>
                         </div>
                     </div>
                 </fieldset>
@@ -533,6 +552,7 @@
     <script src="./static/js/overlay-sponsors.js"></script>
     <script src="./static/js/atem-connection.js"></script>
     <script src="./static/js/atem-video.js"></script>
+    <script src="./static/js/atem-downstreamkey.js"></script>
     <script src="./static/js/atem-audio.js"></script>
     <script src="./static/js/atem-diverses.js"></script>
 </body>

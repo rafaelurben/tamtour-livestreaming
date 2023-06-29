@@ -101,7 +101,6 @@ $(window).on("atem-get-key-on-air", function (e, data) {
 });
 
 $(window).on("atem-get-dkey-state", function (e, data) {
-    // Note: request triggered in atem-diverses.js
     let isOn = data["0"].is_transitioning || data["0"].on_air;;
     atem.state.dkey1onair = isOn;
 });
@@ -114,6 +113,7 @@ $(window).on("atem-base-interval", function () {
     atem.get("key-properties-base");
     atem.get("key-on-air");
     atem.get("dkey-properties-base");
+    // atem.get("dkey-state"); => already in atem-diverses.js
 
     // set MP1 source border color
     $("#atem-mp1-source-select"
@@ -121,5 +121,10 @@ $(window).on("atem-base-interval", function () {
         ).toggleClass("border-success", atem.state.previewSource === "MP1"
         ).toggleClass("border-warning", atem.state.key1FillSource === "MP1" && atem.state.key1onair
         ).toggleClass("border-info", atem.state.dkey1FillSource === "MP1" && atem.state.dkey1onair
+    );
+    // set KEY1 type border color
+    $("#atem-key1-type-select"
+        ).toggleClass("border-danger", atem.state.key1onair
+        ).toggleClass("border-success", !atem.state.key1onair && atem.state.nextTransition.key1
     );
 });
