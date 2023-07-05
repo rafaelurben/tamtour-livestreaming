@@ -19,7 +19,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">OBS Einstellungen</h1>
+                    <h1 class="modal-title fs-5">OBS Einstellungen</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -52,7 +52,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">ATEM Einstellungen</h1>
+                    <h1 class="modal-title fs-5">ATEM Einstellungen</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -101,6 +101,36 @@
                             <option value="2">CAM2 (Camera 2 Mic)</option>
                             <option value="3">CAM3 (Camera 3 Mic)</option>
                             <option value="4">CAM4 (Camera 4 Mic)</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div> -->
+            </div>
+        </div>
+    </dialog>
+    <dialog id="startlist-dialog" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Startlisten-Import</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <p>
+                            Hier kannst du Startlisten importieren. Die Startlisten müssen im <b>JSON-Format</b> vorliegen.
+                        </p>
+                    </div>
+                    <div class="mb-2">
+                        <label for="startlists-file-input" class="form-label">Aus JSON-Datei importieren</label>
+                        <input class="form-control" type="file" id="startlists-file-input" accept=".json" onchange="loadStartlists();">
+                    </div>
+                    <div class="mb-2">
+                        <label for="startlist-select-input" class="form-label">Startliste</label>
+                        <select class="form-select nostartlistdisabled" disabled id="startlist-select-input" onchange="loadStartlist()">
                         </select>
                     </div>
                 </div>
@@ -183,34 +213,21 @@
                             </button>
                         </div>
                     </div>
-
-                    <!-- Startinfo-Overlay Import -->
-                    <fieldset class="mx-0">
-                        <legend>
-                            <span class="collapser" onclick="toggleCollapse(this)"></span>
-                            <b>Startlisten-Import</b>
-                        </legend>
-                        <div class="mb-2">
-                            <label for="startlists-file-input" class="form-label visually-hidden-focusable">JSON-Datei</label>
-                            <input class="form-control" type="file" id="startlists-file-input" accept=".json" onchange="loadStartlists();">
+                    <hr />
+                    <div class="mb-2">
+                        <label for="startlistitem-select-input" class="form-label visually-hidden-focusable">Startliste</label>
+                        <div class="input-group">
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-dialog" type="button">
+                                Import
+                            </button>
+                            <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
+                                onchange="loadStartlistitem()"></select>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-previous-startlistitem"
+                                onclick="previousStartlistitem()">&lt;</button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-next-startlistitem"
+                                onclick="nextStartlistitem()">&gt;</button>
                         </div>
-                        <div class="mb-2">
-                            <label for="startlist-select-input" class="form-label">Startliste</label>
-                            <select class="form-select nostartlistdisabled" disabled id="startlist-select-input" onchange="loadStartlist()">
-                            </select>
-                        </div>
-                        <div class="mb-2">
-                            <label for="startlistitem-select-input" class="form-label">Startposition</label>
-                            <div class="input-group">
-                                <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
-                                    onchange="loadStartlistitem()"></select>
-                                <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-previous-startlistitem"
-                                    onclick="previousStartlistitem()">&lt;</button>
-                                <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-next-startlistitem"
-                                    onclick="nextStartlistitem()">&gt;</button>
-                            </div>
-                        </div>
-                    </fieldset>
+                    </div>
                 </fieldset>
 
                 <!-- Sponsorenvideo -->
