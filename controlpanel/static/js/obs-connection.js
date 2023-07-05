@@ -3,9 +3,9 @@ wakeLock = null;
 
 async function __handle_disconnected() {
     console.log("[OBS] Disconnected!");
+    $("body").removeClass("obs-connected");
     $("#btn-connect").removeClass("d-none");
     $("#btn-disconnect").addClass("d-none");
-    $("#controlpanel-container").addClass("notconnected");
     $("#open-obs-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
 
     if (wakeLock != null) {
@@ -30,9 +30,9 @@ async function disconnect() {
 
 async function __handle_connected() {
     console.log("[OBS] Connected!");
+    $("body").addClass("obs-connected");
     $("#btn-connect").addClass("d-none");
     $("#btn-disconnect").removeClass("d-none");
-    $("#controlpanel-container").removeClass("notconnected");
     $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
     sessionStorage.setItem("obs-auto-connect", "true");

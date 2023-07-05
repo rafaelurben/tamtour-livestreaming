@@ -48,9 +48,9 @@ let atem = {
         atem.connected = true;
         console.log("[ATEM] Connected");
 
+        $("body").addClass("atem-connected");
         $("#atem-btn-connect").addClass("d-none");
         $("#atem-btn-disconnect").removeClass("d-none");
-        $("#atem-controlpanel-container").removeClass("notconnected");
         $("#open-atem-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("ATEM verbunden");
 
         $(window).trigger("atem-connected");
@@ -63,9 +63,9 @@ let atem = {
         atem.connected = false;
         console.log("[ATEM] Disconnected");
 
+        $("body").removeClass("atem-connected");
         $("#atem-btn-connect").removeClass("d-none");
         $("#atem-btn-disconnect").addClass("d-none");
-        $("#atem-controlpanel-container").addClass("notconnected");
         $("#open-atem-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("ATEM verbinden");
 
         $(window).trigger("atem-disconnected");

@@ -161,11 +161,11 @@
         </div>
 
         <!-- Main controls -->
-        <div id="controlpanel-container" class="row g-2 notconnected pb-2">
+        <div id="controlpanel-container" class="row g-2 pb-2">
             <!-- Column 1 -->
             <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2">
                 <!-- Startinfo-Overlay -->
-                <fieldset>
+                <fieldset class="obs-required">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Startinfo-Overlay</b> <i onclick="clearStartInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
@@ -231,7 +231,7 @@
                 </fieldset>
 
                 <!-- Sponsorenvideo -->
-                <fieldset>
+                <fieldset class="obs-required">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Sponsorenvideo</b>
@@ -265,7 +265,7 @@
                 </fieldset>
 
                 <!-- Einstellungen -->
-                <fieldset class="collapsed">
+                <fieldset class="obs-required collapsed">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Einstellungen</b>
@@ -296,7 +296,7 @@
             <!-- Column 2 -->
             <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2">
                 <!-- Generelles Info-Overlay -->
-                <fieldset>
+                <fieldset class="obs-required">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
@@ -333,7 +333,7 @@
                 </fieldset>
 
                 <!-- OBS Controls -->
-                <fieldset>
+                <fieldset class="obs-required">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots();"></span>
                         <b>OBS Controls</b>
@@ -399,11 +399,11 @@
         </div>
 
         <!-- ATEM controls -->
-        <div id="atem-controlpanel-container" class="row g-2 notconnected pb-2" style="min-height: 10rem;">
+        <div id="atem-controlpanel-container" class="row g-2 pb-2" style="min-height: 10rem;">
             <!-- Row 1 -->
             <div class="col-12 mt-1 d-flex flex-row gap-2 flex-wrap">
                 <!-- Video input -->
-                <fieldset class="vertical-collapse">
+                <fieldset class="atem-required vertical-collapse">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Video</b>
@@ -462,7 +462,7 @@
                 </fieldset>
 
                 <!-- Audio input -->
-                <fieldset class="vertical-collapse">
+                <fieldset class="atem-required vertical-collapse">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Audio</b>
@@ -473,7 +473,7 @@
                 </fieldset>
 
                 <!-- Transitions -->
-                <fieldset class="vertical-collapse">
+                <fieldset class="atem-required vertical-collapse">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Übergänge</b>
@@ -496,7 +496,7 @@
                 </fieldset>
 
                 <!-- Media player & Farben -->
-                <fieldset class="vertical-collapse">
+                <fieldset class="atem-required vertical-collapse">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>MP1 & COLORS</b>
@@ -527,7 +527,7 @@
                 </fieldset>
 
                 <!-- Key1 -->
-                <fieldset class="vertical-collapse">
+                <fieldset class="atem-required vertical-collapse">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>KEY1</b>

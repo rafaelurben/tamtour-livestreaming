@@ -1,24 +1,8 @@
-#controlpanel-container,
-#atem-controlpanel-container {
-    position: relative;
-}
-
-#controlpanel-container.notconnected::before,
-#atem-controlpanel-container.notconnected::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.25);
-    z-index: 100;
-}
-
 /* Fieldset design - Revert Bootstrap style */
 
 
 fieldset {
+    position: relative;
     min-width: revert;
     padding: revert;
     margin: revert;
@@ -70,6 +54,21 @@ fieldset.collapsed.vertical-collapse > legend > b {
     writing-mode: vertical-rl;
     transform: translate(-1.1rem, 1.75rem);
 }
+
+/* Conntected/not connected fieldset design */
+
+body:not(.obs-connected) fieldset.obs-required::before,
+body:not(.atem-connected) fieldset.atem-required::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.25);
+    z-index: 100;
+}
+
 
 /* OBS Controls */
 
