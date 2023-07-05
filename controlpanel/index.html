@@ -230,6 +230,74 @@
                     </div>
                 </fieldset>
 
+                <!-- Generelles Info-Overlay -->
+                <fieldset class="obs-required">
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
+                    </legend>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="generalinfo-form-title" list="generalinfo-overlay-title-list"
+                            autocomplete="on" maxlength="30">
+                        <label for="generalinfo-form-title" class="form-label">Titel</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="generalinfo-form-description"
+                            list="generalinfo-overlay-description-list" autocomplete="on" maxlength="50">
+                        <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
+                    </div>
+                    <div class="mb-2">
+                        <div class="input-group">
+                            <button id="btn-show-generalinfo-overlay" class="btn btn-outline-success"
+                                onclick="showGeneralInfoOverlay()">
+                                Einblenden
+                            </button>
+                            <button id="btn-hide-generalinfo-overlay" class="btn btn-outline-danger" onclick="hideGeneralInfoOverlay()">
+                                Ausblenden
+                            </button>
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="generalinfo-form-duration" placeholder="15" value="15"
+                                    min="5" step="0.5">
+                                <label for="generalinfo-form-duration" class="form-label">Dauer (s)</label>
+                            </div>
+                            <button id="btn-display-generalinfo-overlay" class="btn btn-primary" onclick="displayGeneralInfoOverlay()">
+                                Anzeigen
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <!-- Column 2 -->
+            <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2">
+                <!-- Einstellungen -->
+                <fieldset class="obs-required collapsed">
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Einstellungen</b>
+                    </legend>
+                    <div class="input-group mb-2">
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input"
+                                value="#758aa5" />
+                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input"
+                                value="#ffffff" />
+                            <label for="settings-text-color-input" class="form-label">Text</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="checkbox" class="form-control form-check-input w-100 mt-0"
+                                id="settings-direction-inverted-input" />
+                            <label for="settings-direction-inverted-input" class="form-label">Richtung</label>
+                        </div>
+                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
+                            onclick="setSettings()">Speichern</button>
+                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
+                            onclick="resetSettings()">Reset</button>
+                    </div>
+                </fieldset>
+
                 <!-- Sponsorenvideo -->
                 <fieldset class="obs-required">
                     <legend>
@@ -261,74 +329,6 @@
                             onclick="cancelSponsorsAnimation()">
                             Abbruch
                         </button>
-                    </div>
-                </fieldset>
-
-                <!-- Einstellungen -->
-                <fieldset class="obs-required collapsed">
-                    <legend>
-                        <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Einstellungen</b>
-                    </legend>
-                    <div class="input-group mb-2">
-                        <div class="form-floating">
-                            <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input"
-                                value="#758aa5" />
-                            <label for="settings-background-color-input" class="form-label">Hintergrund</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="color" class="form-control form-control-color w-100" id="settings-text-color-input"
-                                value="#ffffff" />
-                            <label for="settings-text-color-input" class="form-label">Text</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="checkbox" class="form-control form-check-input w-100 mt-0"
-                                id="settings-direction-inverted-input" />
-                            <label for="settings-direction-inverted-input" class="form-label">Richtung</label>
-                        </div>
-                        <button id="btn-set-settings" class="btn btn-outline-success form-control w-auto flex-grow-0"
-                            onclick="setSettings()">Speichern</button>
-                        <button id="btn-reset-settings" class="btn btn-outline-secondary form-control w-auto flex-grow-0"
-                            onclick="resetSettings()">Reset</button>
-                    </div>
-                </fieldset>
-            </div>
-            <!-- Column 2 -->
-            <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2">
-                <!-- Generelles Info-Overlay -->
-                <fieldset class="obs-required">
-                    <legend>
-                        <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
-                    </legend>
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-title" list="generalinfo-overlay-title-list" autocomplete="on" maxlength="30">
-                        <label for="generalinfo-form-title" class="form-label">Titel</label>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-description" list="generalinfo-overlay-description-list" autocomplete="on" maxlength="50">
-                        <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
-                    </div>
-                    <div class="mb-2">
-                        <div class="input-group">
-                            <button id="btn-show-generalinfo-overlay" class="btn btn-outline-success"
-                                onclick="showGeneralInfoOverlay()">
-                                Einblenden
-                            </button>
-                            <button id="btn-hide-generalinfo-overlay" class="btn btn-outline-danger"
-                                onclick="hideGeneralInfoOverlay()">
-                                Ausblenden
-                            </button>
-                            <div class="form-floating">
-                                <input type="number" class="form-control" id="generalinfo-form-duration" placeholder="15" value="15"
-                                    min="5" step="0.5">
-                                <label for="generalinfo-form-duration" class="form-label">Dauer (s)</label>
-                            </div>
-                            <button id="btn-display-generalinfo-overlay" class="btn btn-primary"
-                                onclick="displayGeneralInfoOverlay()">
-                                Anzeigen
-                            </button>
-                        </div>
                     </div>
                 </fieldset>
 
