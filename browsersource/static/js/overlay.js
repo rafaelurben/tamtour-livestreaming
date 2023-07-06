@@ -1,3 +1,13 @@
+// Default overlay
+
+function showDefaultOverlay() {
+    document.querySelector("#defaultoverlay").classList.remove("hidden")
+}
+
+function hideDefaultOverlay() {
+    document.querySelector("#defaultoverlay").classList.add("hidden")
+}
+
 // General info overlay
 
 let generalInfoOverlayTimeout = null;
@@ -58,7 +68,7 @@ function showStartInfoOverlay() {
 }
 
 function hideStartInfoOverlay() {
-    clearGeneralOverlayTimeout();
+    clearStartInfoOverlayTimeout();
     document.querySelector(".startinfooverlay").classList.add("out");
 }
 
@@ -72,11 +82,32 @@ function displayStartInfoOverlay(duration_s) {
     }, duration_ms + 1500);
 }
 
+// Startlist overlay
+
+const STARTLIST_SECONDS_PER_PAGE = 10;
+
+var startListAnimationTimeouts = [];
+
+function cancelStartListAnimation() {
+    for (let timeout of startListAnimationTimeouts) {
+        clearTimeout(timeout);
+    }
+    startListAnimationTimeouts.length = 0; // Clear array
+
+    // TODO: Animate current showing list out
+}
+
+function playStartListAnimation(data) {
+    cancelStartListAnimation();
+
+    // TODO: Do the magic
+}
+
 // Sponsors video
 
-const SECONDS_PER_CATEGORY = 5;
-const CATEGORY_ANIMATION_DURATION = 1.5;
-const BLOCK_ANIMATION_DURATION = 1.5;
+const SPONSORVIDEO_SECONDS_PER_CATEGORY = 5;
+const SPONSORVIDEO_CATEGORY_ANIMATION_DURATION = 1.5;
+const SPONSORVIDEO_BLOCK_ANIMATION_DURATION = 1.5;
 
 var sponsorsAnimationTimeouts = [];
 
@@ -102,9 +133,9 @@ function playSponsorsAnimation() {
     let count = 0;
 
     for (let el of catelems) {
-        var offset_start = count * (SECONDS_PER_CATEGORY + 2*CATEGORY_ANIMATION_DURATION) + 0.5*BLOCK_ANIMATION_DURATION;
+        var offset_start = count * (SPONSORVIDEO_SECONDS_PER_CATEGORY + 2*SPONSORVIDEO_CATEGORY_ANIMATION_DURATION) + 0.5*SPONSORVIDEO_BLOCK_ANIMATION_DURATION;
         count++;
-        var offset_end = count * (SECONDS_PER_CATEGORY + 2*CATEGORY_ANIMATION_DURATION) + 0.5*BLOCK_ANIMATION_DURATION - CATEGORY_ANIMATION_DURATION;
+        var offset_end = count * (SPONSORVIDEO_SECONDS_PER_CATEGORY + 2*SPONSORVIDEO_CATEGORY_ANIMATION_DURATION) + 0.5*SPONSORVIDEO_BLOCK_ANIMATION_DURATION - SPONSORVIDEO_CATEGORY_ANIMATION_DURATION;
 
         sponsorsAnimationTimeouts.push(
             setTimeout(() => {
@@ -118,7 +149,7 @@ function playSponsorsAnimation() {
         );
     }
 
-    let offset_hide = count * (SECONDS_PER_CATEGORY + 2*CATEGORY_ANIMATION_DURATION);
+    let offset_hide = count * (SPONSORVIDEO_SECONDS_PER_CATEGORY + 2*SPONSORVIDEO_CATEGORY_ANIMATION_DURATION);
     sponsorsAnimationTimeouts.push(
         setTimeout(() => {
             document.querySelector(".sponsorsoverlay_block").classList.add("out-down");
@@ -181,6 +212,14 @@ window.addEventListener('ControlPanelEvent', event => {
     console.log("Event received:", action, data);
 
     switch (action) {
+        // Default overlay
+        case "showDefaultOverlay":
+            showDefaultOverlay();
+            break;
+        case "hideDefaultOverlay":
+            hideDefaultOverlay();
+            break;
+
         // General info overlay
         case "setGeneralInfoOverlayContent":
             setGeneralInfoOverlayContent(data);
@@ -211,6 +250,16 @@ window.addEventListener('ControlPanelEvent', event => {
         case "displayStartInfoOverlay":
             cancelSponsorsAnimation();
             displayStartInfoOverlay(data.duration);
+            break;
+
+        // Start list overlay
+        case "setStartListOverlayContent":
+            setStartListOverlayContent(data);
+            break;
+        case "displayStartListOverlay":
+            cancelSponsorsAnimation();
+            hideGeneralInfoOverlay();
+            displayStartListOverlay(data.duration);
             break;
 
         // Sponsors animation
