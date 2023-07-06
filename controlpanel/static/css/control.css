@@ -71,16 +71,16 @@ fieldset.collapsed > legend > .collapser::before {
     cursor: -webkit-grabbing;
 }
 
-.dragtarget.droptarget-active {
+.droptarget.droptarget-active {
     margin-top: 2rem;
 }
 
-.horizontal-layout > .dragtarget.droptarget-active {
+.horizontal-layout > .droptarget.droptarget-active {
     margin-top: unset;
     margin-left: 2rem;
 }
 
-.dragtarget.droptarget-active::before {
+.droptarget.droptarget-active::before {
     content: "";
     position: absolute;
     outline: 2px dashed gray;
@@ -91,7 +91,7 @@ fieldset.collapsed > legend > .collapser::before {
     height: 1rem;
 }
 
-.horizontal-layout > .dragtarget.droptarget-active::before {
+.horizontal-layout > .droptarget.droptarget-active::before {
     top: 0;
     left: -1.75rem;
     width: 1rem;
@@ -99,8 +99,12 @@ fieldset.collapsed > legend > .collapser::before {
     margin-right: 1rem;
 }
 
-.dragtarget.dragover::before {
+.droptarget.dragover::before {
     outline-color: #189dbf;
+}
+
+.droptarget.hiddenifinactive:not(.droptarget-active) {
+    display: none;
 }
 
 /* Conntected/not connected fieldset design */
