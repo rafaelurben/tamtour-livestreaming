@@ -29,9 +29,6 @@ legend {
     margin: revert;
     font-size: revert;
     line-height: revert;
-}
-
-legend > .collapser, legend > b {
     position: relative;
     z-index: 100;
 }
