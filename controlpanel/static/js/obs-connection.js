@@ -1,7 +1,9 @@
 obs = new OBSWebSocket()
 wakeLock = null;
+obsConnected = false;
 
 async function __handle_disconnected() {
+    obsConnected = false;
     console.log("[OBS] Disconnected!");
     $("body").removeClass("obs-connected");
     $("#btn-connect").removeClass("d-none");
@@ -29,6 +31,7 @@ async function disconnect() {
 }
 
 async function __handle_connected() {
+    obsConnected = true;
     console.log("[OBS] Connected!");
     $("body").addClass("obs-connected");
     $("#btn-connect").addClass("d-none");

@@ -93,7 +93,7 @@ function getLiveScreenshots() {
 
 function toggleLiveScreenshots() {
     liveScreenshotsEnabled = $("#obs-screenshots-container").is(':visible');
-    if (liveScreenshotsEnabled) {
+    if (liveScreenshotsEnabled && window.obsConnected) {
         getLiveScreenshots();
     }
 }
