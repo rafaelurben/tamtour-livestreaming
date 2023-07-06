@@ -113,6 +113,104 @@ body.direction-inverted .startinfooverlay.out .startinfooverlay_block {
 .startinfooverlay_text.t3 { --size: 12; }
 .startinfooverlay_text.t4 { --size: 11; }
 
+/* Start list overlay */
+
+.startlistoverlay,
+.startlistoverlay * {
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    color: black;
+    opacity: 1;
+    transition: all 1.5s;
+}
+
+.startlistoverlay.out {
+    opacity: 0;
+}
+
+.startlistoverlay-header {
+    position: absolute;
+    width: 100vw;
+    top: 0;
+    margin: 30px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.startlistoverlay-body {
+    position: absolute;
+    width: 100vw;
+    top: 155px;
+}
+
+.startlistoverlay-footer {
+    position: absolute;
+    width: 100vw;
+    height: 100px;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.startlistoverlay-footerdot {
+    margin: 0 30px;
+}
+
+.startlistoverlay-footerdot::before {
+    content: '•';
+    font-size: 100px;
+    line-height: 100px;
+    color: rgba(255, 255, 255, 0.3);
+    transition: color 0.5s;
+}
+
+.startlistoverlay-footerdot.active::before {
+    color: rgba(255, 255, 255, 1);
+}
+
+.startlistoverlay-tablecontainer {
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: flex-start;
+}
+
+.startlistoverlay-tablecontainer.out-right {
+    left: 100vw;
+}
+
+.startlistoverlay-tablecontainer.out-left {
+    left: -100vw;
+}
+
+
+.startlistoverlay-table {
+    font-size: 40px;
+    border-collapse: separate;
+    border-spacing: 30px;
+}
+
+.startlistoverlay-table tr td {
+    padding: 8px 28px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+}
+
+.startlistoverlay-title {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    font-size: 66px;
+    text-align: center;
+    padding: 8px 28px;
+    width: fit-content;
+}
+
 /* Sponsors overlay */
 
 .sponsorsoverlay_container {
