@@ -253,13 +253,14 @@ window.addEventListener('ControlPanelEvent', event => {
             break;
 
         // Start list overlay
-        case "setStartListOverlayContent":
-            setStartListOverlayContent(data);
-            break;
-        case "displayStartListOverlay":
+        case "playStartListAnimation":
             cancelSponsorsAnimation();
+            hideStartInfoOverlay();
             hideGeneralInfoOverlay();
-            displayStartListOverlay(data.duration);
+            playStartListAnimation(data);
+            break;
+        case "cancelStartListAnimation":
+            cancelStartListAnimation();
             break;
 
         // Sponsors animation
