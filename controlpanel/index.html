@@ -165,30 +165,52 @@
                 <fieldset class="obs-required droptarget">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Startinfo-Overlay</b> <i onclick="clearStartInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
+                        <b>Startinfo-Overlay</b>
                     </legend>
-                    <div class="mb-2 d-flex flex-row gap-2">
-                        <div class="form-floating flex-grow-1">
-                            <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
-                            <label for="startinfo-form-kategorie" class="form-label">Kategorie</label>
+                    <div class="mb-2">
+                        <label for="startlistitem-select-input" class="form-label visually-hidden-focusable">Startliste</label>
+                        <div class="input-group">
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-dialog" type="button">
+                                Import
+                            </button>
+                            <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
+                                onchange="loadStartlistitem()"></select>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
+                                id="btn-previous-startlistitem" onclick="previousStartlistitem()">←</button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
+                                onclick="loadStartlistitem()">↧</button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
+                                id="btn-next-startlistitem" onclick="nextStartlistitem()">→</button>
                         </div>
-                        <div class="form-floating flex-shrink-1">
-                            <input type="number" class="form-control" id="startinfo-form-startnummer" placeholder="1">
-                            <label for="startinfo-form-startnummer" class="form-label">Startnummer</label>
+                    </div>
+                    <fieldset class="mb-3 mx-0">
+                        <legend>
+                            <span class="collapser" onclick="toggleCollapse(this)"></span>
+                            <b>Inhalt</b> <i onclick="clearStartInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
+                        </legend>
+                        <div class="mb-2 d-flex flex-row gap-2">
+                            <div class="form-floating flex-grow-1">
+                                <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
+                                <label for="startinfo-form-kategorie" class="form-label">Kategorie</label>
+                            </div>
+                            <div class="form-floating flex-shrink-1">
+                                <input type="number" class="form-control" id="startinfo-form-startnummer" placeholder="1">
+                                <label for="startinfo-form-startnummer" class="form-label">Startnummer</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="startinfo-form-name" placeholder="Vorname Nachname">
-                        <label for="startinfo-form-name" class="form-label">Name</label>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="startinfo-form-verein" placeholder="Verein">
-                        <label for="startinfo-form-verein" class="form-label">Verein</label>
-                    </div>
-                    <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="startinfo-form-vortrag" placeholder="Stück - Komponist">
-                        <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
-                    </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="startinfo-form-name" placeholder="Vorname Nachname">
+                            <label for="startinfo-form-name" class="form-label">Name</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="startinfo-form-verein" placeholder="Verein">
+                            <label for="startinfo-form-verein" class="form-label">Verein</label>
+                        </div>
+                        <div class="form-floating mb-2">
+                            <input type="text" class="form-control" id="startinfo-form-vortrag" placeholder="Stück - Komponist">
+                            <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
+                        </div>
+                    </fieldset>
                     <div class="mb-2">
                         <div class="input-group">
                             <button id="btn-show-startinfo-overlay" class="btn btn-outline-success"
@@ -208,21 +230,6 @@
                                 onclick="displayStartInfoOverlay()">
                                 Anzeigen
                             </button>
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="mb-2">
-                        <label for="startlistitem-select-input" class="form-label visually-hidden-focusable">Startliste</label>
-                        <div class="input-group">
-                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-dialog" type="button">
-                                Import
-                            </button>
-                            <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
-                                onchange="loadStartlistitem()"></select>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-previous-startlistitem"
-                                onclick="previousStartlistitem()">&lt;</button>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button" id="btn-next-startlistitem"
-                                onclick="nextStartlistitem()">&gt;</button>
                         </div>
                     </div>
                 </fieldset>
