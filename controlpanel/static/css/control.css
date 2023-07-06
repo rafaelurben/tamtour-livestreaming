@@ -44,12 +44,12 @@ fieldset.collapsed > legend > .collapser::before {
     display: inline-block;
 }
 
-fieldset.collapsed.vertical-collapse > legend > .collapser::before {
+.horizontal-layout > fieldset.collapsed > legend > .collapser::before {
     rotate: 90deg;
 }
 
 
-fieldset.collapsed.vertical-collapse > legend > b {
+.horizontal-layout > fieldset.collapsed > legend > b {
     position: absolute;
     writing-mode: vertical-rl;
     transform: translate(-1.1rem, 1.75rem);
@@ -75,7 +75,7 @@ fieldset.collapsed.vertical-collapse > legend > b {
     margin-top: 2rem;
 }
 
-.dragtarget.droptarget-active.dragtarget-vertical {
+.horizontal-layout > .dragtarget.droptarget-active {
     margin-top: unset;
     margin-left: 2rem;
 }
@@ -91,7 +91,7 @@ fieldset.collapsed.vertical-collapse > legend > b {
     height: 1rem;
 }
 
-.dragtarget.droptarget-active.dragtarget-vertical::before {
+.horizontal-layout > .dragtarget.droptarget-active::before {
     top: 0;
     left: -1.75rem;
     width: 1rem;
