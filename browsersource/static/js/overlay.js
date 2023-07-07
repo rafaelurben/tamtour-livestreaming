@@ -84,7 +84,8 @@ function displayStartInfoOverlay(duration_s) {
 
 // Startlist overlay
 
-const STARTLIST_SECONDS_PER_PAGE = 10;
+const STARTLIST_ANIMATION_DURATION = 1500;
+const STARTLIST_PAGE_DURATION = 15000;
 
 var startListAnimationTimeouts = [];
 
@@ -94,13 +95,74 @@ function cancelStartListAnimation() {
     }
     startListAnimationTimeouts.length = 0; // Clear array
 
-    // TODO: Animate current showing list out
+    document.getElementById("startlistoverlay").classList.add("out");
 }
 
 function playStartListAnimation(data) {
     cancelStartListAnimation();
 
-    // TODO: Do the magic
+    document.getElementById("startlistoverlay-title").innerText = data.title;
+    let body = document.getElementById("startlistoverlay-body");
+    body.innerHTML = "";
+    let footer = document.getElementById("startlistoverlay-footer");
+    footer.innerHTML = "";
+
+    // Split data into pages of 9 entries
+    let pages = [];
+    while (data.table.length > 0) {
+        pages.push(data.table.splice(0, 9));
+    }
+
+    for (let pagenum = 0; pagenum < pages.length; pagenum++) {
+        // Create elements
+        let page = pages[pagenum];
+        let containerelem = document.createElement("div");
+        containerelem.classList.add("startlistoverlay-tablecontainer");
+        let tableelem = document.createElement("table");
+        tableelem.classList.add("startlistoverlay-table");
+        let tbodyelem = document.createElement("tbody");
+        for (let row of page) {
+            let rowelem = document.createElement("tr");
+            for (let cell of row) {
+                let cellelem = document.createElement("td");
+                cellelem.innerText = cell;
+                rowelem.appendChild(cellelem);
+            }
+            tbodyelem.appendChild(rowelem);
+        }
+        tableelem.appendChild(tbodyelem);
+        containerelem.appendChild(tableelem);
+        body.appendChild(containerelem);
+
+        // Add footer indicator
+        let indicatorelem = document.createElement("div");
+        indicatorelem.classList.add("startlistoverlay-footerdot");
+        footer.appendChild(indicatorelem);
+
+        // Animate
+        let delay = pagenum * (STARTLIST_ANIMATION_DURATION+STARTLIST_PAGE_DURATION);
+        if (pagenum === 0) {
+            indicatorelem.classList.add("active");
+        } else {
+            containerelem.classList.add("out-right");
+            startListAnimationTimeouts.push(setTimeout(() => {
+                indicatorelem.classList.add("active");
+                containerelem.classList.remove("out-right");
+            }, delay));
+        }
+        if (pagenum !== pages.length-1) {
+            startListAnimationTimeouts.push(setTimeout(() => {
+                containerelem.classList.add("out-left");
+                indicatorelem.classList.remove("active");
+            }, delay + STARTLIST_PAGE_DURATION + STARTLIST_ANIMATION_DURATION));
+        }
+    }
+
+    // Show overlay
+    document.getElementById("startlistoverlay").classList.remove("out");
+    startListAnimationTimeouts.push(setTimeout(() => {
+        document.getElementById("startlistoverlay").classList.add("out");
+    }, pages.length * (STARTLIST_ANIMATION_DURATION+STARTLIST_PAGE_DURATION)));
 }
 
 // Sponsors video
