@@ -1,9 +1,9 @@
 // Handle connection with obs-websocket
 
-let OBS_SUBSCRIPTIONS = OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters;
-let OBS_SUBSCRIPTIONS_BASIC = OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs;
-
 window.obs = {
+    SUBSCRIPTIONS_DEFAULT: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters,
+    SUBSCRIPTIONS_WITHOUT_VOLUME: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs,
+
     socket: new OBSWebSocket(),
     wakeLock: null,
     get connected() {
@@ -71,7 +71,7 @@ window.obs = {
         }
         try {
             return await obs.socket.connect(prefix + target, password, {
-                eventSubscriptions: OBS_SUBSCRIPTIONS,
+                eventSubscriptions: obs.SUBSCRIPTIONS_DEFAULT,
             });
         } catch (error) {
             console.warn("[OBS] Connection failed:", error);

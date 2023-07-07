@@ -248,6 +248,15 @@ function displayVolumeMeter(data) {
 
 obs.on("InputVolumeMeters", displayVolumeMeter);
 
+function toggleLiveVolume() {
+    liveVolumeEnabled = $("#obs-volume-meters-group").is(':visible')
+    if (liveVolumeEnabled) {
+        obs.updateSubscriptions(obs.SUBSCRIPTIONS_DEFAULT)
+    } else {
+        obs.updateSubscriptions(obs.SUBSCRIPTIONS_WITHOUT_VOLUME)
+    }
+}
+
 // General Events & Intervals
 
 let obsInterval = null;

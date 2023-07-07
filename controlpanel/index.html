@@ -403,18 +403,9 @@
                 <!-- OBS Controls -->
                 <fieldset class="obs-required droptarget">
                     <legend>
-                        <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots();"></span>
+                        <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots(); toggleLiveVolume()"></span>
                         <b>OBS&nbsp;Controls</b>
                     </legend>
-                    <div class="mb-2">
-                        <label for="obs-volume-meters-group" class="form-label">Lautstärke</label>
-                        <div id="obs-volume-meters-group">
-                            <meter id="obs-volume-meter-1" class="w-100 volume-meter" min="-60" optimum="-30" low="-20" high="-8" max="0"
-                                value="-60"></meter>
-                            <meter id="obs-volume-meter-2" class="w-100 volume-meter" min="-60" optimum="-30" low="-20" high="-8" max="0"
-                                value="-60"></meter>
-                        </div>
-                    </div>
                     <div class="mb-2">
                         <label for="obs-record-status-display-group" class="form-label">Aufnahmestatus</label>
                         <div class="input-group" id="obs-record-status-display-group">
@@ -448,7 +439,7 @@
                             <input class="form-control border-danger-subtle" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
-                    <fieldset class="collapsed mx-0">
+                    <fieldset class="collapsed mx-0 mb-1">
                         <legend>
                             <span class="collapser" onclick="toggleCollapse(this); toggleLiveScreenshots()"></span>
                             <b>Bild-Vorschau</b>
@@ -459,6 +450,20 @@
                             </div>
                             <div class="flex-fill border border-2 border-danger">
                                 <img class="w-100" src="" alt="Program scene" id="obs-program-image">
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="mx-0">
+                        <legend>
+                            <span class="collapser" onclick="toggleCollapse(this); toggleLiveVolume()"></span>
+                            <b>Lautstärke</b>
+                        </legend>
+                        <div>
+                            <div id="obs-volume-meters-group">
+                                <meter id="obs-volume-meter-1" class="w-100 volume-meter" min="-60" optimum="-30" low="-20" high="-8" max="0"
+                                    value="-60"></meter>
+                                <meter id="obs-volume-meter-2" class="w-100 volume-meter" min="-60" optimum="-30" low="-20" high="-8" max="0"
+                                    value="-60"></meter>
                             </div>
                         </div>
                     </fieldset>
