@@ -108,9 +108,11 @@ function playStartListAnimation(data) {
     footer.innerHTML = "";
 
     // Split data into pages of 9 entries
+    let items = Object.values(data.items);
+
     let pages = [];
-    while (data.table.length > 0) {
-        pages.push(data.table.splice(0, 9));
+    while (items.length > 0) {
+        pages.push(items.splice(0, 9));
     }
 
     for (let pagenum = 0; pagenum < pages.length; pagenum++) {
@@ -121,9 +123,9 @@ function playStartListAnimation(data) {
         let tableelem = document.createElement("table");
         tableelem.classList.add("startlistoverlay-table");
         let tbodyelem = document.createElement("tbody");
-        for (let row of page) {
+        for (let row of Object.values(page)) {
             let rowelem = document.createElement("tr");
-            for (let cell of row) {
+            for (let cell of Object.values(row)) {
                 let cellelem = document.createElement("td");
                 cellelem.innerText = cell;
                 rowelem.appendChild(cellelem);

@@ -170,6 +170,58 @@ function nextStartlistitem() {
     loadStartlistitem();
 }
 
+// Start list overlay
+
+function getStartListAnmiationItems() {
+    let lid = $("#startlist-select-input").val();
+    let startlist = window.tamtour_startlists[lid];
+    let sid = $("#startlistitem-select-input").val();
+
+    return startlist.items.slice(sid).map((item) => {
+        return [
+            `${item.kategorie_kurz || item.kategorie}#${item.startnummer}`,
+            item.name,
+            item.verein,
+            item.zeit,
+        ];
+    });
+}
+
+function loadStartListPreview() {
+    let title = $("#startlist-form-title").val();
+    let items = getStartListAnmiationItems();
+
+    $("#startlist-preview-title").text(title);
+    let table = $("#startlist-preview-table");
+
+    table.empty();
+    for (let item of items) {
+        table.append($("<tr>").append(item.map((text) => $("<td>").text(text))));
+    }
+}
+
+async function playStartListAnimation() {
+    let title = $("#startlist-form-title").val();
+    let items = getStartListAnmiationItems();
+    
+    // Convert to dict (needed because Arrays for some reason aren't transferred to the OBS browsersource)
+    itemsasdict = {};
+    for (let i = 0; i < items.length; i++) {
+        itemasdict = {};
+        for (let j = 0; j < items[i].length; j++) {
+            itemasdict[j] = items[i][j];
+        }
+        itemsasdict[i] = itemasdict;
+    }
+
+    let data = { title, items: itemsasdict };
+    await sendAction("playStartListAnimation", data);
+}
+
+async function cancelStartListAnimation() {
+    await sendAction("cancelStartListAnimation");
+}
+
 // Event listeners
 
 window.addEventListener("load", () => {

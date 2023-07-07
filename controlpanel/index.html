@@ -141,6 +141,23 @@
             </div>
         </div>
     </dialog>
+    <dialog id="startlist-preview-dialog" class="modal fade">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Vorschau: «<span id="startlist-preview-title"></span>»</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody id="startlist-preview-table">
+                    
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </dialog>
 
     <!-- Main content -->
     <div class="d-flex flex-column p-2 gap-3">
@@ -232,6 +249,29 @@
                             </button>
                         </div>
                     </div>
+                    <fieldset class="mx-0">
+                        <legend>
+                            <span class="collapser" onclick="toggleCollapse(this)"></span>
+                            <b>Startliste einblenden</b>
+                        </legend>
+                        <div>
+                            <div class="input-group mb-1">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="startlist-form-title" value="Startliste">
+                                    <label for="startlist-form-title" class="form-label">Titel</label>
+                                </div>
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-preview-dialog" type="button" onclick="loadStartListPreview();">
+                                    Vorschau
+                                </button>
+                                <button id="btn-display-startlist-overlay" class="btn btn-primary" onclick="playStartListAnimation()">
+                                    Anzeigen
+                                </button>
+                                <button class="btn btn-outline-danger" onclick="cancelStartListAnimation()">
+                                    Abbruch
+                                </button>
+                            </div>
+                        </div>
+                    </fieldset>
                 </fieldset>
 
                 <!-- Generelles Info-Overlay -->
