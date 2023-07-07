@@ -1,0 +1,37 @@
+{
+    "categories": [
+        {
+            "name": "Premium Partner",
+            "files": [
+                "premiumpartner_waser.jpg",
+                "premiumpartner_schlebach.jpg"
+            ]
+        },
+        {
+            "name": "Sponsoren (1/2)",
+            "files": [
+                "sponsor_masterhomepage.png",
+                "sponsor_musikoesch.jpg",
+                "sponsor_eventsponsor.jpg",
+                "sponsor_creaplot.jpg",
+                "sponsor_baseltattoo.jpg"
+            ]
+        },
+        {
+            "name": "Sponsoren (2/2)",
+            "files": [
+                "sponsor_debrunnerkoenig.png",
+                "sponsor_ullrich.jpg",
+                "sponsor_baloise.png",
+                "sponsor_sanitastroesch.jpg",
+                "sponsor_wasserfallen.png"
+            ]
+        },
+        {
+            "name": "Kranz-Partner",
+            "files": [
+                "kranzpartner_tpvbrigglis.jpg"
+            ]
+        }
+    ]
+}

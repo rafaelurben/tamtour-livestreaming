@@ -262,7 +262,7 @@ function setupSponsorsAnimationImages() {
             let sponsorEl = document.createElement("div");
             sponsorEl.classList.add("sponsor");
             let imageEl = document.createElement("img");
-            imageEl.src = "../resources/sponsors/" + filename;
+            imageEl.src = "./resources/sponsors/" + filename;
             sponsorEl.appendChild(imageEl);
             categoryEl.appendChild(sponsorEl);
         }
@@ -274,7 +274,7 @@ function setupSponsorsAnimationImages() {
 window.addEventListener('load', () => {
     // Load sponsors data
     console.log("Loading sponsors data...")
-    fetch('../resources/sponsors/sponsors.json').then(response => {
+    fetch('./resources/sponsors/sponsors.json').then(response => {
         return response.json();
     }).then(data => {
         window.tamtour_sponsorscategories = data.categories;
