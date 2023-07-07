@@ -1,12 +1,38 @@
-// Default overlay
+// Image overlay
 
-function showDefaultOverlay() {
-    document.querySelector("#defaultoverlay").classList.remove("hidden")
+let imageOverlayTimeout = null;
+
+function clearImageOverlayTimeout() {
+    if (imageOverlayTimeout != null) {
+        clearTimeout(imageOverlayTimeout);
+        imageOverlayTimeout = null;
+    }
 }
 
-function hideDefaultOverlay() {
-    document.querySelector("#defaultoverlay").classList.add("hidden")
+function setImageOverlaySource(src) {
+    document.querySelector("#imageoverlay").src = src;
 }
+
+function displayImageOverlay(duration_s) {
+    let duration_ms = duration_s * 1000 || 15000;
+
+    showImageOverlay();
+
+    imageOverlayTimeout = setTimeout(() => {
+        hideImageOverlay();
+    }, duration_ms + 1500);
+}
+
+function showImageOverlay() {
+    clearImageOverlayTimeout();
+    document.querySelector("#imageoverlay").classList.remove("out")
+}
+
+function hideImageOverlay() {
+    clearImageOverlayTimeout();
+    document.querySelector("#imageoverlay").classList.add("out")
+}
+
 
 // General info overlay
 
@@ -276,12 +302,18 @@ window.addEventListener('ControlPanelEvent', event => {
     console.log("Event received:", action, data);
 
     switch (action) {
-        // Default overlay
-        case "showDefaultOverlay":
-            showDefaultOverlay();
+        // Image overlay
+        case "setImageOverlaySource":
+            setImageOverlaySource(data.src);
             break;
-        case "hideDefaultOverlay":
-            hideDefaultOverlay();
+        case "showImageOverlay":
+            showImageOverlay();
+            break;
+        case "hideImageOverlay":
+            hideImageOverlay();
+            break;
+        case "displayImageOverlay":
+            displayImageOverlay(data.duration);
             break;
 
         // General info overlay

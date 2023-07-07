@@ -366,6 +366,38 @@
                     </div>
                 </fieldset>
 
+                <!-- Image overlay -->
+                <fieldset class="obs-required droptarget collapsed">
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Bild-Overlay</b>
+                    </legend>
+                    <div class="mb-2">
+                        <div class="input-group">
+                            <input class="form-control" type="file" id="settings-defaultoverlay-image-input" accept="image/*">
+                            <button id="btn-update-image-overlay-src" class="btn btn-outline-success" onclick="sendOverlayImage()">Ändern</button>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <div class="input-group">
+                            <button id="btn-show-image-overlay" class="btn btn-outline-success" onclick="showImageOverlay()">
+                                Einblenden
+                            </button>
+                            <button id="btn-hide-image-overlay" class="btn btn-outline-danger" onclick="hideImageOverlay()">
+                                Ausblenden
+                            </button>
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="image-form-duration" placeholder="7.5" value="7.5" min="2"
+                                    max="20" step="0.5">
+                                <label for="image-form-duration" class="form-label">Dauer (s)</label>
+                            </div>
+                            <button id="btn-display-image-overlay" class="btn btn-primary" onclick="displayImageOverlay()">
+                                Anzeigen
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+
                 <!-- Sponsorenvideo -->
                 <fieldset class="obs-required droptarget">
                     <legend>
@@ -667,6 +699,7 @@
     <script src="./static/js/general.js"></script>
     <script src="./static/js/obs-connection.js"></script>
     <script src="./static/js/obs-general-controls.js"></script>
+    <script src="./static/js/overlay-image.js"></script>
     <script src="./static/js/overlay-generalinfo.js"></script>
     <script src="./static/js/overlay-startinfo.js"></script>
     <script src="./static/js/overlay-sponsors.js"></script>
