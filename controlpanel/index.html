@@ -111,7 +111,7 @@
             </div>
         </div>
     </dialog>
-    <dialog id="startlist-dialog" class="modal fade">
+    <dialog id="startlist-import-dialog" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -175,7 +175,7 @@
         </div>
 
         <!-- Main controls -->
-        <div id="controlpanel-container" class="row g-2 pb-2">
+        <div id="controlpanel-container" class="row g-2">
             <!-- Column 1 -->
             <div class="col-12 col-lg-6 mt-1 d-flex flex-column gap-2">
                 <!-- Startinfo-Overlay -->
@@ -187,7 +187,7 @@
                     <div class="mb-2">
                         <label for="startlistitem-select-input" class="form-label visually-hidden-focusable">Startliste</label>
                         <div class="input-group">
-                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-dialog" type="button">
+                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-import-dialog" type="button">
                                 Import
                             </button>
                             <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
@@ -223,7 +223,7 @@
                             <input type="text" class="form-control" id="startinfo-form-verein" placeholder="Verein">
                             <label for="startinfo-form-verein" class="form-label">Verein</label>
                         </div>
-                        <div class="form-floating mb-2">
+                        <div class="form-floating mb-1">
                             <input type="text" class="form-control" id="startinfo-form-vortrag" placeholder="Stück - Komponist">
                             <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
                         </div>
@@ -290,7 +290,7 @@
                             list="generalinfo-overlay-description-list" autocomplete="on" maxlength="50">
                         <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
                     </div>
-                    <div class="mb-2">
+                    <div class="mb-1">
                         <div class="input-group">
                             <button id="btn-show-generalinfo-overlay" class="btn btn-outline-success"
                                 onclick="showGeneralInfoOverlay()">
@@ -328,7 +328,7 @@
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Einstellungen</b>
                     </legend>
-                    <div class="input-group mb-2">
+                    <div class="input-group mb-1">
                         <div class="form-floating">
                             <input type="color" class="form-control form-control-color w-100" id="settings-background-color-input"
                                 value="#758aa5" />
@@ -357,7 +357,7 @@
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Sponsorenvideo</b>
                     </legend>
-                    <div class="mb-2 d-flex flex-row gap-2">
+                    <div class="mb-1 d-flex flex-row gap-2">
                         <button id="btn-play-sponsorsvideo" class="form-control btn btn-primary w-auto flex-grow-0"
                             onclick="playSponsorsAnimation()">
                             Anzeigen
@@ -411,7 +411,7 @@
                         </div>
                     </div>
                     <div class="mb-2">
-                        <label for="obs-stream-status-display-group" class="form-label">Streamstatus und Streamzustand</label>
+                        <label for="obs-stream-status-display-group" class="form-label">Streamstatus und -zustand</label>
                         <div class="input-group" id="obs-stream-status-display-group">
                             <button id="obs-stream-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
                                 onclick="if (confirm('Stream starten?')) {sendOBSCommand('StartStream')}">Starten</button>
@@ -461,7 +461,7 @@
         </div>
 
         <!-- ATEM controls -->
-        <div id="atem-controlpanel-container" class="row g-2 pb-2" style="min-height: 10rem;">
+        <div id="atem-controlpanel-container" class="row g-2 mb-2" style="min-height: 10rem;">
             <!-- Row 1 -->
             <div class="col-12 mt-1 d-flex flex-row gap-2 flex-wrap horizontal-layout">
                 <!-- Video input -->
