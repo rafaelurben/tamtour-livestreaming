@@ -124,10 +124,25 @@
                             Hier kannst du Startlisten importieren. Die Startlisten müssen im <b>JSON-Format</b> vorliegen.
                         </p>
                     </div>
-                    <div class="mb-2">
-                        <label for="startlists-file-input" class="form-label">Aus JSON-Datei importieren</label>
-                        <input class="form-control" type="file" id="startlists-file-input" accept=".json" onchange="loadStartlists();">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="startlists-import-mode">
+                        <label class="form-check-label" for="startlists-import-mode">Von URL laden?</label>
                     </div>
+                    <hr />
+                    <div class="mb-2 disabled">
+                        <label for="startlists-import-file-input" class="form-label">Aus JSON-Datei importieren</label>
+                        <input disabled class="form-control" type="file" id="startlists-import-file-input" accept=".json" onchange="loadStartlistsFromFile();">
+                    </div>
+                    <div class="mb-2 disabled">
+                        <label for="startlists-import-url-input" class="form-label">Von URL importieren</label>
+                        <div class="input-group">
+                            <input disabled class="form-control" type="url" value="https://app.rafaelurben.ch/tamtour-startlistmanager/startlists.json" placeholder="https://app.rafaelurben.ch/tamtour-startlistmanager/startlists.json" id="startlists-import-url-input" onchange="loadStartlistsFromURL();">
+                            <button disabled class="btn btn-primary" type="button" onclick="loadStartlistsFromURL()" id="startlists-import-url-button">
+                                Laden
+                            </button>
+                        </div>
+                    </div>
+                    <hr />
                     <div class="mb-2">
                         <label for="startlist-select-input" class="form-label">Startliste</label>
                         <select class="form-select nostartlistdisabled" disabled id="startlist-select-input" onchange="loadStartlist()">
@@ -257,16 +272,16 @@
                         <div>
                             <div class="input-group mb-1">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="startlist-form-title" value="Startliste">
+                                    <input type="text" class="form-control nostartlistdisabled" id="startlist-form-title" value="Startliste">
                                     <label for="startlist-form-title" class="form-label">Titel</label>
                                 </div>
-                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#startlist-preview-dialog" type="button" onclick="loadStartListPreview();">
+                                <button class="btn btn-secondary nostartlistdisabled" data-bs-toggle="modal" data-bs-target="#startlist-preview-dialog" type="button" onclick="loadStartListPreview();">
                                     Vorschau
                                 </button>
-                                <button id="btn-display-startlist-overlay" class="btn btn-primary" onclick="playStartListAnimation()">
+                                <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled" onclick="playStartListAnimation()">
                                     Anzeigen
                                 </button>
-                                <button class="btn btn-outline-danger" onclick="cancelStartListAnimation()">
+                                <button class="btn btn-outline-danger nostartlistdisabled" onclick="cancelStartListAnimation()">
                                     Abbruch
                                 </button>
                             </div>

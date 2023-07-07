@@ -60,40 +60,76 @@ async function hideStartInfoOverlay() {
 
 // Importer
 
-function loadStartlists(initial) {
-    let fileinputelem = $('#startlists-file-input')[0];
+function updateStartlistImportUI(initial) {
+    let url_mode = $("#startlists-import-mode").prop("checked");
+
+    $("#startlists-import-file-input").prop("disabled", url_mode);
+    $("#startlists-import-url-input").prop("disabled", !url_mode);
+    $("#startlists-import-url-button").prop("disabled", !url_mode);
+
+    $('#startlist-select-input').empty();
+    $('#startlistitem-select-input').empty();
+
+    $(".nostartlistdisabled").prop("disabled", true);
+
+    sessionStorage.setItem("tamtour-startlist-mode", url_mode ? "url" : "file")
+
+    if (url_mode && initial === true) {
+        loadStartlistsFromURL(initial);
+    } else if (!url_mode) {
+        loadStartlistsFromFile(initial);
+    }
+}
+
+$("#startlists-import-mode").change(updateStartlistImportUI);
+
+function loadStartlistsFromFile(initial) {
+    let fileinputelem = $('#startlists-import-file-input')[0];
     let file = fileinputelem.files[0];
 
     if (!file) return;
 
-    $(".nostartlistdisabled").prop("disabled", false);
-
     let reader = new FileReader();
     reader.onload = function() {
         let data = JSON.parse(reader.result);
-        let startlists = data.lists;
-
-        if (!startlists) {
-            alert("Keine Startlisten gefunden! Bitte wähle eine andere Datei.");
-            return;
-        }
-
-        let startlistSelect = $("#startlist-select-input");
-        startlistSelect.empty();
-
-        for (let lid in startlists) {
-            let startlist = startlists[lid];
-            startlistSelect.append($("<option>", { value: lid, text: startlist.name }));
-        }
-
-        let storedval = sessionStorage.getItem("tamtour-startlist-id");
-        if (initial && storedval < startlists.length) startlistSelect.val(storedval);
-        
-
-        window.tamtour_startlists = startlists;
-        loadStartlist(initial);
+        loadStartlistsFromData(data, initial);
     }
     reader.readAsText(file);
+}
+
+function loadStartlistsFromURL(initial) {
+    let url = $('#startlists-import-url-input').val()
+    if (!url) return;
+
+    $.getJSON(url, function(data) {
+        if (!(initial === true)) alert("Datei erfolgreich geladen!");
+        loadStartlistsFromData(data, initial);
+    });
+}
+
+function loadStartlistsFromData(data, initial) {
+    let startlists = data.lists;
+
+    if (!startlists || startlists.length == 0) {
+        alert("Keine Startlisten gefunden!");
+        return;
+    }
+
+    $(".nostartlistdisabled").prop("disabled", false);
+
+    let startlistSelect = $("#startlist-select-input");
+    startlistSelect.empty();
+
+    for (let lid in startlists) {
+        let startlist = startlists[lid];
+        startlistSelect.append($("<option>", { value: lid, text: startlist.name }));
+    }
+
+    let storedval = sessionStorage.getItem("tamtour-startlist-id");
+    if (initial && storedval < startlists.length) startlistSelect.val(storedval);
+
+    window.tamtour_startlists = startlists;
+    loadStartlist(initial);
 }
 
 function loadStartlist(initial) {
@@ -225,5 +261,10 @@ async function cancelStartListAnimation() {
 // Event listeners
 
 window.addEventListener("load", () => {
-    loadStartlists(true);
+    if (sessionStorage.getItem("tamtour-startlist-mode")) {
+        url_mode = sessionStorage.getItem("tamtour-startlist-mode") === "url";
+        $("#startlists-import-mode").prop("checked", url_mode);
+    }
+
+    updateStartlistImportUI(true);
 });
