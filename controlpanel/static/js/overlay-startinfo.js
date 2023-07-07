@@ -13,7 +13,7 @@ async function setStartInfoOverlayContent() {
         return false;
     }
 
-    let success = await sendAction("setStartInfoOverlayContent", data);
+    let success = await obs.sendAction("setStartInfoOverlayContent", data);
     return success ? true : false;
 }
 
@@ -21,7 +21,7 @@ async function displayStartInfoOverlay() {
     let success0 = await setStartInfoOverlayContent();
     if (!success0) return false;
 
-    let success = await sendAction("displayStartInfoOverlay", {
+    let success = await obs.sendAction("displayStartInfoOverlay", {
         duration: $("#startinfo-form-duration").val(),
     });
     if (!success) return false;
@@ -37,7 +37,7 @@ async function showStartInfoOverlay() {
     let success0 = await setStartInfoOverlayContent();
     if (!success0) return false;
 
-    let success = await sendAction("showStartInfoOverlay");
+    let success = await obs.sendAction("showStartInfoOverlay");
     if (!success) return false;
 
     let button = $("#btn-show-startinfo-overlay");
@@ -48,7 +48,7 @@ async function showStartInfoOverlay() {
 }
 
 async function hideStartInfoOverlay() {
-    let success = await sendAction("hideStartInfoOverlay");
+    let success = await obs.sendAction("hideStartInfoOverlay");
     if (!success) return false;
 
     let button = $("#btn-hide-startinfo-overlay");
@@ -251,11 +251,11 @@ async function playStartListAnimation() {
     }
 
     let data = { title, items: itemsasdict };
-    await sendAction("playStartListAnimation", data);
+    await obs.sendAction("playStartListAnimation", data);
 }
 
 async function cancelStartListAnimation() {
-    await sendAction("cancelStartListAnimation");
+    await obs.sendAction("cancelStartListAnimation");
 }
 
 // Event listeners

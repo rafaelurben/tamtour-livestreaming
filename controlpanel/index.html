@@ -37,8 +37,8 @@
                         <label for="login-form-password" class="form-label">Passwort</label>
                     </div>
                     <div class="">
-                        <button id="btn-connect" class="btn btn-success w-100" onclick="connectGUI()">Verbinden</button>
-                        <button id="btn-disconnect" class="btn btn-danger w-100 d-none" onclick="disconnect()">Verbindung trennen</button>
+                        <button id="btn-connect" class="btn btn-success w-100" onclick="obs.connect()">Verbinden</button>
+                        <button id="btn-disconnect" class="btn btn-danger w-100 d-none" onclick="obs.disconnect()">Verbindung trennen</button>
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
@@ -419,9 +419,9 @@
                         <label for="obs-record-status-display-group" class="form-label">Aufnahmestatus</label>
                         <div class="input-group" id="obs-record-status-display-group">
                             <button id="obs-record-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
-                                onclick="if (confirm('Aufnahme starten?')) {sendOBSCommand('StartRecord')}">Starten</button>
+                                onclick="if (confirm('Aufnahme starten?')) {obs.sendCommand('StartRecord')}">Starten</button>
                             <button id="obs-record-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
-                                onclick="if (confirm('Aufnahme stoppen?')) {sendOBSCommand('StopRecord')}">Stoppen</button>
+                                onclick="if (confirm('Aufnahme stoppen?')) {obs.sendCommand('StopRecord')}">Stoppen</button>
                             <input class="form-control" type="text" id="obs-record-status-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
@@ -429,9 +429,9 @@
                         <label for="obs-stream-status-display-group" class="form-label">Streamstatus und -zustand</label>
                         <div class="input-group" id="obs-stream-status-display-group">
                             <button id="obs-stream-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
-                                onclick="if (confirm('Stream starten?')) {sendOBSCommand('StartStream')}">Starten</button>
+                                onclick="if (confirm('Stream starten?')) {obs.sendCommand('StartStream')}">Starten</button>
                             <button id="obs-stream-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
-                                onclick="if (confirm('Stream stoppen?')) {sendOBSCommand('StopStream')}">Stoppen</button>
+                                onclick="if (confirm('Stream stoppen?')) {obs.sendCommand('StopStream')}">Stoppen</button>
                             <input class="form-control" type="text" id="obs-stream-status-display" disabled value="" autocomplete="off">
                         </div>
                         <div class="mt-2 rounded d-flex" id="obs-stream-congestion-history-row">
@@ -444,7 +444,7 @@
                             <select class="form-select border-success-subtle" id="obs-scene-select-input">
                             </select>
                             <button class="btn btn-primary" type="button"
-                                onclick="sendOBSCommand('TriggerStudioModeTransition')">Übergang</button>
+                                onclick="obs.sendCommand('TriggerStudioModeTransition')">Übergang</button>
                             <input class="form-control border-danger-subtle" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>

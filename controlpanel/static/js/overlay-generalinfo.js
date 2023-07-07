@@ -10,7 +10,7 @@ async function setGeneralInfoOverlayContent() {
         return false;
     }
 
-    let success = await sendAction("setGeneralInfoOverlayContent", data);
+    let success = await obs.sendAction("setGeneralInfoOverlayContent", data);
     return success ? true : false;
 }
 
@@ -18,7 +18,7 @@ async function displayGeneralInfoOverlay() {
     let success0 = await setGeneralInfoOverlayContent();
     if (!success0) return false;
 
-    let success = await sendAction("displayGeneralInfoOverlay", {
+    let success = await obs.sendAction("displayGeneralInfoOverlay", {
         duration: $("#generalinfo-form-duration").val(),
     });
     if (!success) return false;
@@ -34,7 +34,7 @@ async function showGeneralInfoOverlay() {
     let success0 = await setGeneralInfoOverlayContent();
     if (!success0) return false;
 
-    let success = await sendAction("showGeneralInfoOverlay");
+    let success = await obs.sendAction("showGeneralInfoOverlay");
     if (!success) return false;
 
     let button = $("#btn-show-generalinfo-overlay");
@@ -45,7 +45,7 @@ async function showGeneralInfoOverlay() {
 }
 
 async function hideGeneralInfoOverlay() {
-    let success = await sendAction("hideGeneralInfoOverlay");
+    let success = await obs.sendAction("hideGeneralInfoOverlay");
     if (!success) return false;
 
     let button = $("#btn-hide-generalinfo-overlay");

@@ -26,12 +26,12 @@ function _updateScenePanel(data) {
     }
 
     previewSceneSelect.change((event) => {
-        sendOBSCommand("SetCurrentPreviewScene", { sceneName: event.target.value });
+        obs.sendCommand("SetCurrentPreviewScene", { sceneName: event.target.value });
     });
 }
 
 async function loadScenes() {
-    _updateScenePanel(await sendOBSCommand("GetSceneList"));
+    _updateScenePanel(await obs.sendCommand("GetSceneList"));
 }
 
 obs.on("SceneNameChanged", data => {
@@ -63,7 +63,7 @@ let previewImageElem = $("#obs-preview-image");
 let programImageElem = $("#obs-program-image");
 
 async function getProgramScreenshot() {
-    let data = await sendOBSCommand('GetSourceScreenshot', {
+    let data = await obs.sendCommand('GetSourceScreenshot', {
         sourceName: programSceneDisplay.val(),
         imageFormat: "jpg",
         imageWidth: liveScreenshotWidth,
@@ -75,7 +75,7 @@ async function getProgramScreenshot() {
 }
 
 async function getPreviewScreenshot() {
-    let data = await sendOBSCommand('GetSourceScreenshot', {
+    let data = await obs.sendCommand('GetSourceScreenshot', {
         sourceName: previewSceneSelect.val(),
         imageFormat: "jpg",
         imageWidth: liveScreenshotWidth,
@@ -93,7 +93,7 @@ function getLiveScreenshots() {
 
 function toggleLiveScreenshots() {
     liveScreenshotsEnabled = $("#obs-screenshots-container").is(':visible');
-    if (liveScreenshotsEnabled && window.obsConnected) {
+    if (liveScreenshotsEnabled && obs.connected) {
         getLiveScreenshots();
     }
 }
@@ -107,7 +107,7 @@ let recordStartBtn = $("#obs-record-start-btn");
 let recordStopBtn = $("#obs-record-stop-btn");
 
 async function loadRecordStatus() {
-    let recDat = await sendOBSCommand("GetRecordStatus");
+    let recDat = await obs.sendCommand("GetRecordStatus");
     recordActive = recDat.outputActive;
 
     if (recDat.outputActive) {
@@ -138,7 +138,7 @@ let streamStartBtn = $("#obs-stream-start-btn");
 let streamStopBtn = $("#obs-stream-stop-btn");
 
 async function loadStreamStatus() {
-    let strDat = await sendOBSCommand("GetStreamStatus");
+    let strDat = await obs.sendCommand("GetStreamStatus");
     streamActive = strDat.outputActive;
 
     if (strDat.outputActive) {
@@ -263,7 +263,7 @@ obs.on('Identified', () => {
         if (liveScreenshotsEnabled) getLiveScreenshots();
     }, 1000);
 
-    sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true});
+    obs.sendCommand("SetStudioModeEnabled", {studioModeEnabled: true});
 })
 
 obs.on('ConnectionClosed', () => {
@@ -273,8 +273,8 @@ obs.on('ConnectionClosed', () => {
 obs.on('StudioModeStateChanged', data => {
     // Enforce studio mode
     if (!data.studioModeEnabled) {
-        sendOBSCommand("SetStudioModeEnabled", {studioModeEnabled: true}).then(
-            () => sendOBSCommand("SetCurrentPreviewScene", { sceneName: previewSceneSelect.val() })
+        obs.sendCommand("SetStudioModeEnabled", {studioModeEnabled: true}).then(
+            () => obs.sendCommand("SetCurrentPreviewScene", { sceneName: previewSceneSelect.val() })
         );
     }
 })

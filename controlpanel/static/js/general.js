@@ -1,7 +1,7 @@
 // Settings
 
 async function setSettings() {
-    await sendAction("setSettings", {
+    await obs.sendAction("setSettings", {
         backgroundColor: $("#settings-background-color-input").val(),
         textColor: $("#settings-text-color-input").val(),
         directionInverted: $("#settings-direction-inverted-input").prop("checked"),

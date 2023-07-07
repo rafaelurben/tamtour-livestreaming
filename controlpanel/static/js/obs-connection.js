@@ -1,111 +1,119 @@
-obs = new OBSWebSocket()
-wakeLock = null;
-obsConnected = false;
+// Handle connection with obs-websocket
 
-async function __handle_disconnected() {
-    obsConnected = false;
-    console.log("[OBS] Disconnected!");
-    $("body").removeClass("obs-connected");
-    $("#btn-connect").removeClass("d-none");
-    $("#btn-disconnect").addClass("d-none");
-    $("#open-obs-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
+let OBS_SUBSCRIPTIONS = OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters;
+let OBS_SUBSCRIPTIONS_BASIC = OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs;
 
-    if (wakeLock != null) {
-        try {
-            await wakeLock.release();
-            wakeLock = null;
-        } catch (err) {
-            console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
-        }   
-    }
-}
+window.obs = {
+    socket: new OBSWebSocket(),
+    wakeLock: null,
+    get connected() {
+        return obs.socket._identified;
+    },
+    __handle_disconnected: async function () {
+        obs.connected = false;
+        console.log("[OBS] Disconnected!");
+        $("body").removeClass("obs-connected");
+        $("#btn-connect").removeClass("d-none");
+        $("#btn-disconnect").addClass("d-none");
+        $("#open-obs-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
 
-async function disconnect() {
-    sessionStorage.setItem("tamtour-obs-auto-connect", "false");
-
-    try {
-        await obs.disconnect();
-    } catch (error) {
-        console.error("[OBS] Disconnect failed: ", error);
-    }
-}
-
-async function __handle_connected() {
-    obsConnected = true;
-    console.log("[OBS] Connected!");
-    $("body").addClass("obs-connected");
-    $("#btn-connect").addClass("d-none");
-    $("#btn-disconnect").removeClass("d-none");
-    $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
-
-    sessionStorage.setItem("tamtour-obs-auto-connect", "true");
-    sessionStorage.setItem("tamtour-obs-target", document.getElementById('login-form-target').value);
-    sessionStorage.setItem("tamtour-obs-password", document.getElementById('login-form-password').value);
-
-    if (wakeLock == null) {
-        try {
-            wakeLock = await navigator.wakeLock.request('screen');
-            wakeLock.addEventListener('release', () => {
-                console.log('Wake Lock was released');
-            });
-            console.log('Wake Lock is active');
-        } catch (err) {
-            console.warn(`Wakelock request failed: ${err.name}, ${err.message}`);
+        if (obs.wakeLock != null) {
+            try {
+                await obs.wakeLock.release();
+                obs.wakeLock = null;
+            } catch (err) {
+                console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
+            }   
         }
-    }
-}
+    },
+    disconnect: async function () {
+        sessionStorage.setItem("tamtour-obs-auto-connect", "false");
 
-async function connect(target, password) {
-    var prefix = "ws://";
-    if (target.startsWith("https://")) {
-        prefix = "wss://";
-        target = target.split("//")[1];
-    } else if (target.startsWith("http://")) {
-        target = target.split("//")[1];
-    }
-    try {
-        data = await obs.connect(prefix + target, password, {
-            eventSubscriptions: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters 
-        });
-        __handle_connected();
-        return data
-    } catch (error) {
-        console.warn("[OBS] Connection failed:", error);
-        alert("[OBS] Verbindung fehlgeschlagen! Bitte überprüfe die Eingaben.");
-    }
-}
+        try {
+            return await obs.socket.disconnect();
+        } catch (error) {
+            console.error("[OBS] Disconnect failed: ", error);
+        }
+    },
+    __handle_connected: async function () {
+        console.log("[OBS] Connected!");
+        $("body").addClass("obs-connected");
+        $("#btn-connect").addClass("d-none");
+        $("#btn-disconnect").removeClass("d-none");
+        $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
-async function connectGUI() {
-    return await connect(document.getElementById('login-form-target').value, document.getElementById('login-form-password').value)
-}
+        sessionStorage.setItem("tamtour-obs-auto-connect", "true");
+        sessionStorage.setItem("tamtour-obs-target", document.getElementById('login-form-target').value);
+        sessionStorage.setItem("tamtour-obs-password", document.getElementById('login-form-password').value);
 
-async function sendAction(action, data) {
-    let obj = { action: action, data: data}
-    console.debug("[OBS] Sending", obj, "to browser source...")
-    try {
-        await obs.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
-        return true;
-    } catch (error) {
-        console.warn("[OBS] Action failed:", error)
-        alert("[OBS] Aktion fehlgeschlagen! Bitte überprüfe die Konsole.");
-        return false;
-    }
-}
+        if (obs.wakeLock == null) {
+            try {
+                obs.wakeLock = await navigator.wakeLock.request('screen');
+                obs.wakeLock.addEventListener('release', () => {
+                    console.log('Wake Lock was released');
+                });
+                console.log('Wake Lock is active');
+            } catch (err) {
+                console.warn(`Wakelock request failed: ${err.name}, ${err.message}`);
+            }
+        }
+    },
+    connect: async function () {
+        var target = document.getElementById('login-form-target').value;
+        var password = document.getElementById('login-form-password').value;
 
-async function sendOBSCommand(command, data) {
-    console.debug("[OBS] Sending command", command, "with data:", data)
-    try {
-        return await obs.call(command, data)
-    } catch (error) {
-        console.warn("[OBS] Command failed:", error)
-        alert("[OBS] Befehl fehlgeschlagen! Bitte überprüfe die Konsole.");
-        return null;
+        var prefix = "ws://";
+        if (target.startsWith("https://")) {
+            prefix = "wss://";
+            target = target.split("//")[1];
+        } else if (target.startsWith("http://")) {
+            target = target.split("//")[1];
+        }
+        try {
+            return await obs.socket.connect(prefix + target, password, {
+                eventSubscriptions: OBS_SUBSCRIPTIONS,
+            });
+        } catch (error) {
+            console.warn("[OBS] Connection failed:", error);
+            alert("[OBS] Verbindung fehlgeschlagen! Bitte überprüfe die Eingaben.");
+        }
+    },
+    sendAction: async function (action, data) {
+        let obj = { action: action, data: data}
+        console.debug("[OBS] Sending", obj, "to browser source...")
+        try {
+            await obs.socket.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+            return true;
+        } catch (error) {
+            console.warn("[OBS] Action failed:", error)
+            alert("[OBS] Aktion fehlgeschlagen! Bitte überprüfe die Konsole.");
+            return false;
+        }
+    },
+    sendCommand: async function (command, data) {
+        console.debug("[OBS] Sending command", command, "with data:", data)
+        try {
+            return await obs.socket.call(command, data)
+        } catch (error) {
+            console.warn("[OBS] Command failed:", error)
+            alert("[OBS] Befehl fehlgeschlagen! Bitte überprüfe die Konsole.");
+            return null;
+        }
+    },
+    on: function (e, t, n) {
+        obs.socket.on(e, t, n)
+    },
+    updateSubscriptions: async function (subs) {
+        return await obs.socket.reidentify({
+            eventSubscriptions: subs,
+        })
     }
 }
 
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#events
-obs.on("ExitStarted", __handle_disconnected)
-obs.on("ConnectionClosed", __handle_disconnected)
+obs.on("Identified", obs.__handle_connected)
+obs.on("ExitStarted", obs.__handle_disconnected)
+obs.on("ConnectionClosed", obs.__handle_disconnected)
 
 // Auto reconnect
 
@@ -114,7 +122,7 @@ window.addEventListener('load', function () {
         document.getElementById('login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
         document.getElementById('login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
         if (sessionStorage.getItem("tamtour-obs-auto-connect") == "true") {
-            connectGUI();
+            obs.connect();
         }
     }
 });

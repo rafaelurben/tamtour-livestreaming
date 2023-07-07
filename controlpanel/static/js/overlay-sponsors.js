@@ -6,7 +6,7 @@ var sponsorsoverlayInterval = null;
 var sponsorsoverlaySecondsRemaining = 0;
 
 async function playSponsorsAnimation() {
-    let success = await sendAction("playSponsorsAnimation");
+    let success = await obs.sendAction("playSponsorsAnimation");
     if (!success) return;
 
     let button = $("#btn-play-sponsorsvideo");
@@ -16,7 +16,7 @@ async function playSponsorsAnimation() {
 }
 
 async function cancelSponsorsAnimation() {
-    let success = await sendAction("cancelSponsorsAnimation");
+    let success = await obs.sendAction("cancelSponsorsAnimation");
     if (!success) return;
 
     let button = $("#btn-cancel-sponsorsvideo");
