@@ -21,7 +21,7 @@ async function __handle_disconnected() {
 }
 
 async function disconnect() {
-    sessionStorage.setItem("obs-auto-connect", "false");
+    sessionStorage.setItem("tamtour-obs-auto-connect", "false");
 
     try {
         await obs.disconnect();
@@ -38,9 +38,9 @@ async function __handle_connected() {
     $("#btn-disconnect").removeClass("d-none");
     $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
-    sessionStorage.setItem("obs-auto-connect", "true");
-    sessionStorage.setItem("obs-target", document.getElementById('login-form-target').value);
-    sessionStorage.setItem("obs-password", document.getElementById('login-form-password').value);
+    sessionStorage.setItem("tamtour-obs-auto-connect", "true");
+    sessionStorage.setItem("tamtour-obs-target", document.getElementById('login-form-target').value);
+    sessionStorage.setItem("tamtour-obs-password", document.getElementById('login-form-password').value);
 
     if (wakeLock == null) {
         try {
@@ -110,10 +110,10 @@ obs.on("ConnectionClosed", __handle_disconnected)
 // Auto reconnect
 
 window.addEventListener('load', function () {
-    if (sessionStorage.getItem("obs-target")) {
-        document.getElementById('login-form-target').value = sessionStorage.getItem("obs-target");
-        document.getElementById('login-form-password').value = sessionStorage.getItem("obs-password");
-        if (sessionStorage.getItem("obs-auto-connect") == "true") {
+    if (sessionStorage.getItem("tamtour-obs-target")) {
+        document.getElementById('login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
+        document.getElementById('login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
+        if (sessionStorage.getItem("tamtour-obs-auto-connect") == "true") {
             connectGUI();
         }
     }

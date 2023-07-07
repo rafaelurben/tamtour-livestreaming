@@ -54,10 +54,10 @@ let atem = {
         $("#open-atem-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("ATEM verbunden");
 
         $(window).trigger("atem-connected");
-        sessionStorage.setItem("atem-auto-connect", "true");
-        sessionStorage.setItem("atem-target", atem.connectionData.target);
-        sessionStorage.setItem("atem-username", atem.connectionData.username);
-        sessionStorage.setItem("atem-password", atem.connectionData.password);
+        sessionStorage.setItem("tamtour-atem-auto-connect", "true");
+        sessionStorage.setItem("tamtour-atem-target", atem.connectionData.target);
+        sessionStorage.setItem("tamtour-atem-username", atem.connectionData.username);
+        sessionStorage.setItem("tamtour-atem-password", atem.connectionData.password);
     },
     _handleDisconnect: function () {
         atem.connected = false;
@@ -69,7 +69,7 @@ let atem = {
         $("#open-atem-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("ATEM verbinden");
 
         $(window).trigger("atem-disconnected");
-        sessionStorage.setItem("atem-auto-connect", "false");
+        sessionStorage.setItem("tamtour-atem-auto-connect", "false");
     },
     request: async function (method, url, data) {
         if (!atem.connected) return Promise.reject("Not connected to ATEM");
@@ -134,11 +134,11 @@ let atem = {
 // Auto reconnect
 
 window.addEventListener('load', function () {
-    if (sessionStorage.getItem("atem-target")) {
-        document.getElementById('atem-login-form-target').value = sessionStorage.getItem("atem-target");
-        document.getElementById('atem-login-form-username').value = sessionStorage.getItem("atem-username");
-        document.getElementById('atem-login-form-password').value = sessionStorage.getItem("atem-password");
-        if (sessionStorage.getItem("atem-auto-connect") == "true") {
+    if (sessionStorage.getItem("tamtour-atem-target")) {
+        document.getElementById('atem-login-form-target').value = sessionStorage.getItem("tamtour-atem-target");
+        document.getElementById('atem-login-form-username').value = sessionStorage.getItem("tamtour-atem-username");
+        document.getElementById('atem-login-form-password').value = sessionStorage.getItem("tamtour-atem-password");
+        if (sessionStorage.getItem("tamtour-atem-auto-connect") == "true") {
             atem.connect();
         }
     }
