@@ -33,6 +33,10 @@ function hideImageOverlay() {
     document.querySelector("#imageoverlay").classList.add("out")
 }
 
+function resetImageOverlay() {
+    hideImageOverlay();
+    setImageOverlaySource("data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=");
+}
 
 // General info overlay
 
