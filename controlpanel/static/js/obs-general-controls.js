@@ -195,6 +195,16 @@ function showStreamCongestion(congestion) {
 
 obs.on("StreamStateChanged", loadStreamStatus);
 
+// Transition
+
+async function startTransition() {
+    await obs.sendCommand('TriggerStudioModeTransition');
+
+    let button = $("#btn-start-transition");
+    button.prop("disabled", true);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
+}
+
 // Volume meter
 
 let smoothingDiff = 1.2;

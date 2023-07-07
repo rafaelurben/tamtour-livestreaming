@@ -281,7 +281,7 @@
                                 <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled" onclick="playStartListAnimation()">
                                     Anzeigen
                                 </button>
-                                <button class="btn btn-outline-danger nostartlistdisabled" onclick="cancelStartListAnimation()">
+                                <button id="btn-cancel-startlist-overlay" class="btn btn-outline-danger nostartlistdisabled" onclick="cancelStartListAnimation()">
                                     Abbruch
                                 </button>
                             </div>
@@ -341,7 +341,7 @@
                 <fieldset class="obs-required droptarget collapsed">
                     <legend>
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
-                        <b>Einstellungen</b>
+                        <b>Overlay-Einstellungen</b>
                     </legend>
                     <div class="input-group mb-1">
                         <div class="form-floating">
@@ -466,8 +466,8 @@
                         <div class="input-group">
                             <select class="form-select border-success-subtle" id="obs-scene-select-input">
                             </select>
-                            <button class="btn btn-primary" type="button"
-                                onclick="obs.sendCommand('TriggerStudioModeTransition')">Übergang</button>
+                            <button id="btn-start-transition" class="btn btn-primary" type="button"
+                                onclick="startTransition()">Übergang</button>
                             <input class="form-control border-danger-subtle" type="text" id="obs-scene-display" disabled value="" autocomplete="off">
                         </div>
                     </div>
@@ -703,6 +703,7 @@
     <script src="./static/js/overlay-generalinfo.js"></script>
     <script src="./static/js/overlay-startinfo.js"></script>
     <script src="./static/js/overlay-sponsors.js"></script>
+    <script src="./static/js/overlay-settings.js"></script>
     <script src="./static/js/atem-connection.js"></script>
     <script src="./static/js/atem-video.js"></script>
     <script src="./static/js/atem-downstreamkey.js"></script>

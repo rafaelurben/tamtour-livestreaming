@@ -252,10 +252,18 @@ async function playStartListAnimation() {
 
     let data = { title, items: itemsasdict };
     await obs.sendAction("playStartListAnimation", data);
+
+    let button = $("#btn-display-startlist-overlay");
+    button.prop("disabled", true);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
 }
 
 async function cancelStartListAnimation() {
     await obs.sendAction("cancelStartListAnimation");
+
+    let button = $("#btn-cancel-startlist-overlay");
+    button.prop("disabled", true);
+    setTimeout(() => { button.prop("disabled", false) }, 1000);
 }
 
 // Event listeners
