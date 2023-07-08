@@ -58,7 +58,7 @@ window.obs = {
             }
         }
     },
-    connect: async function () {
+    connect: async function (isautoconnect) {
         var target = document.getElementById('login-form-target').value;
         var password = document.getElementById('login-form-password').value;
 
@@ -75,7 +75,12 @@ window.obs = {
             });
         } catch (error) {
             console.warn("[OBS] Connection failed:", error);
-            alert("[OBS] Verbindung fehlgeschlagen! Bitte überprüfe die Eingaben.");
+            if (isautoconnect === true) {
+                alert("[OBS] Automatische Verbindung fehlgeschlagen! Bitte überprüfe die gespeicherten Eingaben.");
+                sessionStorage.setItem("tamtour-obs-auto-connect", "false");
+            } else {
+                alert("[OBS] Verbindung fehlgeschlagen! Bitte überprüfe die Eingaben.");
+            }
         }
     },
     sendAction: async function (action, data) {
@@ -122,7 +127,7 @@ window.addEventListener('load', function () {
         document.getElementById('login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
         document.getElementById('login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
         if (sessionStorage.getItem("tamtour-obs-auto-connect") == "true") {
-            obs.connect();
+            obs.connect(true);
         }
     }
 });
