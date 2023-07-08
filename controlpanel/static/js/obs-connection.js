@@ -25,10 +25,10 @@ window.obs = {
                 console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
             }   
         }
+
+        sessionStorage.setItem("tamtour-obs-auto-connect", "false");
     },
     disconnect: async function () {
-        sessionStorage.setItem("tamtour-obs-auto-connect", "false");
-
         try {
             return await obs.socket.disconnect();
         } catch (error) {
