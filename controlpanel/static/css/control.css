@@ -82,7 +82,7 @@ fieldset.collapsed > legend > .collapser::before {
     margin-left: 2rem;
 }
 
-.droptarget.droptarget-active::before {
+.droptarget.droptarget-active::after {
     content: "";
     position: absolute;
     outline: 2px dashed gray;
@@ -93,7 +93,7 @@ fieldset.collapsed > legend > .collapser::before {
     height: 1rem;
 }
 
-.horizontal-layout > .droptarget.droptarget-active::before {
+.horizontal-layout > .droptarget.droptarget-active::after {
     top: 0;
     left: -1.75rem;
     width: 1rem;
@@ -101,7 +101,7 @@ fieldset.collapsed > legend > .collapser::before {
     margin-right: 1rem;
 }
 
-.droptarget.dragover::before {
+.droptarget.dragover::after {
     outline-color: #189dbf;
 }
 
