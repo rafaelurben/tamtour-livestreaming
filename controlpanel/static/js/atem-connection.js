@@ -37,6 +37,7 @@ let atem = {
         programSource: undefined,
         key1FillSource: undefined,
         dkey1FillSource: undefined,
+        key1DVEdata: {},
         stills: [],
         audioconfig: [],
     },
