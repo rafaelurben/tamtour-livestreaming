@@ -647,7 +647,7 @@
                         <b>KEY1</b>
                     </legend>
                     <div class="mb-2 d-flex flex-column gap-2">
-                        <div class="mb-2">
+                        <div>
                             <label for="atem-key1-type-select" class="form-label visually-hidden">KEY1-Typ</label>
                             <select class="form-select form-select-sm" id="atem-key1-type-select">
                                 <option value="0">Luma</option>
@@ -655,6 +655,20 @@
                                 <option value="2">Pattern</option>
                                 <option value="3">DVE</option>
                             </select>
+                        </div>
+                        <div id="atem-key1-dve-group">
+                            <div class="input-group mb-1">
+                                <button id="atem-key1-dve-seta-btn" class="btn btn-outline-secondary btn-sm flex-fill">SET A</button>
+                                <button id="atem-key1-dve-setb-btn" class="btn btn-outline-secondary btn-sm flex-fill">SET B</button>
+                            </div>
+                            <div class="input-group mb-1">
+                                <button id="atem-key1-dve-runa-btn" class="btn btn-outline-secondary btn-sm flex-fill">A</button>
+                                <button id="atem-key1-dve-runb-btn" class="btn btn-outline-secondary btn-sm flex-fill">B</button>
+                                <button id="atem-key1-dve-runfull-btn" class="btn btn-outline-secondary btn-sm flex-fill">FULL</button>
+                            </div>
+                            <!-- <div class="input-group mb-1">
+                                <button class="btn btn-secondary btn-sm flex-fill">Mehr</button>
+                            </div> -->
                         </div>
                     </div>
                 </fieldset>
