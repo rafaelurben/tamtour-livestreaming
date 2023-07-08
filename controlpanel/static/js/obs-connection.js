@@ -4,6 +4,7 @@ window.obs = {
     SUBSCRIPTIONS_DEFAULT: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters,
     SUBSCRIPTIONS_WITHOUT_VOLUME: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs,
 
+    subscriptions: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters,
     socket: new OBSWebSocket(),
     wakeLock: null,
     get connected() {
@@ -25,10 +26,10 @@ window.obs = {
                 console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
             }   
         }
-
-        sessionStorage.setItem("tamtour-obs-auto-connect", "false");
     },
     disconnect: async function () {
+        sessionStorage.setItem("tamtour-obs-auto-connect", "false");
+
         try {
             return await obs.socket.disconnect();
         } catch (error) {
@@ -71,7 +72,7 @@ window.obs = {
         }
         try {
             return await obs.socket.connect(prefix + target, password, {
-                eventSubscriptions: obs.SUBSCRIPTIONS_DEFAULT,
+                eventSubscriptions: obs.subscriptions,
             });
         } catch (error) {
             console.warn("[OBS] Connection failed:", error);
@@ -109,9 +110,12 @@ window.obs = {
         obs.socket.on(e, t, n)
     },
     updateSubscriptions: async function (subs) {
-        return await obs.socket.reidentify({
-            eventSubscriptions: subs,
-        })
+        obs.subscriptions = subs;
+        if (obs.connected) {
+            return await obs.socket.reidentify({
+                eventSubscriptions: subs,
+            })
+        }
     }
 }
 
