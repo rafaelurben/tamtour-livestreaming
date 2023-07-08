@@ -9,7 +9,7 @@ function toggleCollapse(elem) {
 $(document).ready(function () {
     var $dragging = null;
 
-    $draggers = $("fieldset > legend > span.collapser");
+    $draggers = $("fieldset.droptarget > legend > span.collapser");
     $draggables = $("fieldset");
     $droptargets = $(".droptarget");
 
