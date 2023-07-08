@@ -3,8 +3,10 @@
 
 # TamTour Livestreaming
 
-Zum [Control panel](./controlpanel/).
+Dieses System wurde von Rafael Urben speziell für die [TamTour](https://tamtour.ch/) entwickelt. Es dient dazu, den Livestream zu steuern und diverse Overlays anzuzeigen.
 
-## Über die TamTour
+## Links
 
-Alles über die TamTour findet sich auf der [TamTour-Website](https://tamtour.ch/).
+- Zum [Control panel](https://rafaelurben.ch/tamtour-livestreaming/controlpanel/).
+- Zum [Startlisten-Manager](https://app.rafaelurben.ch/admin/tamtour_startlistmanager/).
+- Browser source URL: <https://rafaelurben.ch/tamtour-livestreaming/browsersource/>

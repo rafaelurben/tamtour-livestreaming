@@ -33,6 +33,7 @@ jobs:
       - name: Build folder structure
         run: |
           cp -r ./controlpanel/ ./docs/controlpanel/
+          cp -r ./browsersource/ ./docs/browsersource/
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Build with Jekyll
