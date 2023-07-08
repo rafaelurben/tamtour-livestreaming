@@ -19,6 +19,7 @@ let atemInputIdsReverse = Object.fromEntries(Object.entries(atemInputIds).map(a 
 
 let atem = {
     connected: false,
+    bulksupport: false,
     connectionData: {
         target: undefined,
         username: undefined,
@@ -58,9 +59,19 @@ let atem = {
         sessionStorage.setItem("tamtour-atem-target", atem.connectionData.target);
         sessionStorage.setItem("tamtour-atem-username", atem.connectionData.username);
         sessionStorage.setItem("tamtour-atem-password", atem.connectionData.password);
+
+        // Check for bulk support
+        atem.request("GET", `/${atem.connectionData.atemId}/bulksupport`, {}, true).then(function (data) {
+            atem.bulksupport = true;
+            console.log("[ATEM] Bulk support enabled! (Using modified openswitcher-proxy version by @rafaelurben)");
+        }).catch(function (error) {
+            atem.bulksupport = false;
+            console.warn("[ATEM] Bulk support disabled! (NOT using modified openswitcher-proxy version by @rafaelurben)");
+        });
     },
     _handleDisconnect: function () {
         atem.connected = false;
+        atem.bulksupport = false;
         console.log("[ATEM] Disconnected");
 
         $("body").removeClass("atem-connected");
@@ -71,7 +82,7 @@ let atem = {
         $(window).trigger("atem-disconnected");
         sessionStorage.setItem("tamtour-atem-auto-connect", "false");
     },
-    request: async function (method, url, data, noalert) {
+    request: async function (method, url, data, ignoreerror) {
         if (!atem.connected) return Promise.reject("Not connected to ATEM");
         return new Promise(function (resolve, reject) {
             $.ajax({
@@ -85,12 +96,14 @@ let atem = {
                     resolve(data);
                 },
                 error: function (error) {
-                    if (error.statusText == "timeout") {
-                        console.warn("[ATEM] Request timed out:", { method, url, data });
-                        if (!noalert && request.method === "POST") alert("[ATEM] Anfrage fehlgeschlagen! Bitte erneut versuchen!")
-                    } else {
-                        console.error("[ATEM] Request failed:", { method, url, data }, error);
-                        if (!noalert) alert("[ATEM] Anfrage fehlgeschlagen! Bitte Konsole überprüfen.");
+                    if (!ignoreerror) {
+                        if (error.statusText == "timeout") {
+                            console.warn("[ATEM] Request timed out:", { method, url, data });
+                            if (method === "POST") alert("[ATEM] Anfrage fehlgeschlagen! Bitte erneut versuchen!")
+                        } else {
+                            console.error("[ATEM] Request failed:", { method, url, data }, error);
+                            alert("[ATEM] Anfrage fehlgeschlagen! Bitte Konsole überprüfen.");
+                        }
                     }
                     reject(error);
                 },
@@ -101,6 +114,19 @@ let atem = {
         return new Promise(function (resolve, reject) {
             atem.request("GET", `/${atem.connectionData.atemId}/${field}`).then(result => {
                 $(window).trigger(`atem-get-${field}`, result);
+                resolve(result);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    },
+    bulkget: async function (fields) {
+        // Get multiple fields at once (Only supported in the modified openswitcher-proxy version by @rafaelurben)
+        return new Promise(function (resolve, reject) {
+            atem.request("GET", `/${atem.connectionData.atemId}/bulk/${fields.join(",")}`).then(result => {
+                for (let field of fields) {
+                    $(window).trigger(`atem-get-${field}`, result[field])
+                };
                 resolve(result);
             }).catch(error => {
                 reject(error);
@@ -170,6 +196,8 @@ $(window).on("atem-disconnected", function () {
 });
 
 // ATEM GET Requests
+// - 'interval' is only used if bulk support is not available
+// - 'elements', if present, needs to include at lease one visible jQuery element to trigger the request
 
 let atemGETqueue = [
   // Media Player & Color Generators
@@ -284,36 +312,62 @@ let atemGETqueue = [
 ];
 
 $(window).on("atem-base-interval", function () {
-    // Check if any requests need to be fired
-    for (let i = 0; i < atemGETqueue.length; i++) {
-        let queueItem = atemGETqueue[i];
+    function __hasVisibleElements(elements) {
+        if (elements.length == 0) return true;
 
-        // If a request was fired less than the interval ago, don't fire another one
-        if (queueItem.lastfire + queueItem.interval > Date.now()) {
-            continue
-        };
-        // If a request is already in progress, don't fire another one
-        if (queueItem.inprogress) {
-            console.log("Requests are slower than expected, skipping...")
-            continue
-        };
-        // If none of the elements are visible, don't fire the request
-        if (queueItem.elements.length > 0) {
-            let anyVisible = false;
-            for (let j = 0; j < queueItem.elements.length; j++) {
-                let element = queueItem.elements[j];
-                if (element.is(":visible")) {
-                    anyVisible = true;
-                }
+        let anyVisible = false;
+        for (let i = 0; i < elements.length; i++) {
+            let element = elements[i];
+            if (element.is(":visible")) {
+                anyVisible = true;
             }
-            if (!anyVisible) continue;
         }
+        return anyVisible;
+    }
 
-        queueItem.inprogress = true;
-        queueItem.lastfire = Date.now();
+    if (atem.bulksupport) {
+        // If bulk support is available, fire all requests every interval
+        // Bulk support is available in the modified openswitcher-proxy version by @rafaelurben
+        let fields = [];
+        for (let i = 0; i < atemGETqueue.length; i++) {
+            let queueItem = atemGETqueue[i];
 
-        atem.get(queueItem.url).then(function () {
-            queueItem.inprogress = false;
-        })
+            if (__hasVisibleElements(queueItem.elements)) {
+                fields.push(queueItem.url);
+            }
+        }
+        atem.bulkget(fields)
+    } else {
+        // Check if any requests need to be fired
+        for (let i = 0; i < atemGETqueue.length; i++) {
+            let queueItem = atemGETqueue[i];
+
+            // If a request was fired less than the interval ago, don't fire another one
+            if (queueItem.lastfire + queueItem.interval > Date.now()) {
+                continue
+            };
+            // If a request is already in progress, don't fire another one, except if it has been in progress for more than 10 seconds
+            if (queueItem.inprogress) {
+                if (queueItem.lastfire + 10000 < Date.now()) {
+                    console.log("[ATEM] Request has taken longer than 10 seconds. Resetting...")
+                } else {
+                    console.log("[ATEM] Request is slower than the interval. Skipping...")
+                    continue
+                }
+            };
+            // If none of the elements are visible, don't fire the request
+            if (!__hasVisibleElements(queueItem.elements)) {
+                continue
+            }
+
+            queueItem.inprogress = true;
+            queueItem.lastfire = Date.now();
+
+            atem.get(queueItem.url).then(function () {
+                queueItem.inprogress = false;
+            }).catch(function () {
+                queueItem.inprogress = false;
+            });
+        }
     }
 });
