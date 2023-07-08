@@ -129,9 +129,20 @@ $(window).on("atem-base-interval", function (e, counter) {
         ).toggleClass("border-warning", atem.state.key1FillSource === "MP1" && atem.state.key1onair
         ).toggleClass("border-info", atem.state.dkey1FillSource === "MP1" && atem.state.dkey1onair
     );
-    // set KEY1 type border color
-    $("#atem-key1-type-select"
-        ).toggleClass("border-danger", atem.state.key1onair
-        ).toggleClass("border-success", !atem.state.key1onair && atem.state.nextTransition.key1
+    // set COL1 border color
+    $("#atem-color1-form"
+        ).toggleClass("border-danger", atem.state.programSource === "COL1"
+        ).toggleClass("border-success", atem.state.previewSource === "COL1"
+        ).toggleClass("border-warning", atem.state.key1FillSource === "COL1" && atem.state.key1onair
+        ).toggleClass("border-info", atem.state.dkey1FillSource === "COL1" && atem.state.dkey1onair
     );
+    // set COL2 border color
+    $("#atem-color2-form"
+        ).toggleClass("border-danger", atem.state.programSource === "COL2"
+        ).toggleClass("border-success", atem.state.previewSource === "COL2"
+        ).toggleClass("border-warning", atem.state.key1FillSource === "COL2" && atem.state.key1onair
+        ).toggleClass("border-info", atem.state.dkey1FillSource === "COL2" && atem.state.dkey1onair
+    );
+    // set KEY1 fieldset border color
+    $("#atem-fieldset-key1").toggleClass("border-danger", atem.state.key1onair);
 });
