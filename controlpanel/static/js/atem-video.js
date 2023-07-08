@@ -107,21 +107,7 @@ $(window).on("atem-get-dkey-state", function (e, data) {
 
 // Interval
 
-$(window).on("atem-base-interval", function (e, counter) {
-    if (counter % 5 === 4) {
-        // Every 5th interval, offset by 4
-        atem.get("preview-bus-input");
-        atem.get("program-bus-input");
-        atem.get("key-on-air");
-    }
-
-    if (counter % 10 === 9) {
-        // Every 10th interval, offset by 9
-        atem.get("key-properties-base");
-        atem.get("dkey-properties-base");
-        // atem.get("dkey-state"); => already in atem-diverses.js
-    }
-
+$(window).on("atem-base-interval", function () {
     // set MP1 source border color
     $("#atem-mp1-source-select"
         ).toggleClass("border-danger", atem.state.programSource === "MP1"

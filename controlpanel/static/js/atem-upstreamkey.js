@@ -19,9 +19,3 @@ atemKEY1TypeselectElem.change(function (e) {
     let val = $(this).val();
     atem.post("key-type", { index: 0, keyer: 0, type: val });
 });
-
-// Interval
-
-$(window).on("atem-base-interval", function (e, counter) {
-    // atem.get("key-properties-base"); => already in atem-video.js
-});

@@ -76,13 +76,3 @@ $(window).on("atem-get-fairlight-strip-properties", function (e, data) {
         $(`#atem-audio-${conf.htmlName}-volume`).text(micVol);
     }
 });
-
-// Interval
-
-$(window).on("atem-base-interval", function (e, counter) {
-    if (counter % 10 === 0) {
-        // Every 10th interval
-        atem.get("fairlight-audio-input");
-        atem.get("fairlight-strip-properties");
-    }
-});

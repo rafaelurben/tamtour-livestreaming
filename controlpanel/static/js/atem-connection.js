@@ -80,13 +80,18 @@ let atem = {
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded',
                 type: method,
-                timeout: 1000,
+                timeout: 2500,
                 success: function (data) {
                     resolve(data);
                 },
                 error: function (error) {
-                    console.error("[ATEM] Request failed: ", error);
-                    if (!noalert) alert("[ATEM] Anfrage fehlgeschlagen!");
+                    if (error.statusText == "timeout") {
+                        console.warn("[ATEM] Request timed out:", { method, url, data });
+                        if (!noalert && request.method === "POST") alert("[ATEM] Anfrage fehlgeschlagen! Bitte erneut versuchen!")
+                    } else {
+                        console.error("[ATEM] Request failed:", { method, url, data }, error);
+                        if (!noalert) alert("[ATEM] Anfrage fehlgeschlagen! Bitte Konsole überprüfen.");
+                    }
                     reject(error);
                 },
             });
@@ -150,18 +155,165 @@ window.addEventListener('load', function () {
     }
 });
 
-// ATEM Base Interval
+// ATEM Interval
 
 let atemBaseInterval = undefined;
-let atemBaseIntervalCounter = 0;
 
 $(window).on("atem-connected", function () {
     atemBaseInterval = setInterval(function () {
-        atemBaseIntervalCounter++;
-        $(window).trigger("atem-base-interval", atemBaseIntervalCounter);
-    }, 100);
+        $(window).trigger("atem-base-interval");
+    }, 250);
 });
 
 $(window).on("atem-disconnected", function () {
     clearInterval(atemBaseInterval);
+});
+
+// ATEM GET Requests
+
+let atemGETqueue = [
+  // Media Player & Color Generators
+  {
+    url: "mediaplayer-selected",
+    elements: [$("#atem-fieldset-mpcol > div")],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "mediaplayer-file-info",
+    elements: [$("#atem-fieldset-mpcol > div")],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "color-generator",
+    elements: [$("#atem-fieldset-mpcol > div")],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+
+  // Transitions
+  {
+    url: "transition-settings",
+    elements: [],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "transition-position",
+    elements: [$("#atem-fieldset-transitions > div")],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "fade-to-black-state",
+    elements: [$("#atem-fieldset-transitions > div")],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+
+  // Downstream Keyer
+  {
+    url: "dkey-state",
+    elements: [],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "dkey-properties-base",
+    elements: [],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+
+  // Upstream Keyer
+  {
+    url: "key-on-air",
+    elements: [],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "key-properties-base",
+    elements: [],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+
+  // Audio
+  {
+    url: "fairlight-audio-input",
+    elements: [$("#atem-fieldset-audio > div")],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "fairlight-strip-properties",
+    elements: [$("#atem-fieldset-audio > div")],
+    interval: 1000,
+    inprogress: false,
+    lastfire: 0,
+  },
+
+  // Video
+  {
+    url: "preview-bus-input",
+    elements: [],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "program-bus-input",
+    elements: [],
+    interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+];
+
+$(window).on("atem-base-interval", function () {
+    // Check if any requests need to be fired
+    for (let i = 0; i < atemGETqueue.length; i++) {
+        let queueItem = atemGETqueue[i];
+
+        // If a request was fired less than the interval ago, don't fire another one
+        if (queueItem.lastfire + queueItem.interval > Date.now()) {
+            continue
+        };
+        // If a request is already in progress, don't fire another one
+        if (queueItem.inprogress) {
+            console.log("Requests are slower than expected, skipping...")
+            continue
+        };
+        // If none of the elements are visible, don't fire the request
+        if (queueItem.elements.length > 0) {
+            let anyVisible = false;
+            for (let j = 0; j < queueItem.elements.length; j++) {
+                let element = queueItem.elements[j];
+                if (element.is(":visible")) {
+                    anyVisible = true;
+                }
+            }
+            if (!anyVisible) continue;
+        }
+
+        queueItem.inprogress = true;
+        queueItem.lastfire = Date.now();
+
+        atem.get(queueItem.url).then(function () {
+            queueItem.inprogress = false;
+        })
+    }
 });
