@@ -173,26 +173,26 @@
             </div>
         </div>
     </dialog>
-    <dialog id="atem-key1-dve-dialog" class="modal face">
+    <dialog id="atem-key1-flying-position-dialog" class="modal face">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">KEY1 DVE-Optionen</h1>
+                    <h1 class="modal-title fs-5">KEY1 Flying Key Optionen</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>
-                        Hier kannst du die Position des DVE (Digital Video Effect) für KEY1 einstellen.
+                        Hier kannst du die Position des flying keys einstellen.
                         Der Koordinatenursprung liegt unten links und geht von 0 bis 1.
                         Mit dem Ankerpunkt kannst du festlegen, auf welche Ecke des Bildes sich die Koordinaten beziehen.
                     </p>
                     <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" role="switch" checked="true" id="atem-key1-dve-form-keep-proportions">
-                        <label class="form-check-label" for="atem-key1-dve-form-keep-proportions">Seitenverhältnis beibehalten?</label>
+                        <input class="form-check-input" type="checkbox" role="switch" checked="true" id="atem-key1-flying-position-form-keep-proportions">
+                        <label class="form-check-label" for="atem-key1-flying-position-form-keep-proportions">Seitenverhältnis beibehalten?</label>
                     </div>
                     <div class="mb-2 input-group">
                         <div class="form-floating">
-                            <select class="form-select" id="atem-key1-dve-form-anchor">
+                            <select class="form-select" id="atem-key1-flying-position-form-anchor">
                                 <option value="top-left">Oben links</option>
                                 <option value="top-center">Oben Mitte</option>
                                 <option value="top-right">Oben rechts</option>
@@ -203,34 +203,44 @@
                                 <option value="bottom-center">Unten Mitte</option>
                                 <option value="bottom-right">Unten rechts</option>
                             </select>
-                            <label for="atem-key1-dve-form-anchor" class="form-label">Ankerpunkt</label>
+                            <label for="atem-key1-flying-position-form-anchor" class="form-label">Ankerpunkt</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="atem-key1-dve-form-posx" value="0" min="-0.5" max="1.5" step="0.005">
-                            <label for="atem-key1-dve-form-posx" class="form-label">Pos (x)</label>
+                            <input type="number" class="form-control" id="atem-key1-flying-position-form-posx" value="0" min="-0.5" max="1.5" step="0.005">
+                            <label for="atem-key1-flying-position-form-posx" class="form-label">Pos (x)</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="atem-key1-dve-form-posy" value="0" min="-0.5" max="1.5" step="0.005">
-                            <label for="atem-key1-dve-form-posy" class="form-label">Pos (y)</label>
+                            <input type="number" class="form-control" id="atem-key1-flying-position-form-posy" value="0" min="-0.5" max="1.5" step="0.005">
+                            <label for="atem-key1-flying-position-form-posy" class="form-label">Pos (y)</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="atem-key1-dve-form-sizex" value="1" min="0" max="100" step="0.01">
-                            <label for="atem-key1-dve-form-sizex" class="form-label">Grösse (x)</label>
+                            <input type="number" class="form-control" id="atem-key1-flying-position-form-sizex" value="1" min="0" max="100" step="0.01">
+                            <label for="atem-key1-flying-position-form-sizex" class="form-label">Grösse (x)</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="atem-key1-dve-form-sizey" value="1" min="0" max="100" step="0.01">
-                            <label for="atem-key1-dve-form-sizey" class="form-label">Grösse (y)</label>
+                            <input type="number" class="form-control" id="atem-key1-flying-position-form-sizey" value="1" min="0" max="100" step="0.01">
+                            <label for="atem-key1-flying-position-form-sizey" class="form-label">Grösse (y)</label>
                         </div>
                     </div>
                     <div class="mt-3">
-                        <canvas id="atem-key1-dve-preview-canvas" class="w-100 border">
+                        <canvas id="atem-key1-flying-position-preview-canvas" class="w-100 border">
                             <!-- Filled by JS -->
                         </canvas>
+                    </div>
+                    <hr />
+                    <div class="input-group">
+                        <div class="form-floating">
+                            <input id="atem-key1-flying-rate-input" type="number" class="form-control form-control-sm" min="0" max="100" step="1"
+                                value="25" />
+                            <label for="atem-key1-flying-rate-input">Übergangs-Rate (frames)</label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
-                    <button type="button" class="btn btn-primary" id="atem-key1-dve-form-apply">Anwenden</button>
+                    <button type="button" id="atem-key1-flying-position-form-apply-btn" class="btn btn-primary">Anwenden</button>
+                    <button type="button" id="atem-key1-flying-position-form-seta-btn" class="btn btn-primary">Anwenden & SET A</button>
+                    <button type="button" id="atem-key1-flying-position-form-setb-btn" class="btn btn-primary">Anwenden & SET B</button>
                 </div>
             </div>
         </div>
@@ -748,18 +758,18 @@
                                 <option value="3">DVE</option>
                             </select>
                         </div>
-                        <div id="atem-key1-dve-group" class="d-flex flex-column gap-1">
+                        <div id="atem-key1-flying-check-group" class="form-check">
+                            <input class="form-check-input" type="checkbox" role="switch" checked="true" id="atem-key1-flying-check">
+                            <label class="form-check-label" for="atem-key1-flying-check">Flying</label>
+                        </div>
+                        <div id="atem-key1-flying-position-group" class="d-flex flex-column gap-1">
                             <div class="input-group">
-                                <button class="btn btn-secondary btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#atem-key1-dve-dialog" type="button">Positionen</button>
+                                <button class="btn btn-secondary btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#atem-key1-flying-position-dialog" type="button">Positionen</button>
                             </div>
                             <div class="input-group">
-                                <button id="atem-key1-dve-seta-btn" class="btn btn-outline-secondary btn-sm flex-fill">SET A</button>
-                                <button id="atem-key1-dve-setb-btn" class="btn btn-outline-secondary btn-sm flex-fill">SET B</button>
-                            </div>
-                            <div class="input-group">
-                                <button id="atem-key1-dve-runa-btn" class="btn btn-outline-secondary btn-sm flex-fill">A</button>
-                                <button id="atem-key1-dve-runb-btn" class="btn btn-outline-secondary btn-sm flex-fill">B</button>
-                                <button id="atem-key1-dve-runfull-btn" class="btn btn-outline-secondary btn-sm flex-fill">FULL</button>
+                                <button id="atem-key1-flying-runa-btn" class="btn btn-outline-secondary btn-sm flex-fill">A</button>
+                                <button id="atem-key1-flying-runb-btn" class="btn btn-outline-secondary btn-sm flex-fill">B</button>
+                                <button id="atem-key1-flying-runfull-btn" class="btn btn-outline-secondary btn-sm flex-fill">FULL</button>
                             </div>
                         </div>
                     </div>

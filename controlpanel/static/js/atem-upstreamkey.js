@@ -2,13 +2,17 @@
 
 let atemKEY1TypeselectElem = $("#atem-key1-type-select")
 
-// Type selection
+// Base properties
 
 $(window).on("atem-get-key-properties-base", function (e, data) {
     let key1dat = data["0"]["0"];
 
     // type: 0 = luma, 1 = chroma, 2 = pattern, 3 = DVE
     atemKEY1TypeselectElem.val(key1dat.type);
+
+    $("#atem-key1-flying-position-group").toggleClass("d-none", !(key1dat.type === 3 || key1dat.fly_enabled));
+    $("#atem-key1-flying-check-group").toggleClass("d-none", key1dat.type === 3);
+    $("#atem-key1-flying-check").prop("checked", key1dat.fly_enabled);
 });
 
 atemKEY1TypeselectElem.change(function (e) {
@@ -16,12 +20,12 @@ atemKEY1TypeselectElem.change(function (e) {
     atem.post("key-type", { index: 0, keyer: 0, type: val });
 });
 
-// DVE
+// Flying key properties
 
-function updateKey1DVEFormFromData() {
-    let local_data = atem.state.key1DVEdata;
+function updateKey1FlyingFormFromData() {
+    let local_data = atem.state.key1Flyingdata;
 
-    let anchors = $("#atem-key1-dve-form-anchor").val().split("-");
+    let anchors = $("#atem-key1-flying-position-form-anchor").val().split("-");
     let anchor_x = anchors[1];
     let anchor_y = anchors[0];
 
@@ -45,21 +49,21 @@ function updateKey1DVEFormFromData() {
         pos_y = local_data.pos_y;
     }
 
-    $("#atem-key1-dve-form-posx").val(pos_x.toFixed(3));
-    $("#atem-key1-dve-form-posy").val(pos_y.toFixed(3));
-    $("#atem-key1-dve-form-sizex").val(size_x.toFixed(3));
-    $("#atem-key1-dve-form-sizey").val(size_y.toFixed(3));
+    $("#atem-key1-flying-position-form-posx").val(pos_x.toFixed(3));
+    $("#atem-key1-flying-position-form-posy").val(pos_y.toFixed(3));
+    $("#atem-key1-flying-position-form-sizex").val(size_x.toFixed(3));
+    $("#atem-key1-flying-position-form-sizey").val(size_y.toFixed(3));
 
-    renderKey1DVEPreview();
+    renderKey1FlyingPreview();
 }
 
-function updateKey1DVEDataFromForm() {
-    var pos_x = parseFloat($("#atem-key1-dve-form-posx").val());
-    var pos_y = parseFloat($("#atem-key1-dve-form-posy").val());
-    var size_x = parseFloat($("#atem-key1-dve-form-sizex").val());
-    var size_y = parseFloat($("#atem-key1-dve-form-sizey").val());
+function updateKey1FlyingDataFromForm() {
+    var pos_x = parseFloat($("#atem-key1-flying-position-form-posx").val());
+    var pos_y = parseFloat($("#atem-key1-flying-position-form-posy").val());
+    var size_x = parseFloat($("#atem-key1-flying-position-form-sizex").val());
+    var size_y = parseFloat($("#atem-key1-flying-position-form-sizey").val());
 
-    let anchors = $("#atem-key1-dve-form-anchor").val().split("-");
+    let anchors = $("#atem-key1-flying-position-form-anchor").val().split("-");
     let anchor_x = anchors[1];
     let anchor_y = anchors[0];
 
@@ -75,23 +79,23 @@ function updateKey1DVEDataFromForm() {
         pos_y -= size_y / 2;
     }
 
-    atem.state.key1DVEdata = {
+    atem.state.key1Flyingdata = {
         pos_x: pos_x,
         pos_y: pos_y,
         size_x: size_x,
         size_y: size_y,
     }
 
-    renderKey1DVEPreview();
+    renderKey1FlyingPreview();
 }
 
-function renderKey1DVEPreview() {
-    let data = atem.state.key1DVEdata;
-    let anchors = $("#atem-key1-dve-form-anchor").val().split("-");
+function renderKey1FlyingPreview() {
+    let data = atem.state.key1Flyingdata;
+    let anchors = $("#atem-key1-flying-position-form-anchor").val().split("-");
     let anchor_x = anchors[1];
     let anchor_y = anchors[0];
 
-    let canvas = document.getElementById("atem-key1-dve-preview-canvas");
+    let canvas = document.getElementById("atem-key1-flying-position-preview-canvas");
     canvas.height = canvas.width * (9 / 16);
     let ctx = canvas.getContext("2d");
 
@@ -160,45 +164,8 @@ function renderKey1DVEPreview() {
     ctx.fillText("(1,1)", canvas.width - (canvas.width * spacing * 0.5), canvas.height * spacing * 0.5);
 }
 
-$("#atem-key1-dve-dialog").on("show.bs.modal", function (e) {
-    atem.get("key-properties-dve");
-});
-
-$("#atem-key1-dve-form-anchor").change(function (e) {
-    updateKey1DVEFormFromData();
-});
-
-$("#atem-key1-dve-form-sizex").change(function (e) {
-    if ($("#atem-key1-dve-form-keep-proportions").is(":checked")) {
-        $("#atem-key1-dve-form-sizey").val($(this).val());
-    }
-});
-
-$("#atem-key1-dve-form-sizey").change(function (e) {
-    if ($("#atem-key1-dve-form-keep-proportions").is(":checked")) {
-        $("#atem-key1-dve-form-sizex").val($(this).val());
-    }
-});
-
-$("#atem-key1-dve-dialog input").change(function (e) {
-    updateKey1DVEDataFromForm();
-});
-
-$(window).on("atem-get-key-properties-dve", function (e, data) {
-    let atem_data = data["0"]["0"];
-
-    atem.state.key1DVEdata = {
-        pos_x: atem_data.pos_x / 32000 + 0.5,
-        pos_y: atem_data.pos_y / 18000 + 0.5,
-        size_x: atem_data.size_x / 1000,
-        size_y: atem_data.size_y / 1000,
-    }
-
-    updateKey1DVEFormFromData();
-});
-
-$("#atem-key1-dve-form-apply").click(function (e) {
-    let local_data = atem.state.key1DVEdata;
+function postKey1FlyingData() {
+    let local_data = atem.state.key1Flyingdata;
 
     atem.post("key-properties-dve", {
         index: 0,
@@ -207,27 +174,80 @@ $("#atem-key1-dve-form-apply").click(function (e) {
         pos_y: parseInt((local_data.pos_y - 0.5) * 18000),
         size_x: parseInt(local_data.size_x * 1000),
         size_y: parseInt(local_data.size_y * 1000),
+        rate: parseInt($("#atem-key1-flying-rate-input").val()),
     })
+}
+
+$("#atem-key1-flying-position-dialog").on("show.bs.modal", function (e) {
+    atem.get("key-properties-dve");
+});
+
+$("#atem-key1-flying-position-form-anchor").change(function (e) {
+    updateKey1FlyingFormFromData();
+});
+
+$("#atem-key1-flying-position-form-sizex").change(function (e) {
+    if ($("#atem-key1-flying-position-form-keep-proportions").is(":checked")) {
+        $("#atem-key1-flying-position-form-sizey").val($(this).val());
+    }
+});
+
+$("#atem-key1-flying-position-form-sizey").change(function (e) {
+    if ($("#atem-key1-flying-position-form-keep-proportions").is(":checked")) {
+        $("#atem-key1-flying-position-form-sizex").val($(this).val());
+    }
+});
+
+$("#atem-key1-flying-position-dialog input").change(function (e) {
+    updateKey1FlyingDataFromForm();
+});
+
+$(window).on("atem-get-key-properties-dve", function (e, data) {
+    let atem_data = data["0"]["0"];
+    
+    atem.state.key1Flyingdata = {
+        pos_x: atem_data.pos_x / 32000 + 0.5,
+        pos_y: atem_data.pos_y / 18000 + 0.5,
+        size_x: atem_data.size_x / 1000,
+        size_y: atem_data.size_y / 1000,
+    }
+    $("#atem-key1-flying-rate-input").val(atem_data.rate);
+
+    updateKey1FlyingFormFromData();
+});
+
+$("#atem-key1-flying-position-form-apply-btn").click(function (e) {
+    postKey1FlyingData();
 });
 
 // SET / RUN
 
-$("#atem-key1-dve-seta-btn").click(function (e) {
+$("#atem-key1-flying-position-form-seta-btn").click(function (e) {
+    postKey1FlyingData();
     atem.post("keyer-keyframe-set", { index: 0, keyer: 0, keyframe: "A" });
 });
 
-$("#atem-key1-dve-setb-btn").click(function (e) {
+$("#atem-key1-flying-position-form-setb-btn").click(function (e) {
+    postKey1FlyingData();
     atem.post("keyer-keyframe-set", { index: 0, keyer: 0, keyframe: "B" });
 });
 
-$("#atem-key1-dve-runa-btn").click(function (e) {
+$("#atem-key1-flying-runa-btn").click(function (e) {
     atem.post("keyer-keyframe-run", { index: 0, keyer: 0, run_to: "A" });
 });
 
-$("#atem-key1-dve-runb-btn").click(function (e) {
+$("#atem-key1-flying-runb-btn").click(function (e) {
     atem.post("keyer-keyframe-run", { index: 0, keyer: 0, run_to: "B" });
 });
 
-$("#atem-key1-dve-runfull-btn").click(function (e) {
+$("#atem-key1-flying-runfull-btn").click(function (e) {
     atem.post("keyer-keyframe-run", { index: 0, keyer: 0, run_to: "Full" });
+});
+
+// Flying Key
+
+$("#atem-key1-flying-check").change(function (e) {
+    console.log(e)
+    let checked = $(this).is(":checked");
+    atem.post("key-type", { index: 0, keyer: 0, fly_enabled: checked ? 1 : 0 });
 });
