@@ -53,20 +53,20 @@ $("#atem-capture-still-btn").click((e) => {
     atem.post("capture-still");
 })
 
-$("#atem-color1-input").change((e) => {
-    let color = hexToHsl($("#atem-color1-input").val());
+$("#atem-color1-input").change(function (e) {
+    let color = hexToHsl($(this).val());
     atem.post('color-generator', { index: 0, hue: color[0], saturation: color[1], luma: color[2] });
 })
 
-$("#atem-color2-input").change((e) => {
-    let color = hexToHsl($("#atem-color2-input").val());
+$("#atem-color2-input").change(function (e) {
+    let color = hexToHsl($(this).val());
     atem.post('color-generator', { index: 1, hue: color[0], saturation: color[1], luma: color[2] });
 })
 
 // Events
 
 $(window).on("atem-get-mediaplayer-selected", function (e, data) {
-    atemMP1selectElem.val(data["0"].slot);
+    atemMP1selectElem.not(":focus").val(data["0"].slot);
 });
 
 $(window).on("atem-get-mediaplayer-file-info", function (e, data) {
@@ -120,6 +120,6 @@ $(window).on("atem-get-transition-position", function (e, data) {
 $(window).on("atem-get-color-generator", function (e, data) {
     let col1 = hslToHex(data["0"].hue, data["0"].saturation, data["0"].luma);
     let col2 = hslToHex(data["1"].hue, data["1"].saturation, data["1"].luma);
-    $("#atem-color1-input").val(col1);
-    $("#atem-color2-input").val(col2);
+    $("#atem-color1-input").not(":focus").val(col1);
+    $("#atem-color2-input").not(":focus").val(col2);
 });

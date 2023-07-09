@@ -8,7 +8,7 @@ $(window).on("atem-get-key-properties-base", function (e, data) {
     let key1dat = data["0"]["0"];
 
     // type: 0 = luma, 1 = chroma, 2 = pattern, 3 = DVE
-    atemKEY1TypeselectElem.val(key1dat.type);
+    atemKEY1TypeselectElem.not(":focus").val(key1dat.type);
 
     $("#atem-key1-flying-position-group").toggleClass("d-none", !(key1dat.type === 3 || key1dat.fly_enabled));
     $("#atem-key1-flying-check-group").toggleClass("d-none", key1dat.type === 3);
