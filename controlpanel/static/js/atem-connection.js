@@ -14,12 +14,6 @@ let atemInputIds = {
     3010: "MP1",
     3011: "MP1K",
 }
-let atemTransitionStyles = {
-    0: "mix",
-    1: "dip",
-    2: "wipe",
-    3: "dve",
-}
 
 let atemInputIdsReverse = Object.fromEntries(Object.entries(atemInputIds).map(a => a.reverse()));
 
@@ -260,6 +254,38 @@ let atemGETqueue = [
     inprogress: false,
     lastfire: 0,
   },
+  {
+    url: "transition-mix",
+    elements: [$("#atem-fieldset-transitions > div")],
+    requirement: () => { return atem.state.nextTransition.style == 0 },
+    interval: 2000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "transition-dip",
+    elements: [$("#atem-fieldset-transitions > div")],
+    requirement: () => { return atem.state.nextTransition.style == 1 },
+    interval: 2000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "transition-wipe",
+    elements: [$("#atem-fieldset-transitions > div")],
+    requirement: () => { return atem.state.nextTransition.style == 2 },
+    interval: 2000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "transition-dve",
+    elements: [$("#atem-fieldset-transitions > div")],
+    requirement: () => { return atem.state.nextTransition.style == 3 },
+    interval: 2000,
+    inprogress: false,
+    lastfire: 0,
+  },
 
   // Downstream Keyer
   {
@@ -333,20 +359,20 @@ let atemGETqueue = [
   },
 ];
 
-$(window).on("atem-base-interval", function () {
-    function __hasVisibleElements(elements) {
-        if (elements.length == 0) return true;
+function __hasVisibleElements(elements) {
+    if (elements.length == 0) return true;
 
-        let anyVisible = false;
-        for (let i = 0; i < elements.length; i++) {
-            let element = elements[i];
-            if (element.is(":visible")) {
-                anyVisible = true;
-            }
+    let anyVisible = false;
+    for (let i = 0; i < elements.length; i++) {
+        let element = elements[i];
+        if (element.is(":visible")) {
+            anyVisible = true;
         }
-        return anyVisible;
     }
+    return anyVisible;
+}
 
+$(window).on("atem-base-interval", function () {
     if (atem.bulksupport) {
         // If bulk support is available, fire all requests every interval
         // Bulk support is available in the modified openswitcher-proxy version by @rafaelurben
@@ -354,9 +380,10 @@ $(window).on("atem-base-interval", function () {
         for (let i = 0; i < atemGETqueue.length; i++) {
             let queueItem = atemGETqueue[i];
 
-            if (__hasVisibleElements(queueItem.elements)) {
-                fields.push(queueItem.url);
-            }
+            if (queueItem.requirement !== undefined && !queueItem.requirement()) continue;
+            if (!__hasVisibleElements(queueItem.elements)) continue;
+
+            fields.push(queueItem.url);
         }
         atem.bulkget(fields)
     } else {
@@ -377,10 +404,10 @@ $(window).on("atem-base-interval", function () {
                     continue
                 }
             };
+            // If a requirement is set and it is not met, don't fire the request
+            if (queueItem.requirement !== undefined && !queueItem.requirement()) continue;
             // If none of the elements are visible, don't fire the request
-            if (!__hasVisibleElements(queueItem.elements)) {
-                continue
-            }
+            if (!__hasVisibleElements(queueItem.elements)) continue;
 
             queueItem.inprogress = true;
             queueItem.lastfire = Date.now();

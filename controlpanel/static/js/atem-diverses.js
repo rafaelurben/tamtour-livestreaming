@@ -1,6 +1,7 @@
 // ATEM commands
 
 let atemMP1selectElem = $("#atem-mp1-source-select")
+let atemTransitionStyles = ["mix", "dip", "wipe", "dve"];
 
 // Functions
 
@@ -154,10 +155,13 @@ $(window).on("atem-get-transition-position", function (e, data) {
     $("#atem-transition-auto-btn").toggleClass("btn-danger", active).toggleClass("pulsing", active).toggleClass("btn-outline-primary", !active);
 });
 
-for (let style of Object.values(atemTransitionStyles)) {
+for (let styleindex = 0; styleindex < atemTransitionStyles.length; styleindex++) {
+    let style = atemTransitionStyles[styleindex];
     $(window).on(`atem-get-transition-${style}`, function (e, data) {
+        if (styleindex !== atem.state.nextTransition.style) return;
+
         let rate = data["0"].rate;
-        $(`#atem-transition-rate-input`).val(rate);
+        $(`#atem-transition-rate-input`).not(":focus").val(rate);
     });
 }
 
