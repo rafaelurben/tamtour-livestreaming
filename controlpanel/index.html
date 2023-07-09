@@ -174,7 +174,7 @@
         </div>
     </dialog>
     <dialog id="atem-key1-dve-dialog" class="modal face">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">KEY1 DVE-Optionen</h1>
@@ -188,7 +188,7 @@
                     </p>
                     <div class="mb-2 input-group">
                         <div class="form-floating">
-                            <select class="form-select" id="key1-dve-form-anchor">
+                            <select class="form-select" id="atem-key1-dve-form-anchor">
                                 <option value="top-left">Oben links</option>
                                 <option value="top-center">Oben Mitte</option>
                                 <option value="top-right">Oben rechts</option>
@@ -202,22 +202,28 @@
                             <label for="key1-dve-form-anchor" class="form-label">Ankerpunkt</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="key1-dve-form-posx" value="0" min="0" max="1" step="0.01">
+                            <input type="number" class="form-control" id="atem-key1-dve-form-posx" value="0" min="0" max="1" step="0.01">
                             <label for="key1-dve-form-posx" class="form-label">Pos (x)</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="key1-dve-form-posy" value="0" min="0" max="1" step="0.01">
+                            <input type="number" class="form-control" id="atem-key1-dve-form-posy" value="0" min="0" max="1" step="0.01">
                             <label for="key1-dve-form-posy" class="form-label">Pos (y)</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="key1-dve-form-sizex" value="1" min="0" max="100" step="0.01">
+                            <input type="number" class="form-control" id="atem-key1-dve-form-sizex" value="1" min="0" max="100" step="0.01">
                             <label for="key1-dve-form-sizex" class="form-label">Grösse (x)</label>
                         </div>
                         <div class="form-floating">
-                            <input type="number" class="form-control" id="key1-dve-form-sizey" value="1" min="0" max="100" step="0.01">
+                            <input type="number" class="form-control" id="atem-key1-dve-form-sizey" value="1" min="0" max="100" step="0.01">
                             <label for="key1-dve-form-sizey" class="form-label">Grösse (y)</label>
                         </div>
                     </div>
+                    <div class="mb-1">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schliessen</button>
+                    <button type="button" class="btn btn-primary" id="atem-key1-dve-form-apply">Anwenden</button>
                 </div>
             </div>
         </div>
