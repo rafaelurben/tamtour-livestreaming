@@ -9,8 +9,6 @@ $(window).on("atem-get-key-properties-base", function (e, data) {
 
     // type: 0 = luma, 1 = chroma, 2 = pattern, 3 = DVE
     atemKEY1TypeselectElem.val(key1dat.type);
-    
-    $("#atem-key1-dve-group").toggleClass("d-none", key1dat.type != 3);
 });
 
 atemKEY1TypeselectElem.change(function (e) {
