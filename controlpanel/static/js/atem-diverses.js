@@ -26,8 +26,16 @@ $("#atem-transition-auto-btn").click((e) => {
     atem.post("auto", { index: 0 });
 })
 
+$("#atem-transition-ftb-rate-input").change(function (e) {
+    atem.post("fade-to-black-config", { index: 0, frames: $(this).val() });
+})
+
 $("#atem-transition-ftb-btn").click((e) => {
     atem.post("fade-to-black", { index: 0 });
+})
+
+$("#atem-transition-dkey1-rate-input").change(function (e) {
+    atem.post("dkey-rate", { index: 0, rate: $(this).val() });
 })
 
 $("#atem-transition-dkey1-btn").click((e) => {
@@ -88,9 +96,19 @@ $(window).on("atem-get-mediaplayer-file-info", function (e, data) {
     atemMP1selectElem.val(oldval);
 });
 
+$(window).on("atem-get-fade-to-black", function (e, data) {
+    let ftbRate = data["0"].rate;
+    $("#atem-transition-ftb-rate-input").not(":focus").val(ftbRate);
+});
+
 $(window).on("atem-get-fade-to-black-state", function (e, data) {
     let ftbOn = data["0"].in_transition || data["0"].done;
     $("#atem-transition-ftb-btn").toggleClass("btn-danger", ftbOn).toggleClass("pulsing", ftbOn).toggleClass("btn-outline-info", !ftbOn);
+});
+
+$(window).on("atem-get-dkey-properties", function (e, data) {
+    let dkey1Rate = data["0"].rate;
+    $("#atem-transition-dkey1-rate-input").not(":focus").val(dkey1Rate);
 });
 
 $(window).on("atem-get-dkey-state", function (e, data) {

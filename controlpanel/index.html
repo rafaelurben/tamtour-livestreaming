@@ -705,8 +705,14 @@
                         </div>
                         <hr class="my-0" />
                         <div class="d-flex flex-row gap-2">
-                            <button id="atem-transition-ftb-btn" class="btn btn-outline-info btn-sm flex-fill">FTB</button>
-                            <button id="atem-transition-dkey1-btn" class="btn btn-outline-info btn-sm flex-fill">DSK</button>
+                            <div class="input-group">
+                                <input id="atem-transition-dkey1-rate-input" type="number" class="form-control form-control-sm" min="0" max="255" value="25" style="max-width: 4rem;" />
+                                <button id="atem-transition-dkey1-btn" class="btn btn-outline-info btn-sm">DSK</button>
+                            </div>
+                            <div class="input-group">
+                                <input id="atem-transition-ftb-rate-input" type="number" class="form-control form-control-sm" min="0" max="255" value="25" style="max-width: 4rem;" />
+                                <button id="atem-transition-ftb-btn" class="btn btn-outline-info btn-sm">FTB</button>
+                            </div>
                         </div>
                     </div>
                 </fieldset>

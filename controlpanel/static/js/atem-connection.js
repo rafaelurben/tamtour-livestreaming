@@ -240,6 +240,13 @@ let atemGETqueue = [
     lastfire: 0,
   },
   {
+    url: "fade-to-black",
+    elements: [$("#atem-fieldset-transitions > div")],
+    interval: 2000,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
     url: "fade-to-black-state",
     elements: [$("#atem-fieldset-transitions > div")],
     interval: 1000,
@@ -259,6 +266,13 @@ let atemGETqueue = [
     url: "dkey-properties-base",
     elements: [],
     interval: 500,
+    inprogress: false,
+    lastfire: 0,
+  },
+  {
+    url: "dkey-properties",
+    elements: [],
+    interval: 2000,
     inprogress: false,
     lastfire: 0,
   },
