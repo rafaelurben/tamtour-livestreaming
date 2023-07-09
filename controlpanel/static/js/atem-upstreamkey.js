@@ -247,7 +247,6 @@ $("#atem-key1-flying-runfull-btn").click(function (e) {
 // Flying Key
 
 $("#atem-key1-flying-check").change(function (e) {
-    console.log(e)
     let checked = $(this).is(":checked");
     atem.post("key-type", { index: 0, keyer: 0, fly_enabled: checked ? 1 : 0 });
 });

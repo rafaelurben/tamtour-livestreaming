@@ -14,6 +14,12 @@ let atemInputIds = {
     3010: "MP1",
     3011: "MP1K",
 }
+let atemTransitionStyles = {
+    0: "mix",
+    1: "dip",
+    2: "wipe",
+    3: "dve",
+}
 
 let atemInputIdsReverse = Object.fromEntries(Object.entries(atemInputIds).map(a => a.reverse()));
 
@@ -30,6 +36,7 @@ let atem = {
         nextTransition: {
             bkgd: false,
             key1: false,
+            style: undefined,
         },
         key1onair: false,
         dkey1onair: false,
@@ -37,7 +44,7 @@ let atem = {
         programSource: undefined,
         key1FillSource: undefined,
         dkey1FillSource: undefined,
-        key1DVEdata: {},
+        key1Flyingdata: {},
         stills: [],
         audioconfig: [],
     },

@@ -694,24 +694,37 @@
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Übergänge</b>
                     </legend>
-                    <div class="mb-1 d-flex flex-column gap-1">
-                        <div class="d-flex flex-row gap-2">
-                            <button id="atem-transition-auto-btn" class="btn btn-outline-primary btn-sm flex-fill">AUTO</button>
-                            <button id="atem-transition-cut-btn" class="btn btn-outline-primary btn-sm flex-fill">CUT</button>
-                        </div>
-                        <div class="d-flex flex-row gap-2">
+                    <div class="d-flex flex-column gap-1">
+                        <div class="d-flex flex-row gap-1">
+                            <div class="input-group" style="width: max-content;">
+                                <select  id="atem-transition-style-select" class="form-select form-select-sm" style="max-width: 5rem">
+                                    <option value="0">MIX</option>
+                                    <option value="1">DIP</option>
+                                    <option value="2">WIPE</option>
+                                    <option value="3">DVE</option>
+                                </select>
+                            </div>
                             <button id="atem-next-transition-bkgd-btn" class="btn btn-outline-secondary btn-sm flex-fill">BKGD</button>
                             <button id="atem-next-transition-key1-btn" class="btn btn-outline-secondary btn-sm flex-fill">KEY1</button>
                         </div>
-                        <hr class="my-0" />
-                        <div class="d-flex flex-row gap-2">
-                            <div class="input-group">
-                                <input id="atem-transition-dkey1-rate-input" type="number" class="form-control form-control-sm" min="0" max="255" value="25" style="max-width: 4rem;" />
-                                <button id="atem-transition-dkey1-btn" class="btn btn-outline-info btn-sm">DSK</button>
+                        <div class="d-flex flex-row gap-1">
+                            <div id="atem-transition-type-group" class="input-group" style="width: max-content;">
+                                <button id="atem-transition-auto-btn" class="btn btn-outline-primary btn-sm" style="width: 3.5rem">AUTO</button>
+                                <input id="atem-transition-rate-input" type="number" class="form-control form-control-sm" min="0" max="255" value="25" style="width: 4rem;" />
                             </div>
+                            <button id="atem-transition-cut-btn" class="btn btn-outline-primary btn-sm flex-fill">CUT</button>
+                        </div>
+                        <hr class="my-0" />
+                        <div class="d-flex flex-row gap-1">
                             <div class="input-group">
-                                <input id="atem-transition-ftb-rate-input" type="number" class="form-control form-control-sm" min="0" max="255" value="25" style="max-width: 4rem;" />
-                                <button id="atem-transition-ftb-btn" class="btn btn-outline-info btn-sm">FTB</button>
+                                <button id="atem-transition-dkey1-btn" class="btn btn-outline-info btn-sm" style="width: 3.5rem">DSK</button>
+                                <input id="atem-transition-dkey1-rate-input" type="number" class="form-control form-control-sm flex-fill" min="0" max="255" value="25" style="max-width: 8rem;" />
+                            </div>
+                        </div>
+                        <div class="d-flex flex-row gap-1">
+                            <div class="input-group">
+                                <button id="atem-transition-ftb-btn" class="btn btn-outline-info btn-sm" style="width: 3.5rem">FTB</button>
+                                <input id="atem-transition-ftb-rate-input" type="number" class="form-control form-control-sm flex-fill" min="0" max="255" value="25" style="max-width: 8rem;" />
                             </div>
                         </div>
                     </div>

@@ -18,6 +18,16 @@ atemMP1selectElem.change((e) => {
     atem.post("mediaplayer-select", { index: 0, still: val });
 })
 
+$("#atem-transition-style-select").change(function (e) {
+    let style = parseInt($(this).val())
+    atem.post("transition-settings", { index: 0, style: style });
+})
+
+$("#atem-transition-rate-input").change(function (e) {
+    let rate = parseInt($(this).val())
+    atem.post(`${atemTransitionStyles[atem.state.nextTransition.style]}-settings`, { index: 0, rate: rate });
+})
+
 $("#atem-transition-cut-btn").click((e) => {
     atem.post("cut", { index: 0 });
 })
@@ -119,6 +129,13 @@ $(window).on("atem-get-dkey-state", function (e, data) {
 $(window).on("atem-get-transition-settings", function (e, data) {
     let nextBkgdChange = data.next_transition_bkgd;
     let nextKey1Change = data.next_transition_key1;
+    let style = data.style;
+
+    if (style !== atem.state.nextTransition.style) {
+        atem.get(`transition-${atemTransitionStyles[style]}`)
+        atem.state.nextTransition.style = style;
+    }
+
     atem.state.nextTransition.bkgd = nextBkgdChange;
     atem.state.nextTransition.key1 = nextKey1Change;
 
@@ -127,6 +144,8 @@ $(window).on("atem-get-transition-settings", function (e, data) {
 
     let nextKey1on = Boolean(nextKey1Change ^ atem.state.key1onair); // XOR
     $("#atem-key1-on-air-next-transition-btn").toggleClass("btn-outline-success", nextKey1on).toggleClass("btn-outline-secondary", !nextKey1on);
+
+    $("#atem-transition-style-select").not(":focus").val(style);
 });
 
 $(window).on("atem-get-transition-position", function (e, data) {
@@ -134,6 +153,13 @@ $(window).on("atem-get-transition-position", function (e, data) {
 
     $("#atem-transition-auto-btn").toggleClass("btn-danger", active).toggleClass("pulsing", active).toggleClass("btn-outline-primary", !active);
 });
+
+for (let style of Object.values(atemTransitionStyles)) {
+    $(window).on(`atem-get-transition-${style}`, function (e, data) {
+        let rate = data["0"].rate;
+        $(`#atem-transition-rate-input`).val(rate);
+    });
+}
 
 $(window).on("atem-get-color-generator", function (e, data) {
     let col1 = hslToHex(data["0"].hue, data["0"].saturation, data["0"].luma);
