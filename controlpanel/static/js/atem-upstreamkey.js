@@ -24,30 +24,35 @@ function updateKey1DVEFormFromData() {
     let local_data = atem.state.key1DVEdata;
 
     let anchors = $("#atem-key1-dve-form-anchor").val().split("-");
-    let anchor_x = anchors[0];
-    let anchor_y = anchors[1];
+    let anchor_x = anchors[1];
+    let anchor_y = anchors[0];
 
-    var pos_x = local_data.pos_x;
-    var pos_y = local_data.pos_y;
-    var size_x = local_data.size_x;
-    var size_y = local_data.size_y;
+    var pos_x, pos_y;
+    let size_x = local_data.size_x;
+    let size_y = local_data.size_y;
 
-    if (anchor_x == "left") {
-        pos_x -= size_x / 2;
-    } else if (anchor_x == "right") {
-        pos_x += size_x / 2;
+    if (anchor_x === "left") {
+        pos_x = local_data.pos_x - (size_x / 2);
+    } else if (anchor_x === "right") {
+        pos_x = local_data.pos_x + (size_x / 2);
+    } else {
+        pos_x = local_data.pos_x;
     }
 
-    if (anchor_y == "bottom") {
-        pos_y -= size_y / 2;
-    } else if (anchor_y == "top") {
-        pos_y += size_y / 2;
+    if (anchor_y === "bottom") {
+        pos_y = local_data.pos_y - (size_y / 2);
+    } else if (anchor_y === "top") {
+        pos_y = local_data.pos_y + (size_y / 2);
+    } else {
+        pos_y = local_data.pos_y;
     }
 
-    $("#atem-key1-dve-form-posx").val(pos_x);
-    $("#atem-key1-dve-form-posy").val(pos_y);
-    $("#atem-key1-dve-form-sizex").val(size_x);
-    $("#atem-key1-dve-form-sizey").val(size_y);
+    $("#atem-key1-dve-form-posx").val(pos_x.toFixed(3));
+    $("#atem-key1-dve-form-posy").val(pos_y.toFixed(3));
+    $("#atem-key1-dve-form-sizex").val(size_x.toFixed(3));
+    $("#atem-key1-dve-form-sizey").val(size_y.toFixed(3));
+
+    renderKey1DVEPreview();
 }
 
 function updateKey1DVEDataFromForm() {
@@ -57,8 +62,8 @@ function updateKey1DVEDataFromForm() {
     var size_y = parseFloat($("#atem-key1-dve-form-sizey").val());
 
     let anchors = $("#atem-key1-dve-form-anchor").val().split("-");
-    let anchor_x = anchors[0];
-    let anchor_y = anchors[1];
+    let anchor_x = anchors[1];
+    let anchor_y = anchors[0];
 
     if (anchor_x == "left") {
         pos_x += size_x / 2;
@@ -78,6 +83,83 @@ function updateKey1DVEDataFromForm() {
         size_x: size_x,
         size_y: size_y,
     }
+
+    renderKey1DVEPreview();
+}
+
+function renderKey1DVEPreview() {
+    let data = atem.state.key1DVEdata;
+    let anchors = $("#atem-key1-dve-form-anchor").val().split("-");
+    let anchor_x = anchors[1];
+    let anchor_y = anchors[0];
+
+    let canvas = document.getElementById("atem-key1-dve-preview-canvas");
+    canvas.height = canvas.width * (9 / 16);
+    let ctx = canvas.getContext("2d");
+
+    // Helper functions for scaling
+    const size = 0.75;
+    const spacing = (1 - size) / 2;
+    
+    const lx = (val) => val * canvas.width * size;
+    const ly = (val) => val * canvas.height * size;
+    const px = (val) => lx(val) + (canvas.width * spacing);
+    const py = (val) => ly(1-val) + (canvas.height * spacing);
+
+    // Clear
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw screen border (in danger color)
+    ctx.strokeStyle = "#dc3545";
+    ctx.strokeRect(canvas.width * spacing, canvas.height * spacing, canvas.width * size, canvas.height * size);
+
+    // Draw source border (in info color)
+    ctx.strokeStyle = "#0dcaf0";
+    ctx.strokeRect(
+        px(data.pos_x) - lx(data.size_x / 2),
+        py(data.pos_y) - ly(data.size_y / 2),
+        lx(data.size_x),
+        ly(data.size_y)
+    );
+
+    // Draw anchor point (in success color)
+    var px_anchor, py_anchor;
+    if (anchor_x === "left") {
+        px_anchor = px(data.pos_x) - lx(data.size_x / 2);
+    } else if (anchor_x === "right") {
+        px_anchor = px(data.pos_x) + lx(data.size_x / 2);
+    } else {
+        px_anchor = px(data.pos_x);
+    }
+    if (anchor_y === "bottom") {
+        py_anchor = py(data.pos_y) + ly(data.size_y / 2);
+    } else if (anchor_y === "top") {
+        py_anchor = py(data.pos_y) - ly(data.size_y / 2);
+    } else {
+        py_anchor = py(data.pos_y);
+    }
+
+    ctx.fillStyle = "#198754";
+    ctx.beginPath();
+    ctx.arc(
+        px_anchor, 
+        py_anchor, 
+        3,
+        0,
+        Math.PI * 2,
+    );
+    ctx.closePath();
+    ctx.fill();
+
+    // Draw coordinates
+    ctx.fillStyle = "#dc3545";
+    ctx.font = "8px monospace";    
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+    ctx.fillText("(0,1)", canvas.width * spacing * 0.5, canvas.height * spacing * 0.5);
+    ctx.fillText("(0,0)", canvas.width * spacing * 0.5, canvas.height - (canvas.height * spacing * 0.5));
+    ctx.fillText("(1,0)", canvas.width - (canvas.width * spacing * 0.5), canvas.height - (canvas.height * spacing * 0.5));
+    ctx.fillText("(1,1)", canvas.width - (canvas.width * spacing * 0.5), canvas.height * spacing * 0.5);
 }
 
 $("#atem-key1-dve-dialog").on("show.bs.modal", function (e) {
@@ -88,6 +170,17 @@ $("#atem-key1-dve-form-anchor").change(function (e) {
     updateKey1DVEFormFromData();
 });
 
+$("#atem-key1-dve-form-sizex").change(function (e) {
+    if ($("#atem-key1-dve-form-keep-proportions").is(":checked")) {
+        $("#atem-key1-dve-form-sizey").val($(this).val());
+    }
+});
+
+$("#atem-key1-dve-form-sizey").change(function (e) {
+    if ($("#atem-key1-dve-form-keep-proportions").is(":checked")) {
+        $("#atem-key1-dve-form-sizex").val($(this).val());
+    }
+});
 
 $("#atem-key1-dve-dialog input").change(function (e) {
     updateKey1DVEDataFromForm();
