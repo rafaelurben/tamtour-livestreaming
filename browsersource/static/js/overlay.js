@@ -272,8 +272,16 @@ function setupSponsorsAnimationImages() {
 }
 
 window.addEventListener('load', () => {
+    if (window.obsstudio === undefined) {
+        // OBS Studio is not available; page is opened in a normal browser
+        document.getElementById('erroroverlay').src = './static/img/not-in-obs.png';
+        document.getElementById('erroroverlay').classList.remove('hidden');
+        console.error("OBS Studio not detected! Only use this page in an OBS browser source!")
+        return;
+    }
+
     // Load sponsors data
-    console.log("Loading sponsors data...")
+    console.log("OBS Studio detected... Loading sponsors data...")
     fetch('./resources/sponsors/sponsors.json').then(response => {
         return response.json();
     }).then(data => {
