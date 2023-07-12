@@ -211,15 +211,17 @@ body:not(.atem-connected) fieldset.atem-required::before {
 
 /* ATEM Controls */
 
-.btn-danger.pulsing {
+.btn.pulsing {
     animation: pulse 0.5s infinite;
 }
 
 @keyframes pulse {
-  0% {
-    background-color: var(--bs-danger)
+  0%, 100% {
+    color: var(--bs-btn-active-color);
+    background-color: var(--bs-btn-active-bg);
   }
-  100% {
-    background-color: var(--bs-dark);
+  75% {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg-color);
   }
 }

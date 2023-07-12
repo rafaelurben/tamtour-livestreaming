@@ -53,6 +53,10 @@ $("#atem-transition-dkey1-btn").click((e) => {
     atem.post("dkey-auto", { index: 0 });
 })
 
+$("#atem-transition-preview-btn").click((e) => {
+    atem.post("preview-transition", { index: 0, enabled: !atem.state.nextTransition.previewEnabled });
+})
+
 $("#atem-next-transition-bkgd-btn").click((e) => {
     atem.state.nextTransition.bkgd = !atem.state.nextTransition.bkgd;
     changeAtemNextTransitionState();
@@ -164,6 +168,13 @@ for (let styleindex = 0; styleindex < atemTransitionStyles.length; styleindex++)
         $(`#atem-transition-rate-input`).not(":focus").val(rate);
     });
 }
+
+$(window).on("atem-get-transition-preview", function (e, data) {
+    let isOn = data["0"].enabled;
+    atem.state.nextTransition.previewEnabled = isOn;
+
+    $("#atem-transition-preview-btn").toggleClass("btn-warning", isOn).toggleClass("pulsing", isOn).toggleClass("btn-outline-secondary", !isOn);
+});
 
 $(window).on("atem-get-color-generator", function (e, data) {
     let col1 = hslToHex(data["0"].hue, data["0"].saturation, data["0"].luma);
