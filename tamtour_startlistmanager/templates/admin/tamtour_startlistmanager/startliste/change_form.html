@@ -1,0 +1,114 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+
+<script src="{% static 'admin/js/beforeunload.js' %}" type="text/javascript"></script>
+<script>
+    function openURL(url, target, doPrint) {
+        var $ = django.jQuery;
+
+        // Check if the form has been changed
+        var formChanged = $('form').serialize() != window.initialData;
+        if (formChanged) {
+            if (!confirm('Achtung: Es liegen ungespeicherte Änderungen vor. Trotzdem fortfahren?')) {
+                return false;
+            }
+        }
+
+        // Open the URL in a new window
+        var win = window.open(url, target);
+        win.focus();
+
+        // (Try to) automatically print the document
+        if (doPrint) {
+            setTimeout(function() {
+                win.print();
+            }, 1000);
+        }
+
+        // Prevent the default action
+        return false;
+    }
+</script>
+
+{% endblock extrahead %}
+
+{% block object-tools-items %}
+    {% if change %}
+        <li>
+            <abbr title="Druckversion der Startliste ansehen">
+                <a href="{% url 'admin:tamtour_startlistmanager_startliste_drucken' object_id %}?addminutes=20" onclick="return openURL(this.href, '_blank', true);" rel="noopener">Drucken</a>
+            </abbr>
+        </li>
+        {% if perms.tamtour_startlistmanager.add_startliste and not request.GET.showduplicateform %}
+            <li>
+                <abbr title="Eine Kopie dieser Startliste erstellen">
+                    <a href="{% url 'admin:tamtour_startlistmanager_startliste_duplizieren' object_id %}" onclick="return openURL(this.href, '_top' false);" rel="noopener">Duplizieren</a>
+                </abbr>
+            </li>
+        {% endif %}
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content_title %}
+    {% if request.GET.showduplicateform %}
+        <h1>Startliste duplizieren</h1>
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}
+
+{% block object-tools %}
+{{ block.super }}
+
+{% if request.GET.showduplicateform %}
+    <form action="{% url 'admin:tamtour_startlistmanager_startliste_duplizieren' object_id %}" method="POST">
+        {% csrf_token %}
+
+        <fieldset class="module aligned">
+            <div class="form-row">
+                <div>
+                    <div class="flex-container">
+                        <label class="required" for="addminutes">Minuten hinzufügen:</label>
+                        <input type="number" name="addminutes" class="vIntegerField" required="" id="addminutes" value="20">
+                    </div>
+                    <div class="help">
+                        <div>Füge bei der Kopie allen Startpositionen xx Minuten zu ihrer Startzeit hinzu. (Negative Werte möglich!)</div>
+                    </div>
+                </div>            
+            </div>
+            <div class="form-row">
+                <div>
+                    <div class="flex-container">
+                        <label for="removecompositions">Kompositionen entfernen:</label>
+                        <input type="checkbox" name="removecompositions" class="vCheckboxField" id="removecompositions">
+                    </div>
+                    <div class="help">
+                        <div>Entferne bei der Kopie bei allen Startpositionen die Komposition.</div>
+                    </div>
+                </div>            
+            </div>
+        </fieldset>
+
+        <div class="submit-row">
+            <input type="submit" value="Duplizieren" class="default">
+
+            <a class="deletelink" href="{% url 'admin:tamtour_startlistmanager_startliste_change' object_id %}">
+                Duplizieren Abbrechen
+            </a>
+        </div>
+    </form>
+
+    <script>
+        window.addEventListener('load', () => {
+            $ = django.jQuery;
+            document.querySelector("#startliste_form").remove();
+            window.initialData = $('form').serialize();
+        })
+    </script>
+{% endif %}
+
+{% endblock %}

@@ -1,8 +1,10 @@
 from django.contrib import admin
 from django.db import models
+from django.urls import path
 from django import forms
 
 from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag
+from .views import startliste_duplizieren, startliste_drucken
 
 # Register your models here.
 
@@ -55,3 +57,16 @@ class StartlistenAdmin(admin.ModelAdmin):
     list_display = ("titel", "beschreibung", "datum")
 
     inlines = (StartlistenAdminStartlistenEintragInline,)
+
+    def get_urls(self):
+        info = self.model._meta.app_label, self.model._meta.model_name
+
+        urls = super().get_urls()
+
+        my_urls = [
+            path('<path:object_id>/duplicate/', self.admin_site.admin_view(startliste_duplizieren),
+                 name='%s_%s_duplizieren' % info),
+            path('<path:object_id>/print/', self.admin_site.admin_view(startliste_drucken),
+                 name='%s_%s_drucken' % info),
+        ]
+        return my_urls + urls

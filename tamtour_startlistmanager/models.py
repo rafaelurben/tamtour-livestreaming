@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
 
+from datetime import time
+
 # Create your models here.
 
 
@@ -84,6 +86,18 @@ class Startliste(models.Model):
     def __str__(self):
         return f"{self.titel} ({self.datum})"
 
+    def duplicate(self, addminutes=0, removecompositions=False):
+        new = Startliste.objects.create(
+            titel=f"{self.titel} (Kopie)",
+            beschreibung=self.beschreibung,
+            datum=self.datum,
+        )
+
+        for item in self.items.all():
+            item.copyto(new, addminutes=addminutes, removecomposition=removecompositions)
+
+        return new
+
     def as_dict(self):
         # pylint: disable=no-member
         return {
@@ -110,8 +124,8 @@ class StartlistenEintrag(models.Model):
     )
     kategorie = models.ForeignKey(WettspielKategorie, on_delete=models.CASCADE)
     startnummer = models.IntegerField()
-    wettspieler = models.ForeignKey(Wettspieler, on_delete=models.CASCADE)
-    komposition = models.ForeignKey(Komposition, on_delete=models.CASCADE)
+    wettspieler = models.ForeignKey(Wettspieler, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    komposition = models.ForeignKey(Komposition, blank=True, null=True, default=None, on_delete=models.CASCADE)
     zeit = models.TimeField()
 
     objects = models.Manager()
@@ -130,6 +144,19 @@ class StartlistenEintrag(models.Model):
             "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}",
             "zeit": self.zeit.strftime("%H:%M"),
         }
+
+    def copyto(self, new, addminutes=0, removecomposition=False):
+        oldtime = self.zeit
+        newtime = time(minute=(oldtime.minute + addminutes) % 60,
+                       hour=(oldtime.hour + ((oldtime.minute + addminutes) // 60)) % 24)
+
+        new.items.create(
+            kategorie=self.kategorie,
+            startnummer=self.startnummer,
+            wettspieler=self.wettspieler,
+            komposition=self.komposition if not removecomposition else None,
+            zeit=newtime,
+        )
 
     class Meta:
         verbose_name = "Startlisten-Eintrag"

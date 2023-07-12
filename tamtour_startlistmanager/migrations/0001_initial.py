@@ -82,9 +82,9 @@ class Migration(migrations.Migration):
                 ('startnummer', models.IntegerField()),
                 ('zeit', models.TimeField()),
                 ('kategorie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tamtour_startlistmanager.wettspielkategorie')),
-                ('komposition', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tamtour_startlistmanager.komposition')),
+                ('komposition', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='tamtour_startlistmanager.komposition')),
                 ('startliste', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='items', to='tamtour_startlistmanager.startliste', verbose_name='Startliste')),
-                ('wettspieler', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tamtour_startlistmanager.wettspieler')),
+                ('wettspieler', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, to='tamtour_startlistmanager.wettspieler')),
             ],
             options={
                 'verbose_name': 'Startlisten-Eintrag',
