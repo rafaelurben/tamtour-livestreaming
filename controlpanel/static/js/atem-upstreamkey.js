@@ -220,6 +220,57 @@ $("#atem-key1-flying-position-form-apply-btn").click(function (e) {
     postKey1FlyingData();
 });
 
+$(".atem-key1-flying-position-presets button").click(function (e) {
+    let data = $(this).data();
+
+    if (data.anchor !== undefined) $("#atem-key1-flying-position-form-anchor").val(data.anchor);
+    if (data.posx !== undefined) $("#atem-key1-flying-position-form-posx").val(data.posx);
+    if (data.posy !== undefined) $("#atem-key1-flying-position-form-posy").val(data.posy);
+    if (data.sizex !== undefined) $("#atem-key1-flying-position-form-sizex").val(data.sizex);
+    if (data.sizey !== undefined) $("#atem-key1-flying-position-form-sizey").val(data.sizey);
+
+    updateKey1FlyingDataFromForm();
+});
+
+function key1FlyingDataMoveInOut(amount, ratio = 16 / 9) {
+    let anchors = $("#atem-key1-flying-position-form-anchor").val().split("-");
+    let anchor_x = anchors[1];
+    let anchor_y = anchors[0];
+
+    let amt_x = amount;
+    let amt_y = amount * ratio;
+
+    if (anchor_x === "right") {
+        atem.state.key1Flyingdata.pos_x -= amt_x;
+    } else if (anchor_x === "left") {
+        atem.state.key1Flyingdata.pos_x += amt_x;
+    }
+
+    if (anchor_y === "top") {
+        atem.state.key1Flyingdata.pos_y -= amt_y;
+    } else if (anchor_y === "bottom") {
+        atem.state.key1Flyingdata.pos_y += amt_y;
+    }
+
+    updateKey1FlyingFormFromData();
+}
+
+$("#atem-key1-flying-positions-move-in-btn").click(function (e) {
+    key1FlyingDataMoveInOut(0.01, 16 / 9);
+});
+
+$("#atem-key1-flying-positions-move-out-btn").click(function (e) {
+    key1FlyingDataMoveInOut(-0.01, 16 / 9);
+});
+
+$("#atem-key1-flying-positions-move-in-diag-btn").click(function (e) {
+    key1FlyingDataMoveInOut(0.01, 1);
+});
+
+$("#atem-key1-flying-positions-move-out-diag-btn").click(function (e) {
+    key1FlyingDataMoveInOut(-0.01, 1);
+});
+
 // SET / RUN
 
 $("#atem-key1-flying-position-form-seta-btn").click(function (e) {
