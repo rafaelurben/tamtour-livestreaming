@@ -8,6 +8,11 @@ class WettspielKategorie(models.Model):
     titel = models.CharField(max_length=50)
     kurzform = models.CharField(max_length=10)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
+
     def __str__(self):
         return f"{self.titel} ({self.kurzform})"
 
@@ -21,6 +26,11 @@ class Wettspieler(models.Model):
     name = models.CharField(max_length=100, verbose_name="Name(n)")
     gruppenname = models.CharField(max_length=50, blank=True, default="", verbose_name="Gruppenname")
     verein = models.CharField(max_length=50, verbose_name="Verein")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
 
     def __str__(self):
         return f"{self.name} ({self.get_subtitle()})"
@@ -38,6 +48,11 @@ class Wettspieler(models.Model):
 class Komposition(models.Model):
     titel = models.CharField(max_length=50)
     komponist = models.CharField(max_length=50)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    objects = models.Manager()
 
     def __str__(self):
         return f"{self.titel} ({self.komponist})"
@@ -60,6 +75,9 @@ class Startliste(models.Model):
     titel = models.CharField(max_length=50)
     beschreibung = models.TextField(default="", blank=True)
     datum = models.DateField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = StartlistenManager()
 
@@ -95,6 +113,8 @@ class StartlistenEintrag(models.Model):
     wettspieler = models.ForeignKey(Wettspieler, on_delete=models.CASCADE)
     komposition = models.ForeignKey(Komposition, on_delete=models.CASCADE)
     zeit = models.TimeField()
+
+    objects = models.Manager()
 
     def __str__(self):
         return f"Eintrag #{self.pk}"

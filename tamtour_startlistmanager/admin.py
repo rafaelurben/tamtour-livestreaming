@@ -8,12 +8,14 @@ from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, St
 
 @admin.register(WettspielKategorie)
 class WettspielKategorieAdmin(admin.ModelAdmin):
-    list_display = ("titel", "kurzform")
+    list_display = ("pk", "titel", "kurzform")
+    list_editable = ("titel", "kurzform")
     search_fields = ("titel", "kurzform")
 
 @admin.register(Wettspieler)
 class WettspielerAdmin(admin.ModelAdmin):
-    list_display = ("name", "verein", "is_group", "gruppenname")
+    list_display = ("pk", "name", "verein", "is_group", "gruppenname")
+    list_editable = ("name", "verein", "is_group", "gruppenname")
     list_filter = ("is_group", "verein")
     search_fields = ("name", "verein", "gruppenname")
 
@@ -24,7 +26,8 @@ class WettspielerAdmin(admin.ModelAdmin):
 
 @admin.register(Komposition)
 class KompositionenAdmin(admin.ModelAdmin):
-    list_display = ("titel", "komponist")
+    list_display = ("pk", "titel", "komponist")
+    list_editable = ("titel", "komponist")
     search_fields = ("titel", "komponist")
 
 class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
@@ -45,7 +48,7 @@ class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
         return qs.select_related('kategorie', 'wettspieler', 'komposition')
 
     class Media:
-        css = { "all" : ("css/hide_admin_original.css",) }
+        css = { "all" : ("admin/css/hide_admin_original.css",) }
 
 @admin.register(Startliste)
 class StartlistenAdmin(admin.ModelAdmin):

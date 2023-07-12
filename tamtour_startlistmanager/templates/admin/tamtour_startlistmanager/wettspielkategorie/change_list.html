@@ -1,0 +1,10 @@
+{% extends 'admin/change_list.html' %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+
+<script src="{% static 'admin/js/beforeunload.js' %}" type="text/javascript"></script>
+<script src="{% static 'admin/js/saveontop.js' %}" type="text/javascript"></script>
+
+{% endblock %}
