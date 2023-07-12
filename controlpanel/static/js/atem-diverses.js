@@ -54,7 +54,8 @@ $("#atem-transition-dkey1-btn").click((e) => {
 })
 
 $("#atem-transition-preview-btn").click((e) => {
-    atem.post("preview-transition", { index: 0, enabled: !atem.state.nextTransition.previewEnabled });
+    let nextOn = !atem.state.nextTransition.previewEnabled
+    atem.post("transition-preview", { index: 0, enabled: nextOn ? 1 : 0 });
 })
 
 $("#atem-next-transition-bkgd-btn").click((e) => {
