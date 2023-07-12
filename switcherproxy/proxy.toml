@@ -1,0 +1,17 @@
+[[hardware]]
+id = "mini"
+label = "Atem Mini"
+address = "IP-ADDRESS/ubs"
+
+[[frontend]]
+type = "http-api"
+bind = ":8080"
+hardware = "mini"
+auth = true
+username = "USERNAME"
+password = "PASSWORD"
+
+[[frontend]]
+type = "status"
+bind = "127.0.0.1:8082"
+auth = false

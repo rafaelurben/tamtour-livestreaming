@@ -10,3 +10,4 @@ Dieses System wurde von Rafael Urben speziell für die [TamTour](https://tamtour
 - Zum [Control panel](https://rafaelurben.ch/tamtour-livestreaming/controlpanel/).
 - Zum [Startlisten-Manager](https://app.rafaelurben.ch/admin/tamtour_startlistmanager/).
 - Browser source URL: <https://rafaelurben.ch/tamtour-livestreaming/browsersource/>
+- Infos & Download für [switcher-proxy](https://rafaelurben.ch/tamtour-livestreaming/switcherproxy/)
