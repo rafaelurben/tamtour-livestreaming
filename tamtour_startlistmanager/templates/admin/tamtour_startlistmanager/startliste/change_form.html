@@ -32,7 +32,7 @@
     {% if change %}
         <li>
             <abbr title="Druckversion der Startliste ansehen">
-                <a href="{% url 'admin:tamtour_startlistmanager_startliste_drucken' object_id %}?addminutes=20" onclick="return openURL(this.href, '_blank');" rel="noopener">Drucken</a>
+                <a href="{% url 'admin:tamtour_startlistmanager_startliste_drucken' object_id %}" onclick="return openURL(this.href, '_blank');" rel="noopener">Drucken</a>
             </abbr>
         </li>
         {% if perms.tamtour_startlistmanager.add_startliste and not request.GET.showduplicateform %}
