@@ -40,7 +40,7 @@ class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
     autocomplete_fields = ("kategorie", "wettspieler", "komposition")
 
     formfield_overrides = {
-        models.TimeField: {"widget": forms.TimeInput(format='%H:%M')},
+        models.TimeField: {"widget": forms.TimeInput(format='%H:%M', attrs={"style": "width: 3rem;"})},
     }
 
     # Custom queryst

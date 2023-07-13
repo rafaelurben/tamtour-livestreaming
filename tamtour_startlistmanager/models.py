@@ -124,7 +124,7 @@ class StartlistenEintrag(models.Model):
     )
     kategorie = models.ForeignKey(WettspielKategorie, on_delete=models.CASCADE)
     startnummer = models.IntegerField()
-    wettspieler = models.ForeignKey(Wettspieler, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    wettspieler = models.ForeignKey(Wettspieler, blank=True, null=True, default=None, on_delete=models.CASCADE, verbose_name="Wettspieler / Gruppe")
     komposition = models.ForeignKey(Komposition, blank=True, null=True, default=None, on_delete=models.CASCADE)
     zeit = models.TimeField()
 
