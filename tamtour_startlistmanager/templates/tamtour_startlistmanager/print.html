@@ -5,8 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ startliste.titel }} | Startliste TamTour</title>
     <meta name="robots" content="noindex, nofollow">
+
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0.5in
+        }
+
+        header, footer {
+            width: 100%; height: .5in;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header > * {
+            margin: 0;
+        }
+
+        table {
+            border-collapse: separate;
+            border-spacing: 0.4rem;
+            width: 100%;
+            font-size: 11pt;
+        }
+
+        .centerflex {
+            display: flex;
+            justify-content: center;
+            gap: 0.3rem;
+        }
+
+        .betweenflex {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.3rem;
+        }
+
+        .marker {
+            padding: 0.2rem 0.3rem;
+            border-radius: 0.2rem;
+        }
+        .marker.yellow {
+            background-color: #ffff00;
+        }
+        .marker.cyan {
+            background-color: #0fffff;
+        }
+        .marker.green {
+            background-color: #00ff00;
+        }
+
+        .small {
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            header {
+                position: fixed;
+                top: 0;
+            }
+
+            footer {
+                position: fixed;
+                bottom: 0;
+            }
+
+            table thead td, table tfoot td {
+                height: .5in;
+            }
+
+            .noprint {
+                display: none;
+            }
+        }
+
+        @media screen {
+            body {
+                margin: 0.25in;
+                box-sizing: content-box;
+            }
+        }
+    </style>
 </head>
 <body>
-    ToDo
+    <div class="noprint">
+        <div>
+            <span style="color: red">Falls sich der Druckdialog nicht automatisch öffnet, bitte hier klicken:</span>
+            <button onclick="window.print()">Drucken</button>
+        </div>
+        <hr />
+    </div>
+
+    <header>
+        <h1>{{ startliste.titel }}</h1>
+        <span>{% now "SHORT_DATETIME_FORMAT" %}</span>
+    </header>
+    <table>
+        <thead>
+            <tr><td>&nbsp;</td></tr>
+        </thead>
+        <tbody>
+            {% for item in startliste.items.all %}
+                {% if item.wettspieler.is_group %}
+                    <tr>
+                        <td class="betweenflex">
+                            <span class="marker yellow">{{ item.startnummer }} {{ item.wettspieler.gruppenname }}</span>
+                            <span class="marker cyan">{{ item.wettspieler.verein }}</span>
+                            <span class="marker green">{{ item.komposition.titel }} <span class="small">von {{ item.komposition.komponist }}</span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="centerflex">
+                            <span class="marker yellow">{{ item.wettspieler.name }}</span>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td class="centerflex">
+                            <span class="marker yellow">{{ item.startnummer }} {{ item.wettspieler.name }}</span>
+                            <span class="marker cyan">{{ item.wettspieler.verein }}</span>
+                            <span class="marker green">{{ item.komposition.titel }} von {{ item.komposition.komponist }}</span>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr><td>&nbsp;</td></tr>
+        </tfoot>
+    </table>
+    <footer>
+        <span></span>
+        <span style="color: rgba(0,0,0,0.25)">Erstellt mit dem Startlistengenerator von Rafael Urben</span>
+    </footer>
+
+    <script>
+        window.addEventListener("load", () => {
+            window.print();
+        });
+    </script>
 </body>
 </html>

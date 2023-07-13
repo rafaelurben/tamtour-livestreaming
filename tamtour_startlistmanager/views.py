@@ -47,7 +47,7 @@ def startliste_duplizieren(request, object_id):
 @permission_required(["tamtour_startlistmanager.view_startliste"], raise_exception=True)
 def startliste_drucken(request, object_id):
     try:
-        startliste = Startliste.objects.prefetch_related("items").get(pk=object_id)
+        startliste = Startliste.objects.prefetch_related("items__komposition", "items__wettspieler", "items__kategorie").get(pk=object_id)
 
         return render(request, "tamtour_startlistmanager/print.html", {
             "startliste": startliste,

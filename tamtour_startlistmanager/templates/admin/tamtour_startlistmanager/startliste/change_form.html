@@ -6,7 +6,7 @@
 
 <script src="{% static 'admin/js/beforeunload.js' %}" type="text/javascript"></script>
 <script>
-    function openURL(url, target, doPrint) {
+    function openURL(url, target) {
         var $ = django.jQuery;
 
         // Check if the form has been changed
@@ -21,13 +21,6 @@
         var win = window.open(url, target);
         win.focus();
 
-        // (Try to) automatically print the document
-        if (doPrint) {
-            setTimeout(function() {
-                win.print();
-            }, 1000);
-        }
-
         // Prevent the default action
         return false;
     }
@@ -39,13 +32,13 @@
     {% if change %}
         <li>
             <abbr title="Druckversion der Startliste ansehen">
-                <a href="{% url 'admin:tamtour_startlistmanager_startliste_drucken' object_id %}?addminutes=20" onclick="return openURL(this.href, '_blank', true);" rel="noopener">Drucken</a>
+                <a href="{% url 'admin:tamtour_startlistmanager_startliste_drucken' object_id %}?addminutes=20" onclick="return openURL(this.href, '_blank');" rel="noopener">Drucken</a>
             </abbr>
         </li>
         {% if perms.tamtour_startlistmanager.add_startliste and not request.GET.showduplicateform %}
             <li>
                 <abbr title="Eine Kopie dieser Startliste erstellen">
-                    <a href="{% url 'admin:tamtour_startlistmanager_startliste_duplizieren' object_id %}" onclick="return openURL(this.href, '_top' false);" rel="noopener">Duplizieren</a>
+                    <a href="{% url 'admin:tamtour_startlistmanager_startliste_duplizieren' object_id %}" onclick="return openURL(this.href, '_top');" rel="noopener">Duplizieren</a>
                 </abbr>
             </li>
         {% endif %}
