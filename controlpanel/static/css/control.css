@@ -225,3 +225,15 @@ body:not(.atem-connected) fieldset.atem-required::before {
     background-color: var(--bs-body-bg-color);
   }
 }
+
+/* Icons */
+
+.whiteicon svg path {
+    fill: white;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    .whiteicon-darkonly svg path {
+        fill: white;
+    }
+}
