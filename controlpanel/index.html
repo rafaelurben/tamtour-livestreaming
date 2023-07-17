@@ -614,7 +614,28 @@
                                         onclick="if (confirm('Aufnahme starten?')) {obs.sendCommand('StartRecord')}">Starten</button>
                                     <button id="obs-record-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
                                         onclick="if (confirm('Aufnahme stoppen?')) {obs.sendCommand('StopRecord')}">Stoppen</button>
-                                    <input class="form-control" type="text" id="obs-record-status-display" disabled value="" autocomplete="off">
+                                    <input id="obs-record-status-display" class="form-control" type="text" disabled value="" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="mb-2" id="obs-replaybuffer-group">
+                                <label for="obs-replaybuffer-status-display-group" class="form-label visually-hidden-focusable">Replay Buffer Status</label>
+                                <div class="input-group" id="obs-replaybuffer-status-display-group">
+                                    <span class="input-group-text onecoloricon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="1rem" width="1rem">
+                                            <path d="M480-80q-75 0-140.5-28T225-185q-49-49-77-114.5T120-440h60q0 125 87.5 212.5T480-140q125 0 212.5-87.5T780-440q0-125-85-212.5T485-740h-23l73 73-41 42-147-147 147-147 41 41-78 78h23q75 0 140.5 28T735-695q49 49 77 114.5T840-440q0 75-28 140.5T735-185q-49 49-114.5 77T480-80Z" />
+                                        </svg>
+                                    </span>
+                                    <button id="obs-replaybuffer-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
+                                        onclick="if (confirm('Replay Buffer starten?')) {obs.sendCommand('StartReplayBuffer')}">Starten</button>
+                                    <button id="obs-replaybuffer-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
+                                        onclick="if (confirm('Replay Buffer stoppen?')) {obs.sendCommand('StopReplayBuffer')}">Stoppen</button>
+                                    <input id="obs-replaybuffer-status-display" class="form-control" type="text" disabled value="" autocomplete="off">
+                                    <button id="obs-replaybuffer-save-btn" class="btn btn-primary form-control h-100 w-auto flex-grow-0 onecoloricon"
+                                        onclick="obs.sendCommand('SaveReplayBuffer')">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="1rem" width="1rem">
+                                            <path  d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.765-245Q523-245 553.5-275.265q30.5-30.264 30.5-73.5Q584-392 553.735-422.5q-30.264-30.5-73.5-30.5Q437-453 406.5-422.735q-30.5 30.264-30.5 73.5Q376-306 406.265-275.5q30.264 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             <div class="mb-1">
@@ -629,7 +650,7 @@
                                         onclick="if (confirm('Stream starten?')) {obs.sendCommand('StartStream')}">Starten</button>
                                     <button id="obs-stream-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
                                         onclick="if (confirm('Stream stoppen?')) {obs.sendCommand('StopStream')}">Stoppen</button>
-                                    <input class="form-control" type="text" id="obs-stream-status-display" disabled value="" autocomplete="off">
+                                    <input id="obs-stream-status-display" class="form-control" type="text" disabled value="" autocomplete="off">
                                 </div>
                                 <div class="mt-2 rounded d-flex" id="obs-stream-congestion-history-row">
                                     <!-- Content added by JS -->

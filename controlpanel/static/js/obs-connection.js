@@ -96,11 +96,12 @@ window.obs = {
             return false;
         }
     },
-    sendCommand: async function (command, data) {
+    sendCommand: async function (command, data, nowarn) {
         console.debug("[OBS] Sending command", command, "with data:", data)
         try {
             return await obs.socket.call(command, data)
         } catch (error) {
+            if (nowarn) return null;
             console.warn("[OBS] Command failed:", error)
             alert("[OBS] Befehl fehlgeschlagen! Bitte überprüfe die Konsole.");
             return null;

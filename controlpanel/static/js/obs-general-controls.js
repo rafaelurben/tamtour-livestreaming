@@ -110,7 +110,7 @@ async function loadRecordStatus() {
     let recDat = await obs.sendCommand("GetRecordStatus");
     recordActive = recDat.outputActive;
 
-    if (recDat.outputActive) {
+    if (recordActive) {
         recordStartBtn.toggleClass("d-none", true);
         recordStopBtn.toggleClass("d-none", false);
         
@@ -126,6 +126,45 @@ async function loadRecordStatus() {
 }
 
 obs.on("RecordStateChanged", loadRecordStatus)
+
+// Replay Buffer status
+
+let replayBufferActive = false;
+
+let replayBufferGroup = $("#obs-replaybuffer-group");
+let replayBufferStatusDisplay = $("#obs-replaybuffer-status-display");
+let replayBufferStartBtn = $("#obs-replaybuffer-start-btn");
+let replayBufferStopBtn = $("#obs-replaybuffer-stop-btn");
+let replayBufferSaveBtn = $("#obs-replaybuffer-save-btn");
+
+async function loadReplayBufferStatus() {
+    let bufDat = await obs.sendCommand("GetReplayBufferStatus", undefined, true);
+
+    if (bufDat === null) {
+        replayBufferActive = false;
+        replayBufferGroup.toggleClass("d-none", true);
+        return;
+    }
+
+    replayBufferActive = bufDat.outputActive;
+    replayBufferGroup.toggleClass("d-none", false);
+    replayBufferSaveBtn.attr("disabled", !replayBufferActive)
+    replayBufferStartBtn.toggleClass("d-none", replayBufferActive);
+    replayBufferStopBtn.toggleClass("d-none", !replayBufferActive);
+
+    replayBufferStatusDisplay.val(replayBufferActive ? "Replay Buffer aktiv" : "Replay Buffer inaktiv");
+}
+
+obs.on("ReplayBufferStateChanged", loadReplayBufferStatus)
+obs.on("ReplayBufferSaved", data => {
+    // let path = data.savedReplayPath;
+    replayBufferSaveBtn.toggleClass("btn-success", true);
+    replayBufferSaveBtn.toggleClass("btn-primary", false);
+    setTimeout(() => {
+        replayBufferSaveBtn.toggleClass("btn-success", false);
+        replayBufferSaveBtn.toggleClass("btn-primary", true);
+    }, 2500);
+})
 
 // Stream status
 
@@ -274,6 +313,7 @@ let obsInterval = null;
 obs.on('Identified', () => {
     loadScenes();
     loadRecordStatus();
+    loadReplayBufferStatus();
     loadStreamStatus();
     
     obsInterval = setInterval(() => {
