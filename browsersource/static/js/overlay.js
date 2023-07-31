@@ -115,7 +115,7 @@ function displayStartInfoOverlay(duration_s) {
 // Startlist overlay
 
 const STARTLIST_ANIMATION_DURATION = 1500;
-const STARTLIST_PAGE_DURATION = 15000;
+const STARTLIST_PAGE_DURATION = 7500;
 
 var startListAnimationTimeouts = [];
 
