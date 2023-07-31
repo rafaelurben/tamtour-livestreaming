@@ -3,7 +3,11 @@
 
 # TamTour Livestreaming
 
-Dieses System wurde von Rafael Urben speziell für die [TamTour](https://tamtour.ch/) entwickelt. Es dient dazu, den Livestream zu steuern und diverse Overlays anzuzeigen. Zum [Setup](./setup.md).
+Dieses System wurde von Rafael Urben speziell für die [TamTour](https://tamtour.ch/) entwickelt. Es dient dazu, den Livestream zu steuern und diverse Overlays anzuzeigen.
+
+## Dokumentation
+
+- [Einrichtung](./setup.md)
 
 ## Links
 
