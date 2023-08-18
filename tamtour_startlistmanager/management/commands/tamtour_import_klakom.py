@@ -3,7 +3,7 @@ Import Klakom data (currently hardcoded)
 """
 
 from django.apps import apps
-
+from django.db import IntegrityError
 from django.core.management.base import BaseCommand
 
 kompositionen = """
@@ -1619,29 +1619,36 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         ...
 
-    def handle(self, *args, **options):        
+    def handle(self, *args, **options):
         Komposition = apps.get_model("tamtour_startlistmanager", "Komposition")
-    
+
         kompositionen_filtered = []
 
         for line in kompositionen.splitlines():
             if line:
-                titel, komponist = line.split("|")
+                klakomtitel, komponist = line.split("|")
 
-                if "," in titel:
-                    first, last = titel.split(",")
+                if "," in klakomtitel:
+                    first, last = klakomtitel.split(",")
                     last = last.strip()
                     titel = f"{last} {first}"
+                else:
+                    titel = klakomtitel
 
                 kompositionen_filtered.append((
+                    klakomtitel.strip(),
                     titel.strip(),
                     komponist.strip()
                 ))
 
         for line in kompositionen_filtered:
-            titel, komponist = line
-            elem, created = Komposition.objects.get_or_create(titel=titel, komponist=komponist)
-            if created:
-                self.stdout.write(self.style.SUCCESS("[CREATED]: "+str(elem)))
-            else:
-                self.stdout.write(self.style.NOTICE("[SKIPPED]: "+str(elem)))
+            klakomtitel, titel, komponist = line
+            try:
+                elem, created = Komposition.objects.get_or_create(
+                    klakomtitel=klakomtitel, titel=titel, komponist=komponist)
+                if created:
+                    self.stdout.write(self.style.SUCCESS("[CREATED]: "+str(elem)))
+                else:
+                    self.stdout.write(self.style.WARNING("[SKIPPED]: "+str(elem)))
+            except IntegrityError:
+                self.stdout.write(self.style.ERROR("[ERROR]: Already exists with same name: "+str(line)))
