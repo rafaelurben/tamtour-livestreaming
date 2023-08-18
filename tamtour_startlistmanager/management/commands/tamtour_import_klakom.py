@@ -1,6 +1,10 @@
-"""KlaKom Tambourenkompositionen, Stand 2022/12/31"""
+"""
+Import Klakom data (currently hardcoded)
+"""
 
-from tamtour_startlistmanager.models import Komposition
+from django.apps import apps
+
+from django.core.management.base import BaseCommand
 
 kompositionen = """
 007|Ch. Avanthay
@@ -1608,26 +1612,36 @@ Zwirbli, E|M. Imlig
 Zytgeischt|A. Haefeli
 """
 
-def run():
-    kompositionen_filtered = []
 
-    for line in kompositionen.splitlines():
-        if line:
-            titel, komponist = line.split("|")
+class Command(BaseCommand):
+    help = ("Import Klakom data (hardcoded)")
 
-            if "," in titel:
-                first, last = titel.split(",")
-                last = last.strip()
-                titel =  f"{last} {first}"
+    def add_arguments(self, parser):
+        ...
 
-            kompositionen_filtered.append((
-                titel.strip(),
-                komponist.strip()
-            ))
+    def handle(self, *args, **options):        
+        Komposition = apps.get_model("tamtour_startlistmanager", "Komposition")
+    
+        kompositionen_filtered = []
 
-    for line in kompositionen_filtered:
-        titel, komponist = line
-        Komposition.objects.create(titel=titel, komponist=komponist)
+        for line in kompositionen.splitlines():
+            if line:
+                titel, komponist = line.split("|")
 
-if __name__ == "__main__":
-    run()
+                if "," in titel:
+                    first, last = titel.split(",")
+                    last = last.strip()
+                    titel = f"{last} {first}"
+
+                kompositionen_filtered.append((
+                    titel.strip(),
+                    komponist.strip()
+                ))
+
+        for line in kompositionen_filtered:
+            titel, komponist = line
+            elem, created = Komposition.objects.get_or_create(titel=titel, komponist=komponist)
+            if created:
+                self.stdout.write(self.style.SUCCESS("[CREATED]: "+str(elem)))
+            else:
+                self.stdout.write(self.style.NOTICE("[SKIPPED]: "+str(elem)))
