@@ -24,10 +24,11 @@ class WettspielKategorie(models.Model):
         ordering = ("titel",)
 
 class Wettspieler(models.Model):
-    is_group = models.BooleanField(default=False, verbose_name="Gruppe?")
     name = models.CharField(max_length=100, verbose_name="Name(n)")
-    gruppenname = models.CharField(max_length=50, blank=True, default="", verbose_name="Gruppenname")
     verein = models.CharField(max_length=50, verbose_name="Verein")
+
+    is_soloduo = models.BooleanField(default=False, verbose_name="SoloDuo?")
+    soloduoname = models.CharField(max_length=50, blank=True, default="", verbose_name="SoloDuo Gruppenname")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -38,8 +39,8 @@ class Wettspieler(models.Model):
         return f"{self.name} ({self.get_subtitle()})"
 
     def get_subtitle(self):
-        if self.is_group:
-            return f'{self.gruppenname} - {self.verein}'
+        if self.is_soloduo:
+            return f'{self.soloduoname} - {self.verein}'
         return self.verein
 
     class Meta:
@@ -48,6 +49,8 @@ class Wettspieler(models.Model):
         ordering = ("name", "verein")
 
 class Komposition(models.Model):
+    klakomtitel = models.CharField(max_length=50, unique=True)
+
     titel = models.CharField(max_length=50)
     komponist = models.CharField(max_length=50)
 
@@ -141,7 +144,7 @@ class StartlistenEintrag(models.Model):
             "startnummer": self.startnummer,
             "name": f"{self.wettspieler.name}",
             "verein": self.wettspieler.get_subtitle(),
-            "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}",
+            "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}" if self.komposition else "",
             "zeit": self.zeit.strftime("%H:%M"),
         }
 

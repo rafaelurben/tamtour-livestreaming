@@ -117,10 +117,10 @@
         </thead>
         <tbody>
             {% for item in startliste.items.all %}
-                {% if item.wettspieler.is_group %}
+                {% if item.wettspieler.is_soloduo %}
                     <tr>
                         <td class="betweenflex">
-                            <span class="marker yellow">{{ item.startnummer }} {{ item.wettspieler.gruppenname }}</span>
+                            <span class="marker yellow">{{ item.startnummer }} {{ item.wettspieler.soloduoname }}</span>
                             <span class="marker cyan">{{ item.wettspieler.verein }}</span>
                             <span class="marker green">{{ item.komposition.titel }} <span class="small">von {{ item.komposition.komponist }}</span></span>
                         </td>
