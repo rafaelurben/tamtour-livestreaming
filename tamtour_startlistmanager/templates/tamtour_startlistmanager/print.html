@@ -14,7 +14,7 @@
 
         @page {
             size: A4 portrait;
-            margin: 0.5in
+            margin: 0.5in;
         }
 
         header, footer {
@@ -29,40 +29,21 @@
         }
 
         table {
-            border-collapse: separate;
-            border-spacing: 0.4rem;
+            border-collapse: collapse;
             width: 100%;
             font-size: 11pt;
         }
 
-        .centerflex {
-            display: flex;
-            justify-content: center;
-            gap: 0.3rem;
+        tbody th, tbody td {
+            text-align: left;
+            border-top: 2px solid black;
+            border-bottom: 2px solid black;
+            padding: 5px;
         }
 
-        .betweenflex {
-            display: flex;
-            justify-content: space-between;
-            gap: 0.3rem;
-        }
-
-        .marker {
-            padding: 0.2rem 0.3rem;
-            border-radius: 0.2rem;
-        }
-        .marker.yellow {
-            background-color: #ffff00;
-        }
-        .marker.cyan {
-            background-color: #0fffff;
-        }
-        .marker.green {
-            background-color: #00ff00;
-        }
-
-        .small {
+        .componist {
             font-size: 0.8rem;
+            font-style: italic;
         }
 
         @media print {
@@ -82,7 +63,7 @@
             }
 
             table thead td, table tfoot td {
-                height: .5in;
+                height: .6in;
             }
 
             .noprint {
@@ -117,29 +98,39 @@
             <tr><td>&nbsp;</td></tr>
         </thead>
         <tbody>
+            <tr>
+                <th style="width: 1px;">Zeit</th>
+                <th>Kat/Nr</th>
+                <th>Name</th>
+                <th>Verein</th>
+                <th>Komposition</th>
+            </tr>
             {% for item in startliste.items.all %}
-                {% if item.wettspieler.is_soloduo %}
-                    <tr>
-                        <td class="betweenflex">
-                            <span class="marker yellow">{{ item.startnummer }} {{ item.wettspieler.soloduoname }}</span>
-                            <span class="marker cyan">{{ item.wettspieler.verein }}</span>
-                            <span class="marker green">{{ item.komposition.titel }} <span class="small">von {{ item.komposition.komponist }}</span></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="centerflex">
-                            <span class="marker yellow">{{ item.wettspieler.name }}</span>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td class="centerflex">
-                            <span class="marker yellow">{{ item.startnummer }} {{ item.wettspieler.name }}</span>
-                            <span class="marker cyan">{{ item.wettspieler.verein }}</span>
-                            <span class="marker green">{{ item.komposition.titel }} von {{ item.komposition.komponist }}</span>
-                        </td>
-                    </tr>
-                {% endif %}
+                <tr>
+                    <td style="width: 1px;">
+                        {{ item.zeit | date:"H:i" }}
+                    </td>
+                    <td style="width: 1px;">
+                        {{ item.kategorie.kurzform }}#{{ item.startnummer }}
+                    </td>
+                    <td>
+                        {% if item.wettspieler.is_soloduo %}
+                            {{ item.wettspieler.soloduoname }}<br />
+                            {{ item.wettspieler.name }}
+                        {% else %}
+                            {{ item.wettspieler.name }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ item.wettspieler.verein }}
+                    </td>
+                    <td>
+                        {% if item.komposition %}
+                            {{ item.komposition.titel }}
+                            <br /><span class="componist">- {{ item.komposition.komponist }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
         </tbody>
         <tfoot>
@@ -147,8 +138,8 @@
         </tfoot>
     </table>
     <footer>
-        <span style="color: rgba(0,0,0,0.25)">Erstellt mit dem Startlistengenerator von Rafael Urben</span>
-        <span>{% now "SHORT_DATETIME_FORMAT" %}</span>
+        <span style="color: #00000040">TamTour Startlistengenerator - Rafael Urben</span>
+        <span>{% now "d.m.Y H:i" %}</span>
     </footer>
 
     <script>
