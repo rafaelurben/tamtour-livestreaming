@@ -51,7 +51,7 @@ class Command(BaseCommand):
             try:
                 categorycache[category_short] = WettspielKategorie.objects.get(kurzform=category_short)
             except WettspielKategorie.DoesNotExist:
-                self._error("Category not found: %s" % category_short)
+                self._error(f"Category not found: {category_short}")
                 categorycache[category_short] = None
         return categorycache[category_short]
 
@@ -60,8 +60,10 @@ class Command(BaseCommand):
             try:
                 compositioncache[composition_name] = Komposition.objects.get(klakomtitel=composition_name)
             except Komposition.DoesNotExist:
-                self._error("Composition not found: %s" % composition_name)
-                compositioncache[composition_name] = None
+                self._error(f"Composition not found: {composition_name}")
+                correct_name = input("Enter correct name: ")
+                correct_comp = self._get_composition(correct_name)
+                compositioncache[composition_name] = correct_comp
         return compositioncache[composition_name]
 
     def _parse_startcat(self, text, default_category=None):
@@ -73,7 +75,7 @@ class Command(BaseCommand):
         try:
             startnum = int(re.findall(r"\d+", text)[0])
         except IndexError:
-            self._error("Start number not found: %s" % text)
+            self._error(f"Not able to extract start number: {text}")
         if default_category is not None:
             category = default_category
         else:
@@ -81,7 +83,7 @@ class Command(BaseCommand):
                 catname = re.findall(r"[a-zA-Z]+", text)[0]
                 category = self._get_category(catname)
             except IndexError:
-                self._error("Category not found: %s" % text)
+                self._error(f"Not able to extract category: {text}")
 
         return startnum, category
 
@@ -126,9 +128,11 @@ class Command(BaseCommand):
 
             startnum, category = self._parse_startcat(row[0], default_category=default_category)
 
-            person, created = Wettspieler.objects.get_or_create(name=name, verein=club)
-            if created:
-                self._success("[CREATED]: " + str(person))
+            person = None
+            if name and club:
+                person, created = Wettspieler.objects.get_or_create(name=name, verein=club)
+                if created:
+                    self._success("[CREATED]: " + str(person))
 
             for mc in range(multicount):
                 starttime = row[3+mc]
