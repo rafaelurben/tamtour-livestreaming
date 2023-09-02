@@ -142,8 +142,8 @@ class StartlistenEintrag(models.Model):
             "kategorie": self.kategorie.titel,
             "kategorie_kurz": self.kategorie.kurzform,
             "startnummer": self.startnummer,
-            "name": f"{self.wettspieler.name}",
-            "verein": self.wettspieler.get_subtitle(),
+            "name": self.wettspieler.name if self.wettspieler else "",
+            "verein": self.wettspieler.get_subtitle() if self.wettspieler else "",
             "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}" if self.komposition else "",
             "zeit": self.zeit.strftime("%H:%M"),
         }
