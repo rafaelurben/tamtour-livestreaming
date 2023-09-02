@@ -196,7 +196,7 @@ async function loadStreamStatus() {
         txt += "]";
         streamStatusDisplay.val(txt);
 
-        showStreamCongestion(strDat.outputCongestion);
+        showStreamCongestion(strDat.outputCongestion, strDat.outputReconnecting);
     } else {
         streamStartBtn.toggleClass("d-none", false);
         streamStopBtn.toggleClass("d-none", true);
@@ -204,25 +204,29 @@ async function loadStreamStatus() {
     }
 }
 
-function showStreamCongestion(congestion) {
+function showStreamCongestion(congestion, reconnecting = false) {
     // Note: congestion is a number between 0 and 1 or null
 
     streamCongestionHistory.push(congestion);
 
-    let r, g;
-    if (congestion == null) {
-        r = 0;
-        g = 0;
-    } else if (congestion == 0) {
-        r = 0;
-        g = 255;
+    let r = 0, g = 0, b = 0;
+    if (reconnecting) {
+        b = 255;
     } else {
-        r = 255;
-        g = (1 - congestion) * 255;
+        if (congestion === null) {
+            r = 0;
+            g = 0;
+        } else if (congestion == 0) {
+            r = 0;
+            g = 255;
+        } else {
+            r = 255;
+            g = (1 - congestion) * 255;
+        }
     }
 
     let elem = $("<div>", {
-        style: `background-color: rgb(${r}, ${g}, 0);`
+        style: `background-color: rgb(${r}, ${g}, ${b});`
     });
     streamCongestionHistoryRow.append(elem);
 
