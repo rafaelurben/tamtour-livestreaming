@@ -215,10 +215,10 @@ function getStartListAnmiationItems() {
 
     return startlist.items.slice(sid).map((item) => {
         return [
+            item.zeit,
             `${item.kategorie_kurz || item.kategorie}#${item.startnummer}`,
             item.name,
             item.verein,
-            item.zeit,
         ];
     });
 }
