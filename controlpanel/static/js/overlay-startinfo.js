@@ -122,7 +122,8 @@ function loadStartlistsFromData(data, initial) {
 
     for (let lid in startlists) {
         let startlist = startlists[lid];
-        startlistSelect.append($("<option>", { value: lid, text: startlist.name }));
+        let name = startlist.description ? `${startlist.name} [${startlist.description}]` : startlist.name;
+        startlistSelect.append($("<option>", { value: lid, text: name }));
     }
 
     let storedval = sessionStorage.getItem("tamtour-startlist-id");
