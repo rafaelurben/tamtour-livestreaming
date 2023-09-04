@@ -12,7 +12,7 @@ function _updateScenePanel(data) {
 
     if (data.scenes) {
         previewSceneSelect.empty();
-        for (let scene of data.scenes) {
+        for (let scene of data.scenes.reverse()) {
             let optelem = $("<option>", { value: scene.sceneName, text: scene.sceneName });
             previewSceneSelect.append(optelem);
         }
