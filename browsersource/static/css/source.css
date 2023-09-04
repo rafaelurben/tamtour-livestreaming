@@ -3,6 +3,8 @@
 :root {
     --tamtour-color-text: #ffffff;
     --tamtour-color-background: #758aa5;
+    --tamtour-color-startlist-text: #000000;
+    --tamtour-color-startlist-background: rgba(255, 255, 255, 0.85);
 }
 
 /* Utils */
@@ -177,7 +179,7 @@ body.direction-inverted .startinfooverlay.out .startinfooverlay_block {
     content: '•';
     font-size: 100px;
     line-height: 100px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(150, 150, 150);
     transition: color 0.5s;
 }
 
@@ -213,12 +215,14 @@ body.direction-inverted .startinfooverlay.out .startinfooverlay_block {
 .startlistoverlay-table tr td {
     padding: 8px 28px;
     text-align: center;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--tamtour-color-startlist-background);
+    color: var(--tamtour-color-startlist-text);
     border-radius: 10px;
 }
 
 .startlistoverlay-title {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--tamtour-color-startlist-background);
+    color: var(--tamtour-color-startlist-text);
     border-radius: 10px;
     font-size: 66px;
     text-align: center;
