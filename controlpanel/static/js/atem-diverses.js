@@ -119,6 +119,7 @@ $(window).on("atem-get-fade-to-black", function (e, data) {
 
 $(window).on("atem-get-fade-to-black-state", function (e, data) {
     let ftbOn = data["0"].in_transition || data["0"].done;
+    atem.state.ftbOn = ftbOn;
     $("#atem-transition-ftb-btn").toggleClass("btn-danger", ftbOn).toggleClass("pulsing", ftbOn).toggleClass("btn-outline-info", !ftbOn);
 });
 

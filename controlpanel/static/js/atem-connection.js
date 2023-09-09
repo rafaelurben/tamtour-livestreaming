@@ -35,6 +35,7 @@ let atem = {
         },
         key1onair: false,
         dkey1onair: false,
+        ftbOn: false,
         previewSource: undefined,
         programSource: undefined,
         key1FillSource: undefined,

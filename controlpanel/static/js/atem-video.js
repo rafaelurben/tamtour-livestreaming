@@ -129,6 +129,15 @@ $(window).on("atem-base-interval", function () {
         ).toggleClass("border-warning", atem.state.key1FillSource === "COL2" && atem.state.key1onair
         ).toggleClass("border-info", atem.state.dkey1FillSource === "COL2" && atem.state.dkey1onair
     );
+
     // set KEY1 fieldset border color
-    $("#atem-fieldset-key1").toggleClass("border-danger", atem.state.key1onair);
+    $("#atem-fieldset-key1"
+        ).toggleClass("border-danger", atem.state.key1onair
+        ).toggleClass("border-success", Boolean(atem.state.nextTransition.key1 ^ atem.state.key1onair) // XOR
+    );
+    // set transitions fieldset border color
+    $("#atem-fieldset-transitions"
+        ).toggleClass("border-danger", atem.state.dkey1onair || atem.state.ftbOn
+        ).toggleClass("border-warning", atem.state.nextTransition.previewEnabled
+    );
 });
