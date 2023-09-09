@@ -329,7 +329,28 @@
                                 id="btn-next-startlistitem" onclick="nextStartlistitem()">→</button>
                         </div>
                     </div>
-                    <fieldset class="mb-3 mx-0">
+                    <div class="mb-2">
+                        <div class="input-group">
+                            <button id="btn-show-startinfo-overlay" class="btn btn-outline-success"
+                                onclick="showStartInfoOverlay()">
+                                Einblenden
+                            </button>
+                            <button id="btn-hide-startinfo-overlay" class="btn btn-outline-danger"
+                                onclick="hideStartInfoOverlay()">
+                                Ausblenden
+                            </button>
+                            <div class="form-floating">
+                                <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7.5" value="7.5"
+                                    min="2" max="20" step="0.5">
+                                <label for="startinfo-form-duration" class="form-label">Dauer (s)</label>
+                            </div>
+                            <button id="btn-display-startinfo-overlay" class="btn btn-primary"
+                                onclick="displayStartInfoOverlay()">
+                                Anzeigen
+                            </button>
+                        </div>
+                    </div>
+                    <fieldset class="mb-2 mx-0">
                         <legend>
                             <span class="collapser" onclick="toggleCollapse(this)"></span>
                             <b>Inhalt</b> <i onclick="clearStartInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
@@ -357,27 +378,6 @@
                             <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
                         </div>
                     </fieldset>
-                    <div class="mb-2">
-                        <div class="input-group">
-                            <button id="btn-show-startinfo-overlay" class="btn btn-outline-success"
-                                onclick="showStartInfoOverlay()">
-                                Einblenden
-                            </button>
-                            <button id="btn-hide-startinfo-overlay" class="btn btn-outline-danger"
-                                onclick="hideStartInfoOverlay()">
-                                Ausblenden
-                            </button>
-                            <div class="form-floating">
-                                <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7.5" value="7.5"
-                                    min="2" max="20" step="0.5">
-                                <label for="startinfo-form-duration" class="form-label">Dauer (s)</label>
-                            </div>
-                            <button id="btn-display-startinfo-overlay" class="btn btn-primary"
-                                onclick="displayStartInfoOverlay()">
-                                Anzeigen
-                            </button>
-                        </div>
-                    </div>
                     <fieldset class="mx-0">
                         <legend>
                             <span class="collapser" onclick="toggleCollapse(this)"></span>
