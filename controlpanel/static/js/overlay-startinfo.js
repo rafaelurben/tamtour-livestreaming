@@ -138,6 +138,9 @@ function loadStartlist(initial) {
     let startlist = window.tamtour_startlists[lid];
     let startlistitems = startlist.items;
 
+    // Reset startlist title
+    $("#startlist-form-title").val("");
+
     let startlistitemSelect = $("#startlistitem-select-input");
     startlistitemSelect.empty();
 
@@ -228,6 +231,11 @@ function loadStartListPreview() {
     let title = $("#startlist-form-title").val();
     let items = getStartListAnmiationItems();
 
+    if (!title || !items) {
+        alert("Kein Titel festgelegt oder Startliste leer!");
+        return;
+    }
+
     $("#startlist-preview-title").text(title);
     let table = $("#startlist-preview-table");
 
@@ -241,6 +249,11 @@ async function playStartListAnimation() {
     let title = $("#startlist-form-title").val();
     let items = getStartListAnmiationItems();
     
+    if (!title || !items) {
+        alert("Kein Titel festgelegt oder Startliste leer!");
+        return;
+    }
+
     // Convert to dict (needed because Arrays for some reason aren't transferred to the OBS browsersource)
     itemsasdict = {};
     for (let i = 0; i < items.length; i++) {
