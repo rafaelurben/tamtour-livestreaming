@@ -37,3 +37,17 @@ function hexToHsl(color) {
 
     return [h * 360, s, l];
 }
+
+// Full screen
+
+function toggleFullScreen() {
+    // Toggle full screen mode
+
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        }
+    }
+}
