@@ -1,3 +1,4 @@
 resources/*
 NOTES.md
 __pycache__
+.vscode/

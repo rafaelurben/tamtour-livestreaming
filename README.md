@@ -8,7 +8,7 @@ This repository contains the following parts:
 
 - `browsersource`: The page loaded as a browser source in OBS Studio
 - `controlpanel`: The control panel page
-- `tamtour_startlistmanager`: A Django app to manage the startlists
+- `startlistmanager`: A Django app to manage the start lists
 - `docs`: Documentation
 
 ## Setup
