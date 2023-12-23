@@ -1,151 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ startliste.titel }} | Startliste TamTour</title>
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow" />
 
     <style>
-        * {
-            font-family: Arial, Helvetica, sans-serif;
-            box-sizing: border-box;
+      * {
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin-top: 25mm;
+        margin-bottom: 25mm;
+        margin-right: 15mm;
+        margin-left: 15mm;
+
+        @top-left {
+            content: "Startliste {{ startliste.titel }}";
+            font-weight: bold;
+            font-size: 1.5em;
         }
 
-        @page {
-            size: A4 portrait;
-            margin: 0.5in;
+        @top-right {
+            content: "Seite " counter(page) " von " counter(pages);
+        }
+        
+        @bottom-right {
+            content: "Generiert am {% now "d.m.Y H:i" %}";
+            color: #000000a0;
+            font-size: 0.8em;
         }
 
-        header, footer {
-            width: 100%; height: .5in;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        @bottom-left {
+            content: "TamTour Startlistengenerator - Rafael Urben";
+            color: #000000a0;
+            font-size: 0.8em;
         }
+      }
 
-        header > * {
-            margin: 0;
-        }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        font-size: 11pt;
+      }
 
-        table {
-            border-collapse: collapse;
-            width: 100%;
-            font-size: 11pt;
-        }
+      tbody th,
+      tbody td {
+        break-inside: avoid;
+        text-align: left;
+        padding: 5px;
+      }
 
-        tbody th, tbody td {
-            text-align: left;
-            border-top: 2px solid black;
-            border-bottom: 2px solid black;
-            padding: 5px;
-        }
+      tbody th {
+        border-top: 3px solid black;
+        border-bottom: 3px solid black;
+      }
 
-        .componist {
-            font-size: 0.8rem;
-            font-style: italic;
-        }
+      tr {
+        break-inside: avoid;
 
-        @media print {
-            body {
-                margin: 0;
-                padding: 0;
+        &.item-row {
+            break-inside: avoid;
+
+            & td {
+              border-top: 2px solid black;
             }
 
-            header {
-                position: fixed;
-                top: 0;
+            &:not(.is-group) td {
+                border-bottom: 2px solid black;
             }
 
-            footer {
-                position: fixed;
-                bottom: 0;
-            }
+            &.is-group {
+              break-after: avoid;
 
-            table thead td, table tfoot td {
-                height: .6in;
+              & td:not(.composition-info) {
+                border-bottom: 1px dashed black;
+              }
             }
+        } 
 
-            .noprint {
-                display: none;
+        &.group-members-row {
+            break-before: avoid;
+
+            & td {
+                border-top: 1px dashed black;
+                border-bottom: 2px solid black;
             }
         }
+      }
 
-        @media screen {
-            body {
-                margin: 0.25in;
-                box-sizing: content-box;
-            }
-        }
+      .componist {
+        font-style: italic;
+      }
+
+      .composition-info {
+        border-bottom: 2px solid black;
+      }
     </style>
-</head>
-<body>
-    <div class="noprint">
-        <div>
-            <span style="color: red">Falls sich der Druckdialog nicht automatisch öffnet, bitte hier klicken:</span>
-            <button onclick="window.print()">Drucken</button>
-        </div>
-        <hr />
-    </div>
-
-    <header>
-        <span></span>
-        <h1>{{ startliste.titel }}</h1>
-        <span></span>
-    </header>
+  </head>
+  <body>
     <table>
-        <thead>
-            <tr><td>&nbsp;</td></tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th style="width: 1px;">Zeit</th>
-                <th>Kat/Nr</th>
-                <th>Name</th>
-                <th>Verein</th>
-                <th>Komposition</th>
-            </tr>
-            {% for item in startliste.items.all %}
-                <tr>
-                    <td style="width: 1px;">
-                        {{ item.zeit | date:"H:i" }}
-                    </td>
-                    <td style="width: 1px;">
-                        {{ item.kategorie.kurzform }}#{{ item.startnummer }}
-                    </td>
-                    <td>
-                        {% if item.wettspieler.is_soloduo %}
-                            {{ item.wettspieler.soloduoname }}<br />
-                            {{ item.wettspieler.name }}
-                        {% else %}
-                            {{ item.wettspieler.name }}
-                        {% endif %}
-                    </td>
-                    <td>
-                        {{ item.wettspieler.verein }}
-                    </td>
-                    <td>
-                        {% if item.komposition %}
-                            {{ item.komposition.titel }}
-                            <br /><span class="componist">- {{ item.komposition.komponist }}</span>
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr><td>&nbsp;</td></tr>
-        </tfoot>
-    </table>
-    <footer>
-        <span style="color: #00000040">TamTour Startlistengenerator - Rafael Urben</span>
-        <span>{% now "d.m.Y H:i" %}</span>
-    </footer>
+      <tbody>
+        <tr>
+          <th style="width: 1px">Zeit</th>
+          <th>Kat/Nr</th>
+          <th>Name</th>
+          <th>Verein</th>
+          <th>Komposition</th>
+        </tr>
+        {% for item in startliste.items.all %}
+        <tr class="item-row {% if item.wettspieler.is_group %}is-group{% endif %}">
+          <td style="width: 1px">{{ item.zeit | date:"H:i" }}</td>
+          <td style="width: 1px">
+            {{ item.kategorie.kurzform }}#{{ item.startnummer }}
+          </td>
+          <td>
+            {{ item.wettspieler.name }}
+          </td>
+          <td>{{ item.wettspieler.verein }}</td>
+          <td class="composition-info" {% if item.wettspieler.is_group %}rowspan="2"{% endif %}>
+            {% if item.komposition %}
+              <span class="composition">{{ item.komposition.titel }}</span><br />
+              <span class="componist">- {{ item.komposition.komponist }}</span>
+            {% endif %}
+          </td>
+        </tr>
 
+        {% if item.wettspieler.is_group %}
+        <tr class="group-members-row">
+          <td colspan="2"></td>
+          <td colspan="2">{{ item.wettspieler.group_members }}</td>
+        </tr>
+        {% endif %} {% endfor %}
+      </tbody>
+    </table>
+
+    {% load static %}
+    <script src="{% static "tamtour_startlistmanager/external/paged.polyfill.min.js" %}"></script>
     <script>
-        window.addEventListener("load", () => {
-            window.print();
-        });
+      class MyHandler extends Paged.Handler {
+        constructor(chunker, polisher, caller) {
+          super(chunker, polisher, caller);
+        }
+
+        afterPreview(pages) {
+          window.print()
+        }
+      }
+      Paged.registerHandlers(MyHandler);
     </script>
-</body>
+  </body>
 </html>
