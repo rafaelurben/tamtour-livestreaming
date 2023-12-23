@@ -14,7 +14,7 @@ def startlists_json(request):
     return JsonResponse({
         "lists": list(map(
             lambda startliste: startliste.as_dict(),
-            Startliste.objects.get_current()
+            Startliste.objects.filter(visible=True)
         ))
     }, headers={
         "Access-Control-Allow-Origin": "*",

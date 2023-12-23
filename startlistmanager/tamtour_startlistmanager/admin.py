@@ -16,14 +16,14 @@ class WettspielKategorieAdmin(admin.ModelAdmin):
 
 @admin.register(Wettspieler)
 class WettspielerAdmin(admin.ModelAdmin):
-    list_display = ("pk", "name", "verein", "is_soloduo", "soloduoname")
-    list_editable = ("name", "verein", "is_soloduo", "soloduoname")
-    list_filter = ("is_soloduo", "verein")
-    search_fields = ("name", "verein", "soloduoname")
+    list_display = ("pk", "name", "verein", "is_group", "group_members")
+    list_editable = ("name", "verein", "is_group", "group_members")
+    list_filter = ("is_group", "verein")
+    search_fields = ("name", "verein", "group_members")
 
     fieldsets = [
         (None, {"fields": ["name", "verein"]}),
-        ("Gruppe", {"fields": ["is_soloduo", "soloduoname"]})
+        ("Gruppe", {"fields": ["is_group", "group_members"]})
     ]
 
 @admin.register(Komposition)
@@ -54,7 +54,7 @@ class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
 
 @admin.register(Startliste)
 class StartlistenAdmin(admin.ModelAdmin):
-    list_display = ("titel", "beschreibung", "datum")
+    list_display = ("titel", "beschreibung", "datum", "visible")
 
     inlines = (StartlistenAdminStartlistenEintragInline,)
 

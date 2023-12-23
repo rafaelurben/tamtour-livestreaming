@@ -23,12 +23,15 @@ class WettspielKategorie(models.Model):
         verbose_name_plural = "Wettspiel-Kategorien"
         ordering = ("titel",)
 
+
 class Wettspieler(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Name(n)")
+    name = models.CharField(max_length=50, verbose_name="(Gruppen-)Name")
     verein = models.CharField(max_length=50, verbose_name="Verein")
 
-    is_soloduo = models.BooleanField(default=False, verbose_name="SoloDuo?")
-    soloduoname = models.CharField(max_length=50, blank=True, default="", verbose_name="SoloDuo Gruppenname")
+    is_group = models.BooleanField(default=False, verbose_name="Gruppe?")
+    group_members = models.CharField(
+        max_length=200, blank=True, default="", verbose_name="Gruppenmitglieder"
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -36,17 +39,25 @@ class Wettspieler(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.name} ({self.get_subtitle()})"
+        if self.is_group:
+            return f"{self.name} ({self.verein}) - {self.group_members}"
+        return f"{self.name} ({self.verein})"
 
-    def get_subtitle(self):
-        if self.is_soloduo:
-            return f'{self.soloduoname} - {self.verein}'
+    def get_name(self):
+        if self.is_group:
+            return self.group_members
+        return self.name
+
+    def get_verein(self):
+        if self.is_group:
+            return f"{self.name} - {self.verein}"
         return self.verein
 
     class Meta:
         verbose_name = "Wettspieler / Gruppe"
         verbose_name_plural = "Wettspieler / Gruppen"
         ordering = ("name", "verein")
+
 
 class Komposition(models.Model):
     klakomtitel = models.CharField(max_length=50, unique=True)
@@ -67,24 +78,24 @@ class Komposition(models.Model):
         verbose_name_plural = "Kompositionen"
         ordering = ("titel", "komponist")
 
-class StartlistenManager(models.Manager):
-    def get_current(self):
-        return (
-            super()
-            .get_queryset()
-            .filter(datum__gte=timezone.now() - timezone.timedelta(days=7))
-        )
-
 
 class Startliste(models.Model):
     titel = models.CharField(max_length=50)
     beschreibung = models.TextField(default="", blank=True)
     datum = models.DateField()
 
+    visible = models.BooleanField(
+        default=True,
+        verbose_name="In Schnittstelle sichtbar?",
+        help_text="Soll diese Startliste in der JSON-Schnittstelle verfügbar und "
+        "somit im Overlay-Control-Panel sichtbar sein? "
+        "(Die JSON-Schnittstelle ist ohne Authentifizierung zugänglich!)",
+    )
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    objects = StartlistenManager()
+    objects = models.Manager()
 
     def __str__(self):
         return f"{self.titel} ({self.datum})"
@@ -97,7 +108,9 @@ class Startliste(models.Model):
         )
 
         for item in self.items.all():
-            item.copyto(new, addminutes=addminutes, removecomposition=removecompositions)
+            item.copyto(
+                new, addminutes=addminutes, removecomposition=removecompositions
+            )
 
         return new
 
@@ -121,14 +134,27 @@ class Startliste(models.Model):
         verbose_name_plural = "Startlisten"
         ordering = ("-datum", "titel")
 
+
 class StartlistenEintrag(models.Model):
     startliste = models.ForeignKey(
-        Startliste, on_delete=models.CASCADE, related_name="items", verbose_name="Startliste"
+        Startliste,
+        on_delete=models.CASCADE,
+        related_name="items",
+        verbose_name="Startliste",
     )
     kategorie = models.ForeignKey(WettspielKategorie, on_delete=models.CASCADE)
     startnummer = models.IntegerField()
-    wettspieler = models.ForeignKey(Wettspieler, blank=True, null=True, default=None, on_delete=models.CASCADE, verbose_name="Wettspieler / Gruppe")
-    komposition = models.ForeignKey(Komposition, blank=True, null=True, default=None, on_delete=models.CASCADE)
+    wettspieler = models.ForeignKey(
+        Wettspieler,
+        blank=True,
+        null=True,
+        default=None,
+        on_delete=models.CASCADE,
+        verbose_name="Wettspieler / Gruppe",
+    )
+    komposition = models.ForeignKey(
+        Komposition, blank=True, null=True, default=None, on_delete=models.CASCADE
+    )
     zeit = models.TimeField()
 
     objects = models.Manager()
@@ -142,16 +168,20 @@ class StartlistenEintrag(models.Model):
             "kategorie": self.kategorie.titel,
             "kategorie_kurz": self.kategorie.kurzform,
             "startnummer": self.startnummer,
-            "name": self.wettspieler.name if self.wettspieler else "",
-            "verein": self.wettspieler.get_subtitle() if self.wettspieler else "",
-            "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}" if self.komposition else "",
+            "name": self.wettspieler.get_name() if self.wettspieler else "",
+            "verein": self.wettspieler.get_verein() if self.wettspieler else "",
+            "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}"
+            if self.komposition
+            else "",
             "zeit": self.zeit.strftime("%H:%M"),
         }
 
     def copyto(self, new, addminutes=0, removecomposition=False):
         oldtime = self.zeit
-        newtime = time(minute=(oldtime.minute + addminutes) % 60,
-                       hour=(oldtime.hour + ((oldtime.minute + addminutes) // 60)) % 24)
+        newtime = time(
+            minute=(oldtime.minute + addminutes) % 60,
+            hour=(oldtime.hour + ((oldtime.minute + addminutes) // 60)) % 24,
+        )
 
         new.items.create(
             kategorie=self.kategorie,
