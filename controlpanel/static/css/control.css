@@ -203,16 +203,34 @@ body:not(.atem-connected) fieldset.atem-required::before {
     );
     z-index: 1;
     background-size: 50px 50px;
-    animation: move 2s linear infinite;
+    animation: background-move 2s linear infinite;
 }
 
-@keyframes move {
+@keyframes background-move {
   0% {
     background-position: 0 0;
   }
   100% {
     background-position: 50px 50px;
   }
+}
+
+/* ATEM Failing animation */
+
+.failing {
+    background-image: linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.05) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0.05) 75%,
+        transparent 75%,
+        transparent
+    );
+    z-index: 1;
+    background-size: 50px 50px;
+    animation: background-move 1.5s linear infinite, pulse 0.5s infinite;
 }
 
 /* ATEM Controls */

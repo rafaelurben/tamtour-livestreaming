@@ -101,12 +101,12 @@ let atem = {
                 },
                 error: function (error) {
                     if (!ignoreerror) {
+                        $("#open-atem-dialog-btn").addClass("failing");
                         if (error.statusText == "timeout") {
                             console.warn("[ATEM] Request timed out:", { method, url, data });
                             if (method === "POST") alert("[ATEM] Anfrage fehlgeschlagen! Bitte erneut versuchen!")
                         } else {
                             console.error("[ATEM] Request failed:", { method, url, data }, error);
-                            alert("[ATEM] Anfrage fehlgeschlagen! Bitte Konsole überprüfen.");
                         }
                     }
                     reject(error);
@@ -148,6 +148,7 @@ let atem = {
         });
     },
     connect: async function (isautoconnect) {
+        $("#atem-btn-connect").prop("disabled", true);
         atem.connected = true;
         atem.connectionData.target = $("#atem-login-form-target").val();
         atem.connectionData.username = $("#atem-login-form-username").val();
@@ -161,10 +162,12 @@ let atem = {
             if (isautoconnect === true) {
                 alert("[ATEM] Automatische Verbindung fehlgeschlagen! Bitte überprüfe die gespeicherten Eingaben.");
                 sessionStorage.setItem("tamtour-atem-auto-connect", "false");
+                $("#open-atem-dialog-btn").addClass("failing");
             } else {
                 alert("[ATEM] Verbindung fehlgeschlagen! Bitte überprüfe die Eingaben.");
             }
         });
+        $("#atem-btn-connect").prop("disabled", false);
     },
     disconnect: async function () {
         atem.connectionData = {};
