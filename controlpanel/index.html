@@ -79,36 +79,34 @@
                         <button id="atem-btn-disconnect" class="btn btn-danger w-100 d-none" onclick="atem.disconnect()">Verbindung trennen</button>
                     </div>
                     <hr>
-                    <div class="mb-3">
-                        <label for="atem-settings-enabled-videoinputs" class="form-label">Angezeigte Video-Inputs</label>
-                        <select id="atem-settings-enabled-videoinputs" class="form-select" multiple>
-                            <option selected value="CAM1">CAM1 (Camera 1)</option>
-                            <option selected value="CAM2">CAM2 (Camera 2)</option>
-                            <option selected value="CAM3">CAM3 (Camera 3)</option>
-                            <option selected value="CAM4">CAM4 (Camera 4)</option>
-                            <option selected value="MP1">MP1 (Media player 1)</option>
-                            <option selected value="BLK">BLK (Black)</option>
-                            <option value="BARS">BARS (Color bars)</option>
-                            <option value="COL1">COL1 (Color 1)</option>
-                            <option value="COL2">COL2 (Color 2)</option>
-                        </select>
-                    </div>
-                    <div class="">
-                        <label for="atem-settings-enabled-audioinputs" class="form-label">Angezeigte Audio-Inputs</label>
-                        <select id="atem-settings-enabled-audioinputs" class="form-select" multiple>
-                            <option selected value="1301">MIC1 (Microphone 1)</option>
-                            <option selected value="1302">MIC2 (Microphone 2)</option>
-                            <option value="1">CAM1 (Camera 1 Mic)</option>
-                            <option value="2">CAM2 (Camera 2 Mic)</option>
-                            <option value="3">CAM3 (Camera 3 Mic)</option>
-                            <option value="4">CAM4 (Camera 4 Mic)</option>
-                        </select>
+                    <div class="d-flex flex-row flex-wrap gap-3">
+                        <div class="flex-grow-1 d-flex flex-column">
+                            <label for="atem-settings-enabled-videoinputs" class="form-label">Angezeigte Video-Inputs</label>
+                            <select id="atem-settings-enabled-videoinputs" class="form-select overflow-auto flex-grow-1" multiple size="9">
+                                <option selected value="CAM1">CAM1 (Camera 1)</option>
+                                <option selected value="CAM2">CAM2 (Camera 2)</option>
+                                <option selected value="CAM3">CAM3 (Camera 3)</option>
+                                <option selected value="CAM4">CAM4 (Camera 4)</option>
+                                <option selected value="MP1">MP1 (Media player 1)</option>
+                                <option selected value="BLK">BLK (Black)</option>
+                                <option value="BARS">BARS (Color bars)</option>
+                                <option value="COL1">COL1 (Color 1)</option>
+                                <option value="COL2">COL2 (Color 2)</option>
+                            </select>
+                        </div>
+                        <div class="flex-grow-1 d-flex flex-column">
+                            <label for="atem-settings-enabled-audioinputs" class="form-label">Angezeigte Audio-Inputs</label>
+                            <select id="atem-settings-enabled-audioinputs" class="form-select overflow-auto flex-grow-1" multiple size="6">
+                                <option selected value="1301">MIC1 (Microphone 1)</option>
+                                <option selected value="1302">MIC2 (Microphone 2)</option>
+                                <option value="1">CAM1 (Camera 1 Mic)</option>
+                                <option value="2">CAM2 (Camera 2 Mic)</option>
+                                <option value="3">CAM3 (Camera 3 Mic)</option>
+                                <option value="4">CAM4 (Camera 4 Mic)</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
             </div>
         </div>
     </dialog>
