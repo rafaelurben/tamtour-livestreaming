@@ -150,10 +150,6 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div> -->
             </div>
         </div>
     </dialog>
@@ -286,13 +282,10 @@
     <div class="d-flex flex-column p-2 gap-3">
         <!-- Menubar -->
         <div class="d-flex flex-row gap-2 flex-wrap">
-            <button class="btn btn-secondary flex-grow-0" onclick="window.open('https://rafaelurben.ch/tamtour-livestreaming/', '_blank')">
-                <attr title="Infos">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="24px" width="24px">
-                        <path fill="white"
-                            d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
-                    </svg>
-                </attr>
+            <button class="btn btn-secondary flex-grow-0 whiteicon centericon" onclick="window.open('https://rafaelurben.ch/tamtour-livestreaming/', '_blank')" title="Infos">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="20px" width="20px">
+                    <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                </svg>
             </button>
             <button id="open-obs-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#obs-dialog" type="button">
                 OBS verbinden
@@ -300,13 +293,11 @@
             <button id="open-atem-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#atem-dialog" type="button">
                 ATEM verbinden
             </button>
-            <button class="btn btn-secondary flex-grow-0" onclick="toggleFullScreen();">
-                <attr title="Vollbild">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="24px" width="24px">
-                        <path fill="white"
-                            d="M200-200v-200h80v120h120v80H200Zm0-360v-200h200v80H280v120h-80Zm360 360v-80h120v-120h80v200H560Zm120-360v-120H560v-80h200v200h-80Z" />
-                    </svg>
-                </attr>
+            <button class="btn btn-secondary flex-grow-0 whiteicon centericon" onclick="toggleFullScreen();" title="Vollbild">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="24px" width="24px">
+                    <path fill="white"
+                        d="M200-200v-200h80v120h120v80H200Zm0-360v-200h200v80H280v120h-80Zm360 360v-80h120v-120h80v200H560Zm120-360v-120H560v-80h200v200h-80Z" />
+                </svg>
             </button>
         </div>
 
@@ -328,12 +319,27 @@
                             </button>
                             <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
                                 onchange="loadStartlistitem()"></select>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
-                                id="btn-previous-startlistitem" onclick="previousStartlistitem()">←</button>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
-                                onclick="loadStartlistitem()">↧</button>
-                            <button class="btn btn-outline-secondary nostartlistdisabled" disabled type="button"
-                                id="btn-next-startlistitem" onclick="nextStartlistitem()">→</button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled whiteicon-darkonly centericon" disabled type="button"
+                                id="btn-previous-startlistitem" onclick="previousStartlistitem()" title="Vorherige Position">
+                                <!-- Left icon (west) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                                    <path d="M360-200 80-480l280-280 56 56-183 184h647v80H233l184 184-57 56Z" />
+                                </svg>
+                            </button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled whiteicon-darkonly centericon" disabled type="button"
+                                onclick="loadStartlistitem()" title="Position laden">
+                                <!-- Down icon (south) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                                    <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z" />
+                                </svg>
+                            </button>
+                            <button class="btn btn-outline-secondary nostartlistdisabled whiteicon-darkonly centericon" disabled type="button"
+                                id="btn-next-startlistitem" onclick="nextStartlistitem()" title="Nächste Position">
+                                <!-- Right icon (east) -->
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                                    <path d="m600-200-57-56 184-184H80v-80h647L544-704l56-56 280 280-280 280Z" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
                     <div class="mb-2">
@@ -419,12 +425,14 @@
                     <div class="mb-2">
                         <label for="general-info-overlay-presets" class="form-label visually-hidden-focusable">Info-Overlay-Vorlagen</label>
                         <div class="input-group">
-                            <button class="btn btn-outline-secondary whiteicon centericon" type="button" title="Vorlage speichern" onclick="addGeneralInfoOverlayPreset()">
+                            <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage speichern" onclick="addGeneralInfoOverlayPreset()">
+                                <!-- Save icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                                    <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
                                 </svg>
                             </button>
-                            <button class="btn btn-outline-secondary whiteicon centericon" type="button" title="Vorlage löschen" onclick="removeGeneralInfoOverlayPreset()">
+                            <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage löschen" onclick="removeGeneralInfoOverlayPreset()">
+                                <!-- Trash icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
                                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                 </svg>
@@ -452,7 +460,8 @@
                                     Das war's! - Danke fürs Zuschauen!
                                 </option>
                             </select>
-                            <button class="btn btn-outline-secondary whiteicon centericon" type="button" title="Vorlage laden" onclick="loadGeneralInfoOverlayPreset()">
+                            <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage laden" onclick="loadGeneralInfoOverlayPreset()">
+                                <!-- Down (south) icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
                                     <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z" />
                                 </svg>
@@ -677,9 +686,9 @@
                                     <button id="obs-replaybuffer-stop-btn" class="btn btn-danger form-control h-100 w-auto flex-grow-0 d-none"
                                         onclick="if (confirm('Replay Buffer stoppen?')) {obs.sendCommand('StopReplayBuffer')}">Stoppen</button>
                                     <input id="obs-replaybuffer-status-display" class="form-control" type="text" disabled value="" autocomplete="off">
-                                    <button id="obs-replaybuffer-save-btn" class="btn btn-primary form-control h-100 w-auto flex-grow-0 whiteicon"
+                                    <button id="obs-replaybuffer-save-btn" class="btn btn-primary form-control w-auto flex-grow-0 whiteicon centericon"
                                         onclick="obs.sendCommand('SaveReplayBuffer')">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="16px" width="16px">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="20px" width="20px">
                                             <path  d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.765-245Q523-245 553.5-275.265q30.5-30.264 30.5-73.5Q584-392 553.735-422.5q-30.264-30.5-73.5-30.5Q437-453 406.5-422.735q-30.5 30.264-30.5 73.5Q376-306 406.265-275.5q30.264 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z" />
                                         </svg>
                                     </button>
