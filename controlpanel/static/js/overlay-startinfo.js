@@ -230,7 +230,7 @@ function getStartListAnmiationItems() {
     });
 }
 
-function loadStartListPreview() {
+function showStartListPreview() {
     let title = $("#startlist-form-title").val();
     let items = getStartListAnmiationItems();
 
@@ -246,6 +246,8 @@ function loadStartListPreview() {
     for (let item of items) {
         table.append($("<tr>").append(item.map((text) => $("<td>").text(text))));
     }
+
+    $('#startlist-preview-dialog').modal("show");
 }
 
 async function playStartListAnimation() {

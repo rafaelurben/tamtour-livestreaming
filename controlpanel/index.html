@@ -399,10 +399,10 @@
                         <div>
                             <div class="input-group mb-1">
                                 <div class="form-floating">
-                                    <input type="text" class="form-control nostartlistdisabled" id="startlist-form-title" value="">
+                                    <input type="text" class="form-control nostartlistdisabled" id="startlist-form-title" value="" placeholder="Startliste">
                                     <label for="startlist-form-title" class="form-label">Titel</label>
                                 </div>
-                                <button class="btn btn-secondary nostartlistdisabled" data-bs-toggle="modal" data-bs-target="#startlist-preview-dialog" type="button" onclick="loadStartListPreview();">
+                                <button class="btn btn-secondary nostartlistdisabled" onclick="showStartListPreview();">
                                     Vorschau
                                 </button>
                                 <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled" onclick="playStartListAnimation()">
