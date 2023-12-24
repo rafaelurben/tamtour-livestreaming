@@ -104,6 +104,9 @@ function loadStartlistsFromURL(initial) {
     $.getJSON(url, function(data) {
         if (!(initial === true)) alert("Datei erfolgreich geladen!");
         loadStartlistsFromData(data, initial);
+    }).fail(() => {
+        alert("[Startlisten-Import] Beim Abrufen der URL ist ein Fehler aufgetreten!");
+        return;
     });
 }
 
