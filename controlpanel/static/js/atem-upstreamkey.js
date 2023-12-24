@@ -113,10 +113,12 @@ function renderKey1FlyingPreview() {
     
     // Draw screen border (in danger color)
     ctx.strokeStyle = "#dc3545";
+    ctx.lineWidth = 4;
     ctx.strokeRect(canvas.width * spacing, canvas.height * spacing, canvas.width * size, canvas.height * size);
 
     // Draw source border (in info color)
     ctx.strokeStyle = "#0dcaf0";
+    ctx.lineWidth = 2;
     ctx.strokeRect(
         px(data.pos_x) - lx(data.size_x / 2),
         py(data.pos_y) - ly(data.size_y / 2),
@@ -155,7 +157,7 @@ function renderKey1FlyingPreview() {
 
     // Draw coordinates
     ctx.fillStyle = "#dc3545";
-    ctx.font = "8px monospace";    
+    ctx.font = "16px monospace";    
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
     ctx.fillText("(0,1)", canvas.width * spacing * 0.5, canvas.height * spacing * 0.5);
