@@ -416,14 +416,55 @@
                         <span class="collapser" onclick="toggleCollapse(this)"></span>
                         <b>Generelles Info-Overlay</b> <i onclick="clearGeneralInfoOverlayData()" style="cursor: pointer;">(Leeren)</i>
                     </legend>
+                    <div class="mb-2">
+                        <label for="general-info-overlay-presets" class="form-label visually-hidden-focusable">Info-Overlay-Vorlagen</label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary whiteicon centericon" type="button" title="Vorlage speichern" onclick="addGeneralInfoOverlayPreset()">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                                    <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+                                </svg>
+                            </button>
+                            <button class="btn btn-outline-secondary whiteicon centericon" type="button" title="Vorlage löschen" onclick="removeGeneralInfoOverlayPreset()">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                </svg>
+                            </button>
+                            <select id="general-info-overlay-presets" class="form-select">
+                                <option value="0" data-title="Kurze Pause" data-description="Es geht gleich weiter...">
+                                    Kurze Pause - Es geht gleich weiter
+                                </option>
+                                <option value="1" data-title="Es geht gleich los..." data-description="Die Vorbereitungen laufen auf Hochtouren">
+                                    Es geht gleich los... - Die Vorbereitungen laufen auf Hochtouren
+                                </option>
+                                <option value="2" data-title="Eure Meinung zählt!" data-description="Feedback-Link in Beschreibung & Chat">
+                                    Eure Meinung zählt! - Feedback-Link in Beschreibung & Chat
+                                </option>
+                                <option value="3" data-title="Nächster Stream" data-description="XXX um XX:XX Uhr">
+                                    Nächster Stream - XXX um XX:XX Uhr
+                                </option>
+                                <option value="4" data-title="Als nächstes" data-description="Weiter geht's mit XXX um XX:XX Uhr">
+                                    Als nächstes - Weiter geht's mit XXX um XX:XX Uhr
+                                </option>
+                                <option value="5" data-title="Kurze Unterbrechung" data-description="Die Übertragung wird in Kürze fortgesetzt...">
+                                    Kurze Unterbrechung - Die Übertragung wird in Kürze fortgesetzt...
+                                </option>
+                                <option value="6" data-title="Das war's!" data-description="Danke fürs Zuschauen!">
+                                    Das war's! - Danke fürs Zuschauen!
+                                </option>
+                            </select>
+                            <button class="btn btn-outline-secondary whiteicon centericon" type="button" title="Vorlage laden" onclick="loadGeneralInfoOverlayPreset()">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
+                                    <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-title" list="generalinfo-overlay-title-list"
-                            autocomplete="on" maxlength="30">
+                        <input type="text" class="form-control" id="generalinfo-form-title" autocomplete="on" maxlength="30" placeholder="">
                         <label for="generalinfo-form-title" class="form-label">Titel</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="generalinfo-form-description"
-                            list="generalinfo-overlay-description-list" autocomplete="on" maxlength="50">
+                        <input type="text" class="form-control" id="generalinfo-form-description" autocomplete="on" maxlength="50" placeholder="">
                         <label for="generalinfo-form-description" class="form-label">Beschreibung</label>
                     </div>
                     <div class="mb-1">
@@ -871,24 +912,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Datalists -->
-    <datalist id="generalinfo-overlay-title-list">
-        <option value="Kurze Pause" />
-        <option value="Es geht gleich los..." />
-        <option value="Eure Meinung zählt!" />
-        <option value="Nächster Stream" />
-        <option value="Als nächstes" />
-        <option value="Das war's!" />
-    </datalist>
-    <datalist id="generalinfo-overlay-description-list">
-        <option value="Es geht gleich weiter..." />
-        <option value="Die Vorbereitungen laufen auf Hochtouren" />
-        <option value="Feedback-Link in Beschreibung & Chat" />
-        <option value="XXX um XX:XX Uhr" />
-        <option value="Weiter geht's mit XXX um XX:XX Uhr" />
-        <option value="Danke fürs Zuschauen!" />
-    </datalist>
 
     <!-- JavaScript -->
     <!-- External JS -->

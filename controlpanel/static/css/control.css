@@ -228,6 +228,12 @@ body:not(.atem-connected) fieldset.atem-required::before {
 
 /* Icons */
 
+.centericon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .whiteicon svg path {
     fill: white;
 }

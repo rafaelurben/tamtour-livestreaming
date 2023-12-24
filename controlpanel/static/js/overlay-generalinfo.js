@@ -61,3 +61,37 @@ function clearGeneralInfoOverlayData() {
     $("#generalinfo-form-title").val("");
     $("#generalinfo-form-description").val("");
 }
+
+/* General info overlay presets */
+
+function addGeneralInfoOverlayPreset() {
+    let $container = $("#general-info-overlay-presets");
+    let title = $("#generalinfo-form-title").val();
+    let description = $("#generalinfo-form-description").val();
+
+    if (!title || !description) {
+        alert("Bitte Titel & Beschreibung ausfüllen!");
+        return false;
+    }
+
+    let $option = $("<option></option>");
+    $option.text(`${title} - ${description}`);
+    $option.val(`${title} - ${description}`);
+    $option.data("title", title);
+    $option.data("description", description);
+    $option.appendTo($container);
+
+    $container.val($option.val());
+}
+
+function removeGeneralInfoOverlayPreset() {
+    let $option = $(`#general-info-overlay-presets option:selected`);
+    $option.remove();
+}
+
+function loadGeneralInfoOverlayPreset() {
+    let $option = $(`#general-info-overlay-presets option:selected`);
+
+    $("#generalinfo-form-title").val($option.data("title"));
+    $("#generalinfo-form-description").val($option.data("description"));
+}
