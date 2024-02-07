@@ -51,11 +51,13 @@ Zurück zur [Startseite](./)
 ### Audio-Zubehör
 
 - Mikrofonstativ (König & Meyer)
-- XLR-Kabel (20m, m-m)
+- XLR-Kabel (20m)
 - mini Jack zu 2x XLRf y-Kabel
 - Adapter zur Verbindung mit der lokalen Audioanlage
 
 ## Verkabelungsdiagramm
+
+**Achtung**: Manche HDMI-Kabel sind unidirektional!
 
 (Bild anklicken, um gross anzusehen / als Vektorgrafik herunterzuladen.)
 
