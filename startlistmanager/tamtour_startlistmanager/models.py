@@ -1,7 +1,7 @@
-from django.db import models
-from django.utils import timezone
-
 from datetime import time
+
+from django.db import models
+
 
 # Create your models here.
 
@@ -43,16 +43,6 @@ class Wettspieler(models.Model):
             return f"{self.name} ({self.verein}) - {self.group_members}"
         return f"{self.name} ({self.verein})"
 
-    def get_name(self):
-        if self.is_group:
-            return self.group_members
-        return self.name
-
-    def get_verein(self):
-        if self.is_group:
-            return f"{self.name} - {self.verein}"
-        return self.verein
-
     class Meta:
         verbose_name = "Wettspieler / Gruppe"
         verbose_name_plural = "Wettspieler / Gruppen"
@@ -88,8 +78,8 @@ class Startliste(models.Model):
         default=True,
         verbose_name="In Schnittstelle sichtbar?",
         help_text="Soll diese Startliste in der JSON-Schnittstelle verfügbar und "
-        "somit im Overlay-Control-Panel sichtbar sein? "
-        "(Die JSON-Schnittstelle ist ohne Authentifizierung zugänglich!)",
+                  "somit im Overlay-Control-Panel sichtbar sein? "
+                  "(Die JSON-Schnittstelle ist ohne Authentifizierung zugänglich!)",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -165,15 +155,20 @@ class StartlistenEintrag(models.Model):
     def as_dict(self):
         # pylint: disable=no-member
         return {
-            "kategorie": self.kategorie.titel,
-            "kategorie_kurz": self.kategorie.kurzform,
-            "startnummer": self.startnummer,
-            "name": self.wettspieler.get_name() if self.wettspieler else "",
-            "verein": self.wettspieler.get_verein() if self.wettspieler else "",
-            "vortrag": f"{self.komposition.titel} - {self.komposition.komponist}"
-            if self.komposition
-            else "",
-            "zeit": self.zeit.strftime("%H:%M"),
+            "category": self.kategorie.titel,
+            "category_short": self.kategorie.kurzform,
+            "start_num": self.startnummer,
+            "is_group": self.wettspieler.is_group
+            if self.wettspieler else False,
+            "group_members": self.wettspieler.group_members
+            if self.wettspieler and self.wettspieler.is_group else "",
+            "name": self.wettspieler.name
+            if self.wettspieler else "",
+            "club": self.wettspieler.verein
+            if self.wettspieler else "",
+            "presentation": f"{self.komposition.titel} - {self.komposition.komponist}"
+            if self.komposition else "",
+            "time": self.zeit.strftime("%H:%M"),
         }
 
     def copyto(self, new, addminutes=0, removecomposition=False):

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 
 <head>
     <title>TamTour OBS Control Panel</title>
@@ -182,7 +182,7 @@
                         Mit dem Ankerpunkt kannst du festlegen, auf welche Ecke des Bildes sich die Koordinaten beziehen.
                     </p>
                     <div class="form-check form-switch mb-2">
-                        <input class="form-check-input" type="checkbox" role="switch" checked="true" id="atem-key1-flying-position-form-keep-proportions">
+                        <input class="form-check-input" type="checkbox" role="switch" checked="checked" id="atem-key1-flying-position-form-keep-proportions">
                         <label class="form-check-label" for="atem-key1-flying-position-form-keep-proportions">Seitenverhältnis beibehalten?</label>
                     </div>
                     <div class="mb-3 input-group">
@@ -366,25 +366,25 @@
                         </legend>
                         <div class="mb-2 d-flex flex-row gap-2">
                             <div class="form-floating flex-grow-1">
-                                <input type="text" class="form-control" id="startinfo-form-kategorie" placeholder="Kategorie">
-                                <label for="startinfo-form-kategorie" class="form-label">Kategorie</label>
+                                <input type="text" class="form-control" id="startinfo-form-category" placeholder="Kategorie">
+                                <label for="startinfo-form-category" class="form-label">Kategorie</label>
                             </div>
                             <div class="form-floating flex-shrink-1">
-                                <input type="number" class="form-control" id="startinfo-form-startnummer" placeholder="1">
-                                <label for="startinfo-form-startnummer" class="form-label">Startnummer</label>
+                                <input type="number" class="form-control" id="startinfo-form-start_num" placeholder="1">
+                                <label for="startinfo-form-start_num" class="form-label">Startnummer</label>
                             </div>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" id="startinfo-form-name" placeholder="Vorname Nachname">
-                            <label for="startinfo-form-name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="startinfo-form-main-big" placeholder="Vorname Nachname">
+                            <label for="startinfo-form-main-big" class="form-label">Hauptzeile (Name bzw. Gruppenname & Verein)</label>
                         </div>
                         <div class="form-floating mb-2">
-                            <input type="text" class="form-control" id="startinfo-form-verein" placeholder="Verein">
-                            <label for="startinfo-form-verein" class="form-label">Verein</label>
+                            <input type="text" class="form-control" id="startinfo-form-main-small" placeholder="Verein">
+                            <label for="startinfo-form-main-small" class="form-label">Nebenzeile (Verein bzw. Gruppenmitglieder)</label>
                         </div>
                         <div class="form-floating mb-1">
-                            <input type="text" class="form-control" id="startinfo-form-vortrag" placeholder="Stück - Komponist">
-                            <label for="startinfo-form-vortrag" class="form-label">Vortrag</label>
+                            <input type="text" class="form-control" id="startinfo-form-presentation" placeholder="Stück - Komponist">
+                            <label for="startinfo-form-presentation" class="form-label">Vortrag (Komposition - Komponist)</label>
                         </div>
                     </fieldset>
                     <fieldset class="mx-0">
@@ -587,7 +587,7 @@
                             <button id="btn-stop-sponsorsvideo-interval" class="btn btn-danger form-control d-none w-auto flex-grow-0"
                                 onclick="stopSponsorsVideoInterval()">Stop</button>
                             <div class="flex-fill form-floating">
-                                <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled value=""
+                                <input class="form-control" type="text" id="sponsors-interval-timer" value="" disabled
                                     autocomplete="off">
                                 <label for="sponsors-interval-timer" class="form-label">Timer</label>
                             </div>
@@ -890,7 +890,7 @@
                             </select>
                         </div>
                         <div id="atem-key1-flying-check-group" class="form-check">
-                            <input class="form-check-input" type="checkbox" role="switch" checked="true" id="atem-key1-flying-check">
+                            <input class="form-check-input" type="checkbox" role="switch" checked="checked" id="atem-key1-flying-check">
                             <label class="form-check-label" for="atem-key1-flying-check">Flying</label>
                         </div>
                         <div id="atem-key1-flying-position-group" class="d-flex flex-column gap-1">

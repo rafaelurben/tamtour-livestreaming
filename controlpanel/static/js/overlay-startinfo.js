@@ -2,11 +2,11 @@
 
 async function setStartInfoOverlayContent() {
     let data = {
-        kategorie: $("#startinfo-form-kategorie").val(),
-        startnummer: $("#startinfo-form-startnummer").val(),
-        name: $("#startinfo-form-name").val(),
-        verein: $("#startinfo-form-verein").val(),
-        vortrag: $("#startinfo-form-vortrag").val(),
+        kategorie: $("#startinfo-form-category").val(),
+        startnummer: $("#startinfo-form-start_num").val(),
+        name: $("#startinfo-form-main-big").val(),
+        verein: $("#startinfo-form-main-small").val(),
+        vortrag: $("#startinfo-form-presentation").val(),
     }
     if (!data.kategorie || !data.startnummer || !data.name || !data.verein || !data.vortrag) {
         alert("Bitte alle Felder ausfüllen!");
@@ -149,7 +149,7 @@ function loadStartlist(initial) {
 
     for (let sid in startlistitems) {
         let data = startlistitems[sid];
-        let title = `${data.kategorie}#${data.startnummer} ${data.name}`;
+        let title = `${data.category}#${data.start_num} ${data.name}`;
         startlistitemSelect.append($("<option>", { value: sid, text: title }));
     }
 
@@ -168,11 +168,11 @@ function loadStartlistitem() {
     let startlistitems = startlist.items;
     let item = startlistitems[sid];
 
-    $("#startinfo-form-kategorie").val(item.kategorie);
-    $("#startinfo-form-startnummer").val(item.startnummer);
-    $("#startinfo-form-name").val(item.name);
-    $("#startinfo-form-verein").val(item.verein);
-    $("#startinfo-form-vortrag").val(item.vortrag);
+    $("#startinfo-form-category").val(item.category);
+    $("#startinfo-form-start_num").val(item.start_num);
+    $("#startinfo-form-main-big").val(item.is_group ? `${item.name} - ${item.club}` : item.name);
+    $("#startinfo-form-main-small").val(item.is_group ? item.group_members : item.club);
+    $("#startinfo-form-presentation").val(item.presentation);
 
     updateStartlistNavButtons();
 }
@@ -180,11 +180,11 @@ function loadStartlistitem() {
 // Helpers
 
 function clearStartInfoOverlayData() {
-    $("#startinfo-form-kategorie").val("");
-    $("#startinfo-form-startnummer").val("");
-    $("#startinfo-form-name").val("");
-    $("#startinfo-form-verein").val("");
-    $("#startinfo-form-vortrag").val("");
+    $("#startinfo-form-category").val("");
+    $("#startinfo-form-start_num").val("");
+    $("#startinfo-form-main-big").val("");
+    $("#startinfo-form-main-small").val("");
+    $("#startinfo-form-presentation").val("");
 }
 
 function updateStartlistNavButtons() {
@@ -222,10 +222,10 @@ function getStartListAnmiationItems() {
 
     return startlist.items.slice(sid).map((item) => {
         return [
-            item.zeit,
-            `${item.kategorie_kurz || item.kategorie}#${item.startnummer}`,
+            item.time,
+            `${item.category_short || item.category}#${item.start_num}`,
             item.name,
-            item.verein,
+            item.club,
         ];
     });
 }
