@@ -50,10 +50,17 @@ class Wettspieler(models.Model):
 
 
 class Komposition(models.Model):
-    klakomtitel = models.CharField(max_length=50, unique=True)
+    class Kompositionstyp(models.TextChoices):
+        TAMBOUR = "T", "Tambour"
+        PFEIFER = "P", "Pfeifer"
+        SOLO_DUO = "SD", "Solo Duo (Piccolo / Tambour)"
+
+    typ = models.CharField(choices=Kompositionstyp, default=Kompositionstyp.TAMBOUR, max_length=5)
+
+    klakomtitel = models.CharField(max_length=50)
 
     titel = models.CharField(max_length=50)
-    komponist = models.CharField(max_length=50)
+    komponist = models.CharField(max_length=75)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -61,12 +68,14 @@ class Komposition(models.Model):
     objects = models.Manager()
 
     def __str__(self):
-        return f"{self.titel} ({self.komponist})"
+        return f"[{self.typ}] {self.titel} ({self.komponist})"
 
     class Meta:
         verbose_name = "Komposition"
         verbose_name_plural = "Kompositionen"
         ordering = ("titel", "komponist")
+
+        unique_together = [("typ", "klakomtitel")]
 
 
 class Startliste(models.Model):

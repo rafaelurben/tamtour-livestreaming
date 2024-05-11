@@ -6,6 +6,7 @@ from django import forms
 from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag
 from .views import startliste_duplizieren, startliste_drucken
 
+
 # Register your models here.
 
 @admin.register(WettspielKategorie)
@@ -13,6 +14,7 @@ class WettspielKategorieAdmin(admin.ModelAdmin):
     list_display = ("pk", "titel", "kurzform")
     list_editable = ("titel", "kurzform")
     search_fields = ("titel", "kurzform")
+
 
 @admin.register(Wettspieler)
 class WettspielerAdmin(admin.ModelAdmin):
@@ -26,11 +28,14 @@ class WettspielerAdmin(admin.ModelAdmin):
         ("Gruppe", {"fields": ["is_group", "group_members"]})
     ]
 
+
 @admin.register(Komposition)
 class KompositionenAdmin(admin.ModelAdmin):
     list_display = ("pk", "klakomtitel", "titel", "komponist")
     list_editable = ("klakomtitel", "titel", "komponist")
+    list_filter = ("typ",)
     search_fields = ("klakomtitel", "titel", "komponist")
+
 
 class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
     model = StartlistenEintrag
@@ -50,7 +55,8 @@ class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
         return qs.select_related('kategorie', 'wettspieler', 'komposition')
 
     class Media:
-        css = { "all" : ("admin/css/hide_admin_original.css",) }
+        css = {"all": ("admin/css/hide_admin_original.css",)}
+
 
 @admin.register(Startliste)
 class StartlistenAdmin(admin.ModelAdmin):

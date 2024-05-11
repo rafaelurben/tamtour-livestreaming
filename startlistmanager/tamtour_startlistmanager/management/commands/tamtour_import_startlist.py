@@ -7,15 +7,15 @@ Note: This script is interactive!
 import re
 from datetime import date
 
-from django.core.management.base import BaseCommand, CommandError
-
+from django.core.management.base import CommandError
+from tamtour_startlistmanager.management.commands._base import CustomCommandBase
 from tamtour_startlistmanager.models import Startliste, StartlistenEintrag, Komposition, Wettspieler, WettspielKategorie
 
 category_cache = {}
 composition_cache = {}
 
 
-class Command(BaseCommand):
+class Command(CustomCommandBase):
     help = "Import a TamTour startlist from tables (interactive)"
 
     def add_arguments(self, parser):
@@ -30,33 +30,6 @@ class Command(BaseCommand):
                             type=int, default=0, choices=(0, 1, 2),
                             help="Composition offset in composition import", metavar="COMPOSITION_OFFSET")
 
-    def _print(self, msg, ending="\n"):
-        self.stdout.write(msg, ending=ending)
-
-    def _success(self, msg, ending="\n"):
-        self.stdout.write(self.style.SUCCESS(msg), ending=ending)  # pylint: disable=no-member
-
-    def _error(self, msg, ending="\n"):
-        self.stderr.write(self.style.ERROR(msg), ending=ending)  # pylint: disable=no-member
-
-    def _input_table(self, colcount):
-        self._print("[Table] Paste a table with %d columns" % colcount)
-        index = 0
-        rows = []
-        while True:
-            row = input(f"[Row {index}] \t")
-            if row == "":
-                self._print("\n")
-                break
-
-            data = row.split("\t")
-            if len(data) != colcount:
-                self._error(f"Row must have exactly {colcount} columns!")
-                continue
-            rows.append(data)
-            index += 1
-        return rows
-
     def _get_category(self, category_short):
         if category_short not in category_cache:
             try:
@@ -69,7 +42,7 @@ class Command(BaseCommand):
     def _get_composition(self, composition_name):
         if composition_name not in composition_cache:
             try:
-                composition_cache[composition_name] = Komposition.objects.get(klakomtitel=composition_name)
+                composition_cache[composition_name] = Komposition.objects.filter(klakomtitel=composition_name).first()
             except Komposition.DoesNotExist:
                 self._error(f"Composition not found: {composition_name}")
                 correct_name = input("Enter correct name: ")
