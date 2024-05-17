@@ -45,7 +45,7 @@
       table {
         border-collapse: collapse;
         width: 100%;
-        font-size: 11pt;
+        font-size: {{ request.GET.font_size|default:"10pt" }};
       }
 
       tbody th,
