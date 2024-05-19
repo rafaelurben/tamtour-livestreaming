@@ -79,7 +79,7 @@ function addGeneralInfoOverlayPreset() {
     $option.val(`${title} - ${description}`);
     $option.data("title", title);
     $option.data("description", description);
-    $option.appendTo($container);
+    $option.prependTo($container);
 
     $container.val($option.val());
 }

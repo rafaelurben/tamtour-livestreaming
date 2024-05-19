@@ -434,26 +434,32 @@
                                 </svg>
                             </button>
                             <select id="general-info-overlay-presets" class="form-select" onchange="loadGeneralInfoOverlayPreset()">
-                                <option value="0" data-title="Kurze Pause" data-description="Es geht gleich weiter...">
-                                    Kurze Pause - Es geht gleich weiter
+                                <option value="pause1" data-title="Kurze Pause" data-description="Es geht gleich weiter...">
+                                    [Pause] Kurze Pause - Es geht gleich weiter...
                                 </option>
-                                <option value="1" data-title="Es geht gleich los..." data-description="Die Vorbereitungen laufen auf Hochtouren">
-                                    Es geht gleich los... - Die Vorbereitungen laufen auf Hochtouren
+                                <option value="pause2" data-title="Kurze Unterbrechung" data-description="Die Übertragung wird in Kürze fortgesetzt...">
+                                    [Pause] Kurze Unterbrechung - Die Übertragung wird in Kürze fortgesetzt...
                                 </option>
-                                <option value="2" data-title="Eure Meinung zählt!" data-description="Feedback-Link in Beschreibung & Chat">
-                                    Eure Meinung zählt! - Feedback-Link in Beschreibung & Chat
+                                <option value="pause3" data-title="Nächster Programmpunkt" data-description="XXX um XX:XX Uhr">
+                                    [Pause] Nächster Programmpunkt - XXX um XX:XX Uhr
                                 </option>
-                                <option value="3" data-title="Nächster Stream" data-description="XXX um XX:XX Uhr">
-                                    Nächster Stream - XXX um XX:XX Uhr
+                                <option value="start1" data-title="Wir sind live!" data-description="Es geht in wenigen Minuten los.">
+                                    [Start] Wir sind live! - Es geht in wenigen Minuten los.
                                 </option>
-                                <option value="4" data-title="Als nächstes" data-description="Weiter geht's mit XXX um XX:XX Uhr">
-                                    Als nächstes - Weiter geht's mit XXX um XX:XX Uhr
+                                <option value="start2" data-title="Es geht gleich los..." data-description="Die Vorbereitungen laufen auf Hochtouren">
+                                    [Start] Es geht gleich los... - Die Vorbereitungen laufen auf Hochtouren
                                 </option>
-                                <option value="5" data-title="Kurze Unterbrechung" data-description="Die Übertragung wird in Kürze fortgesetzt...">
-                                    Kurze Unterbrechung - Die Übertragung wird in Kürze fortgesetzt...
+                                <option value="feedback" data-title="Eure Meinung zählt!" data-description="Teilt euer Feedback gerne im Live-Chat">
+                                    [Feedback] Eure Meinung zählt! - Teilt euer Feedback gerne im Live-Chat
                                 </option>
-                                <option value="6" data-title="Das war's!" data-description="Danke fürs Zuschauen!">
-                                    Das war's! - Danke fürs Zuschauen!
+                                <option value="ende1" data-title="Nächster Stream" data-description="XXX um XX:XX Uhr">
+                                    [Ende] Nächster Stream - XXX um XX:XX Uhr
+                                </option>
+                                <option value="ende2" data-title="Das war's!" data-description="Danke fürs Zuschauen!">
+                                    [Ende] Das war's! - Danke fürs Zuschauen!
+                                </option>
+                                <option value="ende3" data-title="Das war's!" data-description="Bis zur nächsten TamTour!">
+                                    [Ende] Das war's! - Bis zur nächsten TamTour!
                                 </option>
                             </select>
                             <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage laden" onclick="loadGeneralInfoOverlayPreset()">
