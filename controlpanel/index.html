@@ -571,6 +571,24 @@
                     </div>
                 </fieldset>
 
+                <!-- Time overlay -->
+                <fieldset class="obs-required droptarget collapsed">
+                    <legend>
+                        <span class="collapser" onclick="toggleCollapse(this)"></span>
+                        <b>Zeit-Overlay</b>
+                    </legend>
+                    <div class="mb-1">
+                        <div class="input-group">
+                            <button id="btn-show-time-overlay" class="btn btn-outline-success" onclick="showTimeOverlay()">
+                                Einblenden
+                            </button>
+                            <button id="btn-hide-time-overlay" class="btn btn-outline-danger" onclick="hideTimeOverlay()">
+                                Ausblenden
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+
                 <!-- Sponsorenanimation -->
                 <fieldset class="obs-required droptarget">
                     <legend>
@@ -940,6 +958,7 @@
     <script src="./static/js/overlay-startinfo.js"></script>
     <script src="./static/js/overlay-sponsors.js"></script>
     <script src="./static/js/overlay-settings.js"></script>
+    <script src="./static/js/overlay-time.js"></script>
     <script src="./static/js/atem-connection.js"></script>
     <script src="./static/js/atem-video.js"></script>
     <script src="./static/js/atem-upstreamkey.js"></script>
