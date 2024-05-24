@@ -28,6 +28,27 @@
 .z4 { z-index: 4; }
 .z5 { z-index: 5; }
 
+/* Time overlay */
+
+.timeoverlay {
+    display: flex;
+    justify-content: center;
+    transition: ease-in-out 1.5s top, ease-in-out 1.5s bottom;
+}
+
+.timeoverlay.out-top {
+    top: -5em;
+}
+
+.timeoverlay_block {
+    color: var(--tamtour-color-text);
+    background-color: var(--tamtour-color-background);
+    position: absolute;
+    top: 0;
+    padding: 8px 16px;
+    font-size: 40px;
+}
+
 /* Image overlay */
 
 #imageoverlay {
