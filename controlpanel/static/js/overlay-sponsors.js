@@ -2,8 +2,8 @@
 
 const SPONSORS_COOLDOWN = 15;
 
-var sponsorsoverlayInterval = null;
-var sponsorsoverlaySecondsRemaining = 0;
+let sponsorsOverlayInterval = null;
+let sponsorsOverlaySecondsRemaining = 0;
 
 async function playSponsorsAnimation() {
     let success = await obs.sendAction("playSponsorsAnimation");
@@ -32,33 +32,33 @@ function resetSponsorsVideoTimer() {
 
     let min = input.val() || 10;
 
-    sponsorsoverlaySecondsRemaining = min * 60 + 1;
+    sponsorsOverlaySecondsRemaining = min * 60 + 1;
     updateSponsorsVideoState();
 }
 
 function updateSponsorsVideoState() {
     let timer = $("#sponsors-interval-timer");
 
-    sponsorsoverlaySecondsRemaining = Math.floor(sponsorsoverlaySecondsRemaining);
-    sponsorsoverlaySecondsRemaining -= 1;
+    sponsorsOverlaySecondsRemaining = Math.floor(sponsorsOverlaySecondsRemaining);
+    sponsorsOverlaySecondsRemaining -= 1;
 
-    if (sponsorsoverlaySecondsRemaining < -SPONSORS_COOLDOWN) {
+    if (sponsorsOverlaySecondsRemaining < -SPONSORS_COOLDOWN) {
         resetSponsorsVideoTimer();
     }
 
-    let min = Math.floor(sponsorsoverlaySecondsRemaining / 60);
-    let sec = sponsorsoverlaySecondsRemaining % 60;
+    let min = Math.floor(sponsorsOverlaySecondsRemaining / 60);
+    let sec = sponsorsOverlaySecondsRemaining % 60;
 
-    if (sponsorsoverlaySecondsRemaining > 0) {
+    if (sponsorsOverlaySecondsRemaining > 0) {
         timer.val(`${min}m ${sec}s`);
-    } else if (sponsorsoverlaySecondsRemaining == 0) {
+    } else if (sponsorsOverlaySecondsRemaining === 0) {
         playSponsorsAnimation();
         timer.val("Animation gestartet");
     }
 }
 
 function startSponsorsVideoInterval() {
-    if (sponsorsoverlayInterval) return;
+    if (sponsorsOverlayInterval) return;
 
     $("#btn-start-sponsorsvideo-interval").addClass("d-none")
     $("#btn-stop-sponsorsvideo-interval").removeClass("d-none")
@@ -66,27 +66,31 @@ function startSponsorsVideoInterval() {
 
     resetSponsorsVideoTimer();
 
-    sponsorsoverlayInterval = setInterval(() => {
+    sponsorsOverlayInterval = setInterval(() => {
         updateSponsorsVideoState();
     }, 1000);
 }
 
 function stopSponsorsVideoInterval() {
-    if (!sponsorsoverlayInterval) return;
+    if (!sponsorsOverlayInterval) return;
 
-    clearInterval(sponsorsoverlayInterval);
-    sponsorsoverlayInterval = null;
+    clearInterval(sponsorsOverlayInterval);
+    sponsorsOverlayInterval = null;
 
     $("#btn-start-sponsorsvideo-interval").removeClass("d-none")
     $("#btn-stop-sponsorsvideo-interval").addClass("d-none")
     $("#sponsors-interval-input").prop("disabled", false)
     $("#sponsors-interval-timer").val("")
 
-    sponsorsoverlaySecondsRemaining = 0;
+    sponsorsOverlaySecondsRemaining = 0;
 }
 
 // Events
 
 obs.on('ConnectionClosed', () => {
     stopSponsorsVideoInterval();
+})
+
+obs.on('Identified', () => {
+    startSponsorsVideoInterval();
 })
