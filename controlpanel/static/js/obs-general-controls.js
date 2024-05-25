@@ -35,10 +35,10 @@ async function loadScenes() {
 }
 
 obs.on("SceneNameChanged", data => {
-    if (data.oldSceneName == programSceneDisplay.val()) {
+    if (data.oldSceneName === programSceneDisplay.val()) {
         programSceneDisplay.val(data.sceneName);
     }
-    if (data.oldSceneName == previewSceneSelect.val()) {
+    if (data.oldSceneName === previewSceneSelect.val()) {
         $(`#obs-scene-select-input option[value="${data.oldSceneName}"]`).val(data.sceneName).text(data.sceneName);
     }
 })
@@ -157,7 +157,7 @@ async function loadReplayBufferStatus() {
 
 obs.on("ReplayBufferStateChanged", loadReplayBufferStatus)
 obs.on("ReplayBufferSaved", data => {
-    // let path = data.savedReplayPath;
+    console.log("Replay saved to " + data.savedReplayPath)
     replayBufferSaveBtn.toggleClass("btn-success", true);
     replayBufferSaveBtn.toggleClass("btn-primary", false);
     setTimeout(() => {
@@ -216,7 +216,7 @@ function showStreamCongestion(congestion, reconnecting = false) {
         if (congestion === null) {
             r = 0;
             g = 0;
-        } else if (congestion == 0) {
+        } else if (congestion === 0) {
             r = 0;
             g = 255;
         } else {
@@ -224,6 +224,8 @@ function showStreamCongestion(congestion, reconnecting = false) {
             g = (1 - congestion) * 255;
         }
     }
+
+    $("#obs-rec-stream-fieldset").toggleClass("failing", reconnecting || congestion > 0);
 
     let elem = $("<div>", {
         style: `background-color: rgb(${r}, ${g}, ${b});`
@@ -233,7 +235,7 @@ function showStreamCongestion(congestion, reconnecting = false) {
     if (streamCongestionHistory.length > 60) {
         streamCongestionHistory.shift();
         streamCongestionHistoryRow.children().first().remove();
-    };
+    }
 }
 
 obs.on("StreamStateChanged", loadStreamStatus);
@@ -270,21 +272,21 @@ function displayVolumeMeter(data) {
     let ch2peaks = [];
 
     for (let src of data.inputs) {
-        if (src.inputLevelsMul.length == 0) continue;
+        if (src.inputLevelsMul.length === 0) continue;
 
         ch1peaks.push(src.inputLevelsMul[0][1]);
         ch2peaks.push(src.inputLevelsMul[0][1]);
     }
 
     // If no sources are active, the array will be empty
-    if (ch1peaks.length == 0) {
+    if (ch1peaks.length === 0) {
         ch1peaks.push(0);
         ch2peaks.push(0);
     }
 
     // Convert to dB
-    var ch1peakdB = 20 * Math.log10(Math.max(...ch1peaks));
-    var ch2peakdB = 20 * Math.log10(Math.max(...ch2peaks));
+    let ch1peakdB = 20 * Math.log10(Math.max(...ch1peaks));
+    let ch2peakdB = 20 * Math.log10(Math.max(...ch2peaks));
 
     // Make clipping stay longer
     ch1peakdB = ch1peakdB === 0 ? 20 : ch1peakdB;
@@ -322,7 +324,7 @@ obs.on('Identified', () => {
     
     obsInterval = setInterval(() => {
         if (recordActive) loadRecordStatus();
-        if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)};
+        if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)}
         if (liveScreenshotsEnabled) getLiveScreenshots();
     }, 1000);
 

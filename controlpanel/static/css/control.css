@@ -1,6 +1,5 @@
 /* Fieldset design - Revert Bootstrap style */
 
-
 fieldset {
     position: relative;
     min-width: revert;
@@ -109,7 +108,7 @@ fieldset.collapsed > legend > .collapser::before {
     display: none;
 }
 
-/* Conntected/not connected fieldset design */
+/* Connected/not connected fieldset design */
 
 body:not(.obs-connected) fieldset.obs-required::before,
 body:not(.atem-connected) fieldset.atem-required::before {
@@ -136,7 +135,7 @@ body:not(.atem-connected) fieldset.atem-required::before {
 #obs-stream-congestion-history-row > div {
     flex-grow: 1;
     flex-shrink: 1;
-    height: 7.5px;
+    height: 7px;
 }
 
 #obs-stream-congestion-history-row > div:first-child {
@@ -215,22 +214,28 @@ body:not(.atem-connected) fieldset.atem-required::before {
   }
 }
 
-/* ATEM Failing animation */
+/* Failing animation */
 
 .failing {
+    --failing-color: rgba(255, 255, 255, 0.05);
     background-image: linear-gradient(
         -45deg,
-        rgba(255, 255, 255, 0.05) 25%,
+        var(--failing-color) 25%,
         transparent 25%,
         transparent 50%,
-        rgba(255, 255, 255, 0.05) 50%,
-        rgba(255, 255, 255, 0.05) 75%,
+        var(--failing-color) 50%,
+        var(--failing-color) 75%,
         transparent 75%,
         transparent
     );
     z-index: 1;
     background-size: 50px 50px;
     animation: background-move 1.5s linear infinite, pulse 0.5s infinite;
+}
+
+fieldset.failing {
+    --failing-color: rgba(255, 0, 0, 0.5);
+    border-color: var(--failing-color);
 }
 
 /* ATEM Controls */
