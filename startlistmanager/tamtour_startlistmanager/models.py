@@ -1,6 +1,7 @@
 from datetime import time
 
 from django.db import models
+from .enums import Kompositionstyp
 
 
 # Create your models here.
@@ -9,6 +10,9 @@ from django.db import models
 class WettspielKategorie(models.Model):
     titel = models.CharField(max_length=50)
     kurzform = models.CharField(max_length=10)
+
+    default_composition_type = models.CharField(choices=Kompositionstyp, default=Kompositionstyp.TAMBOUR, max_length=5,
+                                                verbose_name="Kompositionstyp")
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -50,11 +54,6 @@ class Wettspieler(models.Model):
 
 
 class Komposition(models.Model):
-    class Kompositionstyp(models.TextChoices):
-        TAMBOUR = "T", "Tambour"
-        PFEIFER = "P", "Pfeifer"
-        SOLO_DUO = "SD", "Solo Duo (Piccolo / Tambour)"
-
     typ = models.CharField(choices=Kompositionstyp, default=Kompositionstyp.TAMBOUR, max_length=5)
 
     klakomtitel = models.CharField(max_length=50)

@@ -39,16 +39,21 @@ class Command(CustomCommandBase):
                 category_cache[category_short] = None
         return category_cache[category_short]
 
-    def _get_composition(self, composition_name):
-        if composition_name not in composition_cache:
+    def _get_composition(self, composition_type, composition_name):
+        if composition_type not in composition_cache:
+            composition_cache[composition_type] = {}
+        if composition_name not in composition_cache[composition_type]:
             try:
-                composition_cache[composition_name] = Komposition.objects.filter(klakomtitel=composition_name).first()
+                composition_cache[composition_type][composition_name] = Komposition.objects.get(
+                    typ=composition_type,
+                    klakomtitel=composition_name
+                )
             except Komposition.DoesNotExist:
-                self._error(f"Composition not found: {composition_name}")
+                self._error(f"Composition not found: {composition_name} (type: {composition_type})")
                 correct_name = input("Enter correct name: ")
-                correct_comp = self._get_composition(correct_name)
-                composition_cache[composition_name] = correct_comp
-        return composition_cache[composition_name]
+                correct_comp = self._get_composition(composition_type, correct_name)
+                composition_cache[composition_type][composition_name] = correct_comp
+        return composition_cache[composition_type][composition_name]
 
     def _parse_start_cat(self, text, default_category=None):
         """Parses start number and category from text"""
@@ -170,8 +175,9 @@ class Command(CustomCommandBase):
                 compositions = compositions.split("/")
 
                 for mc in range(multi_count):
-                    composition = compositions[composition_offset + mc].strip()
-                    composition = self._get_composition(composition)
+                    composition_name = compositions[composition_offset + mc].strip()
+                    composition_type = parsed_data[mc][rowindex].kategorie.default_composition_type
+                    composition = self._get_composition(composition_type, composition_name)
                     parsed_data[mc][rowindex].komposition = composition
 
         # Step 3: Create the actual start lists

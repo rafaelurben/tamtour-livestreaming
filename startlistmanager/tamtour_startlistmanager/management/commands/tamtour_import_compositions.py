@@ -7,6 +7,7 @@ Note: This script is interactive!
 from django.apps import apps
 from django.db import IntegrityError
 
+from tamtour_startlistmanager.enums import Kompositionstyp
 from tamtour_startlistmanager.management.commands._base import CustomCommandBase
 
 
@@ -14,7 +15,7 @@ class Command(CustomCommandBase):
     help = "Import compositions from tables"
 
     def add_arguments(self, parser):
-        parser.add_argument("type", type=str, choices=("T", "P", "SD"),
+        parser.add_argument("type", type=str, choices=Kompositionstyp.values,
                             help="Composition type")
 
     def handle(self, *args, **options):

@@ -11,9 +11,10 @@ from .views import startliste_duplizieren, startliste_drucken
 
 @admin.register(WettspielKategorie)
 class WettspielKategorieAdmin(admin.ModelAdmin):
-    list_display = ("pk", "titel", "kurzform")
-    list_editable = ("titel", "kurzform")
+    list_display = ("pk", "titel", "kurzform", "default_composition_type")
+    list_editable = ("titel", "kurzform", "default_composition_type")
     search_fields = ("titel", "kurzform")
+    list_filter = ("default_composition_type", )
 
 
 @admin.register(Wettspieler)
