@@ -113,7 +113,7 @@ function loadStartlistsFromURL(initial) {
 function loadStartlistsFromData(data, initial) {
     let startlists = data.lists;
 
-    if (!startlists || startlists.length == 0) {
+    if (!startlists || startlists.length === 0) {
         alert("Keine Startlisten gefunden!");
         return;
     }
@@ -125,8 +125,7 @@ function loadStartlistsFromData(data, initial) {
 
     for (let lid in startlists) {
         let startlist = startlists[lid];
-        let name = startlist.description ? `${startlist.name} [${startlist.description}]` : startlist.name;
-        startlistSelect.append($("<option>", { value: lid, text: name }));
+        startlistSelect.append($("<option>", { value: lid, text: startlist.name }));
     }
 
     let storedval = sessionStorage.getItem("tamtour-startlist-id");
@@ -141,8 +140,8 @@ function loadStartlist(initial) {
     let startlist = window.tamtour_startlists[lid];
     let startlistitems = startlist.items;
 
-    // Reset startlist title
-    $("#startlist-form-title").val("");
+    // Set startlist title
+    $("#startlist-form-title").val(startlist.overlay_title);
 
     let startlistitemSelect = $("#startlistitem-select-input");
     startlistitemSelect.empty();

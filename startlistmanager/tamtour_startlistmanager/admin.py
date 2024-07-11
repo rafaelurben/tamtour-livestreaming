@@ -32,8 +32,8 @@ class WettspielerAdmin(admin.ModelAdmin):
 
 @admin.register(Komposition)
 class KompositionenAdmin(admin.ModelAdmin):
-    list_display = ("pk", "klakomtitel", "titel", "komponist")
-    list_editable = ("klakomtitel", "titel", "komponist")
+    list_display = ("pk", "klakomtitel", "titel", "komponist", "typ")
+    list_editable = ("klakomtitel", "titel", "komponist", "typ")
     list_filter = ("typ",)
     search_fields = ("klakomtitel", "titel", "komponist")
 
@@ -61,7 +61,8 @@ class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
 
 @admin.register(Startliste)
 class StartlistenAdmin(admin.ModelAdmin):
-    list_display = ("titel", "beschreibung", "datum", "visible")
+    list_display = ("titel", "visible", "overlay_title", "beschreibung")
+    list_editable = ("overlay_title", "visible")
 
     inlines = (StartlistenAdminStartlistenEintragInline,)
 

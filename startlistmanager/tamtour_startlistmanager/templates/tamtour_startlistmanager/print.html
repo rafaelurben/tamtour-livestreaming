@@ -1,157 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ startliste.titel }} | Startliste TamTour</title>
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="robots" content="noindex, nofollow"/>
 
     <style>
-      * {
-        font-family: Arial, Helvetica, sans-serif;
-        box-sizing: border-box;
-      }
-
-      @page {
-        size: A4 portrait;
-        margin-top: 25mm;
-        margin-bottom: 25mm;
-        margin-right: 15mm;
-        margin-left: 15mm;
-
-        @top-left {
-            content: "Startliste {{ startliste.titel }}";
-            font-weight: bold;
-            font-size: 1.5em;
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
         }
 
-        @top-right {
-            content: "Seite " counter(page) " von " counter(pages);
+        @page {
+            size: A4 portrait;
+            margin: 25mm 15mm;
+
+            @top-left {
+                content: "Startliste {{ startliste.titel }}";
+                font-weight: bold;
+                font-size: 1.5em;
+            }
+
+            @top-right {
+                content: "Seite " counter(page) " von " counter(pages);
+            }
+
+            @bottom-right {
+                content: "Generiert am {% now "d.m.Y H:i" %}";
+                color: #000000a0;
+                font-size: 0.8em;
+            }
+
+            @bottom-left {
+                content: "TamTour Startlistengenerator - Rafael Urben";
+                color: #000000a0;
+                font-size: 0.8em;
+            }
         }
-        
-        @bottom-right {
-            content: "Generiert am {% now "d.m.Y H:i" %}";
-            color: #000000a0;
-            font-size: 0.8em;
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: {{ request.GET.font_size|default:"10pt" }};
         }
 
-        @bottom-left {
-            content: "TamTour Startlistengenerator - Rafael Urben";
-            color: #000000a0;
-            font-size: 0.8em;
+        tbody th,
+        tbody td {
+            break-inside: avoid;
+            text-align: left;
+            padding: 5px;
         }
-      }
 
-      table {
-        border-collapse: collapse;
-        width: 100%;
-        font-size: {{ request.GET.font_size|default:"10pt" }};
-      }
+        tbody th {
+            border-top: 3px solid black;
+            border-bottom: 3px solid black;
+        }
 
-      tbody th,
-      tbody td {
-        break-inside: avoid;
-        text-align: left;
-        padding: 5px;
-      }
-
-      tbody th {
-        border-top: 3px solid black;
-        border-bottom: 3px solid black;
-      }
-
-      tr {
-        break-inside: avoid;
-
-        &.item-row {
+        tr {
             break-inside: avoid;
 
-            & td {
-              border-top: 2px solid black;
+            &.item-row {
+                break-inside: avoid;
+
+                & td {
+                    border-top: 2px solid black;
+                }
+
+                &:not(.is-group) td {
+                    border-bottom: 2px solid black;
+                }
+
+                &.is-group {
+                    break-after: avoid;
+
+                    & td:not(.composition-info) {
+                        border-bottom: 1px dashed black;
+                    }
+                }
             }
 
-            &:not(.is-group) td {
-                border-bottom: 2px solid black;
-            }
+            &.group-members-row {
+                break-before: avoid;
 
-            &.is-group {
-              break-after: avoid;
-
-              & td:not(.composition-info) {
-                border-bottom: 1px dashed black;
-              }
-            }
-        } 
-
-        &.group-members-row {
-            break-before: avoid;
-
-            & td {
-                border-top: 1px dashed black;
-                border-bottom: 2px solid black;
+                & td {
+                    border-top: 1px dashed black;
+                    border-bottom: 2px solid black;
+                }
             }
         }
-      }
 
-      .componist {
-        font-style: italic;
-      }
+        .componist {
+            font-style: italic;
+        }
 
-      .composition-info {
-        border-bottom: 2px solid black;
-      }
+        .composition-info {
+            border-bottom: 2px solid black;
+        }
+
+        .description {
+            width: 100%;
+            margin: 0;
+            padding: 1.5em 0 0;
+            white-space: pre-line;
+        }
+
+        .description:empty {
+            padding: 0;
+        }
     </style>
-  </head>
-  <body>
-    <table>
-      <tbody>
-        <tr>
-          <th style="width: 1px">Zeit</th>
-          <th>Kat/Nr</th>
-          <th>Name</th>
-          <th>Verein</th>
-          <th>Komposition</th>
-        </tr>
-        {% for item in startliste.items.all %}
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <th style="width: 1px">Zeit</th>
+        <th>Kat/Nr</th>
+        <th>Name</th>
+        <th>Verein</th>
+        <th>Komposition</th>
+    </tr>
+    {% for item in startliste.items.all %}
         <tr class="item-row {% if item.wettspieler.is_group %}is-group{% endif %}">
-          <td style="width: 1px">{{ item.zeit | date:"H:i" }}</td>
-          <td style="width: 1px">
-            {{ item.kategorie.kurzform }}#{{ item.startnummer }}
-          </td>
-          <td>
-            {{ item.wettspieler.name }}
-          </td>
-          <td>{{ item.wettspieler.verein }}</td>
-          <td class="composition-info" {% if item.wettspieler.is_group %}rowspan="2"{% endif %}>
-            {% if item.komposition %}
-              <span class="composition">{{ item.komposition.titel }}</span><br />
-              <span class="componist">- {{ item.komposition.komponist }}</span>
-            {% endif %}
-          </td>
+            <td style="width: 1px">{{ item.zeit | date:"H:i" }}</td>
+            <td style="width: 1px">
+                {{ item.kategorie.kurzform }}#{{ item.startnummer }}
+            </td>
+            <td>
+                {{ item.wettspieler.name }}
+            </td>
+            <td>{{ item.wettspieler.verein }}</td>
+            <td class="composition-info" {% if item.wettspieler.is_group %}rowspan="2"{% endif %}>
+                {% if item.komposition %}
+                    <span class="composition">{{ item.komposition.titel }}</span><br/>
+                    <span class="componist">- {{ item.komposition.komponist }}</span>
+                {% endif %}
+            </td>
         </tr>
 
         {% if item.wettspieler.is_group %}
-        <tr class="group-members-row">
-          <td colspan="2"></td>
-          <td colspan="2">{{ item.wettspieler.group_members }}</td>
-        </tr>
+            <tr class="group-members-row">
+                <td colspan="2"></td>
+                <td colspan="2">{{ item.wettspieler.group_members }}</td>
+            </tr>
         {% endif %} {% endfor %}
-      </tbody>
-    </table>
+    </tbody>
+</table>
 
-    {% load static %}
-    <script src="{% static "tamtour_startlistmanager/external/paged.polyfill.min.js" %}"></script>
-    <script>
-      class MyHandler extends Paged.Handler {
+<p class="description">{{ startliste.beschreibung }}</p>
+
+{% load static %}
+<script src="{% static "tamtour_startlistmanager/external/paged.polyfill.min.js" %}"></script>
+<script>
+    class MyHandler extends Paged.Handler {
         constructor(chunker, polisher, caller) {
-          super(chunker, polisher, caller);
+            super(chunker, polisher, caller);
         }
 
         afterPreview(pages) {
-          window.print()
+            window.print()
         }
-      }
-      Paged.registerHandlers(MyHandler);
-    </script>
-  </body>
+    }
+
+    Paged.registerHandlers(MyHandler);
+</script>
+</body>
 </html>

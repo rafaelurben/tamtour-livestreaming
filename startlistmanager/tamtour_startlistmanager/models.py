@@ -79,8 +79,11 @@ class Komposition(models.Model):
 
 class Startliste(models.Model):
     titel = models.CharField(max_length=50)
-    beschreibung = models.TextField(default="", blank=True)
+    beschreibung = models.TextField(default="", blank=True, help_text="Wird auf Startliste gedruckt")
     datum = models.DateField()
+
+    overlay_title = models.CharField(max_length=30, default="", blank=True, verbose_name=
+                                     "Overlay-Titel", help_text="In Startlisten-Overlay verwendet")
 
     visible = models.BooleanField(
         default=True,
@@ -117,6 +120,7 @@ class Startliste(models.Model):
         return {
             "name": self.titel,
             "description": self.beschreibung,
+            "overlay_title": self.overlay_title,
             "items": list(
                 map(
                     lambda item: item.as_dict(),
