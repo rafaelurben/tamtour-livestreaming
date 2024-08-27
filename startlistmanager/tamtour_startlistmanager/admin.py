@@ -1,7 +1,9 @@
 from django.contrib import admin
+from django.contrib.admin import display
 from django.db import models
-from django.urls import path
+from django.urls import path, reverse
 from django import forms
+from django.utils.html import format_html
 
 from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag
 from .views import startliste_duplizieren, startliste_drucken
@@ -14,7 +16,7 @@ class WettspielKategorieAdmin(admin.ModelAdmin):
     list_display = ("pk", "titel", "kurzform", "default_composition_type")
     list_editable = ("titel", "kurzform", "default_composition_type")
     search_fields = ("titel", "kurzform")
-    list_filter = ("default_composition_type", )
+    list_filter = ("default_composition_type",)
 
 
 @admin.register(Wettspieler)
@@ -61,7 +63,7 @@ class StartlistenAdminStartlistenEintragInline(admin.TabularInline):
 
 @admin.register(Startliste)
 class StartlistenAdmin(admin.ModelAdmin):
-    list_display = ("titel", "visible", "overlay_title", "beschreibung")
+    list_display = ("titel", "visible", "overlay_title", "beschreibung", "print_link")
     list_editable = ("overlay_title", "visible")
 
     inlines = (StartlistenAdminStartlistenEintragInline,)
@@ -78,3 +80,12 @@ class StartlistenAdmin(admin.ModelAdmin):
                  name='%s_%s_drucken' % info),
         ]
         return my_urls + urls
+
+    @display(description="Drucken")
+    def print_link(self, obj: Startliste):
+        info = self.model._meta.app_label, self.model._meta.model_name
+        url = reverse(
+            "admin:%s_%s_drucken" % info, args=[obj.pk]
+        )
+        print(url)
+        return format_html('<a href="{}" target="_blank" title="Startliste drucken">🖨</a>️', url)
