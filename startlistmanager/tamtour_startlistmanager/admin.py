@@ -87,5 +87,4 @@ class StartlistenAdmin(admin.ModelAdmin):
         url = reverse(
             "admin:%s_%s_drucken" % info, args=[obj.pk]
         )
-        print(url)
         return format_html('<a href="{}" target="_blank" title="Startliste drucken">🖨</a>️', url)
