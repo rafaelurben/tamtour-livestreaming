@@ -280,7 +280,7 @@
         <div class="d-flex flex-row gap-2 flex-wrap">
             <button class="btn btn-secondary flex-grow-0 whiteicon centericon" onclick="window.open('https://rafaelurben.ch/tamtour-livestreaming/', '_blank')" title="Infos">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="20px" width="20px">
-                    <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+                    <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
                 </svg>
             </button>
             <button id="open-obs-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal" data-bs-target="#obs-dialog" type="button">
@@ -292,7 +292,7 @@
             <button class="btn btn-secondary flex-grow-0 whiteicon centericon" onclick="toggleFullScreen();" title="Vollbild">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="24px" width="24px">
                     <path fill="white"
-                        d="M200-200v-200h80v120h120v80H200Zm0-360v-200h200v80H280v120h-80Zm360 360v-80h120v-120h80v200H560Zm120-360v-120H560v-80h200v200h-80Z" />
+                        d="M200-200v-200h80v120h120v80H200Zm0-360v-200h200v80H280v120h-80Zm360 360v-80h120v-120h80v200H560Zm120-360v-120H560v-80h200v200h-80Z"></path>
                 </svg>
             </button>
         </div>
@@ -319,21 +319,21 @@
                                 id="btn-previous-startlistitem" onclick="previousStartlistitem()" title="Vorherige Position">
                                 <!-- Left icon (west) -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="M360-200 80-480l280-280 56 56-183 184h647v80H233l184 184-57 56Z" />
+                                    <path d="M360-200 80-480l280-280 56 56-183 184h647v80H233l184 184-57 56Z"></path>
                                 </svg>
                             </button>
                             <button class="btn btn-outline-secondary nostartlistdisabled whiteicon-darkonly centericon" disabled type="button"
                                 onclick="loadStartlistitem()" title="Position laden">
                                 <!-- Down icon (south) -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z" />
+                                    <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z"></path>
                                 </svg>
                             </button>
                             <button class="btn btn-outline-secondary nostartlistdisabled whiteicon-darkonly centericon" disabled type="button"
                                 id="btn-next-startlistitem" onclick="nextStartlistitem()" title="Nächste Position">
                                 <!-- Right icon (east) -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="m600-200-57-56 184-184H80v-80h647L544-704l56-56 280 280-280 280Z" />
+                                    <path d="m600-200-57-56 184-184H80v-80h647L544-704l56-56 280 280-280 280Z"></path>
                                 </svg>
                             </button>
                         </div>
@@ -342,7 +342,7 @@
                         <div class="mb-1 d-flex flex-row gap-2">
                             <div class="input-group">
                                 <button id="btn-show-startinfo-overlay" class="btn btn-outline-success flex-fill"
-                                    onclick="showStartInfoOverlay()">
+                                    onclick="cancelSponsorsAnimation(); showStartInfoOverlay()">
                                     Einblenden
                                 </button>
                                 <button id="btn-hide-startinfo-overlay" class="btn btn-outline-danger flex-fill"
@@ -355,7 +355,7 @@
                                 <input type="number" class="form-control" id="startinfo-form-duration" placeholder="7.5" value="7.5"
                                     min="2" max="20" step="0.5">
                                 <button id="btn-display-startinfo-overlay" class="btn btn-primary"
-                                    onclick="displayStartInfoOverlay()">
+                                    onclick="cancelSponsorsAnimation(); displayStartInfoOverlay()">
                                     Anzeigen
                                 </button>
                             </div>
@@ -403,7 +403,7 @@
                                 <button class="btn btn-secondary nostartlistdisabled" onclick="showStartListPreview();">
                                     Vorschau
                                 </button>
-                                <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled" onclick="playStartListAnimation()">
+                                <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled" onclick="cancelSponsorsAnimation(); hideTimeOverlay(); playStartListAnimation()">
                                     Anzeigen
                                 </button>
                                 <button id="btn-cancel-startlist-overlay" class="btn btn-outline-danger nostartlistdisabled" onclick="cancelStartListAnimation()">
@@ -426,13 +426,13 @@
                             <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage speichern" onclick="addGeneralInfoOverlayPreset()">
                                 <!-- Save icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z" />
+                                    <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"></path>
                                 </svg>
                             </button>
                             <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage löschen" onclick="removeGeneralInfoOverlayPreset()">
                                 <!-- Trash icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"></path>
                                 </svg>
                             </button>
                             <select id="general-info-overlay-presets" class="form-select" onchange="loadGeneralInfoOverlayPreset()">
@@ -467,7 +467,7 @@
                             <button class="btn btn-outline-secondary whiteicon-darkonly centericon" type="button" title="Vorlage laden" onclick="loadGeneralInfoOverlayPreset()">
                                 <!-- Down (south) icon -->
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20">
-                                    <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z" />
+                                    <path d="M480-80 200-360l56-56 184 183v-647h80v647l184-184 56 57L480-80Z"></path>
                                 </svg>
                             </button>
                         </div>
@@ -689,7 +689,7 @@
                                 <div class="input-group" id="obs-record-status-display-group">
                                     <span class="input-group-text whiteicon-darkonly">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="16px" width="16px">
-                                            <path d="M480-294q78 0 132-54t54-132q0-78-54-132t-132-54q-78 0-132 54t-54 132q0 78 54 132t132 54Zm0 214q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Zm0-60q142 0 241-99.5T820-480q0-142-99-241t-241-99q-141 0-240.5 99T140-480q0 141 99.5 240.5T480-140Zm0-340Z" />
+                                            <path d="M480-294q78 0 132-54t54-132q0-78-54-132t-132-54q-78 0-132 54t-54 132q0 78 54 132t132 54Zm0 214q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Zm0-60q142 0 241-99.5T820-480q0-142-99-241t-241-99q-141 0-240.5 99T140-480q0 141 99.5 240.5T480-140Zm0-340Z"></path>
                                         </svg>
                                     </span>
                                     <button id="obs-record-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
@@ -704,7 +704,7 @@
                                 <div class="input-group" id="obs-replaybuffer-status-display-group">
                                     <span class="input-group-text whiteicon-darkonly">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="16px" width="16px">
-                                            <path d="M480-80q-75 0-140.5-28T225-185q-49-49-77-114.5T120-440h60q0 125 87.5 212.5T480-140q125 0 212.5-87.5T780-440q0-125-85-212.5T485-740h-23l73 73-41 42-147-147 147-147 41 41-78 78h23q75 0 140.5 28T735-695q49 49 77 114.5T840-440q0 75-28 140.5T735-185q-49 49-114.5 77T480-80Z" />
+                                            <path d="M480-80q-75 0-140.5-28T225-185q-49-49-77-114.5T120-440h60q0 125 87.5 212.5T480-140q125 0 212.5-87.5T780-440q0-125-85-212.5T485-740h-23l73 73-41 42-147-147 147-147 41 41-78 78h23q75 0 140.5 28T735-695q49 49 77 114.5T840-440q0 75-28 140.5T735-185q-49 49-114.5 77T480-80Z"></path>
                                         </svg>
                                     </span>
                                     <button id="obs-replaybuffer-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
@@ -715,7 +715,7 @@
                                     <button id="obs-replaybuffer-save-btn" class="btn btn-primary form-control w-auto flex-grow-0 whiteicon centericon"
                                         onclick="obs.sendCommand('SaveReplayBuffer')">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="20px" width="20px">
-                                            <path  d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.765-245Q523-245 553.5-275.265q30.5-30.264 30.5-73.5Q584-392 553.735-422.5q-30.264-30.5-73.5-30.5Q437-453 406.5-422.735q-30.5 30.264-30.5 73.5Q376-306 406.265-275.5q30.264 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z" />
+                                            <path  d="M840-683v503q0 24-18 42t-42 18H180q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h503l157 157Zm-60 27L656-780H180v600h600v-476ZM479.765-245Q523-245 553.5-275.265q30.5-30.264 30.5-73.5Q584-392 553.735-422.5q-30.264-30.5-73.5-30.5Q437-453 406.5-422.735q-30.5 30.264-30.5 73.5Q376-306 406.265-275.5q30.264 30.5 73.5 30.5ZM233-584h358v-143H233v143Zm-53-72v476-600 124Z"></path>
                                         </svg>
                                     </button>
                                 </div>
@@ -725,7 +725,7 @@
                                 <div class="input-group" id="obs-stream-status-display-group">
                                     <span class="input-group-text whiteicon-darkonly">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" height="16px" width="16px">
-                                            <path d="M40-480q0-92 34.5-172T169-791.5q60-59.5 140-94T480-920q91 0 171 34.5t140 94Q851-732 885.5-652T920-480h-60q0-79.194-29.971-148.357t-81.5-120.903Q697-801 627.5-830.5 558-860 479.878-860q-78.122 0-147.271 29.455-69.148 29.454-120.878 81Q160-698 130-628.684 100-559.369 100-480H40Zm175 0q0-111 77.652-188 77.651-77 187.5-77Q590-745 667.5-668 745-591 745-480h-60q0-86-59.947-145.5t-145-59.5Q395-685 335-625.5T275-480h-60ZM360-64l-42-42 132-132v-156q-27-12-43.5-35.5T390-480q0-37.8 26.141-63.9t64-26.1Q518-570 544-543.9t26 63.9q0 27-16.5 50.5T510-394v156l132 132-42 42-120-120L360-64Z" />
+                                            <path d="M40-480q0-92 34.5-172T169-791.5q60-59.5 140-94T480-920q91 0 171 34.5t140 94Q851-732 885.5-652T920-480h-60q0-79.194-29.971-148.357t-81.5-120.903Q697-801 627.5-830.5 558-860 479.878-860q-78.122 0-147.271 29.455-69.148 29.454-120.878 81Q160-698 130-628.684 100-559.369 100-480H40Zm175 0q0-111 77.652-188 77.651-77 187.5-77Q590-745 667.5-668 745-591 745-480h-60q0-86-59.947-145.5t-145-59.5Q395-685 335-625.5T275-480h-60ZM360-64l-42-42 132-132v-156q-27-12-43.5-35.5T390-480q0-37.8 26.141-63.9t64-26.1Q518-570 544-543.9t26 63.9q0 27-16.5 50.5T510-394v156l132 132-42 42-120-120L360-64Z"></path>
                                         </svg>
                                     </span>
                                     <button id="obs-stream-start-btn" class="btn btn-success form-control h-100 w-auto flex-grow-0 d-none"
@@ -836,7 +836,7 @@
                     <div class="d-flex flex-column gap-1">
                         <div class="d-flex flex-row gap-1">
                             <div class="input-group" style="width: max-content;">
-                                <select  id="atem-transition-style-select" class="form-select form-select-sm" style="max-width: 5rem">
+                                <select id="atem-transition-style-select" class="form-select form-select-sm" style="max-width: 5rem">
                                     <option value="0">MIX</option>
                                     <option value="1">DIP</option>
                                     <option value="2">WIPE</option>
