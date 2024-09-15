@@ -48,3 +48,9 @@ $(document).ready(function () {
         $dragging.insertBefore($(this));
     });
 });
+
+// Prevent accidental reload/close
+
+$(window).on("beforeunload", (e) => {
+    e.preventDefault();
+});
