@@ -20,7 +20,7 @@ function _updateScenePanel(data) {
 
     let newPreviewScene = data.currentPreviewSceneName || oldPreviewScene;
     previewSceneSelect.val(newPreviewScene);
-    
+
     if (data.currentProgramSceneName) {
         programSceneDisplay.val(data.currentProgramSceneName);
     }
@@ -113,7 +113,7 @@ async function loadRecordStatus() {
     if (recordActive) {
         recordStartBtn.toggleClass("d-none", true);
         recordStopBtn.toggleClass("d-none", false);
-        
+
         let recTsp = recDat.outputTimecode.split(".")[0];
         let recMB = (recDat.outputBytes / 1024 / 1024).toFixed(3);
         var txt = `${recTsp} (${recMB} MB)`;
@@ -268,20 +268,14 @@ function displayVolumeMeter(data) {
     //            * Not Muted *      * Muted *
     // Example: [[0.3, 0.5, 0.9], [0.0, 0.0, 0.0]]
 
-    let ch1peaks = [];
-    let ch2peaks = [];
+    let ch1peaks = [0];
+    let ch2peaks = [0];
 
     for (let src of data.inputs) {
         if (src.inputLevelsMul.length === 0) continue;
 
         ch1peaks.push(src.inputLevelsMul[0][1]);
-        ch2peaks.push(src.inputLevelsMul[0][1]);
-    }
-
-    // If no sources are active, the array will be empty
-    if (ch1peaks.length === 0) {
-        ch1peaks.push(0);
-        ch2peaks.push(0);
+        ch2peaks.push(src.inputLevelsMul[src.inputLevelsMul.length > 1 ? 1 : 0][1]);
     }
 
     // Convert to dB
@@ -321,7 +315,7 @@ obs.on('Identified', () => {
     loadRecordStatus();
     loadReplayBufferStatus();
     loadStreamStatus();
-    
+
     obsInterval = setInterval(() => {
         if (recordActive) loadRecordStatus();
         if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)}
