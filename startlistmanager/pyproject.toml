@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tamtour_startlistmanager"
+description = "Startlistenmanager für die TamTour"
+readme = "README.md"
+authors = [{ name = "Rafael Urben", email = "github@rafaelurben.ch" }]
+maintainers = [{ name = "Rafael Urben", email = "github@rafaelurben.ch" }]
+license = { text = "MIT License" }
+requires-python = ">= 3.10"
+dependencies = ["Django>=4.2"]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://www.rafaelurben.ch/tamtour-livestreaming/"
+GitHub = "https://github.com/rafaelurben/tamtour-livestreaming/"
+Issues = "https://github.com/rafaelurben/tamtour-livestreaming/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages]
+find = { namespaces = false }
+
+[tool.setuptools.dynamic]
+version = { file = ["_version.txt"] }
