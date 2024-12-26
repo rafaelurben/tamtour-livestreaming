@@ -5,7 +5,8 @@ from django.urls import path, reverse
 from django import forms
 from django.utils.html import format_html
 
-from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag
+from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag, ApiKey, YTAccount, \
+    YTStreamGroup, YTStream, YTStreamStartTimeLog
 from .views import startliste_duplizieren, startliste_drucken
 
 
@@ -88,3 +89,63 @@ class StartlistenAdmin(admin.ModelAdmin):
             "admin:%s_%s_drucken" % info, args=[obj.pk]
         )
         return format_html('<a href="{}" target="_blank" title="Startliste drucken">🖨</a>️', url)
+
+
+# API models
+
+@admin.register(ApiKey)
+class ApiKeyAdmin(admin.ModelAdmin):
+    list_display = ['name', 'valid_until']
+    search_fields = ['name', 'valid_until', 'key']
+    readonly_fields = ['key']
+    fieldsets = [
+        (None, {"fields": ["name", "valid_until"]}),
+        ("Token", {"fields": ["key"], "classes": ["collapse"]})
+    ]
+
+
+# YT API integration models
+
+@admin.register(YTAccount)
+class YTAccountAdmin(admin.ModelAdmin):
+    list_display = ['name', 'yt_account_id']
+    fieldsets = [
+        (None, {"fields": ["name", "yt_account_id"]}),
+        ("Tokens", {"fields": ["refresh_token", "access_token"], "classes": ["collapse"]})
+    ]
+
+
+class YTStreamGroupAdminStreamInline(admin.StackedInline):
+    model = YTStream
+    extra = 0
+    fields = [('name_in_timetable', 'show_in_timetable'), ('yt_title', 'yt_id'), ('description_head', 'description_foot'),
+              ('scheduled_start_time', 'scheduled_end_time')]
+    show_change_link = True
+
+
+@admin.register(YTStreamGroup)
+class YTStreamGroupAdmin(admin.ModelAdmin):
+    inlines = [YTStreamGroupAdminStreamInline]
+
+
+class YTStreamAdminStartTimeLogInline(admin.TabularInline):
+    model = YTStreamStartTimeLog
+    extra = 0
+    fields = ['timestamp', 'content']
+
+
+@admin.register(YTStream)
+class YTStreamAdmin(admin.ModelAdmin):
+    inlines = [YTStreamAdminStartTimeLogInline]
+    list_display = ['yt_title', 'yt_id', 'scheduled_start_time', 'scheduled_end_time']
+    search_fields = ['yt_title', 'yt_id']
+
+    fieldsets = [
+        (None, {"fields": ["group"]}),
+        ("Info", {"fields": ["yt_title", "description_head", "description_foot"]}),
+        ("Zeitplan", {"fields": ["show_in_timetable", "name_in_timetable"]}),
+        ("Geplante Zeiten", {"fields": ["scheduled_start_time", "scheduled_end_time"]}),
+        ("YT Daten", {"fields": ["yt_id", "actual_start_time"]}),
+        ("Berechnet", {"fields": ["get_stream_description"]})
+    ]
+    readonly_fields = ['get_stream_description']
