@@ -1,0 +1,12 @@
+{% extends 'admin/change_form.html' %}
+
+{% block object-tools-items %}
+    {% if change %}
+        <li>
+            <abbr title="Authentifizieren">
+                <a href="{% url 'admin:tamtour_startlistmanager_ytaccount_oauth_start' object_id %}">Authentifizieren</a>
+            </abbr>
+        </li>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}

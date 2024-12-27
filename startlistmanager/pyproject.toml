@@ -10,7 +10,7 @@ authors = [{ name = "Rafael Urben", email = "github@rafaelurben.ch" }]
 maintainers = [{ name = "Rafael Urben", email = "github@rafaelurben.ch" }]
 license = { text = "MIT License" }
 requires-python = ">= 3.10"
-dependencies = ["Django>=4.2"]
+dependencies = ["Django>=4.2", "google-auth-oauthlib", "google-auth-httplib2", "google-api-python-client"]
 dynamic = ["version"]
 
 [project.urls]

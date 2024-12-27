@@ -231,13 +231,14 @@ PLACEHOLDER_SUPPORTED_TEXT = "Unterstützt Platzhalter '{{ TIMETABLE }}' und '{{
 class YTAccount(models.Model):
     name = models.CharField(max_length=50)
     yt_account_id = models.CharField(max_length=12, blank=True, default="")
+    yt_account_name = models.CharField(max_length=80, blank=True, default="")
 
     credentials = models.JSONField(default=dict, blank=True)
 
     objects = models.Manager()
 
     def __str__(self):
-        return f'{self.name} ({self.yt_account_id})'
+        return f'{self.name} ({self.yt_account_name})'
 
     class Meta:
         verbose_name = 'YT Account'
