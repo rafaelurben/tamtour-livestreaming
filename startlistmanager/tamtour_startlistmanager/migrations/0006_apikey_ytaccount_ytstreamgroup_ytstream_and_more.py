@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
-                ('yt_account_id', models.CharField(blank=True, default='', max_length=12)),
+                ('yt_account_id', models.CharField(blank=True, default='', max_length=50)),
                 ('yt_account_name', models.CharField(blank=True, default='', max_length=80)),
                 ('credentials', models.JSONField(blank=True, default=dict)),
             ],
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
                 ('stream_description_preset', models.TextField(blank=True, default='', help_text="Unterstützt Platzhalter '{{ TIMETABLE }}' und '{{ STARTLOG }}'")),
-                ('yt_playlist_id', models.CharField(blank=True, default='', max_length=12)),
+                ('yt_playlist_id', models.CharField(blank=True, default='', max_length=50)),
                 ('account', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='stream_groups', to='tamtour_startlistmanager.ytaccount')),
             ],
             options={

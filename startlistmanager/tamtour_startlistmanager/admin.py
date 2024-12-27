@@ -10,7 +10,7 @@ from django.utils.html import format_html
 from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag, ApiKey, YTAccount, \
     YTStreamGroup, YTStream, YTStreamStartTimeLog
 from .views import startliste_duplizieren, startliste_drucken
-from .youtube import YouTubeOAuth
+from .youtube import YouTubeOAuth, YouTubeAPI
 
 
 # Register your models here.
@@ -136,7 +136,7 @@ class YTAccountAdmin(admin.ModelAdmin):
         try:
             account = YTAccount.objects.get(pk=object_id)
             return YouTubeOAuth.redirect_to_authorization_url(request, account)
-        except Startliste.DoesNotExist:
+        except YTAccount.DoesNotExist:
             return Http404()
 
     def oauth_callback(self, request):
@@ -162,6 +162,39 @@ class YTStreamGroupAdminStreamInline(admin.StackedInline):
 class YTStreamGroupAdmin(admin.ModelAdmin):
     inlines = [YTStreamGroupAdminStreamInline]
 
+    def get_urls(self):
+        info = self.model._meta.app_label, self.model._meta.model_name
+
+        urls = super().get_urls()
+
+        my_urls = [
+            path('<path:object_id>/push-api/', self.admin_site.admin_view(self.push_to_api),
+                 name='%s_%s_push_api' % info),
+        ]
+        return my_urls + urls
+
+    def push_to_api(self, request, object_id):
+        try:
+            group = YTStreamGroup.objects.select_related('account').get(pk=object_id)
+            api = YouTubeAPI(group.account)
+            try:
+                # Round 1: Create streams that do not exist yet
+                for stream in group.streams.filter(yt_id=""):
+                    api.create_broadcast_from_obj(stream)
+                    messages.success(request, f"Broadcast '{stream.yt_id}' erstellt!")
+                    if group.yt_playlist_id:
+                        api.add_broadcast_to_playlist(stream, group.yt_playlist_id)
+                        messages.success(request, f"Broadcast '{stream.yt_id}' zu Playlist hinzugefügt!")
+                # Round 2: Update all streams with updated timetables
+                for stream in group.streams.all():
+                    api.update_broadcast_from_obj(stream)
+                    messages.success(request, f"Broadcast '{stream.yt_id}' aktualisiert!")
+            except Exception as e:
+                messages.error(request, str(e))
+            return redirect(reverse('admin:tamtour_startlistmanager_ytstreamgroup_change', args=(group.pk,)))
+        except YTStreamGroup.DoesNotExist:
+            return Http404()
+
 
 class YTStreamAdminStartTimeLogInline(admin.TabularInline):
     model = YTStreamStartTimeLog
@@ -184,3 +217,34 @@ class YTStreamAdmin(admin.ModelAdmin):
         ("Berechnet", {"fields": ["get_stream_description"]})
     ]
     readonly_fields = ['get_stream_description']
+
+    def get_urls(self):
+        info = self.model._meta.app_label, self.model._meta.model_name
+
+        urls = super().get_urls()
+
+        my_urls = [
+            path('<path:object_id>/push-api/', self.admin_site.admin_view(self.push_to_api),
+                 name='%s_%s_push_api' % info),
+        ]
+        return my_urls + urls
+
+    def push_to_api(self, request, object_id):
+        try:
+            stream = YTStream.objects.select_related('group', 'group__account').get(pk=object_id)
+            api = YouTubeAPI(stream.group.account)
+            try:
+                if stream.yt_id:
+                    api.update_broadcast_from_obj(stream)
+                    messages.success(request, "Broadcast aktualisiert!")
+                else:
+                    api.create_broadcast_from_obj(stream)
+                    messages.success(request, "Broadcast erstellt!")
+                    if stream.group.yt_playlist_id:
+                        api.add_broadcast_to_playlist(stream, stream.group.yt_playlist_id)
+                        messages.success(request, f"Broadcast zu Playlist hinzugefügt!")
+            except Exception as e:
+                messages.error(request, str(e))
+            return redirect(reverse('admin:tamtour_startlistmanager_ytstream_change', args=(stream.pk,)))
+        except YTStream.DoesNotExist:
+            return Http404()

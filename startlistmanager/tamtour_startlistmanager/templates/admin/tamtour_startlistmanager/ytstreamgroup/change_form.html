@@ -1,0 +1,12 @@
+{% extends 'admin/change_form.html' %}
+
+{% block object-tools-items %}
+    {% if change %}
+        <li>
+            <abbr title="Push to API">
+                <a href="{% url 'admin:tamtour_startlistmanager_ytstreamgroup_push_api' object_id %}">Push to API</a>
+            </abbr>
+        </li>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}

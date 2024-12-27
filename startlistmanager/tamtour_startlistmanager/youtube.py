@@ -82,3 +82,62 @@ class YouTubeAPI:
         )
         response = request.execute()
         return response['items'][0]
+
+    def create_broadcast_from_obj(self, stream: models.YTStream):
+        request = self.youtube.liveBroadcasts().insert(
+            part="snippet,status,contentDetails",
+            body={
+                "snippet": stream.get_api_snippet(),
+                "status": {
+                    "privacyStatus": "private",
+                    "selfDeclaredMadeForKids": False
+                },
+                "contentDetails": {
+                    "monitorStream": {
+                        "enableMonitorStream": True,
+                        "broadcastStreamDelayMs": 0
+                    },
+                    "enableAutoStart": False,
+                    "enableAutoStop": False,
+                    "enableClosedCaptions": False,
+                    "enableDvr": True,
+                    "enableEmbed": True,
+                    "recordFromStart": True
+                }
+            }
+        )
+        response = request.execute()
+        stream.yt_id = response["id"]
+        stream.save()
+        return response
+
+    def update_broadcast_from_obj(self, stream: models.YTStream):
+        if not stream.yt_id:
+            raise Exception('YouTube ID not set, cannot update.')
+
+        request = self.youtube.liveBroadcasts().update(
+            part="snippet",
+            body={
+                "snippet": stream.get_api_snippet(),
+                "id": stream.yt_id,
+            }
+        )
+        return request.execute()
+
+    def add_broadcast_to_playlist(self, stream: models.YTStream, playlist_id):
+        if not stream.yt_id:
+            raise Exception('YouTube ID not set, cannot add to playlist.')
+
+        request = self.youtube.playlistItems().insert(
+            part="snippet",
+            body={
+                "snippet": {
+                    "playlistId": playlist_id,
+                    "resourceId": {
+                        "kind": "youtube#video",
+                        "videoId": stream.yt_id
+                    }
+                }
+            }
+        )
+        return request.execute()
