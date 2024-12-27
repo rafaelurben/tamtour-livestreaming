@@ -232,8 +232,7 @@ class YTAccount(models.Model):
     name = models.CharField(max_length=50)
     yt_account_id = models.CharField(max_length=12, blank=True, default="")
 
-    refresh_token = models.TextField(blank=True, default="")
-    access_token = models.TextField(blank=True, default="")
+    credentials = models.JSONField(default=dict, blank=True)
 
     objects = models.Manager()
 

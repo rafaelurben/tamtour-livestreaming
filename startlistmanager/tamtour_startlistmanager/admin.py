@@ -111,7 +111,7 @@ class YTAccountAdmin(admin.ModelAdmin):
     list_display = ['name', 'yt_account_id']
     fieldsets = [
         (None, {"fields": ["name", "yt_account_id"]}),
-        ("Tokens", {"fields": ["refresh_token", "access_token"], "classes": ["collapse"]})
+        ("Credentials", {"fields": ["credentials"], "classes": ["collapse"]})
     ]
 
 
