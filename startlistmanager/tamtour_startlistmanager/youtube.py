@@ -34,7 +34,7 @@ class YouTubeOAuth:
 
         authorization_url, state = flow.authorization_url(
             access_type='offline',
-            prompt='select_account')
+            prompt='consent')
         request.session['google_oauth_account_pk'] = account.pk
         request.session['google_oauth_state'] = state
         return redirect(authorization_url)
