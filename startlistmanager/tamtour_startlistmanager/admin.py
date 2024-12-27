@@ -1,16 +1,13 @@
-from django.contrib import admin, messages
+from django import forms
+from django.contrib import admin
 from django.contrib.admin import display
 from django.db import models
-from django.http import Http404
-from django.shortcuts import redirect
 from django.urls import path, reverse
-from django import forms
 from django.utils.html import format_html
 
+from . import views_admin
 from .models import WettspielKategorie, Wettspieler, Komposition, Startliste, StartlistenEintrag, ApiKey, YTAccount, \
     YTStreamGroup, YTStream, YTStreamStartTimeLog
-from .views import startliste_duplizieren, startliste_drucken
-from .youtube import YouTubeOAuth, YouTubeAPI
 
 
 # Register your models here.
@@ -78,9 +75,9 @@ class StartlistenAdmin(admin.ModelAdmin):
         urls = super().get_urls()
 
         my_urls = [
-            path('<path:object_id>/duplicate/', self.admin_site.admin_view(startliste_duplizieren),
+            path('<path:object_id>/duplicate/', self.admin_site.admin_view(views_admin.startliste_duplizieren),
                  name='%s_%s_duplizieren' % info),
-            path('<path:object_id>/print/', self.admin_site.admin_view(startliste_drucken),
+            path('<path:object_id>/print/', self.admin_site.admin_view(views_admin.startliste_drucken),
                  name='%s_%s_drucken' % info),
         ]
         return my_urls + urls
@@ -125,28 +122,12 @@ class YTAccountAdmin(admin.ModelAdmin):
         urls = super().get_urls()
 
         my_urls = [
-            path('oauth-callback', self.admin_site.admin_view(self.oauth_callback),
+            path('oauth-callback', self.admin_site.admin_view(views_admin.ytaccount_oauth_callback),
                  name='%s_%s_oauth_callback' % info),
-            path('<path:object_id>/oauth-start/', self.admin_site.admin_view(self.oauth_start),
+            path('<path:object_id>/oauth-start/', self.admin_site.admin_view(views_admin.ytaccount_oauth_start),
                  name='%s_%s_oauth_start' % info),
         ]
         return my_urls + urls
-
-    def oauth_start(self, request, object_id):
-        try:
-            account = YTAccount.objects.get(pk=object_id)
-            return YouTubeOAuth.redirect_to_authorization_url(request, account)
-        except YTAccount.DoesNotExist:
-            return Http404()
-
-    def oauth_callback(self, request):
-        if 'error' in request.GET:
-            messages.error(request, "Authentifizierung fehlgeschlagen: " + request.GET['error'])
-        elif 'code' in request.GET:
-            account = YouTubeOAuth.handle_callback(request)
-            messages.success(request, "Authentifizierung erfolgreich!")
-            return redirect(reverse('admin:tamtour_startlistmanager_ytaccount_change', args=(account.pk,)))
-        return redirect(reverse('admin:tamtour_startlistmanager_ytaccount_changelist'))
 
 
 class YTStreamGroupAdminStreamInline(admin.StackedInline):
@@ -168,32 +149,10 @@ class YTStreamGroupAdmin(admin.ModelAdmin):
         urls = super().get_urls()
 
         my_urls = [
-            path('<path:object_id>/push-api/', self.admin_site.admin_view(self.push_to_api),
+            path('<path:object_id>/push-api/', self.admin_site.admin_view(views_admin.ytstreamgroup_push_to_api),
                  name='%s_%s_push_api' % info),
         ]
         return my_urls + urls
-
-    def push_to_api(self, request, object_id):
-        try:
-            group = YTStreamGroup.objects.select_related('account').get(pk=object_id)
-            api = YouTubeAPI(group.account)
-            try:
-                # Round 1: Create streams that do not exist yet
-                for stream in group.streams.filter(yt_id=""):
-                    api.create_broadcast_from_obj(stream)
-                    messages.success(request, f"Broadcast '{stream.yt_id}' erstellt!")
-                    if group.yt_playlist_id:
-                        api.add_broadcast_to_playlist(stream, group.yt_playlist_id)
-                        messages.success(request, f"Broadcast '{stream.yt_id}' zu Playlist hinzugefügt!")
-                # Round 2: Update all streams with updated timetables
-                for stream in group.streams.all():
-                    api.update_broadcast_from_obj(stream)
-                    messages.success(request, f"Broadcast '{stream.yt_id}' aktualisiert!")
-            except Exception as e:
-                messages.error(request, str(e))
-            return redirect(reverse('admin:tamtour_startlistmanager_ytstreamgroup_change', args=(group.pk,)))
-        except YTStreamGroup.DoesNotExist:
-            return Http404()
 
 
 class YTStreamAdminStartTimeLogInline(admin.TabularInline):
@@ -224,27 +183,7 @@ class YTStreamAdmin(admin.ModelAdmin):
         urls = super().get_urls()
 
         my_urls = [
-            path('<path:object_id>/push-api/', self.admin_site.admin_view(self.push_to_api),
+            path('<path:object_id>/push-api/', self.admin_site.admin_view(views_admin.ytstream_push_to_api),
                  name='%s_%s_push_api' % info),
         ]
         return my_urls + urls
-
-    def push_to_api(self, request, object_id):
-        try:
-            stream = YTStream.objects.select_related('group', 'group__account').get(pk=object_id)
-            api = YouTubeAPI(stream.group.account)
-            try:
-                if stream.yt_id:
-                    api.update_broadcast_from_obj(stream)
-                    messages.success(request, "Broadcast aktualisiert!")
-                else:
-                    api.create_broadcast_from_obj(stream)
-                    messages.success(request, "Broadcast erstellt!")
-                    if stream.group.yt_playlist_id:
-                        api.add_broadcast_to_playlist(stream, stream.group.yt_playlist_id)
-                        messages.success(request, f"Broadcast zu Playlist hinzugefügt!")
-            except Exception as e:
-                messages.error(request, str(e))
-            return redirect(reverse('admin:tamtour_startlistmanager_ytstream_change', args=(stream.pk,)))
-        except YTStream.DoesNotExist:
-            return Http404()
