@@ -159,6 +159,7 @@ class YTStreamAdminStartTimeLogInline(admin.TabularInline):
     model = YTStreamStartTimeLog
     extra = 0
     fields = ['timestamp', 'content']
+    readonly_fields = ['timestamp']
 
 
 @admin.register(YTStream)

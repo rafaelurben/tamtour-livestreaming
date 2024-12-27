@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
             name='YTStreamStartTimeLog',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('timestamp', models.DateTimeField()),
+                ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('content', models.CharField(max_length=50)),
                 ('stream', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='start_time_logs', to='tamtour_startlistmanager.ytstream')),
             ],

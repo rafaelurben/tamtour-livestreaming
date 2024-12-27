@@ -1,9 +1,9 @@
+import uuid
 from datetime import time
 
 from django.db import models
-from .enums import Kompositionstyp
 
-import uuid
+from .enums import Kompositionstyp
 
 
 # Create your models here.
@@ -91,8 +91,7 @@ class Startliste(models.Model):
         default=True,
         verbose_name="In Schnittstelle sichtbar?",
         help_text="Soll diese Startliste in der JSON-Schnittstelle verfügbar und "
-                  "somit im Overlay-Control-Panel sichtbar sein? "
-                  "(Die JSON-Schnittstelle ist ohne Authentifizierung zugänglich!)",
+                  "somit im Overlay-Control-Panel sichtbar sein?",
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -342,6 +341,17 @@ class YTStream(models.Model):
             'scheduledEndTime': self.scheduled_end_time.isoformat(),
         }
 
+    def as_dict(self):
+        return {
+            'id': self.pk,
+            'yt_title': self.yt_title,
+            'yt_id': self.yt_id,
+            'show_in_timetable': self.show_in_timetable,
+            'name_in_timetable': self.name_in_timetable,
+            'scheduledStartTime': self.scheduled_start_time.isoformat(),
+            'scheduledEndTime': self.scheduled_end_time.isoformat(),
+        }
+
     class Meta:
         verbose_name = 'YT Stream'
         verbose_name_plural = 'YT Streams'
@@ -350,7 +360,7 @@ class YTStream(models.Model):
 class YTStreamStartTimeLog(models.Model):
     stream = models.ForeignKey(YTStream, on_delete=models.CASCADE, related_name='start_time_logs')
 
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=50)
 
     objects = models.Manager()
