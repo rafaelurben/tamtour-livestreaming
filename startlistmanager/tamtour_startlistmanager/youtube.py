@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
@@ -122,7 +123,13 @@ class YouTubeAPI:
                 "id": stream.yt_id,
             }
         )
-        return request.execute()
+        response = request.execute()
+
+        if response['snippet']['actualStartTime'] and not stream.actual_start_time:
+            stream.actual_start_time = datetime.fromisoformat(response['snippet']['actualStartTime'])
+            stream.save()
+
+        return response
 
     def add_broadcast_to_playlist(self, stream: models.YTStream, playlist_id):
         if not stream.yt_id:
