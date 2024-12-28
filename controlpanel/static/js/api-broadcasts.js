@@ -32,7 +32,7 @@ function loadBroadcastsFromData(data) {
     window.tamtour_broadcasts = broadcasts;
     selectBroadcast();
 
-    alert("Broadcasts aktualisiert!");
+    if (!isInitialBroadcastLoad) alert("Broadcasts aktualisiert!");
     isInitialBroadcastLoad = false;
 }
 

@@ -114,7 +114,7 @@ function loadStartlistsFromData(data) {
     window.tamtour_startlists = startlists;
     loadStartlist();
 
-    alert("Startlisten aktualisiert!");
+    if (!isInitialStartlistLoad) alert("Startlisten aktualisiert!");
     isInitialStartlistLoad = false;
 }
 
