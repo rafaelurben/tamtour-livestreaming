@@ -32,6 +32,8 @@ async function displayStartInfoOverlay() {
         button.prop("disabled", false)
     }, 1000);
 
+    sendStartlistItemToApiIfEnabled();
+
     return true;
 }
 
@@ -64,101 +66,6 @@ async function hideStartInfoOverlay() {
     return true;
 }
 
-// Importer
-
-let isInitialStartlistLoad = true;
-
-function loadStartlistsFromFile() {
-    let fileinputelem = $('#startlists-import-file-input')[0];
-    let file = fileinputelem.files[0];
-
-    if (!file) return;
-
-    let reader = new FileReader();
-    reader.onload = function () {
-        let data = JSON.parse(reader.result);
-        loadStartlistsFromData(data);
-    }
-    reader.readAsText(file);
-}
-
-function loadStartlistsFromAPI() {
-    api.request('GET', 'get-start-lists').then(data => {
-        loadStartlistsFromData(data);
-    }).catch(error => {
-        alert("[Startlisten-Import] Beim Abrufen der API ist ein Fehler aufgetreten: " + error);
-    })
-}
-
-function loadStartlistsFromData(data) {
-    let startlists = data.lists;
-
-    if (!startlists || startlists.length === 0) {
-        alert("Keine Startlisten gefunden!");
-        return;
-    }
-
-    $(".nostartlistdisabled").prop("disabled", false);
-
-    let startlistSelect = $("#startlist-select-input");
-    startlistSelect.empty();
-
-    for (let lid in startlists) {
-        let startlist = startlists[lid];
-        startlistSelect.append($("<option>", {value: lid, text: startlist.name}));
-    }
-
-    let storedval = sessionStorage.getItem("tamtour-startlist-id");
-    if (isInitialStartlistLoad && storedval < startlists.length) startlistSelect.val(storedval);
-
-    window.tamtour_startlists = startlists;
-    loadStartlist();
-
-    if (!isInitialStartlistLoad) alert("Startlisten aktualisiert!");
-    isInitialStartlistLoad = false;
-}
-
-function loadStartlist() {
-    let lid = $("#startlist-select-input").val();
-    let startlist = window.tamtour_startlists[lid];
-    let startlistitems = startlist.items;
-
-    // Set startlist title
-    $("#startlist-form-title").val(startlist.overlay_title);
-
-    let startlistitemSelect = $("#startlistitem-select-input");
-    startlistitemSelect.empty();
-
-    for (let sid in startlistitems) {
-        let data = startlistitems[sid];
-        let title = `${data.category}#${data.start_num} ${data.name}`;
-        startlistitemSelect.append($("<option>", {value: sid, text: title}));
-    }
-
-    let storedval = sessionStorage.getItem("tamtour-startlist-itemid");
-    if (isInitialStartlistLoad && storedval < startlistitems.length) startlistitemSelect.val(storedval);
-
-    loadStartlistitem();
-}
-
-function loadStartlistitem() {
-    let lid = $("#startlist-select-input").val();
-    sessionStorage.setItem("tamtour-startlist-id", lid);
-    let sid = $("#startlistitem-select-input").val();
-    sessionStorage.setItem("tamtour-startlist-itemid", sid);
-    let startlist = window.tamtour_startlists[lid];
-    let startlistitems = startlist.items;
-    let item = startlistitems[sid];
-
-    $("#startinfo-form-category").val(item.category);
-    $("#startinfo-form-start_num").val(item.start_num);
-    $("#startinfo-form-main-big").val(item.is_group ? `${item.name} - ${item.club}` : item.name);
-    $("#startinfo-form-main-small").val(item.is_group ? item.group_members : item.club);
-    $("#startinfo-form-presentation").val(item.presentation);
-
-    updateStartlistNavButtons();
-}
-
 // Helpers
 
 function clearStartInfoOverlayData() {
@@ -171,10 +78,10 @@ function clearStartInfoOverlayData() {
 
 function updateStartlistNavButtons() {
     let selectelem = $('#startlistitem-select-input')[0];
-    if (selectelem.selectedIndex == 0) {
+    if (selectelem.selectedIndex === 0) {
         $("#btn-previous-startlistitem").prop("disabled", true);
         $("#btn-next-startlistitem").prop("disabled", selectelem.length <= 1);
-    } else if (selectelem.selectedIndex == selectelem.length - 1) {
+    } else if (selectelem.selectedIndex === selectelem.length - 1) {
         $("#btn-next-startlistitem").prop("disabled", true);
         $("#btn-previous-startlistitem").prop("disabled", selectelem.length <= 1);
     } else {
@@ -270,9 +177,3 @@ async function cancelStartListAnimation() {
         button.prop("disabled", false)
     }, 1000);
 }
-
-// Event listeners
-
-$(window).on('api-connected', () => {
-    loadStartlistsFromAPI();
-})

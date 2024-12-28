@@ -7,7 +7,9 @@ let api = {
         apikey: undefined,
     },
     state: {
-        broadcasts: []
+        broadcasts: [],
+        selectedBroadcastIndex: undefined,
+        sendStartLogsToAPI: false,
     },
     build_url: function (path) {
         return api.connectionData.baseurl + path + "?apikey=" + api.connectionData.apikey;
