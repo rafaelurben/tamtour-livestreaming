@@ -13,8 +13,12 @@ $(document).ready(function () {
     $draggables = $("fieldset.droptarget");
     $droptargets = $(".droptarget");
 
-    $draggers.on('mouseenter', function () { $(this).parent().parent().attr("draggable", true) });
-    $draggers.on('mouseleave', function () { $(this).parent().parent().attr("draggable", false) }); 
+    $draggers.on('mouseenter', function () {
+        $(this).parent().parent().attr("draggable", true)
+    });
+    $draggers.on('mouseleave', function () {
+        $(this).parent().parent().attr("draggable", false)
+    });
 
     $draggables.on('dragstart', function (e) {
         if (e.target.tagName !== "FIELDSET") return;
@@ -44,13 +48,15 @@ $(document).ready(function () {
         e.preventDefault();
         $('.dragover').removeClass("dragover");
         $(".droptarget").removeClass("droptarget-active");
-        
+
         $dragging.insertBefore($(this));
     });
 });
 
 // Prevent accidental reload/close
 
-$(window).on("beforeunload", (e) => {
-    e.preventDefault();
-});
+if (!(location.search.includes('debug'))) {
+    $(window).on("beforeunload", (e) => {
+        e.preventDefault();
+    });
+}

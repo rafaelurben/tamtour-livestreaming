@@ -14,8 +14,8 @@ window.obs = {
         obs.connected = false;
         console.log("[OBS] Disconnected!");
         $("body").removeClass("obs-connected");
-        $("#btn-connect").removeClass("d-none");
-        $("#btn-disconnect").addClass("d-none");
+        $("#obs-btn-connect").removeClass("d-none");
+        $("#obs-btn-disconnect").addClass("d-none");
         $("#open-obs-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
 
         if (obs.wakeLock != null) {
@@ -44,8 +44,8 @@ window.obs = {
         $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
         sessionStorage.setItem("tamtour-obs-auto-connect", "true");
-        sessionStorage.setItem("tamtour-obs-target", document.getElementById('login-form-target').value);
-        sessionStorage.setItem("tamtour-obs-password", document.getElementById('login-form-password').value);
+        sessionStorage.setItem("tamtour-obs-target", document.getElementById('obs-login-form-target').value);
+        sessionStorage.setItem("tamtour-obs-password", document.getElementById('obs-login-form-password').value);
 
         if (obs.wakeLock == null) {
             try {
@@ -60,8 +60,8 @@ window.obs = {
         }
     },
     connect: async function (isautoconnect) {
-        var target = document.getElementById('login-form-target').value;
-        var password = document.getElementById('login-form-password').value;
+        var target = document.getElementById('obs-login-form-target').value;
+        var password = document.getElementById('obs-login-form-password').value;
 
         var prefix = "ws://";
         if (target.startsWith("https://")) {
@@ -129,9 +129,9 @@ obs.on("ConnectionClosed", obs.__handle_disconnected)
 
 window.addEventListener('load', function () {
     if (sessionStorage.getItem("tamtour-obs-target")) {
-        document.getElementById('login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
-        document.getElementById('login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
-        if (sessionStorage.getItem("tamtour-obs-auto-connect") == "true") {
+        document.getElementById('obs-login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
+        document.getElementById('obs-login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
+        if (sessionStorage.getItem("tamtour-obs-auto-connect") === "true") {
             obs.connect(true);
         }
     }

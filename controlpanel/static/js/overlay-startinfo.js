@@ -28,7 +28,9 @@ async function displayStartInfoOverlay() {
 
     let button = $("#btn-display-startinfo-overlay");
     button.prop("disabled", true);
-    setTimeout(() => { button.prop("disabled", false) }, 1000);
+    setTimeout(() => {
+        button.prop("disabled", false)
+    }, 1000);
 
     return true;
 }
@@ -42,7 +44,9 @@ async function showStartInfoOverlay() {
 
     let button = $("#btn-show-startinfo-overlay");
     button.prop("disabled", true);
-    setTimeout(() => { button.prop("disabled", false) }, 1000);
+    setTimeout(() => {
+        button.prop("disabled", false)
+    }, 1000);
 
     return true;
 }
@@ -53,64 +57,40 @@ async function hideStartInfoOverlay() {
 
     let button = $("#btn-hide-startinfo-overlay");
     button.prop("disabled", true);
-    setTimeout(() => { button.prop("disabled", false) }, 1000);
+    setTimeout(() => {
+        button.prop("disabled", false)
+    }, 1000);
 
     return true;
 }
 
 // Importer
 
-function updateStartlistImportUI(initial) {
-    let url_mode = $("#startlists-import-mode").prop("checked");
+let isInitialStartlistLoad = true;
 
-    $("#startlists-import-file-input").prop("disabled", url_mode);
-    $("#startlists-import-url-input").prop("disabled", !url_mode);
-    $("#startlists-import-url-button").prop("disabled", !url_mode);
-
-    $('#startlist-select-input').empty();
-    $('#startlistitem-select-input').empty();
-
-    $(".nostartlistdisabled").prop("disabled", true);
-
-    sessionStorage.setItem("tamtour-startlist-mode", url_mode ? "url" : "file")
-
-    if (url_mode && initial === true) {
-        loadStartlistsFromURL(initial);
-    } else if (!url_mode) {
-        loadStartlistsFromFile(initial);
-    }
-}
-
-$("#startlists-import-mode").change(updateStartlistImportUI);
-
-function loadStartlistsFromFile(initial) {
+function loadStartlistsFromFile() {
     let fileinputelem = $('#startlists-import-file-input')[0];
     let file = fileinputelem.files[0];
 
     if (!file) return;
 
     let reader = new FileReader();
-    reader.onload = function() {
+    reader.onload = function () {
         let data = JSON.parse(reader.result);
-        loadStartlistsFromData(data, initial);
+        loadStartlistsFromData(data);
     }
     reader.readAsText(file);
 }
 
-function loadStartlistsFromURL(initial) {
-    let url = $('#startlists-import-url-input').val()
-    if (!url) return;
-
-    $.getJSON(url, function(data) {
-        if (!(initial === true)) alert("Datei erfolgreich geladen!");
-        loadStartlistsFromData(data, initial);
-    }).fail(() => {
-        alert("[Startlisten-Import] Beim Abrufen der URL ist ein Fehler aufgetreten!");
-        return;
-    });
+function loadStartlistsFromAPI() {
+    api.request('GET', 'get-start-lists').then(data => {
+        loadStartlistsFromData(data);
+    }).catch(error => {
+        alert("[Startlisten-Import] Beim Abrufen der API ist ein Fehler aufgetreten: " + error);
+    })
 }
 
-function loadStartlistsFromData(data, initial) {
+function loadStartlistsFromData(data) {
     let startlists = data.lists;
 
     if (!startlists || startlists.length === 0) {
@@ -125,17 +105,20 @@ function loadStartlistsFromData(data, initial) {
 
     for (let lid in startlists) {
         let startlist = startlists[lid];
-        startlistSelect.append($("<option>", { value: lid, text: startlist.name }));
+        startlistSelect.append($("<option>", {value: lid, text: startlist.name}));
     }
 
     let storedval = sessionStorage.getItem("tamtour-startlist-id");
-    if (initial && storedval < startlists.length) startlistSelect.val(storedval);
+    if (isInitialStartlistLoad && storedval < startlists.length) startlistSelect.val(storedval);
 
     window.tamtour_startlists = startlists;
-    loadStartlist(initial);
+    loadStartlist();
+
+    alert("Startlisten aktualisiert!");
+    isInitialStartlistLoad = false;
 }
 
-function loadStartlist(initial) {
+function loadStartlist() {
     let lid = $("#startlist-select-input").val();
     let startlist = window.tamtour_startlists[lid];
     let startlistitems = startlist.items;
@@ -149,11 +132,11 @@ function loadStartlist(initial) {
     for (let sid in startlistitems) {
         let data = startlistitems[sid];
         let title = `${data.category}#${data.start_num} ${data.name}`;
-        startlistitemSelect.append($("<option>", { value: sid, text: title }));
+        startlistitemSelect.append($("<option>", {value: sid, text: title}));
     }
 
     let storedval = sessionStorage.getItem("tamtour-startlist-itemid");
-    if (initial && storedval < startlistitems.length) startlistitemSelect.val(storedval);
+    if (isInitialStartlistLoad && storedval < startlistitems.length) startlistitemSelect.val(storedval);
 
     loadStartlistitem();
 }
@@ -252,7 +235,7 @@ function showStartListPreview() {
 async function playStartListAnimation() {
     let title = $("#startlist-form-title").val();
     let items = getStartListAnmiationItems();
-    
+
     if (!title || !items) {
         alert("Kein Titel festgelegt oder Startliste leer!");
         return;
@@ -268,12 +251,14 @@ async function playStartListAnimation() {
         itemsasdict[i] = itemasdict;
     }
 
-    let data = { title, items: itemsasdict };
+    let data = {title, items: itemsasdict};
     await obs.sendAction("playStartListAnimation", data);
 
     let button = $("#btn-display-startlist-overlay");
     button.prop("disabled", true);
-    setTimeout(() => { button.prop("disabled", false) }, 1000);
+    setTimeout(() => {
+        button.prop("disabled", false)
+    }, 1000);
 }
 
 async function cancelStartListAnimation() {
@@ -281,16 +266,13 @@ async function cancelStartListAnimation() {
 
     let button = $("#btn-cancel-startlist-overlay");
     button.prop("disabled", true);
-    setTimeout(() => { button.prop("disabled", false) }, 1000);
+    setTimeout(() => {
+        button.prop("disabled", false)
+    }, 1000);
 }
 
 // Event listeners
 
-window.addEventListener("load", () => {
-    if (sessionStorage.getItem("tamtour-startlist-mode")) {
-        url_mode = sessionStorage.getItem("tamtour-startlist-mode") === "url";
-        $("#startlists-import-mode").prop("checked", url_mode);
-    }
-
-    updateStartlistImportUI(true);
-});
+$(window).on('api-connected', () => {
+    loadStartlistsFromAPI();
+})
