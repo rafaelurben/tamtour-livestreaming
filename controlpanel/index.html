@@ -45,12 +45,11 @@
                         Verbindung trennen
                     </button>
                 </div>
-                <hr />
+                <hr/>
                 <div class="d-flex flex-row flex-wrap gap-3">
                     <div class="flex-grow-1 d-flex flex-column">
                         <!-- Spalte 1: Startlisten-Import -->
-                        <button class="btn btn-primary" type="button" onclick="loadStartlistsFromAPI()"
-                                id="startlists-import-url-button">
+                        <button class="btn btn-primary" type="button" onclick="loadStartlistsFromAPI()">
                             Startlisten von API laden
                         </button>
                         <hr/>
@@ -60,16 +59,32 @@
                                     onchange="loadStartlist()">
                             </select>
                         </div>
-                        <hr />
+                        <hr/>
                         <div>
-                            <label for="startlists-import-file-input" class="form-label">Fallback: Aus JSON-Datei importieren</label>
+                            <label for="startlists-import-file-input" class="form-label">Fallback: Aus JSON-Datei
+                                importieren</label>
                             <input class="form-control" type="file" id="startlists-import-file-input" accept=".json"
                                    onchange="loadStartlistsFromFile();">
                         </div>
                     </div>
                     <div class="flex-grow-1 d-flex flex-column">
                         <!-- Spalte 2: Broadcasts -->
-                        <p>W.I.P. / TODO</p>
+                        <button class="btn btn-primary" type="button" onclick="loadBroadcastsFromAPI()">
+                            Broadcasts von API laden
+                        </button>
+                        <hr/>
+                        <div class="mb-2">
+                            <label for="broadcast-select-input" class="form-label">Aktiver Broadcast</label>
+                            <select class="form-select nobroadcastdisabled" disabled id="broadcast-select-input"
+                                    onchange="selectBroadcast()">
+                            </select>
+                        </div>
+                        <!--<div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                   id="broadcast-send-logs-toggle">
+                            <label class="form-check-label" for="broadcast-send-logs-toggle">Startzeiten
+                                protokollieren</label>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -478,18 +493,22 @@
                     <div>
                         <div class="input-group mb-1">
                             <div class="form-floating">
-                                <input type="text" class="form-control nostartlistdisabled" disabled id="startlist-form-title"
+                                <input type="text" class="form-control nostartlistdisabled" disabled
+                                       id="startlist-form-title"
                                        value="" placeholder="Startliste">
                                 <label for="startlist-form-title" class="form-label">Titel</label>
                             </div>
-                            <button class="btn btn-secondary nostartlistdisabled" disabled onclick="showStartListPreview();">
+                            <button class="btn btn-secondary nostartlistdisabled" disabled
+                                    onclick="showStartListPreview();">
                                 Vorschau
                             </button>
-                            <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled" disabled
+                            <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled"
+                                    disabled
                                     onclick="cancelSponsorsAnimation(); hideTimeOverlay(); playStartListAnimation()">
                                 Anzeigen
                             </button>
-                            <button id="btn-cancel-startlist-overlay" class="btn btn-outline-danger nostartlistdisabled" disabled
+                            <button id="btn-cancel-startlist-overlay" class="btn btn-outline-danger nostartlistdisabled"
+                                    disabled
                                     onclick="cancelStartListAnimation()">
                                 Abbruch
                             </button>
@@ -1165,6 +1184,7 @@
 <script src="./static/js/general.js"></script>
 <script src="./static/js/utils.js"></script>
 <script src="./static/js/api-connection.js"></script>
+<script src="./static/js/api-broadcasts.js"></script>
 <script src="./static/js/obs-connection.js"></script>
 <script src="./static/js/obs-general-controls.js"></script>
 <script src="./static/js/overlay-image.js"></script>
