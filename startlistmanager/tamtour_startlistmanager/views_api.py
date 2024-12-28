@@ -10,6 +10,16 @@ from .models import Startliste, YTStream, YTStreamStartTimeLog
 
 @require_GET
 @api_view()
+def get_connection_health(request):
+    return JsonResponse({
+        "connection": True
+    }, headers={
+        "Access-Control-Allow-Origin": "*",
+    })
+
+
+@require_GET
+@api_view()
 def get_start_lists(request):
     return JsonResponse({
         "lists": list(map(
