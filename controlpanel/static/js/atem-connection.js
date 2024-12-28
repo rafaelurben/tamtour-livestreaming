@@ -102,7 +102,7 @@ let atem = {
                 error: function (error) {
                     if (!ignoreerror) {
                         $("#open-atem-dialog-btn").addClass("failing");
-                        if (error.statusText == "timeout") {
+                        if (error.statusText === "timeout") {
                             console.warn("[ATEM] Request timed out:", {method, url, data});
                             if (method === "POST") alert("[ATEM] Anfrage fehlgeschlagen! Bitte erneut versuchen!")
                         } else {
@@ -263,7 +263,7 @@ let atemGETqueue = [
         url: "transition-mix",
         elements: [$("#atem-fieldset-transitions > div")],
         requirement: () => {
-            return atem.state.nextTransition.style == 0
+            return atem.state.nextTransition.style === 0
         },
         interval: 2000,
         inprogress: false,
@@ -273,7 +273,7 @@ let atemGETqueue = [
         url: "transition-dip",
         elements: [$("#atem-fieldset-transitions > div")],
         requirement: () => {
-            return atem.state.nextTransition.style == 1
+            return atem.state.nextTransition.style === 1
         },
         interval: 2000,
         inprogress: false,
@@ -283,7 +283,7 @@ let atemGETqueue = [
         url: "transition-wipe",
         elements: [$("#atem-fieldset-transitions > div")],
         requirement: () => {
-            return atem.state.nextTransition.style == 2
+            return atem.state.nextTransition.style === 2
         },
         interval: 2000,
         inprogress: false,
@@ -293,7 +293,7 @@ let atemGETqueue = [
         url: "transition-dve",
         elements: [$("#atem-fieldset-transitions > div")],
         requirement: () => {
-            return atem.state.nextTransition.style == 3
+            return atem.state.nextTransition.style === 3
         },
         interval: 2000,
         inprogress: false,
@@ -380,7 +380,7 @@ let atemGETqueue = [
 ];
 
 function __hasVisibleElements(elements) {
-    if (elements.length == 0) return true;
+    if (elements.length === 0) return true;
 
     let anyVisible = false;
     for (let i = 0; i < elements.length; i++) {
@@ -424,7 +424,7 @@ $(window).on("atem-base-interval", function () {
                     continue
                 }
             }
-            // If a requirement is set and it is not met, don't fire the request
+            // If a requirement is set, and it is not met, don't fire the request
             if (queueItem.requirement !== undefined && !queueItem.requirement()) continue;
             // If none of the elements are visible, don't fire the request
             if (!__hasVisibleElements(queueItem.elements)) continue;

@@ -24,7 +24,7 @@ window.obs = {
                 obs.wakeLock = null;
             } catch (err) {
                 console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
-            }   
+            }
         }
     },
     disconnect: async function () {
@@ -60,10 +60,10 @@ window.obs = {
         }
     },
     connect: async function (isautoconnect) {
-        var target = document.getElementById('obs-login-form-target').value;
-        var password = document.getElementById('obs-login-form-password').value;
+        let target = document.getElementById('obs-login-form-target').value;
+        let password = document.getElementById('obs-login-form-password').value;
 
-        var prefix = "ws://";
+        let prefix = "ws://";
         if (target.startsWith("https://")) {
             prefix = "wss://";
             target = target.split("//")[1];
@@ -85,10 +85,14 @@ window.obs = {
         }
     },
     sendAction: async function (action, data) {
-        let obj = { action: action, data: data}
+        let obj = {action: action, data: data}
         console.debug("[OBS] Sending", obj, "to browser source...")
         try {
-            await obs.socket.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+            await obs.socket.call("CallVendorRequest", {
+                vendorName: "obs-browser",
+                requestType: "emit_event",
+                requestData: {event_name: "ControlPanelEvent", event_data: obj}
+            })
             return true;
         } catch (error) {
             console.warn("[OBS] Action failed:", error)

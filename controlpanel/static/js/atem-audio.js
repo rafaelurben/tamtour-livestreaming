@@ -6,7 +6,7 @@ function setupATEMAudioInputButtons(config) {
     let container = $("#atem-audiobuttons-container").empty();
     for (let conf of config) {
         let cont = $("<div>").addClass("me-1 d-flex flex-column gap-1").appendTo(container);
-        
+
         $("<div>").addClass("mb-1").text(conf.title).appendTo(cont);
 
         let row1 = $("<div>").addClass("d-flex flex-row").appendTo(cont);
@@ -22,18 +22,18 @@ function setupATEMAudioInputButtons(config) {
         $("<span>").addClass("ms-1").text("dB").appendTo(row3);
 
         onBtn.click(function (e) {
-            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, state: 2 });
+            atem.post("fairlight-strip-properties", {source: conf.index, channel: conf.subchannel, state: 2});
         });
         offBtn.click(function (e) {
-            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, state: 1 });
+            atem.post("fairlight-strip-properties", {source: conf.index, channel: conf.subchannel, state: 1});
         });
         volUpBtn.click(function (e) {
             let newVol = $(`#atem-audio-${conf.htmlName}-volume`).text() - 0 + 150;
-            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, volume: newVol });
+            atem.post("fairlight-strip-properties", {source: conf.index, channel: conf.subchannel, volume: newVol});
         });
         volDownBtn.click(function (e) {
             let newVol = $(`#atem-audio-${conf.htmlName}-volume`).text() - 0 - 150;
-            atem.post("fairlight-strip-properties", { source: conf.index, channel: conf.subchannel, volume: newVol });
+            atem.post("fairlight-strip-properties", {source: conf.index, channel: conf.subchannel, volume: newVol});
         });
     }
 }
@@ -42,7 +42,7 @@ function setupATEMAudioInputButtons(config) {
 
 $(window).on("atem-get-fairlight-audio-input", function (e, data) {
     let shownInputs = $("#atem-settings-enabled-audioinputs").val();
-    var audioconfig = [];
+    let audioconfig = [];
 
     for (let dat of Object.values(data)) {
         if (!shownInputs.includes(dat.index.toString())) continue;
@@ -50,10 +50,28 @@ $(window).on("atem-get-fairlight-audio-input", function (e, data) {
         let name = atemInputIds[dat.index];
 
         if (dat.split === 4) { // Audio is split in dual mono
-            audioconfig.push({ index: dat.index, subchannel: 0, stripId: dat.index + ".0", htmlName: dat.index + "-0", title: name + " L" });
-            audioconfig.push({ index: dat.index, subchannel: 1, stripId: dat.index + ".1", htmlName: dat.index + "-1", title: name + " R" });
+            audioconfig.push({
+                index: dat.index,
+                subchannel: 0,
+                stripId: dat.index + ".0",
+                htmlName: dat.index + "-0",
+                title: name + " L"
+            });
+            audioconfig.push({
+                index: dat.index,
+                subchannel: 1,
+                stripId: dat.index + ".1",
+                htmlName: dat.index + "-1",
+                title: name + " R"
+            });
         } else { // Audio is not split
-            audioconfig.push({ index: dat.index, subchannel: -1, stripId: dat.index + ".0", htmlName: dat.index, title: name });
+            audioconfig.push({
+                index: dat.index,
+                subchannel: -1,
+                stripId: dat.index + ".0",
+                htmlName: dat.index,
+                title: name
+            });
         }
     }
 

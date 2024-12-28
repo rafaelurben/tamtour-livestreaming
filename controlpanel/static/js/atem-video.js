@@ -101,7 +101,7 @@ $(window).on("atem-get-key-on-air", function (e, data) {
 });
 
 $(window).on("atem-get-dkey-state", function (e, data) {
-    let isOn = data["0"].is_transitioning || data["0"].on_air;;
+    let isOn = data["0"].is_transitioning || data["0"].on_air;
     atem.state.dkey1onair = isOn;
 });
 

@@ -8,7 +8,7 @@ let atemTransitionStyles = ["mix", "dip", "wipe", "dve"];
 function changeAtemNextTransitionState() {
     let nextBkgd = atem.state.nextTransition.bkgd ? 1 << 0 : 0;
     let nextKey1 = atem.state.nextTransition.key1 ? 1 << 1 : 0;
-    var nextTransition = nextBkgd + nextKey1;
+    let nextTransition = nextBkgd + nextKey1;
     atem.post("transition-settings", { index: 0, next_transition: nextTransition });
 }
 

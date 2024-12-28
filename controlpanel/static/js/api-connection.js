@@ -69,7 +69,8 @@ let api = {
         });
     },
     connect: async function (isautoconnect) {
-        $("#api-btn-connect").prop("disabled", true);
+        let $connectBtn = $("#api-btn-connect");
+        $connectBtn.prop("disabled", true);
         api.connected = true;
         api.connectionData.baseurl = $("#api-login-form-baseurl").val();
         api.connectionData.apikey = $("#api-login-form-apikey").val();
@@ -88,7 +89,7 @@ let api = {
             }
         });
 
-        $("#api-btn-connect").prop("disabled", false);
+        $connectBtn.prop("disabled", false);
     },
     disconnect: async function () {
         api.connectionData = {};

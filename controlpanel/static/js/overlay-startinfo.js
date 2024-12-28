@@ -149,9 +149,9 @@ async function playStartListAnimation() {
     }
 
     // Convert to dict (needed because Arrays for some reason aren't transferred to the OBS browsersource)
-    itemsasdict = {};
+    let itemsasdict = {};
     for (let i = 0; i < items.length; i++) {
-        itemasdict = {};
+        let itemasdict = {};
         for (let j = 0; j < items[i].length; j++) {
             itemasdict[j] = items[i][j];
         }

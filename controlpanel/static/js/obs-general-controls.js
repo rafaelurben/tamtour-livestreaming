@@ -13,7 +13,7 @@ function _updateScenePanel(data) {
     if (data.scenes) {
         previewSceneSelect.empty();
         for (let scene of data.scenes.reverse()) {
-            let optelem = $("<option>", { value: scene.sceneName, text: scene.sceneName });
+            let optelem = $("<option>", {value: scene.sceneName, text: scene.sceneName});
             previewSceneSelect.append(optelem);
         }
     }
@@ -26,7 +26,7 @@ function _updateScenePanel(data) {
     }
 
     previewSceneSelect.change((event) => {
-        obs.sendCommand("SetCurrentPreviewScene", { sceneName: event.target.value });
+        obs.sendCommand("SetCurrentPreviewScene", {sceneName: event.target.value});
     });
 }
 
@@ -43,11 +43,11 @@ obs.on("SceneNameChanged", data => {
     }
 })
 obs.on("CurrentProgramSceneChanged", data => {
-    _updateScenePanel({ currentProgramSceneName: data.sceneName })
+    _updateScenePanel({currentProgramSceneName: data.sceneName})
     if (liveScreenshotsEnabled) getProgramScreenshot();
 })
 obs.on("CurrentPreviewSceneChanged", data => {
-    _updateScenePanel({ currentPreviewSceneName: data.sceneName })
+    _updateScenePanel({currentPreviewSceneName: data.sceneName})
     if (liveScreenshotsEnabled) getPreviewScreenshot();
 })
 obs.on("SceneListChanged", data => {
@@ -116,7 +116,7 @@ async function loadRecordStatus() {
 
         let recTsp = recDat.outputTimecode.split(".")[0];
         let recMB = (recDat.outputBytes / 1024 / 1024).toFixed(3);
-        var txt = `${recTsp} (${recMB} MB)`;
+        let txt = `${recTsp} (${recMB} MB)`;
         recordStatusDisplay.val(txt);
     } else {
         recordStatusDisplay.val("Keine Aufnahme");
@@ -186,7 +186,7 @@ async function loadStreamStatus() {
 
         let strTsp = strDat.outputTimecode.split(".")[0];
         let strMB = (strDat.outputBytes / 1024 / 1024).toFixed(3);
-        var txt = `${strTsp} (${strMB} MB) [Dropped: ${strDat.outputSkippedFrames} / ${strDat.outputTotalFrames}`;
+        let txt = `${strTsp} (${strMB} MB) [Dropped: ${strDat.outputSkippedFrames} / ${strDat.outputTotalFrames}`;
         if (strDat.outputCongestion) {
             txt += ", Verstopft: " + strDat.outputCongestion.toFixed(2);
         }
@@ -247,7 +247,9 @@ async function startTransition() {
 
     let button = $("#btn-start-transition");
     button.prop("disabled", true);
-    setTimeout(() => { button.prop("disabled", false) }, 1000);
+    setTimeout(() => {
+        button.prop("disabled", false)
+    }, 1000);
 }
 
 // Volume meter
@@ -298,7 +300,7 @@ function displayVolumeMeter(data) {
 obs.on("InputVolumeMeters", displayVolumeMeter);
 
 function toggleLiveVolume() {
-    liveVolumeEnabled = $("#obs-volume-meters-group").is(':visible')
+    let liveVolumeEnabled = $("#obs-volume-meters-group").is(':visible')
     if (liveVolumeEnabled) {
         obs.updateSubscriptions(obs.SUBSCRIPTIONS_DEFAULT)
     } else {
@@ -318,7 +320,11 @@ obs.on('Identified', () => {
 
     obsInterval = setInterval(() => {
         if (recordActive) loadRecordStatus();
-        if (streamActive) {loadStreamStatus()} else {showStreamCongestion(null)}
+        if (streamActive) {
+            loadStreamStatus()
+        } else {
+            showStreamCongestion(null)
+        }
         if (liveScreenshotsEnabled) getLiveScreenshots();
     }, 1000);
 
@@ -333,7 +339,7 @@ obs.on('StudioModeStateChanged', data => {
     // Enforce studio mode
     if (!data.studioModeEnabled) {
         obs.sendCommand("SetStudioModeEnabled", {studioModeEnabled: true}).then(
-            () => obs.sendCommand("SetCurrentPreviewScene", { sceneName: previewSceneSelect.val() })
+            () => obs.sendCommand("SetCurrentPreviewScene", {sceneName: previewSceneSelect.val()})
         );
     }
 })

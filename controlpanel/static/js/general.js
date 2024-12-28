@@ -7,11 +7,11 @@ function toggleCollapse(elem) {
 // Drag and drop
 
 $(document).ready(function () {
-    var $dragging = null;
+    let $dragging = null;
 
-    $draggers = $("fieldset.droptarget > legend > span.collapser");
-    $draggables = $("fieldset.droptarget");
-    $droptargets = $(".droptarget");
+    let $draggers = $("fieldset.droptarget > legend > span.collapser");
+    let $draggables = $("fieldset.droptarget");
+    let $droptargets = $(".droptarget");
 
     $draggers.on('mouseenter', function () {
         $(this).parent().parent().attr("draggable", true)
