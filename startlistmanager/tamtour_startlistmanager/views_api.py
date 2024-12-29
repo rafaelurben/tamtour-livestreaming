@@ -2,13 +2,14 @@ import json
 
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_GET, require_POST
+from django.views.decorators.http import require_http_methods
 
-from .decorators import api_view
+from .decorators import api_view, cors_allowed
 from .models import Startliste, YTStream, YTStreamStartTimeLog
 
 
-@require_GET
+@require_http_methods(["GET", "OPTIONS"])
+@cors_allowed()
 @api_view()
 def get_connection_health(request):
     return JsonResponse({
@@ -18,7 +19,8 @@ def get_connection_health(request):
     })
 
 
-@require_GET
+@require_http_methods(["GET", "OPTIONS"])
+@cors_allowed()
 @api_view()
 def get_start_lists(request):
     return JsonResponse({
@@ -31,7 +33,8 @@ def get_start_lists(request):
     })
 
 
-@require_GET
+@require_http_methods(["GET", "OPTIONS"])
+@cors_allowed()
 @api_view()
 def get_broadcasts(request):
     return JsonResponse({
@@ -44,7 +47,8 @@ def get_broadcasts(request):
     })
 
 
-@require_POST
+@require_http_methods(["POST", "OPTIONS"])
+@cors_allowed()
 @csrf_exempt
 @api_view()
 def log_start_time(request):

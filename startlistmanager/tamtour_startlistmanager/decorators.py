@@ -1,7 +1,7 @@
 import uuid
 from functools import wraps
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.utils import timezone
 
 from .models import ApiKey
@@ -61,6 +61,29 @@ def api_view():
                 return NO_PERMISSION_SESSION
 
             return NOT_AUTHENTICATED
+
+        return wrap
+
+    return decorator
+
+
+def cors_allowed(origin='*', allow_headers='content-type', allow_methods='GET,POST'):
+    def decorator(function):
+        @wraps(function)
+        def wrap(request, *args, **kwargs):
+            headers = {
+                "Access-Control-Allow-Origin": origin,
+                "Access-Control-Allow-Headers": allow_headers,
+                "Access-Control-Allow-Methods": allow_methods,
+            }
+
+            if request.method == "OPTIONS":
+                return HttpResponse(headers=headers)
+
+            response = function(request, *args, **kwargs)
+            for key, value in headers.items():
+                response.headers[key] = value
+            return response
 
         return wrap
 
