@@ -14,8 +14,8 @@ window.obs = {
         obs.connected = false;
         console.log("[OBS] Disconnected!");
         $("body").removeClass("obs-connected");
-        $("#btn-connect").removeClass("d-none");
-        $("#btn-disconnect").addClass("d-none");
+        $("#obs-btn-connect").removeClass("d-none");
+        $("#obs-btn-disconnect").addClass("d-none");
         $("#open-obs-dialog-btn").addClass("btn-success").removeClass("btn-danger").text("OBS verbinden");
 
         if (obs.wakeLock != null) {
@@ -24,7 +24,7 @@ window.obs = {
                 obs.wakeLock = null;
             } catch (err) {
                 console.warn(`Wakelock release failed: ${err.name}, ${err.message}`);
-            }   
+            }
         }
     },
     disconnect: async function () {
@@ -44,8 +44,8 @@ window.obs = {
         $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
         sessionStorage.setItem("tamtour-obs-auto-connect", "true");
-        sessionStorage.setItem("tamtour-obs-target", document.getElementById('login-form-target').value);
-        sessionStorage.setItem("tamtour-obs-password", document.getElementById('login-form-password').value);
+        sessionStorage.setItem("tamtour-obs-target", document.getElementById('obs-login-form-target').value);
+        sessionStorage.setItem("tamtour-obs-password", document.getElementById('obs-login-form-password').value);
 
         if (obs.wakeLock == null) {
             try {
@@ -60,10 +60,10 @@ window.obs = {
         }
     },
     connect: async function (isautoconnect) {
-        var target = document.getElementById('login-form-target').value;
-        var password = document.getElementById('login-form-password').value;
+        let target = document.getElementById('obs-login-form-target').value;
+        let password = document.getElementById('obs-login-form-password').value;
 
-        var prefix = "ws://";
+        let prefix = "ws://";
         if (target.startsWith("https://")) {
             prefix = "wss://";
             target = target.split("//")[1];
@@ -85,10 +85,14 @@ window.obs = {
         }
     },
     sendAction: async function (action, data) {
-        let obj = { action: action, data: data}
+        let obj = {action: action, data: data}
         console.debug("[OBS] Sending", obj, "to browser source...")
         try {
-            await obs.socket.call("CallVendorRequest", { vendorName: "obs-browser", requestType: "emit_event", requestData: { event_name: "ControlPanelEvent", event_data: obj } })
+            await obs.socket.call("CallVendorRequest", {
+                vendorName: "obs-browser",
+                requestType: "emit_event",
+                requestData: {event_name: "ControlPanelEvent", event_data: obj}
+            })
             return true;
         } catch (error) {
             console.warn("[OBS] Action failed:", error)
@@ -129,9 +133,9 @@ obs.on("ConnectionClosed", obs.__handle_disconnected)
 
 window.addEventListener('load', function () {
     if (sessionStorage.getItem("tamtour-obs-target")) {
-        document.getElementById('login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
-        document.getElementById('login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
-        if (sessionStorage.getItem("tamtour-obs-auto-connect") == "true") {
+        document.getElementById('obs-login-form-target').value = sessionStorage.getItem("tamtour-obs-target");
+        document.getElementById('obs-login-form-password').value = sessionStorage.getItem("tamtour-obs-password");
+        if (sessionStorage.getItem("tamtour-obs-auto-connect") === "true") {
             obs.connect(true);
         }
     }

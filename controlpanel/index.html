@@ -15,6 +15,82 @@
 
 <body>
 <!-- Modals / dialogs -->
+<dialog id="api-dialog" class="modal modal-lg fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">API-Anbindung</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <p>
+                        Hier kannst du die Anbindung an die API anpassen.
+                    </p>
+                </div>
+                <div class="mb-3 form-floating">
+                    <input id="api-login-form-baseurl" class="form-control" type="text" name="target"
+                           value="https://app.rafaelurben.ch/tamtour_startlistmanager/">
+                    <label for="api-login-form-baseurl" class="form-label">API Basis-URL</label>
+                </div>
+                <div class="mb-3 form-floating">
+                    <input id="api-login-form-apikey" class="form-control" type="password" name="password">
+                    <label for="api-login-form-apikey" class="form-label">API-Key</label>
+                </div>
+                <div class="">
+                    <button id="api-btn-connect" class="btn btn-success w-100" onclick="api.connect()">
+                        Verbinden
+                    </button>
+                    <button id="api-btn-disconnect" class="btn btn-danger w-100 d-none" onclick="api.disconnect()">
+                        Verbindung trennen
+                    </button>
+                </div>
+                <hr/>
+                <div class="d-flex flex-row flex-wrap gap-3">
+                    <div class="flex-grow-1 d-flex flex-column">
+                        <!-- Spalte 1: Startlisten-Import -->
+                        <button class="btn btn-primary" type="button" onclick="loadStartlistsFromAPI()">
+                            Startlisten von API laden
+                        </button>
+                        <hr/>
+                        <div class="mb-2">
+                            <label for="startlist-select-input" class="form-label">Aktive Startliste</label>
+                            <select class="form-select nostartlistdisabled" disabled id="startlist-select-input"
+                                    onchange="loadStartlist()">
+                            </select>
+                        </div>
+                        <hr/>
+                        <div>
+                            <label for="startlists-import-file-input" class="form-label">Fallback: Aus JSON-Datei
+                                importieren</label>
+                            <input class="form-control" type="file" id="startlists-import-file-input" accept=".json"
+                                   onchange="loadStartlistsFromFile();">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 d-flex flex-column">
+                        <!-- Spalte 2: Broadcasts -->
+                        <button class="btn btn-primary" type="button" onclick="loadBroadcastsFromAPI()">
+                            Broadcasts von API laden
+                        </button>
+                        <hr/>
+                        <div class="mb-2">
+                            <label for="broadcast-select-input" class="form-label">Aktiver Broadcast</label>
+                            <select class="form-select nobroadcastdisabled" disabled id="broadcast-select-input"
+                                    onchange="selectBroadcast()">
+                            </select>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch"
+                                   id="broadcast-send-logs-toggle" onchange="selectBroadcastSendLogsToggle()">
+                            <label class="form-check-label" for="broadcast-send-logs-toggle">Startzeiten
+                                protokollieren</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</dialog>
 <dialog id="obs-dialog" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -26,21 +102,23 @@
                 <div class="mb-3">
                     <p>
                         Um OBS zu verbinden, muss die <a href="https://github.com/obsproject/obs-websocket">OBS
-                        Websocket API</a> aktiviert sein. Diese kann in <b>OBS</b> via <b>Tools</b> -> <b>Websocket
+                        Websocket API</a> aktiviert sein. Diese kann in <b>OBS</b> via <b>Tools</b> → <b>Websocket
                         Server Settings</b> aktiviert werden. Es ist empfohlen, ein Passwort zu setzen.
                     </p>
                 </div>
                 <div class="mb-3 form-floating">
-                    <input id="login-form-target" class="form-control" type="text" name="target" value="127.0.0.1:4455">
-                    <label for="login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
+                    <input id="obs-login-form-target" class="form-control" type="text" name="target"
+                           value="127.0.0.1:4455">
+                    <label for="obs-login-form-target" class="form-label">Ziel (IP:Port oder Link)</label>
                 </div>
                 <div class="mb-3 form-floating">
-                    <input id="login-form-password" class="form-control" type="password" name="password">
-                    <label for="login-form-password" class="form-label">Passwort</label>
+                    <input id="obs-login-form-password" class="form-control" type="password" name="password">
+                    <label for="obs-login-form-password" class="form-label">Passwort</label>
                 </div>
                 <div class="">
-                    <button id="btn-connect" class="btn btn-success w-100" onclick="obs.connect()">Verbinden</button>
-                    <button id="btn-disconnect" class="btn btn-danger w-100 d-none" onclick="obs.disconnect()">
+                    <button id="obs-btn-connect" class="btn btn-success w-100" onclick="obs.connect()">Verbinden
+                    </button>
+                    <button id="obs-btn-disconnect" class="btn btn-danger w-100 d-none" onclick="obs.disconnect()">
                         Verbindung trennen
                     </button>
                 </div>
@@ -120,53 +198,6 @@
                             <option value="4">CAM4 (Camera 4 Mic)</option>
                         </select>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</dialog>
-<dialog id="startlist-import-dialog" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5">Startlisten-Import</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <p>
-                        Hier kannst du Startlisten importieren. Die Startlisten müssen im <b>JSON-Format</b> vorliegen.
-                    </p>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="startlists-import-mode">
-                    <label class="form-check-label" for="startlists-import-mode">Von URL laden?</label>
-                </div>
-                <hr/>
-                <div class="mb-2 disabled">
-                    <label for="startlists-import-file-input" class="form-label">Aus JSON-Datei importieren</label>
-                    <input disabled class="form-control" type="file" id="startlists-import-file-input" accept=".json"
-                           onchange="loadStartlistsFromFile();">
-                </div>
-                <div class="mb-2 disabled">
-                    <label for="startlists-import-url-input" class="form-label">Von URL importieren</label>
-                    <div class="input-group">
-                        <input disabled class="form-control" type="url"
-                               value="https://app.rafaelurben.ch/tamtour_startlistmanager/startlists.json"
-                               placeholder="https://app.rafaelurben.ch/tamtour_startlistmanager/startlists.json"
-                               id="startlists-import-url-input" onchange="loadStartlistsFromURL();">
-                        <button disabled class="btn btn-primary" type="button" onclick="loadStartlistsFromURL()"
-                                id="startlists-import-url-button">
-                            Laden
-                        </button>
-                    </div>
-                </div>
-                <hr/>
-                <div class="mb-2">
-                    <label for="startlist-select-input" class="form-label">Startliste</label>
-                    <select class="form-select nostartlistdisabled" disabled id="startlist-select-input"
-                            onchange="loadStartlist()">
-                    </select>
                 </div>
             </div>
         </div>
@@ -332,6 +363,10 @@
                 <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path>
             </svg>
         </button>
+        <button id="open-api-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal"
+                data-bs-target="#api-dialog" type="button">
+            API verbinden
+        </button>
         <button id="open-obs-dialog-btn" class="btn btn-success flex-grow-1" data-bs-toggle="modal"
                 data-bs-target="#obs-dialog" type="button">
             OBS verbinden
@@ -361,12 +396,8 @@
                 </legend>
                 <div class="mb-2">
                     <label for="startlistitem-select-input"
-                           class="form-label visually-hidden-focusable">Startliste</label>
+                           class="form-label visually-hidden-focusable">Aktives Element der Startliste</label>
                     <div class="input-group">
-                        <button class="btn btn-secondary" data-bs-toggle="modal"
-                                data-bs-target="#startlist-import-dialog" type="button">
-                            Import
-                        </button>
                         <select class="form-select nostartlistdisabled" disabled id="startlistitem-select-input"
                                 onchange="loadStartlistitem()"></select>
                         <button class="btn btn-outline-secondary nostartlistdisabled whiteicon-darkonly centericon"
@@ -462,18 +493,22 @@
                     <div>
                         <div class="input-group mb-1">
                             <div class="form-floating">
-                                <input type="text" class="form-control nostartlistdisabled" id="startlist-form-title"
+                                <input type="text" class="form-control nostartlistdisabled" disabled
+                                       id="startlist-form-title"
                                        value="" placeholder="Startliste">
                                 <label for="startlist-form-title" class="form-label">Titel</label>
                             </div>
-                            <button class="btn btn-secondary nostartlistdisabled" onclick="showStartListPreview();">
+                            <button class="btn btn-secondary nostartlistdisabled" disabled
+                                    onclick="showStartListPreview();">
                                 Vorschau
                             </button>
                             <button id="btn-display-startlist-overlay" class="btn btn-primary nostartlistdisabled"
+                                    disabled
                                     onclick="cancelSponsorsAnimation(); hideTimeOverlay(); playStartListAnimation()">
                                 Anzeigen
                             </button>
                             <button id="btn-cancel-startlist-overlay" class="btn btn-outline-danger nostartlistdisabled"
+                                    disabled
                                     onclick="cancelStartListAnimation()">
                                 Abbruch
                             </button>
@@ -1148,6 +1183,9 @@
 <script src="./static/js/colormodes.js"></script>
 <script src="./static/js/general.js"></script>
 <script src="./static/js/utils.js"></script>
+<script src="./static/js/api-connection.js"></script>
+<script src="./static/js/api-broadcasts.js"></script>
+<script src="./static/js/api-startlists.js"></script>
 <script src="./static/js/obs-connection.js"></script>
 <script src="./static/js/obs-general-controls.js"></script>
 <script src="./static/js/overlay-image.js"></script>

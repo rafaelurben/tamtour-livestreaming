@@ -7,14 +7,18 @@ function toggleCollapse(elem) {
 // Drag and drop
 
 $(document).ready(function () {
-    var $dragging = null;
+    let $dragging = null;
 
-    $draggers = $("fieldset.droptarget > legend > span.collapser");
-    $draggables = $("fieldset.droptarget");
-    $droptargets = $(".droptarget");
+    let $draggers = $("fieldset.droptarget > legend > span.collapser");
+    let $draggables = $("fieldset.droptarget");
+    let $droptargets = $(".droptarget");
 
-    $draggers.on('mouseenter', function () { $(this).parent().parent().attr("draggable", true) });
-    $draggers.on('mouseleave', function () { $(this).parent().parent().attr("draggable", false) }); 
+    $draggers.on('mouseenter', function () {
+        $(this).parent().parent().attr("draggable", true)
+    });
+    $draggers.on('mouseleave', function () {
+        $(this).parent().parent().attr("draggable", false)
+    });
 
     $draggables.on('dragstart', function (e) {
         if (e.target.tagName !== "FIELDSET") return;
@@ -44,13 +48,15 @@ $(document).ready(function () {
         e.preventDefault();
         $('.dragover').removeClass("dragover");
         $(".droptarget").removeClass("droptarget-active");
-        
+
         $dragging.insertBefore($(this));
     });
 });
 
 // Prevent accidental reload/close
 
-$(window).on("beforeunload", (e) => {
-    e.preventDefault();
-});
+if (!(location.search.includes('debug'))) {
+    $(window).on("beforeunload", (e) => {
+        e.preventDefault();
+    });
+}

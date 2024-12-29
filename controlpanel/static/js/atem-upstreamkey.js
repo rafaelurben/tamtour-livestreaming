@@ -29,7 +29,7 @@ function updateKey1FlyingFormFromData() {
     let anchor_x = anchors[1];
     let anchor_y = anchors[0];
 
-    var pos_x, pos_y;
+    let pos_x, pos_y;
     let size_x = local_data.size_x;
     let size_y = local_data.size_y;
 
@@ -58,24 +58,24 @@ function updateKey1FlyingFormFromData() {
 }
 
 function updateKey1FlyingDataFromForm() {
-    var pos_x = parseFloat($("#atem-key1-flying-position-form-posx").val());
-    var pos_y = parseFloat($("#atem-key1-flying-position-form-posy").val());
-    var size_x = parseFloat($("#atem-key1-flying-position-form-sizex").val());
-    var size_y = parseFloat($("#atem-key1-flying-position-form-sizey").val());
+    let pos_x = parseFloat($("#atem-key1-flying-position-form-posx").val());
+    let pos_y = parseFloat($("#atem-key1-flying-position-form-posy").val());
+    let size_x = parseFloat($("#atem-key1-flying-position-form-sizex").val());
+    let size_y = parseFloat($("#atem-key1-flying-position-form-sizey").val());
 
     let anchors = $("#atem-key1-flying-position-form-anchor").val().split("-");
     let anchor_x = anchors[1];
     let anchor_y = anchors[0];
 
-    if (anchor_x == "left") {
+    if (anchor_x === "left") {
         pos_x += size_x / 2;
-    } else if (anchor_x == "right") {
+    } else if (anchor_x === "right") {
         pos_x -= size_x / 2;
     }
 
-    if (anchor_y == "bottom") {
+    if (anchor_y === "bottom") {
         pos_y += size_y / 2;
-    } else if (anchor_y == "top") {
+    } else if (anchor_y === "top") {
         pos_y -= size_y / 2;
     }
 
@@ -127,7 +127,7 @@ function renderKey1FlyingPreview() {
     );
 
     // Draw anchor point (in success color)
-    var px_anchor, py_anchor;
+    let px_anchor, py_anchor;
     if (anchor_x === "left") {
         px_anchor = px(data.pos_x) - lx(data.size_x / 2);
     } else if (anchor_x === "right") {

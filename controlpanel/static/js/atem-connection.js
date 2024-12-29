@@ -102,11 +102,11 @@ let atem = {
                 error: function (error) {
                     if (!ignoreerror) {
                         $("#open-atem-dialog-btn").addClass("failing");
-                        if (error.statusText == "timeout") {
-                            console.warn("[ATEM] Request timed out:", { method, url, data });
+                        if (error.statusText === "timeout") {
+                            console.warn("[ATEM] Request timed out:", {method, url, data});
                             if (method === "POST") alert("[ATEM] Anfrage fehlgeschlagen! Bitte erneut versuchen!")
                         } else {
-                            console.error("[ATEM] Request failed:", { method, url, data }, error);
+                            console.error("[ATEM] Request failed:", {method, url, data}, error);
                         }
                     }
                     reject(error);
@@ -130,7 +130,7 @@ let atem = {
             atem.request("GET", `/${atem.connectionData.atemId}/bulk/${fields.join(",")}`).then(result => {
                 for (let field of fields) {
                     $(window).trigger(`atem-get-${field}`, result[field])
-                };
+                }
                 resolve(result);
             }).catch(error => {
                 reject(error);
@@ -182,7 +182,7 @@ window.addEventListener('load', function () {
         document.getElementById('atem-login-form-target').value = sessionStorage.getItem("tamtour-atem-target");
         document.getElementById('atem-login-form-username').value = sessionStorage.getItem("tamtour-atem-username");
         document.getElementById('atem-login-form-password').value = sessionStorage.getItem("tamtour-atem-password");
-        if (sessionStorage.getItem("tamtour-atem-auto-connect") == "true") {
+        if (sessionStorage.getItem("tamtour-atem-auto-connect") === "true") {
             atem.connect(true);
         }
     }
@@ -207,172 +207,180 @@ $(window).on("atem-disconnected", function () {
 // - 'elements', if present, needs to include at lease one visible jQuery element to trigger the request
 
 let atemGETqueue = [
-  // Media Player & Color Generators
-  {
-    url: "mediaplayer-selected",
-    elements: [$("#atem-fieldset-mpcol > div")],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "mediaplayer-file-info",
-    elements: [$("#atem-fieldset-mpcol > div")],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "color-generator",
-    elements: [$("#atem-fieldset-mpcol > div")],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
+    // Media Player & Color Generators
+    {
+        url: "mediaplayer-selected",
+        elements: [$("#atem-fieldset-mpcol > div")],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "mediaplayer-file-info",
+        elements: [$("#atem-fieldset-mpcol > div")],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "color-generator",
+        elements: [$("#atem-fieldset-mpcol > div")],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
 
-  // Transitions
-  {
-    url: "transition-settings",
-    elements: [],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "transition-position",
-    elements: [$("#atem-fieldset-transitions > div")],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "fade-to-black",
-    elements: [$("#atem-fieldset-transitions > div")],
-    interval: 2000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "fade-to-black-state",
-    elements: [$("#atem-fieldset-transitions > div")],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "transition-mix",
-    elements: [$("#atem-fieldset-transitions > div")],
-    requirement: () => { return atem.state.nextTransition.style == 0 },
-    interval: 2000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "transition-dip",
-    elements: [$("#atem-fieldset-transitions > div")],
-    requirement: () => { return atem.state.nextTransition.style == 1 },
-    interval: 2000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "transition-wipe",
-    elements: [$("#atem-fieldset-transitions > div")],
-    requirement: () => { return atem.state.nextTransition.style == 2 },
-    interval: 2000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "transition-dve",
-    elements: [$("#atem-fieldset-transitions > div")],
-    requirement: () => { return atem.state.nextTransition.style == 3 },
-    interval: 2000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "transition-preview",
-    elements: [$("#atem-fieldset-transitions > div")],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
+    // Transitions
+    {
+        url: "transition-settings",
+        elements: [],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "transition-position",
+        elements: [$("#atem-fieldset-transitions > div")],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "fade-to-black",
+        elements: [$("#atem-fieldset-transitions > div")],
+        interval: 2000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "fade-to-black-state",
+        elements: [$("#atem-fieldset-transitions > div")],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "transition-mix",
+        elements: [$("#atem-fieldset-transitions > div")],
+        requirement: () => {
+            return atem.state.nextTransition.style === 0
+        },
+        interval: 2000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "transition-dip",
+        elements: [$("#atem-fieldset-transitions > div")],
+        requirement: () => {
+            return atem.state.nextTransition.style === 1
+        },
+        interval: 2000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "transition-wipe",
+        elements: [$("#atem-fieldset-transitions > div")],
+        requirement: () => {
+            return atem.state.nextTransition.style === 2
+        },
+        interval: 2000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "transition-dve",
+        elements: [$("#atem-fieldset-transitions > div")],
+        requirement: () => {
+            return atem.state.nextTransition.style === 3
+        },
+        interval: 2000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "transition-preview",
+        elements: [$("#atem-fieldset-transitions > div")],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
 
-  // Downstream Keyer
-  {
-    url: "dkey-state",
-    elements: [],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "dkey-properties-base",
-    elements: [],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "dkey-properties",
-    elements: [],
-    interval: 2000,
-    inprogress: false,
-    lastfire: 0,
-  },
+    // Downstream Keyer
+    {
+        url: "dkey-state",
+        elements: [],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "dkey-properties-base",
+        elements: [],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "dkey-properties",
+        elements: [],
+        interval: 2000,
+        inprogress: false,
+        lastfire: 0,
+    },
 
-  // Upstream Keyer
-  {
-    url: "key-on-air",
-    elements: [],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "key-properties-base",
-    elements: [],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
+    // Upstream Keyer
+    {
+        url: "key-on-air",
+        elements: [],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "key-properties-base",
+        elements: [],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
 
-  // Audio
-  {
-    url: "fairlight-audio-input",
-    elements: [$("#atem-fieldset-audio > div")],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "fairlight-strip-properties",
-    elements: [$("#atem-fieldset-audio > div")],
-    interval: 1000,
-    inprogress: false,
-    lastfire: 0,
-  },
+    // Audio
+    {
+        url: "fairlight-audio-input",
+        elements: [$("#atem-fieldset-audio > div")],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "fairlight-strip-properties",
+        elements: [$("#atem-fieldset-audio > div")],
+        interval: 1000,
+        inprogress: false,
+        lastfire: 0,
+    },
 
-  // Video
-  {
-    url: "preview-bus-input",
-    elements: [],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
-  {
-    url: "program-bus-input",
-    elements: [],
-    interval: 500,
-    inprogress: false,
-    lastfire: 0,
-  },
+    // Video
+    {
+        url: "preview-bus-input",
+        elements: [],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
+    {
+        url: "program-bus-input",
+        elements: [],
+        interval: 500,
+        inprogress: false,
+        lastfire: 0,
+    },
 ];
 
 function __hasVisibleElements(elements) {
-    if (elements.length == 0) return true;
+    if (elements.length === 0) return true;
 
     let anyVisible = false;
     for (let i = 0; i < elements.length; i++) {
@@ -406,7 +414,7 @@ $(window).on("atem-base-interval", function () {
             // If a request was fired less than the interval ago, don't fire another one
             if (queueItem.lastfire + queueItem.interval > Date.now()) {
                 continue
-            };
+            }
             // If a request is already in progress, don't fire another one, except if it has been in progress for more than 10 seconds
             if (queueItem.inprogress) {
                 if (queueItem.lastfire + 10000 < Date.now()) {
@@ -415,8 +423,8 @@ $(window).on("atem-base-interval", function () {
                     console.log("[ATEM] Request is slower than the interval. Skipping...")
                     continue
                 }
-            };
-            // If a requirement is set and it is not met, don't fire the request
+            }
+            // If a requirement is set, and it is not met, don't fire the request
             if (queueItem.requirement !== undefined && !queueItem.requirement()) continue;
             // If none of the elements are visible, don't fire the request
             if (!__hasVisibleElements(queueItem.elements)) continue;
