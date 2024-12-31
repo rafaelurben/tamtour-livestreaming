@@ -307,13 +307,14 @@ class YTStream(models.Model):
         if not self.actual_start_time:
             return "[Es wurden noch keine Zeiten erfasst.]"
 
-        lines = ['00:00 Streamstart']
+        lines = ['0:00:00 Streamstart']
 
         for log_elem in self.start_time_logs.filter(stream=self):
             diff = log_elem.timestamp - self.actual_start_time
-            minutes = int(diff.seconds / 60)
+            hours = diff.seconds // 3600
+            minutes = (diff.seconds % 3600) // 60
             seconds = diff.seconds % 60
-            lines.append(f'{minutes:02}:{seconds:02} {log_elem.content}')
+            lines.append(f'{hours:01}:{minutes:02}:{seconds:02} {log_elem.content}')
 
         return "\n".join(lines)
 
