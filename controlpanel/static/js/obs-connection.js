@@ -1,10 +1,12 @@
 // Handle connection with obs-websocket
 
-window.obs = {
-    SUBSCRIPTIONS_DEFAULT: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters,
-    SUBSCRIPTIONS_WITHOUT_VOLUME: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs,
+let _BASE_SUBSCRIPTIONS = OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Transitions | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs;
 
-    subscriptions: OBSWebSocket.EventSubscription.Scenes | OBSWebSocket.EventSubscription.Ui | OBSWebSocket.EventSubscription.Outputs | OBSWebSocket.EventSubscription.InputVolumeMeters,
+window.obs = {
+    SUBSCRIPTIONS_DEFAULT: _BASE_SUBSCRIPTIONS | OBSWebSocket.EventSubscription.InputVolumeMeters,
+    SUBSCRIPTIONS_WITHOUT_VOLUME: _BASE_SUBSCRIPTIONS,
+
+    subscriptions: _BASE_SUBSCRIPTIONS | OBSWebSocket.EventSubscription.InputVolumeMeters,
     socket: new OBSWebSocket(),
     wakeLock: null,
     get connected() {
@@ -39,8 +41,8 @@ window.obs = {
     __handle_connected: async function () {
         console.log("[OBS] Connected!");
         $("body").addClass("obs-connected");
-        $("#btn-connect").addClass("d-none");
-        $("#btn-disconnect").removeClass("d-none");
+        $("#obs-btn-connect").addClass("d-none");
+        $("#obs-btn-disconnect").removeClass("d-none");
         $("#open-obs-dialog-btn").removeClass("btn-success").addClass("btn-danger").text("OBS verbunden");
 
         sessionStorage.setItem("tamtour-obs-auto-connect", "true");

@@ -54,6 +54,54 @@ obs.on("SceneListChanged", data => {
     _updateScenePanel(data);
 })
 
+// Transition
+
+let transitionBtn = $("#obs-start-transition-btn");
+let transitionSelect = $("#obs-transition-select-input");
+
+function _updateTransitionPanel(data) {
+    transitionSelect.off("change");
+
+    if (data.transitions) {
+        transitionSelect.empty();
+        for (let transition of data.transitions.reverse()) {
+            let optelem = $("<option>", {value: transition.transitionName, text: transition.transitionName});
+            transitionSelect.append(optelem);
+        }
+    }
+
+    transitionSelect.val(data.currentSceneTransitionName || data.transitionName);
+
+    transitionSelect.change((event) => {
+        obs.sendCommand("SetCurrentSceneTransition", {transitionName: event.target.value});
+    });
+}
+
+async function loadTransitions() {
+    _updateTransitionPanel(await obs.sendCommand("GetSceneTransitionList"));
+}
+
+async function startTransition() {
+    await obs.sendCommand('TriggerStudioModeTransition');
+    transitionBtn.prop("disabled", true);
+}
+
+obs.on('CurrentSceneTransitionChanged', data => {
+    _updateTransitionPanel(data);
+})
+
+obs.on('SceneTransitionStarted', data => {
+    previewSceneSelect.prop('disabled', true);
+    transitionBtn.prop('disabled', true);
+    transitionSelect.prop("disabled", true);
+})
+
+obs.on('SceneTransitionVideoEnded', data => {
+    previewSceneSelect.prop('disabled', false);
+    transitionBtn.prop('disabled', false);
+    transitionSelect.prop('disabled', false);
+})
+
 // Preview/Program display
 
 let liveScreenshotsEnabled = false;
@@ -240,18 +288,6 @@ function showStreamCongestion(congestion, reconnecting = false) {
 
 obs.on("StreamStateChanged", loadStreamStatus);
 
-// Transition
-
-async function startTransition() {
-    await obs.sendCommand('TriggerStudioModeTransition');
-
-    let button = $("#btn-start-transition");
-    button.prop("disabled", true);
-    setTimeout(() => {
-        button.prop("disabled", false)
-    }, 1000);
-}
-
 // Volume meter
 
 let smoothingDiff = 1.2;
@@ -314,6 +350,7 @@ let obsInterval = null;
 
 obs.on('Identified', () => {
     loadScenes();
+    loadTransitions();
     loadRecordStatus();
     loadReplayBufferStatus();
     loadStreamStatus();

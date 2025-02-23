@@ -770,21 +770,30 @@
                           onclick="toggleCollapse(this); toggleLiveScreenshots(); toggleLiveVolume()"></span>
                     <b>OBS&nbsp;Controls</b>
                 </legend>
-                <div class="mb-2">
-                    <div class="input-group">
+                <div class="mb-1 d-flex flex-row gap-2">
+                    <div class="form-floating flex-fill">
+                        <select class="form-select border-success-subtle" id="obs-scene-select-input">
+                        </select>
+                        <label for="obs-scene-select-input" class="form-label">Vorschau</label>
+                    </div>
+                    <div class="input-group w-auto flex-fill">
                         <div class="form-floating">
-                            <select class="form-select border-success-subtle" id="obs-scene-select-input">
+                            <select class="form-select border-primary-subtle" id="obs-transition-select-input">
                             </select>
-                            <label for="obs-scene-select-input" class="form-label">Vorschau</label>
+                            <label for="obs-transition-select-input" class="form-label">Übergang</label>
                         </div>
-                        <button id="btn-start-transition" class="btn btn-primary" type="button"
-                                onclick="startTransition()">Übergang
+                        <button id="obs-start-transition-btn" class="btn btn-primary" type="button"
+                                onclick="startTransition()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                                 fill="currentColor">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
+                            </svg>
                         </button>
-                        <div class="form-floating">
-                            <input class="form-control border-danger-subtle" type="text" id="obs-scene-display" disabled
-                                   value="" autocomplete="off">
-                            <label for="obs-scene-display" class="form-label">Programm</label>
-                        </div>
+                    </div>
+                    <div class="form-floating">
+                        <input class="form-control border-danger-subtle" type="text" id="obs-scene-display" disabled
+                               value="" autocomplete="off">
+                        <label for="obs-scene-display" class="form-label">Programm</label>
                     </div>
                 </div>
                 <fieldset class="collapsed mx-0 mb-1">
