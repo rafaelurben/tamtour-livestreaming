@@ -707,13 +707,17 @@
             </fieldset>
 
             <!-- Time overlay -->
-            <fieldset class="obs-required droptarget collapsed">
+            <fieldset class="obs-required droptarget">
                 <legend>
                     <span class="collapser" onclick="toggleCollapse(this)"></span>
                     <b>Zeit-Overlay</b>
                 </legend>
-                <div class="mb-1">
-                    <div class="input-group">
+                <div class="mb-1 d-flex flex-row gap-2">
+                    <div class="input-group w-auto">
+                        <label for="time-display" class="input-group-text">Aktuelle Zeit</label>
+                        <input class="form-control" type="text" id="time-display" disabled="" value="" autocomplete="off">
+                    </div>
+                    <div class="input-group flex-fill">
                         <button id="btn-show-time-overlay" class="btn btn-outline-success flex-fill"
                                 onclick="showTimeOverlay()">
                             Einblenden
