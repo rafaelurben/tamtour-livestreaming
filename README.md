@@ -1,19 +1,25 @@
 # tamtour-livestreaming
 
-This is a tool used to control and display overlay animations in OBS Studio from a web browser. It is used for the [TamTour Trophy Live Streams](https://youtube.com/@tamtour_trophy).
+This is a tool used to control and display overlay animations in OBS Studio from a web browser. It is used for
+the [TamTour Trophy Live Streams](https://youtube.com/@tamtour_trophy).
 
 ## Repo content
 
 This repository contains the following parts:
 
-- `browsersource`: The page loaded as a browser source in OBS Studio
 - `controlpanel`: The control panel page
-- `startlistmanager`: A Django app to manage the start lists
+- `browsersource`: The page loaded as a browser source in OBS Studio to display overlays
+- `startlistmanager`: A Django app to manage the start lists and YouTube live streams
+- `switcherproxy`: A proxy that connects to an ATEM video mixer
 - `docs`: Documentation
 
 ## Technical details
 
-The control panel sends commands to the OBS Studio websocket server ([obs-websocket](https://github.com/obsproject/obs-websocket)) via [obs-websocket-js](https://github.com/obs-websocket-community-projects/obs-websocket-js). The browser source ([obs-browser](https://github.com/obsproject/obs-browser)) receives the commands as events and displays the overlay accordingly.
+The control panel sends commands to the OBS Studio websocket
+server ([obs-websocket](https://github.com/obsproject/obs-websocket))
+via [obs-websocket-js](https://github.com/obs-websocket-community-projects/obs-websocket-js). The browser
+source ([obs-browser](https://github.com/obsproject/obs-browser)) receives the commands as events and displays the
+overlay accordingly.
 
 ### Debugging the browser source
 
