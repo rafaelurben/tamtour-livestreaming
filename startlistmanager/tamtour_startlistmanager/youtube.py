@@ -124,8 +124,8 @@ class YouTubeAPI:
             }
         )
         response = request.execute()
-
-        if response['snippet']['actualStartTime'] and not stream.actual_start_time:
+        if ('actualStartTime' in response['snippet'] and response['snippet']['actualStartTime'] and
+                not stream.actual_start_time):
             stream.actual_start_time = datetime.fromisoformat(response['snippet']['actualStartTime'])
             stream.save()
 
