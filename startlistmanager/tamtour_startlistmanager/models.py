@@ -362,7 +362,7 @@ class YTStreamStartTimeLog(models.Model):
     stream = models.ForeignKey(YTStream, on_delete=models.CASCADE, related_name='start_time_logs')
 
     timestamp = models.DateTimeField(auto_now_add=True)
-    content = models.CharField(max_length=50)
+    content = models.CharField(max_length=75)
 
     objects = models.Manager()
 

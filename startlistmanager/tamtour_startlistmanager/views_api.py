@@ -54,7 +54,7 @@ def get_broadcasts(request):
 def log_start_time(request):
     try:
         data = json.loads(request.body)
-        content = data['content']
+        content = (str(data['content']))[:75]
         stream_id = data['stream_id']
     except (KeyError, json.JSONDecodeError):
         return HttpResponseBadRequest()
