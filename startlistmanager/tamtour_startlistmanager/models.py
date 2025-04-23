@@ -263,7 +263,7 @@ class YTStreamGroup(models.Model):
 
         lines = []
 
-        for stream in self.streams.filter(group=self, show_in_timetable=True):
+        for stream in self.streams.filter(group=self, show_in_timetable=True).order_by('scheduled_start_time'):
             _time = stream.scheduled_start_time.strftime("%H%M")
             if stream.pk == current_stream_pk:
                 lines.append(f'- {_time} Uhr: *{stream.name_in_timetable}* ⬅️')
@@ -309,7 +309,7 @@ class YTStream(models.Model):
 
         lines = ['0:00:00 Streamstart']
 
-        for log_elem in self.start_time_logs.filter(stream=self):
+        for log_elem in self.start_time_logs.filter(stream=self).order_by('timestamp'):
             diff = log_elem.timestamp - self.actual_start_time
             hours = diff.seconds // 3600
             minutes = (diff.seconds % 3600) // 60
