@@ -4,6 +4,7 @@ function loadBroadcastsFromAPI() {
     api.request('GET', 'get-broadcasts').then(data => {
         loadBroadcastsFromData(data);
     }).catch(error => {
+        console.error(error);
         alert("[Broadcast-Import] Beim Abrufen der API ist ein Fehler aufgetreten: " + error);
     })
 }
@@ -26,8 +27,12 @@ function loadBroadcastsFromData(data) {
         broadcastSelect.append($("<option>", {value: lid, text: broadcast.yt_title}));
     }
 
-    let storedval = sessionStorage.getItem("tamtour-broadcast-id");
-    if (isInitialBroadcastLoad && storedval < broadcasts.length) broadcastSelect.val(storedval);
+    let storedVal = sessionStorage.getItem("tamtour-broadcast-id");
+    if (isInitialBroadcastLoad && storedVal && storedVal < broadcasts.length) {
+        broadcastSelect.val(storedVal);
+    } else {
+        broadcastSelect.val(0);
+    }
 
     window.tamtour_broadcasts = broadcasts;
     selectBroadcast();

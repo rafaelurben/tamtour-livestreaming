@@ -18,6 +18,7 @@ function loadStartlistsFromAPI() {
     api.request('GET', 'get-start-lists').then(data => {
         loadStartlistsFromData(data);
     }).catch(error => {
+        console.error(error);
         alert("[Startlisten-Import] Beim Abrufen der API ist ein Fehler aufgetreten: " + error);
     })
 }
@@ -40,8 +41,12 @@ function loadStartlistsFromData(data) {
         startlistSelect.append($("<option>", {value: lid, text: startlist.name}));
     }
 
-    let storedval = sessionStorage.getItem("tamtour-startlist-id");
-    if (isInitialStartlistLoad && storedval < startlists.length) startlistSelect.val(storedval);
+    let storedVal = sessionStorage.getItem("tamtour-startlist-id");
+    if (isInitialStartlistLoad && storedVal && storedVal < startlists.length) {
+        startlistSelect.val(storedVal);
+    } else {
+        startlistSelect.val(0);
+    }
 
     window.tamtour_startlists = startlists;
     loadStartlist();
@@ -67,8 +72,12 @@ function loadStartlist() {
         startlistitemSelect.append($("<option>", {value: sid, text: title}));
     }
 
-    let storedval = sessionStorage.getItem("tamtour-startlist-itemid");
-    if (isInitialStartlistLoad && storedval < startlistitems.length) startlistitemSelect.val(storedval);
+    let storedVal = sessionStorage.getItem("tamtour-startlist-itemid");
+    if (isInitialStartlistLoad && storedVal && storedVal < startlistitems.length) {
+        startlistitemSelect.val(storedVal);
+    } else {
+        startlistitemSelect.val(0);
+    }
 
     loadStartlistitem();
 }
