@@ -2,6 +2,7 @@ import uuid
 from datetime import time
 
 from django.db import models
+from django.utils.timezone import make_naive
 
 from .enums import Kompositionstyp
 
@@ -264,7 +265,7 @@ class YTStreamGroup(models.Model):
         lines = []
 
         for stream in self.streams.filter(group=self, show_in_timetable=True).order_by('scheduled_start_time'):
-            _time = stream.scheduled_start_time.strftime("%H%M")
+            _time = make_naive(stream.scheduled_start_time).strftime("%H%M")
             if stream.pk == current_stream_pk:
                 lines.append(f'- {_time} Uhr: *{stream.name_in_timetable}* ⬅️')
             else:
