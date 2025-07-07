@@ -9,6 +9,8 @@ from django.shortcuts import reverse, redirect
 
 from . import models
 
+from .conf import app_settings
+
 ENV_CLIENT_ID_NAME = 'OAUTH_GOOGLE_KEY'
 ENV_CLIENT_SECRET_NAME = 'OAUTH_GOOGLE_SECRET'
 REDIRECT_URI_VIEW_NAME = 'admin:tamtour_startlistmanager_ytaccount_oauth_callback'
@@ -19,9 +21,8 @@ class YouTubeOAuth:
     def _get_flow_from_env(cls, state=None):
         return google_auth_oauthlib.flow.Flow.from_client_config({
             "web": {
-                "client_id": os.getenv(ENV_CLIENT_ID_NAME),
-                "client_secret": os.getenv(ENV_CLIENT_SECRET_NAME),
-                # "project_id": os.getenv('OAUTH_GOOGLE_PROJECT_ID'),
+                "client_id": app_settings.OAUTH_GOOGLE_KEY,
+                "client_secret": app_settings.OAUTH_GOOGLE_SECRET,
                 "auth_uri": "https://accounts.google.com/o/oauth2/auth",
                 "token_uri": "https://oauth2.googleapis.com/token",
                 "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
