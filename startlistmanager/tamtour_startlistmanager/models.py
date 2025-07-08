@@ -1,8 +1,10 @@
 import uuid
-from datetime import time
+from datetime import time, date
 
 from django.db import models
+from django.utils import translation
 from django.utils.timezone import make_naive
+from django.utils.formats import date_format
 
 from .enums import Kompositionstyp
 
@@ -259,20 +261,34 @@ class YTStreamGroup(models.Model):
         return str(self.name)
 
     def get_timetable(self, current_stream_pk=None):
-        """Get the part of the description that contains a list of all streams in this group. This method assumes that
-        all streams happen on the same day."""
+        """Get the part of the description that contains a list of all streams in this group. If not all streams happen
+        on the same day, day headings are added and streams are grouped by day."""
+
+        lines_by_date = {}
+
+        for stream in self.streams.filter(group=self, show_in_timetable=True).order_by('scheduled_start_time'):
+            line = stream.as_timetable_row(current_stream_pk == stream.pk)
+            date_str = make_naive(stream.scheduled_start_time).date().isoformat()
+            if date_str not in lines_by_date:
+                lines_by_date[date_str] = [line]
+            else:
+                lines_by_date[date_str].append(line)
 
         lines = []
 
-        for stream in self.streams.filter(group=self, show_in_timetable=True).order_by('scheduled_start_time'):
-            _time = make_naive(stream.scheduled_start_time).strftime("%H%M")
-            if stream.pk == current_stream_pk:
-                lines.append(f'- {_time} Uhr: *{stream.name_in_timetable}* ⬅️')
-            else:
-                line = f'- {_time} Uhr: {stream.name_in_timetable}'
-                if stream.yt_id:
-                    line += f' (https://youtube.com/watch?v={stream.yt_id})'
-                lines.append(line)
+        if len(lines_by_date) == 1:
+            # Only one date, no need for headings
+            for _, lines_for_date in lines_by_date.items():
+                lines.extend(lines_for_date)
+        else:
+            old_language = translation.get_language()
+            translation.activate('de_CH')
+            # Multiple dates, add headings
+            for date_str, lines_for_date in lines_by_date.items():
+                date_display = date_format(date.fromisoformat(date_str), "l, d. F Y", use_l10n=True)
+                lines.append(f"*{date_display}*:")
+                lines.extend(lines_for_date)
+            translation.activate(old_language)
 
         return "\n".join(lines)
 
@@ -353,6 +369,16 @@ class YTStream(models.Model):
             'scheduledStartTime': self.scheduled_start_time.isoformat(),
             'scheduledEndTime': self.scheduled_end_time.isoformat(),
         }
+
+    def as_timetable_row(self, is_active: bool):
+        _time = make_naive(self.scheduled_start_time).strftime("%H%M")
+        if is_active:
+            return f'- {_time} Uhr: *{self.name_in_timetable}* ⬅️'
+        else:
+            line = f'- {_time} Uhr: {self.name_in_timetable}'
+            if self.yt_id:
+                line += f' (https://youtube.com/watch?v={self.yt_id})'
+            return line
 
     class Meta:
         verbose_name = 'YT Stream'
