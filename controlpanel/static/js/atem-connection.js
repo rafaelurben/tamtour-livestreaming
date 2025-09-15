@@ -91,6 +91,8 @@ let atem = {
         return new Promise(function (resolve, reject) {
             $.ajax({
                 url: atem.url + url,
+                username: atem.connectionData.username,
+                password: atem.connectionData.password,
                 data: data,
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded',
