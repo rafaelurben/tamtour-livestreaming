@@ -7,15 +7,15 @@ For that, `openswitcher-proxy` (part of the `pyatem` / Open Switcher project) is
 
 Links to the original project:
 
-- Homepage: https://openswitcher.org/
-- Docs: https://docs.openswitcher.org/
-- Source: https://git.sr.ht/~martijnbraam/pyatem
+- Homepage: <https://openswitcher.org/>
+- Docs: <https://docs.openswitcher.org/>
+- Source: <https://git.sr.ht/~martijnbraam/pyatem>
 
 ## Modified version
 
 In order to incorporate some small changes, a fork has been created.
 
-- Source: https://github.com/rafaelurben/pyatem
+- Source: <https://github.com/rafaelurben/pyatem>
 
 Changes made to the original version:
 
