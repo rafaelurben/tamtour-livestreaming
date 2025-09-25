@@ -8,23 +8,30 @@
             ]
         },
         {
-            "name": "Sponsoren (1/2)",
+            "name": "Sponsoren (1/3)",
             "files": [
                 "sponsor_masterhomepage.png",
                 "sponsor_musikoesch.jpg",
                 "sponsor_eventsponsor.jpg",
-                "sponsor_creaplot.jpg",
-                "sponsor_baseltattoo.jpg"
+                "sponsor_creaplot.jpg"
             ]
         },
         {
-            "name": "Sponsoren (2/2)",
+            "name": "Sponsoren (2/3)",
             "files": [
+                "sponsor_baseltattoo.jpg",
                 "sponsor_debrunnerkoenig.png",
                 "sponsor_ullrich.jpg",
-                "sponsor_baloise.png",
+                "sponsor_baloise.png"
+            ]
+        },
+        {
+            "name": "Sponsoren (3/3)",
+            "files": [
                 "sponsor_sanitastroesch.jpg",
-                "sponsor_wasserfallen.png"
+                "sponsor_wasserfallen.png",
+                "sponsor_cyclesjeanbrun.jpeg",
+                "sponsor_velomeierrheinfelden.jpg"
             ]
         },
         {
