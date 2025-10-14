@@ -9,6 +9,7 @@ Zurück zur [Startseite](./index.md)
 
 - [Video](#video)
 - [Audio](#audio)
+- [Weitere Hardware](#weitere-hardware)
 - [Verkabelungsdiagramm](#verkabelungsdiagramm)
 
 ## Video
@@ -27,7 +28,7 @@ Damit eine Kamera für dieses Setup geeignet ist, muss sie einen "Clean HDMI Out
 die Fähigkeit, live Video ohne irgendwelche Bedienelemente über den (mini/micro) HDMI-Ausgang zu übertragen. Für
 Canon-Kameras befindet sich zum
 Beispiel [hier](https://www.canon-europe.com/pro/infobank/which-camera-which-features/#id_2191629) eine Liste
-unterstützer Kameras.
+unterstützter Kameras.
 
 Folgende Kameras haben wir in diesem Setup erfolgreich verwendet und getestet:
 
@@ -45,6 +46,7 @@ Folgende Kameras haben wir in diesem Setup erfolgreich verwendet und getestet:
     - **Verwendung**: Bühnenrand / Weitwinkel
     - **Video-Anschluss**: HDMI micro (Full HD)
     - **Stromversorgung**: USB mini-B (Kabel separat erhältlich)
+    - **Anmerkungen**: Problem mit Überhitzung bei längeren Aufnahmen, Qualität nicht optimal
 - [Sony HDR-CX405](https://www.sony.ch/de/electronics/handycam-camcorder/hdr-cx405/specifications)
     - **Verwendung**: Hauptkamera / Zoom
     - **Video-Anschluss**: HDMI micro (Full HD, ohne Audio)
@@ -62,10 +64,13 @@ Folgende Kameras haben wir in diesem Setup erfolgreich verwendet und getestet:
 - HDMI(m) - HDMI(m) Kabel
 - [Delock HDMI(f) - micro HDMI(m), 0.23m](https://www.digitec.ch/de/s1/product/8599105)
 - [Ugreen HDMI(f) - HDMI(f)](https://www.digitec.ch/de/s1/product/20685674)
-- Mikrofonstative (König & Meyer) für Kameras
-- Bildschirm(e) zu Monitoringzwecken
+- Stative für Kameras
+  - Für leichte Kameras tun's auch Mikrofonstative (z. B. König & Meyer)
+- Bildschirm(e) zu Monitoring-Zwecken
 
-**Achtung**: Manche HDMI-Kabel sind unidirektional!
+**Tipp**: Optische Kabel sind wesentlich zuverlässiger bei Längen über 10m.
+
+**Achtung**: Optische HDMI-Kabel sind typischerweise unidirektional! 
 
 ## Audio
 
@@ -79,13 +84,15 @@ Das Audio-Setup kann sich je nach Veranstaltungsort stark unterscheiden.
 
 ### Audio-Zubehör
 
-- Mikrofonstativ (König & Meyer)
+- Mikrofonstative (König & Meyer)
 - XLR-Kabel (20m)
 - (mini Jack zu 2x XLRf y-Kabel)
 - Adapter zur Verbindung mit der lokalen Audioanlage
-- Audiomischpult
+- Audiomischpult (z. B. [Behringer X32 Producer](https://www.behringer.com/behringer/product?modelCode=0603-ADP))
 
-## Streaming-Laptop
+## Weitere Hardware
+
+### Streaming-Laptop/PC
 
 Ein Laptop (oder PC) dient als Steuer- und Livestreaming-Gerät. Das Gerät sollte folgende Spezifikationen aufweisen:
 
@@ -93,9 +100,8 @@ Ein Laptop (oder PC) dient als Steuer- und Livestreaming-Gerät. Das Gerät soll
 - Mind. 1 freier USB-C-Anschluss
 - Empfohlen: RJ45-Anschluss oder entsprechender Adapter
 - Empfohlen: HDMI-Anschluss oder entsprechender Adapter
-- Empfohlen: Aktuelle Version von Windows 11
 
-## Weitere Hardware
+### Zubehör
 
 - Steckerleisten, Kabelrollen, Verlängerungskabel
 - Kabelmanagement-Utensilien (Klebeband, Klett, etc.)
@@ -103,6 +109,23 @@ Ein Laptop (oder PC) dient als Steuer- und Livestreaming-Gerät. Das Gerät soll
 
 ## Verkabelungsdiagramm
 
-(Bild anklicken, um gross anzusehen / als Vektorgrafik herunterzuladen.)
+### Einfaches Setup
+
+Das einfachste Setup sieht folgendermassen aus.
+
+- **Vorteil**: Einfaches Setup, wenig zusätzliche Hardware notwendig.
+- **Nachteil**: Störsignale aufgrund von unsymmetrischem Audio-Signal.
 
 [![Hardware setup](./assets/hardware-setup.svg)](./assets/hardware-setup.svg)
+
+(Bild anklicken, um gross anzusehen / als Vektorgrafik herunterzuladen.)
+
+### Professionelleres Setup
+
+In einem professionelleren Setup kann das Audio direkt aus dem Mischpult via Dante und der Dante Virtual Soundcard bzw.
+der Open-Source-Alternative [Inferno](https://github.com/teodly/inferno) in den Streaming-Laptop/PC eingespeist werden.
+Somit wird alles Audio symmetrisch übertragen und Störsignale werden minimiert. Die Mikrofone werden dabei direkt an das
+Mischpult angeschlossen.
+
+- **Vorteil**: Bessere Audioqualität, weniger Störsignale.
+- **Nachteil**: Etwas komplexeres Setup, zusätzliche Hardware notwendig.
