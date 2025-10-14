@@ -35,11 +35,19 @@
             ]
         },
         {
-            "name": "Kranz-Partner",
+            "name": "Kranz-Partner (1/2)",
             "files": [
                 "kranzpartner_tpvbrigglis.jpg",
                 "kranzpartner_tvkirchberg.png",
                 "kranzpartner_gtvnaefels.jpg"
+            ]
+        },
+        {
+            "name": "Kranz-Partner (2/2)",
+            "files": [
+                "kranzpartner_bhend.png",
+                "kranzpartner_hallwyler.jpg",
+                "kranzpartner_lapis.png"
             ]
         }
     ]
