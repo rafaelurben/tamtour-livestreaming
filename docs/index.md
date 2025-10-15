@@ -9,3 +9,8 @@ Dieses System wurde von Rafael Urben speziell für die [TamTour](https://tamtour
 
 - [Hardware](./hardware.md)
 - [Software](./software.md)
+
+Weitere Seiten:
+
+- [OBS-Stinger](./diverses/obs-stinger.md)
+- [Retrospektive](./diverses/retrospective.md) (englisch)

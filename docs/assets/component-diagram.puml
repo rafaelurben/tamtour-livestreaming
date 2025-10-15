@@ -1,0 +1,40 @@
+@startuml
+'https://plantuml.com/component-diagram
+
+title tamtour-livestreaming overview
+
+node "ATEM Mini Pro" {
+    [ATEM Switcher]
+}
+
+node "Main PC" {
+  node "Browser" {
+    [Control Panel] <<controlpanel>> #palegreen
+  }
+
+  [ATEM Switcher Proxy] <<switcherproxy>> #orange
+
+  node "OBS Studio" {
+    [OBS Websocket Server]
+    node "OBS Browser Source" {
+      [Overlay Browser Source] <<browsersource>> #palegreen
+    }
+    [Video Capture Input]
+  }
+
+  [Control Panel] <--> [OBS Websocket Server] #green : sends events / gets state\n<HTTP / Websocket>
+  [Control Panel] --> [ATEM Switcher Proxy] #green : sends commands & fetches state\n<HTTP / Polling>
+  [OBS Websocket Server] --> [Overlay Browser Source] : sends events
+}
+
+node "External Server" {
+  [Start List Manager] <<startlistmanager>> #palegreen
+  database "MySQL Database"
+  [Start List Manager] --> "MySQL Database" : reads/writes
+}
+
+[ATEM Switcher] <-> [ATEM Switcher Proxy] : exchange state / control\n<Network / Proprietary>
+[Control Panel] -> [Start List Manager] #green : fetches start lists & sends start logs\n<HTTPS>
+[ATEM Switcher] --> [Video Capture Input] : send PGM feed\n<USB>
+
+@enduml

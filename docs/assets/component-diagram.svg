@@ -1,0 +1,299 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     data-diagram-type="DESCRIPTION" height="643px" preserveAspectRatio="none"
+     style="width:1153px;height:643px;background:#FFFFFF;" version="1.1" viewBox="0 0 1153 643" width="1153px"
+     zoomAndPan="magnify">
+    <title>tamtour-livestreaming overview</title>
+    <defs/>
+    <g>
+        <g class="title" data-source-line="3">
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="210.8477" x="464.0762" y="25.1074">tamtour-livestreaming overview
+            </text>
+        </g><!--cluster ATEM Mini Pro-->
+        <g class="cluster" data-entity="ATEM Mini Pro" data-source-line="5" data-uid="ent0002"
+           id="cluster_ATEM Mini Pro">
+            <polygon fill="none"
+                     points="16,114.6211,26,104.6211,190,104.6211,190,201.6211,180,211.6211,16,211.6211,16,114.6211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="180" x2="190" y1="114.6211" y2="104.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="16" x2="180" y1="114.6211" y2="114.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="180" x2="180" y1="114.6211" y2="211.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="98.7725" x="49.6138" y="132.7285">ATEM Mini Pro
+            </text>
+        </g><!--cluster Main PC-->
+        <g class="cluster" data-entity="Main PC" data-source-line="9" data-uid="ent0004" id="cluster_Main PC">
+            <polygon fill="none"
+                     points="214,55.6211,224,45.6211,870,45.6211,870,616.6211,860,626.6211,214,626.6211,214,55.6211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="860" x2="870" y1="55.6211" y2="45.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="214" x2="860" y1="55.6211" y2="55.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="860" x2="860" y1="55.6211" y2="626.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="55.2275" x="510.3862" y="73.7285">Main PC
+            </text>
+        </g><!--cluster Browser-->
+        <g class="cluster" data-entity="Browser" data-source-line="10" data-uid="ent0005" id="cluster_Browser">
+            <polygon fill="none"
+                     points="573,105.6211,583,95.6211,739,95.6211,739,210.6211,729,220.6211,573,220.6211,573,105.6211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="729" x2="739" y1="105.6211" y2="95.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="573" x2="729" y1="105.6211" y2="105.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="729" x2="729" y1="105.6211" y2="220.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="56.0205" x="623.9897" y="123.7285">Browser
+            </text>
+        </g><!--cluster OBS Studio-->
+        <g class="cluster" data-entity="OBS Studio" data-source-line="16" data-uid="ent0008" id="cluster_OBS Studio">
+            <polygon fill="none"
+                     points="425,298.6211,435,288.6211,846,288.6211,846,592.6211,836,602.6211,425,602.6211,425,298.6211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="836" x2="846" y1="298.6211" y2="288.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="425" x2="836" y1="298.6211" y2="298.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="836" x2="836" y1="298.6211" y2="602.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="77.7725" x="592.6138" y="316.7285">OBS Studio
+            </text>
+        </g><!--cluster OBS Browser Source-->
+        <g class="cluster" data-entity="OBS Browser Source" data-source-line="18" data-uid="ent0010"
+           id="cluster_OBS Browser Source">
+            <polygon fill="none"
+                     points="598,463.6211,608,453.6211,822,453.6211,822,568.6211,812,578.6211,598,578.6211,598,463.6211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="812" x2="822" y1="463.6211" y2="453.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="598" x2="812" y1="463.6211" y2="463.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="812" x2="812" y1="463.6211" y2="578.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="141.5996" x="635.2002" y="481.7285">OBS Browser Source
+            </text>
+        </g><!--cluster External Server-->
+        <g class="cluster" data-entity="External Server" data-source-line="29" data-uid="ent0016"
+           id="cluster_External Server">
+            <polygon fill="none"
+                     points="946,105.6211,956,95.6211,1136,95.6211,1136,385.1211,1126,395.1211,946,395.1211,946,105.6211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="1126" x2="1136" y1="105.6211" y2="95.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="946" x2="1126" y1="105.6211" y2="105.6211"/>
+            <line style="stroke:#181818;stroke-width:1;" x1="1126" x2="1126" y1="105.6211" y2="395.1211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="102.7305" x="985.6348" y="123.7285">External Server
+            </text>
+        </g><!--entity ATEM Switcher-->
+        <g class="entity" data-entity="ATEM Switcher" data-source-line="6" data-uid="ent0003" id="entity_ATEM Switcher">
+            <rect fill="#F1F1F1" height="48.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="136.4619" x="38" y="146.6211"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="154.4619"
+                  y="151.6211"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="152.4619"
+                  y="153.6211"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="152.4619"
+                  y="157.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96.4619"
+                  x="53" y="181.7285">ATEM Switcher
+            </text>
+        </g><!--entity ATEM Switcher Proxy-->
+        <g class="entity" data-entity="ATEM Switcher Proxy" data-source-line="14" data-uid="ent0007"
+           id="entity_ATEM Switcher Proxy">
+            <rect fill="#FFA500" height="67.2422" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="176.1377" x="230" y="321.6211"/>
+            <rect fill="#FFA500" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="386.1377"
+                  y="326.6211"/>
+            <rect fill="#FFA500" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="384.1377"
+                  y="328.6211"/>
+            <rect fill="#FFA500" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="384.1377"
+                  y="332.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing"
+                  textLength="101.1514" x="262.4932" y="356.7285">&#171;switcherproxy&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="136.1377"
+                  x="245" y="375.3496">ATEM Switcher Proxy
+            </text>
+        </g><!--entity Control Panel-->
+        <g class="entity" data-entity="Control Panel" data-source-line="11" data-uid="ent0006"
+           id="entity_Control Panel">
+            <rect fill="#98FB98" height="67.2422" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="133.8477" x="589" y="137.6211"/>
+            <rect fill="#98FB98" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="702.8477"
+                  y="142.6211"/>
+            <rect fill="#98FB98" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="700.8477"
+                  y="144.6211"/>
+            <rect fill="#98FB98" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="700.8477"
+                  y="148.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing"
+                  textLength="91.8477" x="605" y="172.7285">&#171;controlpanel&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="84.8271"
+                  x="608.5103" y="191.3496">Control Panel
+            </text>
+        </g><!--entity OBS Websocket Server-->
+        <g class="entity" data-entity="OBS Websocket Server" data-source-line="17" data-uid="ent0009"
+           id="entity_OBS Websocket Server">
+            <rect fill="#F1F1F1" height="48.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="187.8271" x="642" y="330.6211"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="809.8271"
+                  y="335.6211"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="807.8271"
+                  y="337.6211"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="807.8271"
+                  y="341.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="147.8271"
+                  x="657" y="365.7285">OBS Websocket Server
+            </text>
+        </g><!--entity Video Capture Input-->
+        <g class="entity" data-entity="Video Capture Input" data-source-line="21" data-uid="ent0012"
+           id="entity_Video Capture Input">
+            <rect fill="#F1F1F1" height="48.6211" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="164.5303" x="441.5" y="330.6211"/>
+            <rect fill="#F1F1F1" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="586.0303"
+                  y="335.6211"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="584.0303"
+                  y="337.6211"/>
+            <rect fill="#F1F1F1" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="584.0303"
+                  y="341.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="124.5303"
+                  x="456.5" y="365.7285">Video Capture Input
+            </text>
+        </g><!--entity Overlay Browser Source-->
+        <g class="entity" data-entity="Overlay Browser Source" data-source-line="19" data-uid="ent0011"
+           id="entity_Overlay Browser Source">
+            <rect fill="#98FB98" height="67.2422" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="191.7168" x="614" y="495.6211"/>
+            <rect fill="#98FB98" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="785.7168"
+                  y="500.6211"/>
+            <rect fill="#98FB98" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="783.7168"
+                  y="502.6211"/>
+            <rect fill="#98FB98" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="783.7168"
+                  y="506.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing"
+                  textLength="107.3857" x="651.1655" y="530.7285">&#171;browsersource&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="151.7168"
+                  x="629" y="549.3496">Overlay Browser Source
+            </text>
+        </g><!--entity Start List Manager-->
+        <g class="entity" data-entity="Start List Manager" data-source-line="30" data-uid="ent0017"
+           id="entity_Start List Manager">
+            <rect fill="#98FB98" height="67.2422" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;"
+                  width="157.165" x="962.5" y="137.6211"/>
+            <rect fill="#98FB98" height="10" style="stroke:#181818;stroke-width:0.5;" width="15" x="1099.665"
+                  y="142.6211"/>
+            <rect fill="#98FB98" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1097.665"
+                  y="144.6211"/>
+            <rect fill="#98FB98" height="2" style="stroke:#181818;stroke-width:0.5;" width="4" x="1097.665"
+                  y="148.6211"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacing"
+                  textLength="115.165" x="978.5" y="172.7285">&#171;startlistmanager&#187;
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="114.3857"
+                  x="978.8896" y="191.3496">Start List Manager
+            </text>
+        </g><!--entity MySQL Database-->
+        <g class="entity" data-entity="MySQL Database" data-source-line="31" data-uid="ent0018"
+           id="entity_MySQL Database">
+            <path d="M976,341.1211 C976,331.1211 1041.248,331.1211 1041.248,331.1211 C1041.248,331.1211 1106.4961,331.1211 1106.4961,341.1211 L1106.4961,368.7422 C1106.4961,378.7422 1041.248,378.7422 1041.248,378.7422 C1041.248,378.7422 976,378.7422 976,368.7422 L976,341.1211"
+                  fill="#F1F1F1" style="stroke:#181818;stroke-width:0.5;"/>
+            <path d="M976,341.1211 C976,351.1211 1041.248,351.1211 1041.248,351.1211 C1041.248,351.1211 1106.4961,351.1211 1106.4961,341.1211"
+                  fill="none" style="stroke:#181818;stroke-width:0.5;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="110.4961"
+                  x="986" y="370.2285">MySQL Database
+            </text>
+        </g><!--link Control Panel to OBS Websocket Server-->
+        <g class="link" data-entity-1="Control Panel" data-entity-2="OBS Websocket Server" data-source-line="24"
+           data-uid="lnk13" id="link_Control Panel_OBS Websocket Server">
+            <path d="M672.7147,210.1537 C688.6247,246.3437 709.1156,292.9583 723.2256,325.0583" fill="none"
+                  id="Control Panel-OBS Websocket Server" style="stroke:#008000;stroke-width:1;"/>
+            <polygon fill="#008000"
+                     points="670.3,204.6611,670.2603,214.5099,672.3123,209.2383,677.5838,211.2903,670.3,204.6611"
+                     style="stroke:#008000;stroke-width:1;"/>
+            <polygon fill="#008000"
+                     points="725.64,330.5511,725.6802,320.7023,723.628,325.9738,718.3565,323.9216,725.64,330.5511"
+                     style="stroke:#008000;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="143.8062"
+                  x="699" y="251.6494">sends events / gets state
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="124.2617"
+                  x="708.7722" y="268.9404">&lt;HTTP / Websocket&gt;
+            </text>
+        </g><!--link Control Panel to ATEM Switcher Proxy-->
+        <g class="link" data-entity-1="Control Panel" data-entity-2="ATEM Switcher Proxy" data-source-line="25"
+           data-uid="lnk14" id="link_Control Panel_ATEM Switcher Proxy">
+            <path d="M588.94,193.0111 C556.68,204.1611 517.95,219.1811 485,236.6211 C438.94,261.0011 395.4532,292.4437 362.7332,317.9337"
+                  fill="none" id="Control Panel-to-ATEM Switcher Proxy" style="stroke:#008000;stroke-width:1;"/>
+            <polygon fill="#008000"
+                     points="358,321.6211,367.5581,319.2456,361.9444,318.5483,362.6416,312.9346,358,321.6211"
+                     style="stroke:#008000;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="191.4834"
+                  x="486" y="251.6494">sends commands &amp; fetches state
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="98.9854"
+                  x="532.249" y="268.9404">&lt;HTTP / Polling&gt;
+            </text>
+        </g><!--link OBS Websocket Server to Overlay Browser Source-->
+        <g class="link" data-entity-1="OBS Websocket Server" data-entity-2="Overlay Browser Source"
+           data-source-line="26" data-uid="lnk15" id="link_OBS Websocket Server_Overlay Browser Source">
+            <path d="M732.44,379.6811 C727.91,409.6711 720.9466,455.7185 715.8366,489.5285" fill="none"
+                  id="OBS Websocket Server-to-Overlay Browser Source" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="714.94,495.4611,720.2401,487.1599,715.6872,490.5172,712.3299,485.9644,714.94,495.4611"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="76.6035"
+                  x="727" y="433.6494">sends events
+            </text>
+        </g><!--link Start List Manager to MySQL Database-->
+        <g class="link" data-entity-1="Start List Manager" data-entity-2="MySQL Database" data-source-line="32"
+           data-uid="lnk19" id="link_Start List Manager_MySQL Database">
+            <path d="M1041,204.6611 C1041,241.0611 1041,293.1011 1041,325.0911" fill="none"
+                  id="Start List Manager-to-MySQL Database" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818" points="1041,331.0911,1045,322.0911,1041,326.0911,1037,322.0911,1041,331.0911"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="70.0781"
+                  x="1042" y="260.1494">reads/writes
+            </text>
+        </g><!--link ATEM Switcher to ATEM Switcher Proxy-->
+        <g class="link" data-entity-1="ATEM Switcher" data-entity-2="ATEM Switcher Proxy" data-source-line="35"
+           data-uid="lnk20" id="link_ATEM Switcher_ATEM Switcher Proxy">
+            <path d="M103.7288,201.8184 C103.0588,223.9884 105.72,250.8611 123,272.6211 C149.24,305.6611 185.5253,323.6967 223.8453,335.4867"
+                  fill="none" id="ATEM Switcher-ATEM Switcher Proxy" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="103.91,195.8211,99.64,204.6962,103.759,200.8188,107.6363,204.9378,103.91,195.8211"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="229.58,337.2511,222.1542,330.7813,224.8011,335.7808,219.8017,338.4276,229.58,337.2511"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="138.0298"
+                  x="124" y="251.6494">exchange state / control
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="137.2744"
+                  x="124.3777" y="268.9404">&lt;Network / Proprietary&gt;
+            </text>
+        </g><!--link Control Panel to Start List Manager-->
+        <g class="link" data-entity-1="Control Panel" data-entity-2="Start List Manager" data-source-line="36"
+           data-uid="lnk21" id="link_Control Panel_Start List Manager">
+            <path d="M723.06,171.1211 C789.74,171.1211 885.98,171.1211 956.43,171.1211" fill="none"
+                  id="Control Panel-to-Start List Manager" style="stroke:#008000;stroke-width:1;"/>
+            <polygon fill="#008000"
+                     points="962.43,171.1211,953.43,167.1211,957.43,171.1211,953.43,175.1211,962.43,171.1211"
+                     style="stroke:#008000;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="203.7471"
+                  x="741.25" y="147.1494">fetches start lists &amp; sends start logs
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="57.7954"
+                  x="814.2258" y="164.4404">&lt;HTTPS&gt;
+            </text>
+        </g><!--link ATEM Switcher to Video Capture Input-->
+        <g class="link" data-entity-1="ATEM Switcher" data-entity-2="Video Capture Input" data-source-line="37"
+           data-uid="lnk22" id="link_ATEM Switcher_Video Capture Input">
+            <path d="M174.05,193.1511 C203.8,203.8911 238.36,218.5311 267,236.6211 C286.95,249.2111 284.3,263.3711 306,272.6211 C360.07,295.6711 383.5,258.6111 438,280.6211 C464.22,291.2111 484.0805,308.7413 500.0005,325.9113"
+                  fill="none" id="ATEM Switcher-to-Video Capture Input" style="stroke:#181818;stroke-width:1;"/>
+            <polygon fill="#181818"
+                     points="504.08,330.3111,500.894,320.9918,500.6804,326.6446,495.0276,326.4311,504.08,330.3111"
+                     style="stroke:#181818;stroke-width:1;"/>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="90.3271"
+                  x="307" y="251.6494">send PGM feed
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="41.9136"
+                  x="331.2068" y="268.9404">&lt;USB&gt;
+            </text>
+        </g><!--SRC=[TLDDRvj04BtpAqQEr9vStoqBgNQZf5BSKk6sXyI7DKpnAiiksXsChQh_lJD0S8jj90GyvkFDUxFlzqHLcCzcbL6Mwj9yo5mvuxjo5YrDSwqAhyee8aq6WLH9hlPJemyOoACgjIt07T0VD3PHP5sECFcukL_3MbiDYNSJ-1q1NyyjcZQQiZtwRVJdBNgjj8LarSLrqDAx9g0VKbVEadS64cNHR66no3gWakyuXhjA6ImyekLuBZpk9ZoE9qaCFL8989dEArjWDBJ-kamXfJhNP-82_SHTSDah4gGyg_2NN-UKdZ6ah4w6RwcIpC56dKO1GcNN8Q45naF866t-3vsZWvMggFO8dsrLqtOOSgpBT1hVe0jtRMMOGq2R1y03knjW1WNo8v0YVB6BnyqcOMp8ZgyqQNjSLNVKWfUeLFBo3dwX15xqIPmnl3zjb-kiku5kIFZ_BEU5kZyIUgjCNwKpupabvGcUT21OAwiAAS_x8AXXiEomiG-v8hLJGTRqb7vxWa_zz-HMIM4yZcMcV5JoC6ky9coPZau3MtTBrJdWCTlBadRoiMxzzhEGNv0Qvrz5I-yghv4PdUBemhFuEjd1iNyCuY3HGsphvEqnLuJUkJI-eD_wT6rLUvCWULXp4yovnFTq6KT_0G00]-->
+    </g>
+</svg>

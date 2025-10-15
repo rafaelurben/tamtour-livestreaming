@@ -10,13 +10,17 @@ See [retrospective](docs/diverses/retrospective.md) for my thoughts about this p
 
 This repository contains the following parts:
 
-- `controlpanel`: The control panel page
+- `controlpanel`: The control panel page: controls OBS Studio, the browser source and the ATEM video mixer
 - `browsersource`: The page loaded as a browser source in OBS Studio to display overlays
 - `startlistmanager`: A Django app to manage the start lists and YouTube live streams
 - `switcherproxy`: A proxy that connects to an ATEM video mixer
 - `docs`: Documentation
 
 ## Technical details
+
+The following diagram gives a general idea of the architecture (audio not shown):
+
+[![Component diagram](docs/assets/component-diagram.svg)](docs/assets/component-diagram.svg)
 
 The control panel sends commands to the OBS Studio websocket
 server ([obs-websocket](https://github.com/obsproject/obs-websocket))
