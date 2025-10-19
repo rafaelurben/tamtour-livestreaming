@@ -1,10 +1,11 @@
 # tamtour-livestreaming
 
-This is a tool used to control and display overlay animations in OBS Studio from a web browser. It is used for
+This is a tool used to control and display overlay animations in OBS Studio from a web browser. It was used for
 the [TamTour Trophy Live Streams](https://youtube.com/@tamtour_trophy).
 
-This project is no longer in active development because the TamTour Trophy ended.
-See [retrospective](docs/diverses/retrospective.md) for my thoughts about this project.
+> [!IMPORTANT]  
+> This project is no longer in active development because the TamTour Trophy ended.
+> See [retrospective](docs/diverses/retrospective.md) for my thoughts about this project.
 
 ## Repo content
 
