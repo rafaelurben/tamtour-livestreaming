@@ -7,10 +7,13 @@ Dieses System wurde von Rafael Urben speziell für die [TamTour](https://tamtour
 
 ## Dokumentation
 
+### Anwendung / Bedienung
+
 - [Hardware](./hardware.md)
 - [Software](./software.md)
+  - [OBS-Stinger](./diverses/obs-stinger.md)
 
-Weitere Seiten:
+### Technische Details
 
-- [OBS-Stinger](./diverses/obs-stinger.md)
+- [Architektur-Übersicht](./diverses/architecture-overview.md) (englisch)
 - [Retrospektive](./diverses/retrospective.md) (englisch)
