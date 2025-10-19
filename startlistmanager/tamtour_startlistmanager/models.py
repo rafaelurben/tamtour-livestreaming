@@ -3,7 +3,7 @@ from datetime import time, date
 
 from django.db import models
 from django.utils import translation
-from django.utils.timezone import make_naive
+from django.utils.timezone import make_naive, now
 from django.utils.formats import date_format
 
 from .enums import Kompositionstyp
@@ -388,7 +388,7 @@ class YTStream(models.Model):
 class YTStreamStartTimeLog(models.Model):
     stream = models.ForeignKey(YTStream, on_delete=models.CASCADE, related_name='start_time_logs')
 
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(default=now)
     content = models.CharField(max_length=75)
 
     objects = models.Manager()

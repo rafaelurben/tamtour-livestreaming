@@ -1,6 +1,7 @@
 import json
 
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotFound
+from django.utils.timezone import now
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 
@@ -64,7 +65,7 @@ def log_start_time(request):
     except YTStream.DoesNotExist:
         return HttpResponseNotFound()
 
-    YTStreamStartTimeLog.objects.create(stream=stream, content=content)
+    YTStreamStartTimeLog.objects.create(stream=stream, content=content, timestamp=now())
     return JsonResponse({
         "success": True
     }, headers={
