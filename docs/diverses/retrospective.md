@@ -53,20 +53,27 @@ the beginning and evolved over time.
     - ATEM flying key: "transition to" command & presets
     - Macro-Builder for complex actions
     - Manual YT timestamp entry creation
-- Camera tally lights (e. g. using https://github.com/AronHetLam/ATEM_tally_light_with_ESP8266)
+- Camera tally lights (e. g. using <https://www.tallyarbiter.com/>
+  or <https://github.com/AronHetLam/ATEM_tally_light_with_ESP8266>)
 - Spotify integration (e. g. song management, current track display, control playback)
 
 ## What's the optimal setup for a livestream like this?
 
-- A local server as a proxy / central hub for all external connections and state management.
+- **Local server**: A local server as a proxy / central hub for all external connections and state management.
     - OBS Studio via Websockets (possibly multiple instances)
     - Start list manager via its API
     - Spotify via its API
+    - Event sourced
 - **Control panel**: Modern framework, communicates only with the local server via Websockets.
-- **Audio**: Only digital via Dante and DVS or open source alternatives
+- **Audio**: Only digital via Dante and DVS (Dante Virtual Soundcard) or open source alternatives
   like [Inferno](https://gitlab.com/lumifaza/inferno).
 - **Video**: Converted to IP streams as early as possible and mixed directly in OBS Studio.
     - Usage of OBS multiview.
     - [OBS teleport plugin](https://github.com/fzwoch/obs-teleport) if multiple OBS instances are used that need to
-      share video sources (e. g. for projector output).
+      share video sources (e.g. for projector output).
+- **Stream Deck**: An Elgato Stream Deck (or similar) for easy control of different systems.
+    - e.g. using [Bitfocus Companion](https://bitfocus.io/companion) to support many services
+    - integration with the local server for custom actions
+    - connection with lightning control system (e.g. via ArtNet > DMX)
+- **Intercom**: Dedicated intercom system for communication between the crew members.
 - No external video switcher.
